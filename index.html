@@ -29,17 +29,6 @@
             position: relative;
         }
 
-        .datetime-box {
-            background: #f0f3f6;
-            padding: 8px 15px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 20px;
-            color: var(--primary);
-            font-size: 12px;
-            font-weight: bold;
-        }
-
         .profile-box {
             width: 130px; height: 130px;
             margin: 0 auto 20px;
@@ -73,7 +62,6 @@
         .btn-orange { background: linear-gradient(to right, #f39c12, #e67e22); }
         .btn-green { background: linear-gradient(to right, #2ecc71, #27ae60); }
         .btn-red { background: linear-gradient(to right, #ff4757, #e74c3c); }
-        .btn-indigo { background: linear-gradient(to right, #6610f2, #6f42c1); }
 
         .link-btn:hover { 
             transform: translateY(-3px) scale(1.02); 
@@ -81,14 +69,26 @@
         }
 
         .section-name { text-align: left; font-size: 10px; color: #95a5a6; margin-top: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-        .footer { font-size: 11px; color: #bdc3c7; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; }
+
+        /* Widget Jam & Tanggal dipindahkan ke bawah */
+        .datetime-box {
+            background: #f0f3f6;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .footer { font-size: 11px; color: #bdc3c7; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="datetime-box" id="tanggal-jam">Memuat Waktu...</div>
-
         <div class="profile-box">
             <img src="profil.jpg" class="profile-img" onload="this.style.opacity=1" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=2980b9&color=fff&size=128'">
         </div>
@@ -103,11 +103,12 @@
         <a href="https://tinyurl.com/LaporanArkasBabelan" target="_blank" class="link-btn btn-orange">📋 Laporan ARKAS Babelan</a>
         <a href="https://tinyurl.com/ProgresajukanpengesahanARKAS" target="_blank" class="link-btn btn-green">📈 Cek Progres Pengesahan</a>
 
-        <div class="section-name">Informasi PPDB</div>
-        
-        <a href="cek-usia.html" class="link-btn btn-indigo">📅 Cek Usia Masuk Sekolah</a>
-        
+        <div class="section-name">Layanan Lainnya</div>
         <a href="Aplikasi_SPMB_SDN%20Muara%20Bakti%2001.html" class="link-btn btn-red">📝 Formulir SPMB Online</a>
+
+        <div class="datetime-box" id="tanggal-jam">
+            Memuat Waktu...
+        </div>
 
         <div class="footer">
             &copy; 2026 ROHIMAN SUPRIYADI <br>
@@ -123,6 +124,7 @@
             const jam = String(now.getHours()).padStart(2, '0');
             const menit = String(now.getMinutes()).padStart(2, '0');
             const detik = String(now.getSeconds()).padStart(2, '0');
+            
             document.getElementById('tanggal-jam').innerHTML = `${tanggal} | ${jam}:${menit}:${detik}`;
         }
         setInterval(updateWaktu, 1000);
