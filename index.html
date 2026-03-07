@@ -22,23 +22,21 @@
 
         .container { 
             background: var(--glass);
-            padding: 40px 30px; 
+            padding: 30px 20px; 
             border-radius: 40px; 
             box-shadow: var(--shadow); 
-            width: 100%; max-width: 380px; 
+            width: 100%; max-width: 450px; /* Diperlebar sedikit untuk grid */
             text-align: center;
             border: 1px solid rgba(255,255,255,0.4);
             backdrop-filter: blur(10px);
-            position: relative;
         }
 
         .profile-box {
-            width: 120px; height: 120px;
-            margin: 0 auto 15px;
+            width: 100px; height: 100px;
+            margin: 0 auto 10px;
             border-radius: 50%;
-            padding: 5px;
+            padding: 4px;
             background: linear-gradient(to right, #3498db, #9b59b6);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
 
         .profile-inner {
@@ -46,84 +44,78 @@
             border-radius: 50%;
             overflow: hidden;
             background: #fff;
-            border: 3px solid #fff;
+            border: 2px solid #fff;
         }
 
-        .profile-img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            display: block;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
+        .profile-img { width: 100%; height: 100%; object-fit: cover; }
 
         h1 { 
-            font-size: 20px; margin: 10px 0 0; 
-            letter-spacing: 2px; font-weight: 800; 
-            background: linear-gradient(to right, #2c3e50, #34495e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 18px; margin: 5px 0 0; 
+            letter-spacing: 1px; font-weight: 800; 
+            color: var(--dark);
         }
 
         .sub-title { 
             color: var(--primary); font-weight: 700; 
-            font-size: 13px; margin-bottom: 25px; 
-            text-transform: uppercase; letter-spacing: 1px;
+            font-size: 12px; margin-bottom: 20px; 
+            text-transform: uppercase;
         }
 
         .section-name { 
-            text-align: left; font-size: 11px; color: #7f8c8d; 
-            margin: 20px 0 10px 5px; font-weight: 800; 
-            text-transform: uppercase; letter-spacing: 1.5px;
-            display: flex; align-items: center; gap: 8px;
+            text-align: left; font-size: 10px; color: #7f8c8d; 
+            margin: 15px 0 8px 5px; font-weight: 800; 
+            text-transform: uppercase; display: flex; align-items: center; gap: 8px;
         }
-        
         .section-name::after { content: ""; flex: 1; height: 1px; background: #eee; }
 
-        .link-btn { 
-            display: flex; align-items: center; 
-            padding: 14px 20px; margin: 12px 0;
-            border-radius: 18px; text-decoration: none; 
-            font-weight: 600; color: white; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            font-size: 14px; position: relative;
+        /* GRID SYSTEM UNTUK MENU */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Membagi 2 kolom */
+            gap: 10px;
         }
 
-        .link-btn i { font-size: 18px; width: 30px; text-align: left; }
+        .link-btn { 
+            display: flex; flex-direction: column; /* Icon di atas, teks di bawah */
+            align-items: center; justify-content: center;
+            padding: 12px 10px;
+            border-radius: 15px; text-decoration: none; 
+            font-weight: 600; color: white; 
+            transition: all 0.3s ease; 
+            font-size: 11px;
+            text-align: center;
+        }
 
+        .link-btn i { font-size: 20px; margin-bottom: 6px; }
+
+        /* Tombol Full Width untuk PPDB agar menonjol */
+        .full-width { grid-column: span 2; flex-direction: row; gap: 10px; font-size: 13px; }
+
+        /* Varian Warna */
         .btn-blue { background: linear-gradient(45deg, #3498db, #2980b9); }
         .btn-green { background: linear-gradient(45deg, #27ae60, #1e8449); }
         .btn-purple { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
         .btn-orange { background: linear-gradient(45deg, #f39c12, #d35400); }
         .btn-red { background: linear-gradient(45deg, #e74c3c, #c0392b); }
         .btn-slate { background: linear-gradient(45deg, #708090, #2f4f4f); }
+        .btn-indigo { background: linear-gradient(45deg, #3f51b5, #303f9f); }
+        .btn-teal { background: linear-gradient(45deg, #009688, #00796b); }
 
-        .link-btn:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 12px 20px rgba(0,0,0,0.2); 
-            filter: brightness(1.1);
-        }
+        .link-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); filter: brightness(1.1); }
 
         .datetime-box {
             background: #f8f9fa;
-            padding: 12px 20px;
+            padding: 10px;
             border-radius: 20px;
             display: inline-block;
-            margin-top: 25px;
+            margin-top: 20px;
             color: #555;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
-            border: 1px solid #edf2f7;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+            width: 90%;
         }
-        
-        .datetime-box i { color: var(--primary); margin-right: 5px; }
 
-        .footer { 
-            font-size: 11px; color: #95a5a6; 
-            margin-top: 25px; border-top: 1px solid #f1f1f1; 
-            padding-top: 20px; line-height: 1.6;
-        }
+        .footer { font-size: 10px; color: #95a5a6; margin-top: 20px; border-top: 1px solid #f1f1f1; padding-top: 15px; }
     </style>
 </head>
 <body>
@@ -131,42 +123,62 @@
     <div class="container">
         <div class="profile-box">
             <div class="profile-inner">
-                <img src="profil.jpg" class="profile-img" onload="this.style.opacity=1" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=2980b9&color=fff&size=128'">
+                <img src="profil.jpg" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=2980b9&color=fff&size=128'">
             </div>
         </div>
 
         <h1>PORTAL OPERATOR</h1>
         <div class="sub-title">SDN MUARA BAKTI 01</div>
         
-        <div class="section-name">Manajemen BOSP</div>
-        <a href="bku.html" target="_blank" class="link-btn btn-blue">
-            <i class="fa-solid fa-folder-open"></i> Aplikasi Pendampingan BKU
-        </a>
-
-        <div class="section-name">Layanan Informasi</div>
-        <a href="https://nisn.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange">
-            <i class="fa-solid fa-user-graduate"></i> Cek NISN Siswa Online
-        </a>
-        
-        <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate">
-            <i class="fa-solid fa-calendar-check"></i> Kalender Akademik (Kaldik)
-        </a>
-        
-        <a href="https://www.google.com/maps/search/SDN+MUARA+BAKTI+01" target="_blank" class="link-btn btn-purple">
-            <i class="fa-solid fa-map-location-dot"></i> Lokasi Sekolah Kami
-        </a>
-
-        <div class="section-name">Kontak & PPDB</div>
-        <a href="https://wa.me/6281234567890?text=Halo%20Operator%20SDN%20Muara%20Bakti%2001..." target="_blank" class="link-btn btn-green">
-            <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp Operator
-        </a>
-        <a href="spmb.html" target="_blank" class="link-btn btn-red">
-            <i class="fa-solid fa-file-signature"></i> Formulir SPMB Online
-        </a>
-
-        <div class="datetime-box" id="tanggal-jam">
-            <i class="fa-solid fa-clock"></i> Memuat Waktu...
+        <div class="section-name">Utama & BOSP</div>
+        <div class="menu-grid">
+            <a href="bku.html" target="_blank" class="link-btn btn-blue">
+                <i class="fa-solid fa-file-invoice-dollar"></i> BKU BOSP
+            </a>
+            <a href="https://siplah.blibli.com/" target="_blank" class="link-btn btn-indigo">
+                <i class="fa-solid fa-cart-shopping"></i> SIPLah Blibli
+            </a>
         </div>
+
+        <div class="section-name">Data & Verval (Kemendikbud)</div>
+        <div class="menu-grid">
+            <a href="https://dapo.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-teal">
+                <i class="fa-solid fa-database"></i> Dapodik
+            </a>
+            <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange">
+                <i class="fa-solid fa-id-card"></i> Verval PD
+            </a>
+            <a href="https://vervalsp.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-purple">
+                <i class="fa-solid fa-school"></i> Verval SP
+            </a>
+            <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green">
+                <i class="fa-solid fa-user-tie"></i> Verval PTK
+            </a>
+            <a href="https://vervalyayasan.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-slate">
+                <i class="fa-solid fa-landmark"></i> Verval Yayasan
+            </a>
+            <a href="https://nisn.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-indigo">
+                <i class="fa-solid fa-graduation-cap"></i> Cek NISN
+            </a>
+        </div>
+
+        <div class="section-name">Informasi & PPDB</div>
+        <div class="menu-grid">
+            <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate">
+                <i class="fa-solid fa-calendar-days"></i> Kaldik
+            </a>
+            <a href="https://www.google.com/maps/search/SDN+MUARA+BAKTI+01" target="_blank" class="link-btn btn-purple">
+                <i class="fa-solid fa-location-dot"></i> Lokasi
+            </a>
+            <a href="https://wa.me/6281234567890" target="_blank" class="link-btn btn-green full-width">
+                <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp Operator
+            </a>
+            <a href="spmb.html" target="_blank" class="link-btn btn-red full-width">
+                <i class="fa-solid fa-file-signature"></i> FORMULIR SPMB ONLINE (PPDB)
+            </a>
+        </div>
+
+        <div class="datetime-box" id="tanggal-jam">Memuat Waktu...</div>
 
         <div class="footer">
             © 2026 <b>ROHIMAN SUPRIYADI</b> <br>
@@ -182,13 +194,10 @@
             const jam = String(now.getHours()).padStart(2, '0');
             const menit = String(now.getMinutes()).padStart(2, '0');
             const detik = String(now.getSeconds()).padStart(2, '0');
-            
-            document.getElementById('tanggal-jam').innerHTML = 
-                `<i class="fa-solid fa-calendar-day"></i> ${tanggal} &nbsp; <i class="fa-solid fa-clock"></i> ${jam}:${menit}:${detik}`;
+            document.getElementById('tanggal-jam').innerHTML = `<i class="fa-solid fa-calendar-day"></i> ${tanggal} | <i class="fa-solid fa-clock"></i> ${jam}:${menit}:${detik}`;
         }
         setInterval(updateWaktu, 1000);
         updateWaktu();
     </script>
-
 </body>
 </html>
