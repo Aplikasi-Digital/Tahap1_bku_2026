@@ -4,39 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Operator Babelan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2980b9;
+            --primary: #3498db;
             --dark: #2c3e50;
             --glass: rgba(255, 255, 255, 0.95);
+            --shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
         body { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; margin: 0; padding: 20px;
+            color: var(--dark);
         }
 
         .container { 
             background: var(--glass);
             padding: 40px 30px; 
-            border-radius: 30px; 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2); 
-            width: 100%; max-width: 400px; 
+            border-radius: 40px; 
+            box-shadow: var(--shadow); 
+            width: 100%; max-width: 380px; 
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.4);
+            backdrop-filter: blur(10px);
             position: relative;
         }
 
+        /* Border Animasi untuk Profil */
         .profile-box {
-            width: 130px; height: 130px;
-            margin: 0 auto 20px;
+            width: 120px; height: 120px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(to right, #3498db, #9b59b6);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .profile-inner {
+            width: 100%; height: 100%;
             border-radius: 50%;
             overflow: hidden;
-            border: 5px solid white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            background: #eee;
+            background: #fff;
+            border: 3px solid #fff;
         }
 
         .profile-img {
@@ -44,75 +56,119 @@
             object-fit: cover;
             display: block;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease;
         }
 
-        h1 { color: var(--dark); font-size: 22px; margin: 0; letter-spacing: 1px; font-weight: 800; }
-        .sub-title { color: var(--primary); font-weight: bold; font-size: 14px; margin-top: 5px; text-transform: uppercase; }
+        h1 { 
+            font-size: 20px; margin: 10px 0 0; 
+            letter-spacing: 2px; font-weight: 800; 
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
+        .sub-title { 
+            color: var(--primary); font-weight: 700; 
+            font-size: 13px; margin-bottom: 25px; 
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .section-name { 
+            text-align: left; font-size: 11px; color: #7f8c8d; 
+            margin: 20px 0 10px 5px; font-weight: 800; 
+            text-transform: uppercase; letter-spacing: 1.5px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        
+        .section-name::after {
+            content: ""; flex: 1; height: 1px; background: #eee;
+        }
+
+        /* Desain Tombol Modern */
         .link-btn { 
-            display: flex; align-items: center; justify-content: center;
-            padding: 15px; margin: 12px 0;
-            border-radius: 15px; text-decoration: none; font-weight: 600;
-            color: white; transition: all 0.3s ease; font-size: 14px;
-            gap: 10px;
+            display: flex; align-items: center; 
+            padding: 14px 20px; margin: 12px 0;
+            border-radius: 18px; text-decoration: none; 
+            font-weight: 600; color: white; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            font-size: 14px; position: relative; overflow: hidden;
         }
 
-        .btn-blue { background: linear-gradient(to right, #3498db, #2980b9); }
-        .btn-orange { background: linear-gradient(to right, #f39c12, #e67e22); }
-        .btn-green { background: linear-gradient(to right, #2ecc71, #27ae60); }
-        .btn-red { background: linear-gradient(to right, #ff4757, #e74c3c); }
+        .link-btn i { font-size: 18px; width: 30px; text-align: left; }
+
+        .btn-blue { background: linear-gradient(45deg, #3498db, #2980b9); box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3); }
+        .btn-orange { background: linear-gradient(45deg, #f39c12, #d35400); box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3); }
+        .btn-green { background: linear-gradient(45deg, #2ecc71, #27ae60); box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); }
+        .btn-red { background: linear-gradient(45deg, #e74c3c, #c0392b); box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3); }
 
         .link-btn:hover { 
-            transform: translateY(-3px) scale(1.02); 
-            box-shadow: 0 8px 15px rgba(0,0,0,0.15); 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 20px rgba(0,0,0,0.2); 
+            filter: brightness(1.1);
         }
 
-        .section-name { text-align: left; font-size: 10px; color: #95a5a6; margin-top: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Widget Jam & Tanggal dipindahkan ke bawah */
+        /* Widget Jam & Tanggal */
         .datetime-box {
-            background: #f0f3f6;
-            padding: 8px 15px;
+            background: #f8f9fa;
+            padding: 12px 20px;
             border-radius: 20px;
             display: inline-block;
-            margin-top: 20px;
-            color: var(--primary);
-            font-size: 12px;
-            font-weight: bold;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            margin-top: 25px;
+            color: #555;
+            font-size: 11px;
+            font-weight: 700;
+            border: 1px solid #edf2f7;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
         }
+        
+        .datetime-box i { color: var(--primary); margin-right: 5px; }
 
-        .footer { font-size: 11px; color: #bdc3c7; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+        .footer { 
+            font-size: 11px; color: #95a5a6; 
+            margin-top: 25px; border-top: 1px solid #f1f1f1; 
+            padding-top: 20px; line-height: 1.6;
+        }
+        
+        .footer b { color: #555; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="profile-box">
-            <img src="profil.jpg" class="profile-img" onload="this.style.opacity=1" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=2980b9&color=fff&size=128'">
+            <div class="profile-inner">
+                <img src="profil.jpg" class="profile-img" onload="this.style.opacity=1" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=2980b9&color=fff&size=128'">
+            </div>
         </div>
 
         <h1>PORTAL OPERATOR</h1>
         <div class="sub-title">SDN MUARA BAKTI 01</div>
         
         <div class="section-name">Manajemen BOSP</div>
-        <a href="bku.html" class="link-btn btn-blue">📁 Aplikasi Pendampingan BKU</a>
+        <a href="bku.html" class="link-btn btn-blue">
+            <i class="fa-solid fa-folder-open"></i> Aplikasi Pendampingan BKU
+        </a>
 
         <div class="section-name">Monitoring ARKAS</div>
-        <a href="https://tinyurl.com/LaporanArkasBabelan" target="_blank" class="link-btn btn-orange">📋 Laporan ARKAS Babelan</a>
-        <a href="https://tinyurl.com/ProgresajukanpengesahanARKAS" target="_blank" class="link-btn btn-green">📈 Cek Progres Pengesahan</a>
+        <a href="https://tinyurl.com/LaporanArkasBabelan" target="_blank" class="link-btn btn-orange">
+            <i class="fa-solid fa-clipboard-list"></i> Laporan ARKAS Babelan
+        </a>
+        <a href="https://tinyurl.com/ProgresajukanpengesahanARKAS" target="_blank" class="link-btn btn-green">
+            <i class="fa-solid fa-chart-line"></i> Cek Progres Pengesahan
+        </a>
 
-        <div class="section-name">Layanan Lainnya</div>
-        <a href="Aplikasi_SPMB_SDN%20Muara%20Bakti%2001.html" class="link-btn btn-red">📝 Formulir SPMB Online</a>
+        <div class="section-name">Layanan PPDB</div>
+        <a href="spmb.html" class="link-btn btn-red">
+            <i class="fa-solid fa-file-signature"></i> Formulir SPMB Online
+        </a>
 
         <div class="datetime-box" id="tanggal-jam">
-            Memuat Waktu...
+            <i class="fa-solid fa-clock"></i> Memuat Waktu...
         </div>
 
         <div class="footer">
-            &copy; 2026 ROHIMAN SUPRIYADI <br>
-            operator-sekolah.my.id
+            &copy; 2026 <b>ROHIMAN SUPRIYADI</b> <br>
+            <small>operator-sekolah.my.id</small>
         </div>
     </div>
 
@@ -125,7 +181,8 @@
             const menit = String(now.getMinutes()).padStart(2, '0');
             const detik = String(now.getSeconds()).padStart(2, '0');
             
-            document.getElementById('tanggal-jam').innerHTML = `${tanggal} | ${jam}:${menit}:${detik}`;
+            document.getElementById('tanggal-jam').innerHTML = 
+                `<i class="fa-solid fa-calendar-day"></i> ${tanggal} &nbsp; <i class="fa-solid fa-clock"></i> ${jam}:${menit}:${detik}`;
         }
         setInterval(updateWaktu, 1000);
         updateWaktu();
