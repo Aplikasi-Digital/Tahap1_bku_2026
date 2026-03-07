@@ -36,20 +36,21 @@
             position: relative;
         }
         
-        /* Gaya Foto Profil Baru */
+        /* Gaya Foto Profil */
         .profile-img {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid white;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             margin-bottom: 15px;
             transition: transform 0.3s ease;
+            background-color: #eee; /* Warna dasar jika gambar loading */
         }
         
         .profile-img:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .header-box { margin-bottom: 30px; }
@@ -120,7 +121,7 @@
 <body>
     <div class="container">
         <div class="header-box">
-            <img src="ROHIMAN.jpg" alt="Rohiman Supriyadi" class="profile-img">
+            <img src="ROHIMAN .jpg" alt="Rohiman Supriyadi" class="profile-img">
             <h1>PORTAL OPERATOR</h1>
             <div class="sub-title">Kecamatan Babelan</div>
             <p class="desc">Pusat Layanan Data & Pelaporan Digital<br><strong class="domain">operator-sekolah.my.id</strong></p>
