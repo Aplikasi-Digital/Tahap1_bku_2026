@@ -15,9 +15,12 @@
 
         body { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed; /* Agar background tidak ikut tergulung */
             font-family: 'Segoe UI', Roboto, sans-serif;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; margin: 0; padding: 20px;
+            margin: 0; 
+            padding: 20px;
+            /* Perbaikan: Menghapus display:flex agar halaman bisa scroll alami */
+            min-height: 100vh;
         }
 
         .container { 
@@ -25,10 +28,13 @@
             padding: 25px; 
             border-radius: 35px; 
             box-shadow: var(--shadow); 
-            width: 100%; max-width: 650px;
+            width: 100%; 
+            max-width: 650px;
             text-align: center;
             border: 1px solid rgba(255,255,255,0.4);
             backdrop-filter: blur(15px);
+            margin: 0 auto; /* Memastikan kotak di tengah */
+            box-sizing: border-box;
         }
 
         .header-section {
@@ -159,7 +165,7 @@
 
         <div class="marquee-container">
             <div class="marquee-text">
-                <i class="fa-solid fa-bullhorn"></i> Dashboard ini dibuat untuk memudahkan rekan-rekan dalam mencari link-link yang berkaitan dengan pekerjaan Operator Sekolah. Salam Satu Data! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-star"></i> Tetap semangat melayani data pendidikan Indonesia.
+                <i class="fa-solid fa-bullhorn"></i> Dashboard ini dibuat untuk memudahkan rekan-rekan dalam mencari link-link yang berkaitan dengan pekerjaan Operator Sekolah. Salam Satu Data!       <i class="fa-solid fa-star"></i> Tetap semangat melayani data pendidikan Indonesia.
             </div>
         </div>
         
