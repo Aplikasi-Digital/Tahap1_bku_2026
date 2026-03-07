@@ -5,32 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Operator Sekolah Babelan</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 90%; max-width: 450px; text-align: center; border-top: 8px solid #3498db; }
-        
-        /* Bagian Judul Baru */
-        .header-box { margin-bottom: 25px; }
-        .icon-header { font-size: 60px; margin-bottom: 10px; display: block; }
-        h1 { color: #2c3e50; font-size: 24px; margin: 0; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2; }
-        .sub-title { color: #3498db; font-weight: bold; font-size: 14px; margin-top: 5px; text-transform: uppercase; }
-        p.desc { color: #7f8c8d; font-size: 13px; margin-top: 10px; line-height: 1.5; }
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e67e22;
+            --success: #27ae60;
+            --ppdb: #e74c3c; /* Warna Merah untuk PPDB */
+            --bg: #f4f7f9;
+        }
 
-        /* Gaya Tombol */
-        .link-btn { display: flex; align-items: center; justify-content: center; background: #3498db; color: white; padding: 14px; margin: 12px 0; border-radius: 12px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: none; font-size: 15px; }
-        .link-btn:hover { background: #2980b9; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4); }
-        
-        .btn-arkas { background: #e67e22; } /* Oranye */
-        .btn-arkas:hover { background: #d35400; box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4); }
-        
-        .btn-progres { background: #27ae60; } /* Hijau */
-        .btn-progres:hover { background: #219150; box-shadow: 0 8px 20px rgba(39, 174, 96, 0.4); }
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--bg); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+        }
 
-        .btn-dapodik { background: #8e44ad; } /* Ungu */
-        .btn-dapodik:hover { background: #732d91; box-shadow: 0 8px 20px rgba(142, 68, 173, 0.4); }
-
-        .section-title { text-align: left; font-size: 11px; color: #bdc3c7; margin-top: 20px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .container { 
+            background: white; 
+            padding: 40px 30px; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
+            width: 90%; 
+            max-width: 420px; 
+            text-align: center; 
+            border-top: 10px solid var(--primary); 
+        }
         
-        .footer { font-size: 11px; color: #bdc3c7; margin-top: 30px; padding-top: 15px; border-top: 1px solid #eee; }
+        .header-box { margin-bottom: 30px; }
+        .icon-header { font-size: 65px; margin-bottom: 15px; display: block; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
+        
+        h1 { color: var(--secondary); font-size: 26px; margin: 0; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; }
+        .sub-title { color: var(--primary); font-weight: 700; font-size: 15px; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        p.desc { color: #95a5a6; font-size: 13px; margin-top: 12px; line-height: 1.6; }
+
+        /* Gaya Umum Tombol */
+        .link-btn { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            padding: 16px; 
+            margin: 14px 0; 
+            border-radius: 14px; 
+            text-decoration: none; 
+            font-weight: 700; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: none; 
+            font-size: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .link-btn:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15); 
+        }
+
+        /* Warna Spesifik Tombol */
+        .btn-bku { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .btn-arkas { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .btn-progres { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .btn-ppdb { background: linear-gradient(135deg, #ff4757, #e74c3c); } /* Warna PPDB Merah Profesional */
+
+        .section-title { 
+            text-align: left; 
+            font-size: 11px; 
+            color: #bdc3c7; 
+            margin-top: 25px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+            margin-left: 10px;
+        }
+        
+        .footer { 
+            font-size: 11px; 
+            color: #bdc3c7; 
+            margin-top: 35px; 
+            padding-top: 20px; 
+            border-top: 1px solid #f1f1f1; 
+            line-height: 1.5;
+        }
+
+        strong.domain { color: var(--secondary); }
     </style>
 </head>
 <body>
@@ -39,22 +108,22 @@
             <span class="icon-header">🏫</span>
             <h1>PORTAL OPERATOR</h1>
             <div class="sub-title">Kecamatan Babelan</div>
-            <p class="desc">Pusat Layanan Data & Pelaporan Digital<br><strong>operator-sekolah.my.id</strong></p>
+            <p class="desc">Pusat Layanan Data & Pelaporan Digital<br><strong class="domain">operator-sekolah.my.id</strong></p>
         </div>
         
-        <div class="section-title">Aplikasi Utama</div>
-        <a href="bku.html" class="link-btn">📁 Aplikasi Pendampingan BKU</a>
+        <div class="section-title">Manajemen BOSP</div>
+        <a href="bku.html" class="link-btn btn-bku">📁 Aplikasi Pendampingan BKU</a>
 
-        <div class="section-title">Monitoring & Laporan ARKAS</div>
+        <div class="section-title">Monitoring ARKAS</div>
         <a href="https://tinyurl.com/LaporanArkasBabelan" target="_blank" class="link-btn btn-arkas">📋 Laporan ARKAS Babelan</a>
         <a href="https://tinyurl.com/ProgresajukanpengesahanARKAS" target="_blank" class="link-btn btn-progres">📈 Cek Progres Pengesahan</a>
 
-        <div class="section-title">Link Resmi Kemdikbud</div>
-        <a href="https://dapo.kemdikbud.go.id/" target="_blank" class="link-btn btn-dapodik">🖥️ Akses Dapodik Pusat</a>
+        <div class="section-title">Sistem Penerimaan Siswa Baru</div>
+        <a href="#" target="_blank" class="link-btn btn-ppdb">📝 Formulir SPMB Online</a>
 
         <div class="footer">
-            &copy; 2026 Rohiman Supriyadi - OPS <br>
-            Dikelola secara Mandiri
+            &copy; 2026 ROHIMAN SUPRIYADI <br>
+            Sistem Informasi Manajemen Sekolah Mandiri
         </div>
     </div>
 </body>
