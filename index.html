@@ -22,6 +22,7 @@
             align-items: center; 
             min-height: 100vh; 
             margin: 0; 
+            padding: 20px 0;
         }
 
         .container { 
@@ -36,21 +37,23 @@
             position: relative;
         }
         
-        /* Gaya Foto Profil */
+        /* Bingkai Foto Profil Bulat */
+        .profile-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
         .profile-img {
-            width: 110px;
-            height: 110px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-            background-color: #eee; /* Warna dasar jika gambar loading */
-        }
-        
-        .profile-img:hover {
-            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background-color: #eee;
+            display: block;
         }
 
         .header-box { margin-bottom: 30px; }
@@ -59,7 +62,7 @@
         .sub-title { color: var(--primary); font-weight: 700; font-size: 15px; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
         p.desc { color: #95a5a6; font-size: 13px; margin-top: 12px; line-height: 1.6; }
 
-        /* Gaya Umum Tombol */
+        /* Gaya Tombol */
         .link-btn { 
             display: flex; 
             align-items: center; 
@@ -70,15 +73,16 @@
             border-radius: 14px; 
             text-decoration: none; 
             font-weight: 700; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            transition: all 0.3s ease; 
             border: none; 
             font-size: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .link-btn:hover { 
-            transform: translateY(-4px); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15); 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12); 
+            filter: brightness(1.1);
         }
 
         .btn-bku { background: linear-gradient(135deg, #3498db, #2980b9); }
@@ -114,17 +118,18 @@
             border-top: 1px solid #f1f1f1; 
             line-height: 1.5;
         }
-
-        strong.domain { color: var(--secondary); }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header-box">
-            <img src="ROHIMAN .jpg" alt="Rohiman Supriyadi" class="profile-img">
+            <div class="profile-wrapper">
+                <img src="ROHIMAN .jpg" alt="Rohiman Supriyadi" class="profile-img" onerror="this.src='ROHIMAN.jpg'">
+            </div>
+            
             <h1>PORTAL OPERATOR</h1>
             <div class="sub-title">Kecamatan Babelan</div>
-            <p class="desc">Pusat Layanan Data & Pelaporan Digital<br><strong class="domain">operator-sekolah.my.id</strong></p>
+            <p class="desc">Pusat Layanan Data & Pelaporan Digital<br><strong>operator-sekolah.my.id</strong></p>
         </div>
         
         <div class="section-title">Manajemen BOSP</div>
