@@ -22,20 +22,20 @@
 
         .container { 
             background: var(--glass);
-            padding: 30px 20px; 
+            padding: 30px 15px; 
             border-radius: 40px; 
             box-shadow: var(--shadow); 
-            width: 100%; max-width: 450px; /* Diperlebar sedikit untuk grid */
+            width: 100%; max-width: 480px; 
             text-align: center;
             border: 1px solid rgba(255,255,255,0.4);
             backdrop-filter: blur(10px);
         }
 
         .profile-box {
-            width: 100px; height: 100px;
+            width: 90px; height: 90px;
             margin: 0 auto 10px;
             border-radius: 50%;
-            padding: 4px;
+            padding: 3px;
             background: linear-gradient(to right, #3498db, #9b59b6);
         }
 
@@ -49,49 +49,38 @@
 
         .profile-img { width: 100%; height: 100%; object-fit: cover; }
 
-        h1 { 
-            font-size: 18px; margin: 5px 0 0; 
-            letter-spacing: 1px; font-weight: 800; 
-            color: var(--dark);
-        }
-
-        .sub-title { 
-            color: var(--primary); font-weight: 700; 
-            font-size: 12px; margin-bottom: 20px; 
-            text-transform: uppercase;
-        }
+        h1 { font-size: 16px; margin: 5px 0 0; letter-spacing: 1px; font-weight: 800; color: var(--dark); }
+        .sub-title { color: var(--primary); font-weight: 700; font-size: 11px; margin-bottom: 20px; text-transform: uppercase; }
 
         .section-name { 
-            text-align: left; font-size: 10px; color: #7f8c8d; 
-            margin: 15px 0 8px 5px; font-weight: 800; 
+            text-align: left; font-size: 9px; color: #7f8c8d; 
+            margin: 18px 0 8px 5px; font-weight: 800; 
             text-transform: uppercase; display: flex; align-items: center; gap: 8px;
         }
         .section-name::after { content: ""; flex: 1; height: 1px; background: #eee; }
 
-        /* GRID SYSTEM UNTUK MENU */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Membagi 2 kolom */
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
         }
 
         .link-btn { 
-            display: flex; flex-direction: column; /* Icon di atas, teks di bawah */
+            display: flex; flex-direction: column; 
             align-items: center; justify-content: center;
-            padding: 12px 10px;
+            padding: 12px 5px;
             border-radius: 15px; text-decoration: none; 
             font-weight: 600; color: white; 
             transition: all 0.3s ease; 
-            font-size: 11px;
+            font-size: 10px;
             text-align: center;
         }
 
-        .link-btn i { font-size: 20px; margin-bottom: 6px; }
+        .link-btn i { font-size: 18px; margin-bottom: 6px; }
 
-        /* Tombol Full Width untuk PPDB agar menonjol */
-        .full-width { grid-column: span 2; flex-direction: row; gap: 10px; font-size: 13px; }
+        .full-width { grid-column: span 2; flex-direction: row; gap: 10px; font-size: 12px; }
 
-        /* Varian Warna */
+        /* Varian Warna Dashboard */
         .btn-blue { background: linear-gradient(45deg, #3498db, #2980b9); }
         .btn-green { background: linear-gradient(45deg, #27ae60, #1e8449); }
         .btn-purple { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
@@ -100,22 +89,17 @@
         .btn-slate { background: linear-gradient(45deg, #708090, #2f4f4f); }
         .btn-indigo { background: linear-gradient(45deg, #3f51b5, #303f9f); }
         .btn-teal { background: linear-gradient(45deg, #009688, #00796b); }
+        .btn-pink { background: linear-gradient(45deg, #ff4757, #ff6b81); }
 
         .link-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); filter: brightness(1.1); }
 
         .datetime-box {
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-top: 20px;
-            color: #555;
-            font-size: 10px;
-            font-weight: 700;
-            width: 90%;
+            background: #f8f9fa; padding: 10px; border-radius: 20px;
+            display: inline-block; margin-top: 20px; color: #555;
+            font-size: 9px; font-weight: 700; width: 90%;
         }
 
-        .footer { font-size: 10px; color: #95a5a6; margin-top: 20px; border-top: 1px solid #f1f1f1; padding-top: 15px; }
+        .footer { font-size: 9px; color: #95a5a6; margin-top: 20px; border-top: 1px solid #f1f1f1; padding-top: 15px; }
     </style>
 </head>
 <body>
@@ -130,52 +114,45 @@
         <h1>PORTAL OPERATOR</h1>
         <div class="sub-title">SDN MUARA BAKTI 01</div>
         
-        <div class="section-name">Utama & BOSP</div>
+        <div class="section-name">Keuangan & BOSP</div>
         <div class="menu-grid">
-            <a href="bku.html" target="_blank" class="link-btn btn-blue">
-                <i class="fa-solid fa-file-invoice-dollar"></i> BKU BOSP
-            </a>
-            <a href="https://siplah.blibli.com/" target="_blank" class="link-btn btn-indigo">
-                <i class="fa-solid fa-cart-shopping"></i> SIPLah Blibli
-            </a>
+            <a href="bku.html" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-file-invoice-dollar"></i> Pendampingan BKU</a>
+            <a href="https://bosp.kemdikbud.go.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-coins"></i> Portal BOSP</a>
+            <a href="https://siplah.tokoladang.co.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-cart-shopping"></i> SIPLah Ladang</a>
+            <a href="https://raporpendidikan.kemdikbud.go.id/" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-chart-line"></i> Rapor Pendidikan</a>
         </div>
 
-        <div class="section-name">Data & Verval (Kemendikbud)</div>
+        <div class="section-name">Layanan GTK & Guru</div>
         <div class="menu-grid">
-            <a href="https://dapo.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-teal">
-                <i class="fa-solid fa-database"></i> Dapodik
-            </a>
-            <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange">
-                <i class="fa-solid fa-id-card"></i> Verval PD
-            </a>
-            <a href="https://vervalsp.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-purple">
-                <i class="fa-solid fa-school"></i> Verval SP
-            </a>
-            <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green">
-                <i class="fa-solid fa-user-tie"></i> Verval PTK
-            </a>
-            <a href="https://vervalyayasan.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-slate">
-                <i class="fa-solid fa-landmark"></i> Verval Yayasan
-            </a>
-            <a href="https://nisn.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-indigo">
-                <i class="fa-solid fa-graduation-cap"></i> Cek NISN
-            </a>
+            <a href="https://info.gtk.kemdikbud.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-user-check"></i> Cek Info GTK</a>
+            <a href="https://ruang.gtk.kemdikbud.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-door-open"></i> Ruang GTK</a>
+            <a href="https://passport-gtk.belajar.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-key"></i> SIMPKB</a>
+            <a href="https://simpatika.kemenag.go.id/portal" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-star"></i> SIMPATIKA</a>
+        </div>
+
+        <div class="section-name">Data & Verval (Pusdatin)</div>
+        <div class="menu-grid">
+            <a href="https://sdm.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-users-gear"></i> SDM Data</a>
+            <a href="https://dapo.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-database"></i> Dapodik</a>
+            <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card"></i> Verval PD</a>
+            <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-user-tie"></i> Verval PTK</a>
+            <a href="https://erapor.kemdikbud.go.id/" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-file-lines"></i> Link E-Raport</a>
+            <a href="#" target="_blank" class="link-btn btn-slate"><i class="fa-solid fa-pen-to-square"></i> Link TKA</a>
+        </div>
+
+        <div class="section-name">ASN & Kab. Bekasi</div>
+        <div class="menu-grid">
+            <a href="https://myasn.bkn.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-user-shield"></i> My ASN (BKN)</a>
+            <a href="https://sikawan.bekasikab.go.id/" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-handshake"></i> Sikawan</a>
+            <a href="https://bisma.bekasikab.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-briefcase"></i> Bisma Bekasi</a>
+            <a href="https://www.google.com/maps/search/SDN+MUARA+BAKTI+01" target="_blank" class="link-btn btn-slate"><i class="fa-solid fa-location-dot"></i> Lokasi Sekolah</a>
         </div>
 
         <div class="section-name">Informasi & PPDB</div>
         <div class="menu-grid">
-            <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate">
-                <i class="fa-solid fa-calendar-days"></i> Kaldik
-            </a>
-            <a href="https://www.google.com/maps/search/SDN+MUARA+BAKTI+01" target="_blank" class="link-btn btn-purple">
-                <i class="fa-solid fa-location-dot"></i> Lokasi
-            </a>
-            <a href="https://wa.me/6281234567890" target="_blank" class="link-btn btn-green full-width">
-                <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp Operator
-            </a>
-            <a href="spmb.html" target="_blank" class="link-btn btn-red full-width">
-                <i class="fa-solid fa-file-signature"></i> FORMULIR SPMB ONLINE (PPDB)
-            </a>
+            <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate full-width"><i class="fa-solid fa-calendar-days"></i> Kalender Akademik (Kaldik)</a>
+            <a href="https://wa.me/6281234567890" target="_blank" class="link-btn btn-green full-width"><i class="fa-brands fa-whatsapp"></i> Chat WhatsApp Operator</a>
+            <a href="spmb.html" target="_blank" class="link-btn btn-red full-width"><i class="fa-solid fa-file-signature"></i> FORMULIR SPMB ONLINE (PPDB)</a>
         </div>
 
         <div class="datetime-box" id="tanggal-jam">Memuat Waktu...</div>
