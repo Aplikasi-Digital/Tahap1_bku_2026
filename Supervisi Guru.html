@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="app-title">Aplikasi Supervisi - SDN Muara Bakti 01</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .sidebar-dark { background-color: #1e293b; }
+        .sidebar-item:hover { background-color: #334155; }
+        .stat-card { transition: transform 0.2s; }
+        .stat-card:hover { transform: translateY(-5px); }
+
+        @media print { 
+            @page { 
+                size: 215mm 330mm; 
+                margin: 10mm 15mm; 
+            }
+            body { background-color: white !important; overflow: visible !important; height: auto !important; }
+            .no-print { display: none !important; } 
+            main { padding: 0 !important; width: 100% !important; height: auto !important; overflow: visible !important; }
+            #print-area { 
+                border: none !important; 
+                box-shadow: none !important; 
+                width: 100% !important; 
+                max-width: 100% !important;
+                margin: 0 !important; 
+                padding: 0 !important; 
+            }
+            .table-input { border: none !important; background: transparent !important; }
+            textarea { overflow: hidden !important; resize: none !important; }
+            select { appearance: none; -webkit-appearance: none; border: none !important; }
+            .print-bg-gray { background-color: #f1f5f9 !important; -webkit-print-color-adjust: exact; }
+        }
+
+        .table-input { 
+            width: 100%; 
+            border: none; 
+            background: transparent; 
+            outline: none; 
+            resize: none; 
+            overflow: hidden; 
+            display: block; 
+            height: auto;
+            min-height: 20px;
+        }
+        .table-input:focus { background-color: #f8fafc; }
+        .identitas-grid { display: grid; grid-template-columns: 140px 10px 1fr; gap: 4px; align-items: start; }
+        .menu-content { display: none; }
+        .menu-content.active { display: block; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+
+        .signature-space { height: 65px; } 
+        .logo-preview { width: 50px; height: 50px; object-fit: contain; }
+        .logo-kop { width: 80px; height: 80px; object-fit: contain; }
+    </style>
+</head>
+<body class="bg-slate-100 flex h-screen overflow-hidden text-slate-900">
+
+    <aside class="w-72 sidebar-dark text-white flex flex-col no-print shrink-0">
+        <div class="p-6 flex items-center gap-3 border-b border-slate-700">
+            <img id="side-logo-preview" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Logo_Kabupaten_Bekasi.png" alt="Logo" class="logo-preview">
+            <div>
+                <h1 class="font-bold text-xs text-orange-400 uppercase tracking-widest">Aplikasi Supervisi Guru</h1>
+                <h2 id="side-nama-sekolah" class="font-bold text-sm leading-tight">SDN Muara Bakti 01</h2>
+            </div>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto p-4 space-y-4 text-sm">
+            <div class="border border-slate-700 rounded overflow-hidden">
+                <button onclick="toggleMenu('menu-identitas-sekolah')" class="w-full flex justify-between items-center p-3 bg-slate-800 hover:bg-slate-700 transition font-bold text-[10px] uppercase tracking-wider text-orange-400">
+                    <span><i class="fas fa-school mr-2"></i> Identitas Sekolah</span>
+                    <i class="fas fa-chevron-down text-white"></i>
+                </button>
+                <div id="menu-identitas-sekolah" class="menu-content p-3 space-y-2 bg-slate-900/50">
+                    <input type="text" id="set-nama-sekolah" onkeyup="updateIdentitasSekolah()" placeholder="Nama Sekolah..." class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
+                    <input type="text" id="set-kecamatan" onkeyup="updateIdentitasSekolah()" placeholder="Kecamatan..." class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
+                    <input type="text" id="set-kabupaten" onkeyup="updateIdentitasSekolah()" placeholder="Kabupaten..." class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
+                </div>
+            </div>
+
+            <button onclick="simpanSemuaData()" class="w-full bg-blue-600 hover:bg-blue-500 p-3 rounded text-xs font-bold shadow-lg transition flex items-center justify-center gap-2 mb-2">
+                <i class="fas fa-save"></i> SIMPAN DATA (PERMANEN)
+            </button>
+
+            <div class="border border-slate-700 rounded overflow-hidden">
+                <button onclick="toggleMenu('menu-pengaturan')" class="w-full flex justify-between items-center p-3 bg-slate-800 hover:bg-slate-700 transition font-bold text-[10px] uppercase tracking-wider text-emerald-400">
+                    <span><i class="fas fa-cog mr-2"></i> Pengaturan Logo</span>
+                    <i class="fas fa-chevron-down text-white"></i>
+                </button>
+                <div id="menu-pengaturan" class="menu-content p-3 space-y-3 bg-slate-900/50">
+                    <input type="file" id="input-logo" accept="image/*" class="hidden" onchange="uploadLogo(event)">
+                    <button onclick="document.getElementById('input-logo').click()" class="w-full bg-emerald-600 hover:bg-emerald-500 p-2 rounded text-[10px] font-bold transition">
+                        <i class="fas fa-upload mr-1"></i> GANTI LOGO
+                    </button>
+                    <button onclick="hapusLogo()" class="w-full bg-slate-700 hover:bg-red-600 p-2 rounded text-[10px] font-bold transition">
+                        <i class="fas fa-trash-alt mr-1"></i> RESET LOGO
+                    </button>
+                </div>
+            </div>
+
+            <div class="border border-slate-700 rounded overflow-hidden">
+                <button onclick="toggleMenu('menu-pegawai')" class="w-full flex justify-between items-center p-3 bg-slate-800 hover:bg-slate-700 transition font-bold text-[10px] uppercase tracking-wider text-blue-400">
+                    <span><i class="fas fa-users-cog mr-2"></i> Input Data Pegawai</span>
+                    <i class="fas fa-chevron-down text-white"></i>
+                </button>
+                <div id="menu-pegawai" class="menu-content p-3 space-y-3 bg-slate-900/50 active">
+                    <select id="select-guru" onchange="handleGuruChange()" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
+                        <option value="">-- Pilih Guru --</option>
+                    </select>
+                    
+                    <select id="select-mapel" onchange="syncIdentitas()" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
+                        <option value="">-- Pilih Mapel --</option>
+                        <option value="Pendidikan Agama dan Budi Pekerti">Pendidikan Agama & BP</option>
+                        <option value="Pendidikan Pancasila">Pendidikan Pancasila</option>
+                        <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                        <option value="Matematika">Matematika</option>
+                        <option value="IPAS">IPAS</option>
+                        <option value="PJOK">PJOK</option>
+                        <option value="Seni Musik">Seni Musik</option>
+                        <option value="Seni Rupa">Seni Rupa</option>
+                        <option value="Bahasa Inggris">Bahasa Inggris</option>
+                        <option value="Muatan Lokal (Bahasa Sunda)">B. Sunda</option>
+                        <option value="PLBJ">PLBJ</option>
+                    </select>
+
+                    <select id="select-kelas" onchange="syncIdentitas()" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
+                        <option value="">-- Pilih Kelas --</option>
+                        <option value="1 (Satu) / Fase A">Kelas 1 / Fase A</option>
+                        <option value="2 (Dua) / Fase A">Kelas 2 / Fase A</option>
+                        <option value="3 (Tiga) / Fase B">Kelas 3 / Fase B</option>
+                        <option value="4 (Empat) / Fase B">Kelas 4 / Fase B</option>
+                        <option value="5 (Lima) / Fase C">Kelas 5 / Fase C</option>
+                        <option value="6 (Enam) / Fase C">Kelas 6 / Fase C</option>
+                    </select>
+
+                    <div class="pt-2 border-t border-slate-700 mt-2 space-y-2">
+                        <input type="text" id="input-nama-pengawas" onkeyup="syncPengawas()" placeholder="Nama Pengawas..." class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
+                        <input type="text" id="input-nip-pengawas" onkeyup="syncPengawas()" placeholder="NIP Pengawas..." class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
+                    </div>
+
+                    <div class="pt-2">
+                        <button onclick="document.getElementById('import-file').click()" class="w-full bg-slate-700 hover:bg-slate-600 border border-slate-500 p-2 rounded text-[10px] font-bold transition">
+                            <i class="fas fa-file-import mr-1"></i> IMPORT CSV GURU
+                        </button>
+                        <input type="file" id="import-file" class="hidden" accept=".csv" onchange="importCSV(event)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="border border-slate-700 rounded overflow-hidden">
+                <div id="menu-rekap-nav" class="p-4 bg-slate-900/50 space-y-2">
+                    <div class="flex justify-between text-[11px]"><span>C1. Perencanaan:</span><span id="side-rekap-c1" class="font-bold">0</span></div>
+                    <div class="flex justify-between text-[11px]"><span>C2. Pelaksanaan:</span><span id="side-rekap-c2" class="font-bold">0</span></div>
+                    <div class="flex justify-between text-[11px]"><span>C3. Deep Learning:</span><span id="side-rekap-c3" class="font-bold">0</span></div>
+                    <div class="flex justify-between text-[11px]"><span>C4. Asesmen:</span><span id="side-rekap-c4" class="font-bold">0</span></div>
+                    <hr class="border-slate-700 my-2">
+                    <div class="text-center">
+                        <div id="side-rekap-akhir" class="text-3xl font-black text-orange-400">0</div>
+                        <div id="side-rekap-predikat" class="text-[9px] uppercase tracking-widest font-bold text-blue-300">NILAI AKHIR</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-2 pt-4">
+                <button onclick="window.print()" class="w-full bg-emerald-500 hover:bg-emerald-400 p-3 rounded text-xs font-bold shadow-lg transition">
+                    <i class="fas fa-print mr-2"></i> CETAK PDF (F4)
+                </button>
+                <button onclick="resetAplikasi()" class="w-full bg-red-600 hover:bg-red-500 p-3 rounded text-xs font-bold shadow-lg transition flex items-center justify-center gap-2">
+                    <i class="fas fa-undo"></i> RESET HASIL / FORM
+                </button>
+            </div>
+
+            <div class="mt-auto p-4 border-t border-slate-700 text-[10px] text-slate-500">
+                <p>© 2024 - 2026 APLIKASI DIGITAL</p>
+                <p>Dikembangkan oleh: Rohiman Supriyadi</p>
+            </div> 
+        </nav>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto p-6 bg-slate-100">
+        <div id="print-area" class="max-w-4xl mx-auto border p-10 shadow-2xl rounded bg-white min-h-[31cm] relative">
+            
+            <div class="flex items-center justify-center mb-6 border-b-4 border-double border-black pb-4 gap-6">
+                <img id="kop-logo-preview" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Logo_Kabupaten_Bekasi.png" alt="Logo Sekolah" class="logo-kop">
+                <div class="text-center">
+                    <h1 class="text-xl font-bold uppercase leading-tight tracking-tight">Instrumen Supervisi Pembelajaran</h1>
+                    <p class="text-sm font-medium italic text-slate-600">Kurikulum Merdeka dengan Pendekatan Deep Learning</p>
+                    <h2 id="display-nama-sekolah-kop" class="text-lg font-bold uppercase mt-1">SD Negeri Muara Bakti 01</h2>
+                    <p id="display-alamat-kop" class="text-[10px] font-medium">Kecamatan Babelan, Kabupaten Bekasi, Provinsi Jawa Barat</p>
+                </div>
+            </div>
+
+            <section class="mb-4 bg-slate-50 p-4 rounded print-bg-gray">
+                <h3 class="font-bold text-[12px] mb-2 uppercase flex items-center gap-2">A. Identitas Umum</h3>
+                <div class="text-[11px] space-y-1 ml-2">
+                    <div class="identitas-grid"><span>Nama Guru</span><span>:</span><strong id="display-guru">-</strong></div>
+                    <div class="identitas-grid"><span>Mata Pelajaran</span><span>:</span><strong id="display-mapel">..................</strong></div>
+                    <div class="identitas-grid"><span>Kelas/Fase</span><span>:</span><strong id="display-kelas">..................</strong></div>
+                    <div class="identitas-grid">
+                        <span>Hari/Tanggal</span><span>:</span>
+                        <div class="flex items-center gap-2">
+                            <input type="date" id="input-tanggal" onchange="syncTanggal()" class="no-print border border-slate-300 rounded px-1">
+                            <strong id="display-tanggal">..............................</strong>
+                        </div>
+                    </div>
+                    <div class="identitas-grid"><span>Supervisor</span><span>:</span><strong id="display-supervisor">TATI LESTARI, S.Pd</strong></div>
+                </div>
+            </section>
+
+            <section class="mb-6 bg-white p-4 border border-black rounded">
+                <h3 class="font-bold text-[12px] mb-2 uppercase">B. Fokus Supervisi</h3>
+                <ol class="text-[11px] space-y-1 ml-4 list-decimal font-medium">
+                    <li>Perencanaan Pembelajaran (RPP/Modul Ajar)</li>
+                    <li>Pelaksanaan Pembelajaran di Kelas</li>
+                    <li>Asesmen & Refleksi</li>
+                    <li>Penerapan Deep Learning</li>
+                </ol>
+            </section>
+
+            <div id="wrapper-instrumen">
+                <h3 class="font-bold text-[12px] mb-4 uppercase">C. Instrumen Penilaian</h3>
+                <div id="container-c1"></div>
+                <div id="container-c2"></div>
+                <div id="container-c3"></div>
+                <div id="container-c4"></div>
+            </div>
+
+            <section class="mt-6 mb-6 border-y-2 border-black py-4">
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="text-[11px] font-bold space-y-2">
+                        <div class="flex justify-between border-b pb-1"><span>TOTAL SKOR</span><span id="rekap-total-skor">0</span></div>
+                        <div class="flex justify-between items-center"><span>NILAI AKHIR</span><span id="rekap-akhir" class="text-3xl font-black text-blue-700">0</span></div>
+                    </div>
+                    <div class="bg-slate-100 p-2 rounded flex flex-col justify-center items-center text-center border border-slate-300">
+                        <p class="text-[9px] uppercase font-bold">Predikat</p>
+                        <h4 id="display-predikat-besar" class="text-lg font-black italic">-</h4>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-6 space-y-4">
+                <div class="border border-black p-3">
+                    <h3 class="font-bold text-[11px] uppercase mb-1">F. Catatan Supervisor / Temuan</h3>
+                    <textarea id="catatan-f" oninput="autoResizeTextarea(this)" class="table-input italic text-[11px] w-full min-h-[60px]" placeholder="Tulis catatan temuan di sini..."></textarea>
+                </div>
+                <div class="border border-black p-3">
+                    <h3 class="font-bold text-[11px] uppercase mb-1">G. Rekomendasi / Tindak Lanjut</h3>
+                    <textarea id="catatan-g" oninput="autoResizeTextarea(this)" class="table-input italic text-[11px] w-full min-h-[60px]" placeholder="Tulis rekomendasi perbaikan di sini..."></textarea>
+                </div>
+            </section>
+
+           <section class="mt-12 text-[11px]">
+    <div class="flex justify-between items-end text-center">
+        
+        <div class="w-1/2 flex flex-col items-center">
+            <p class="mb-[18px]">Guru Yang Disupervisi,</p> <div class="signature-space"></div>
+            <p class="font-bold underline uppercase" id="sign-guru">-</p>
+            <p>NIP. <span id="display-nip-guru">...................</span></p>
+        </div>
+
+        <div class="w-1/2 flex flex-col items-center">
+            <p class="mb-1">
+                <span id="display-lokasi-ttd">Babelan</span>, 
+                <span id="sign-tanggal">....................</span>
+            </p>
+            <p class="mb-1">Kepala Sekolah / Supervisor,</p>
+            <div class="signature-space"></div>
+            <p class="font-bold underline uppercase">TATI LESTARI, S.Pd</p>
+            <p>NIP. 197705122008012009</p>
+        </div>
+        
+    </div>
+
+    <div class="mt-10 flex justify-center text-center">
+        <div class="w-1/2 flex flex-col items-center border-t border-transparent">
+            <p>Mengetahui,</p>
+            <p>Pengawas Bina</p>
+            <div class="signature-space"></div>
+            <p class="font-bold underline uppercase" id="display-nama-pengawas">........................................</p>
+            <p>NIP. <span id="display-nip-pengawas">........................................</span></p>
+        </div>
+    </div>
+</section>
+        </div>
+    </main>
+
+    <script type="text/template" id="table-template">
+        <div class="mb-6">
+            <div class="flex justify-between items-center mb-1 bg-slate-800 text-white px-3 py-1 no-print rounded-t">
+                <h4 class="font-bold text-[10px] uppercase">{title}</h4>
+                <button onclick="tambahBaris('{bodyId}')" class="bg-white/20 hover:bg-white/30 text-[9px] px-2 py-0.5 rounded transition font-bold">+ Baris</button>
+            </div>
+            <h4 class="font-bold text-[11px] uppercase hidden print:block mb-1">{title}</h4>
+            <table class="w-full border-collapse border border-black text-[11px]">
+                <thead>
+                    <tr class="bg-slate-100 font-bold text-center">
+                        <th class="border border-black p-1 w-8">No</th>
+                        <th class="border border-black p-1 w-1/3">Aspek</th>
+                        <th class="border border-black p-1">Indikator</th>
+                        <th class="border border-black p-1 w-16">Skor</th>
+                    </tr>
+                </thead>
+                <tbody id="{bodyId}"></tbody>
+            </table>
+        </div>
+    </script>
+
+    <script>
+        const sections = [
+            { id: 'container-c1', title: 'C1. Perencanaan Pembelajaran', bodyId: 'body-c1' },
+            { id: 'container-c2', title: 'C2. Pelaksanaan Pembelajaran', bodyId: 'body-c2' },
+            { id: 'container-c3', title: 'C3. Implementasi Deep Learning (4C)', bodyId: 'body-c3' },
+            { id: 'container-c4', title: 'C4. Asesmen & Refleksi', bodyId: 'body-c4' }
+        ];
+
+        window.onload = () => {
+            initTables();
+            loadIdentitasSekolah();
+            loadSavedData();
+            // Logo default dikembalikan ke wiki bekasi
+        };
+
+        function toggleMenu(id) {
+            const menu = document.getElementById(id);
+            menu.classList.toggle('active');
+        }
+
+        function updateIdentitasSekolah() {
+            const nama = document.getElementById('set-nama-sekolah').value || "SD Negeri Muara Bakti 01";
+            const kec = document.getElementById('set-kecamatan').value || "Babelan";
+            const kab = document.getElementById('set-kabupaten').value || "Bekasi";
+
+            document.getElementById('side-nama-sekolah').innerText = nama;
+            document.getElementById('display-nama-sekolah-kop').innerText = nama;
+            document.getElementById('display-alamat-kop').innerText = `Kecamatan ${kec}, Kabupaten ${kab}, Provinsi Jawa Barat`;
+            document.getElementById('display-lokasi-ttd').innerText = kec;
+            document.getElementById('app-title').innerText = `Aplikasi Supervisi - ${nama}`;
+
+            localStorage.setItem('gemini_identitas_sekolah', JSON.stringify({ nama, kec, kab }));
+        }
+
+        function loadIdentitasSekolah() {
+            const saved = localStorage.getItem('gemini_identitas_sekolah');
+            if (saved) {
+                const d = JSON.parse(saved);
+                document.getElementById('set-nama-sekolah').value = d.nama;
+                document.getElementById('set-kecamatan').value = d.kec;
+                document.getElementById('set-kabupaten').value = d.kab;
+                updateIdentitasSekolah();
+            }
+        }
+
+        function autoResizeTextarea(textarea) {
+            if (!textarea) return;
+            textarea.style.height = 'auto';
+            textarea.style.height = (textarea.scrollHeight) + 'px';
+        }
+
+        function initTables() {
+            const template = document.getElementById('table-template').innerHTML;
+            sections.forEach(s => {
+                document.getElementById(s.id).innerHTML = template.replace(/{title}/g, s.title).replace(/{bodyId}/g, s.bodyId);
+            });
+        }
+
+        function importCSV(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const rows = text.split('\n').filter(r => r.trim() !== "");
+                const listGuru = [];
+                rows.forEach((row, index) => {
+                    if (index === 0) return;
+                    const cols = row.split(',').map(c => c.replace(/"/g, '').trim());
+                    if (cols.length >= 2) listGuru.push({ nama: cols[0], nip: cols[1] });
+                });
+                if (listGuru.length > 0) {
+                    localStorage.setItem('gemini_guru_list', JSON.stringify(listGuru));
+                    renderGuruDropdown(listGuru);
+                    alert('Data guru berhasil diimpor!');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function renderGuruDropdown(list) {
+            const selectGuru = document.getElementById('select-guru');
+            selectGuru.innerHTML = '<option value="">-- Pilih Guru --</option>';
+            list.forEach(g => {
+                const opt = document.createElement('option');
+                opt.value = g.nama;
+                opt.text = g.nama;
+                opt.dataset.nip = g.nip;
+                selectGuru.appendChild(opt);
+            });
+        }
+
+        function handleGuruChange() {
+            const sel = document.getElementById('select-guru');
+            const nama = sel.value;
+            const nip = sel.options[sel.selectedIndex]?.dataset.nip || '';
+            document.getElementById('display-guru').innerText = nama || '-';
+            document.getElementById('sign-guru').innerText = nama || '-';
+            document.getElementById('display-nip-guru').innerText = nip || '...................';
+        }
+
+        function syncIdentitas() {
+            document.getElementById('display-mapel').innerText = document.getElementById('select-mapel').value || '..................';
+            document.getElementById('display-kelas').innerText = document.getElementById('select-kelas').value || '..................';
+        }
+
+        function syncPengawas() {
+            document.getElementById('display-nama-pengawas').innerText = document.getElementById('input-nama-pengawas').value || '........................................';
+            document.getElementById('display-nip-pengawas').innerText = document.getElementById('input-nip-pengawas').value || '........................................';
+        }
+
+        function syncTanggal() {
+            const tgl = document.getElementById('input-tanggal').value;
+            if (tgl) {
+                const d = new Date(tgl);
+                const formatted = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                document.getElementById('display-tanggal').innerText = formatted;
+                document.getElementById('sign-tanggal').innerText = formatted;
+            }
+        }
+
+        // --- RUMUS SKOR DENGAN PEMBULATAN TANPA KOMA ---
+        function hitungNilai() {
+            let totalSemua = 0, countIndikator = 0;
+            ['c1', 'c2', 'c3', 'c4'].forEach(c => {
+                let subTotal = 0;
+                document.querySelectorAll(`.skor-input[data-category="body-${c}"]`).forEach(sel => {
+                    subTotal += parseInt(sel.value) || 0;
+                    countIndikator++;
+                });
+                document.getElementById(`side-rekap-${c}`).innerText = subTotal;
+                totalSemua += subTotal;
+            });
+            
+            // Rumus: (Total Skor / (Jumlah Item * 4)) * 100
+            // Gunakan Math.round untuk menghilangkan koma
+            const nAkhir = countIndikator > 0 ? Math.round((totalSemua / (countIndikator * 4)) * 100) : 0;
+            
+            document.getElementById('rekap-total-skor').innerText = totalSemua;
+            document.getElementById('rekap-akhir').innerText = nAkhir;
+            document.getElementById('side-rekap-akhir').innerText = nAkhir;
+
+            let predikat = "-";
+            if (nAkhir >= 91) predikat = "Sangat Baik";
+            else if (nAkhir >= 81) predikat = "Baik";
+            else if (nAkhir >= 71) predikat = "Cukup";
+            else if (nAkhir > 0) predikat = "Perlu Bimbingan";
+            
+            document.getElementById('display-predikat-besar').innerText = predikat;
+        }
+
+        function tambahBaris(targetId, aspek = '', indikator = '', skor = 0) {
+            const table = document.getElementById(targetId);
+            const rowCount = table.rows.length + 1;
+            const newRow = `<tr>
+                <td class="border border-black p-1 text-center font-bold">${rowCount}</td>
+                <td class="border border-black p-1"><textarea oninput="autoResizeTextarea(this)" class="table-input font-bold" rows="1">${aspek}</textarea></td>
+                <td class="border border-black p-1"><textarea oninput="autoResizeTextarea(this)" class="table-input italic text-[10px]" rows="1">${indikator}</textarea></td>
+                <td class="border border-black p-1 text-center">
+                    <select class="skor-input w-full text-center font-bold bg-transparent outline-none cursor-pointer" data-category="${targetId}" onchange="hitungNilai()">
+                        ${[0,1,2,3,4].map(v => `<option value="${v}" ${skor == v ? 'selected' : ''}>${v}</option>`).join('')}
+                    </select>
+                </td>
+            </tr>`;
+            table.insertAdjacentHTML('beforeend', newRow);
+            table.lastElementChild.querySelectorAll('textarea').forEach(tx => autoResizeTextarea(tx));
+            hitungNilai();
+        }
+
+        function uploadLogo(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const src = e.target.result;
+                document.getElementById('side-logo-preview').src = src;
+                document.getElementById('kop-logo-preview').src = src;
+                localStorage.setItem('gemini_custom_logo', src);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function hapusLogo() {
+            const defaultLogo = "https://upload.wikimedia.org/wikipedia/commons/b/b2/Logo_Kabupaten_Bekasi.png";
+            document.getElementById('side-logo-preview').src = defaultLogo;
+            document.getElementById('kop-logo-preview').src = defaultLogo;
+            localStorage.removeItem('gemini_custom_logo');
+        }
+
+        function simpanSemuaData() {
+            const data = {
+                id_guru: document.getElementById('select-guru').value,
+                id_mapel: document.getElementById('select-mapel').value,
+                id_kelas: document.getElementById('select-kelas').value,
+                tgl: document.getElementById('input-tanggal').value,
+                nama_pengawas: document.getElementById('input-nama-pengawas').value,
+                nip_pengawas: document.getElementById('input-nip-pengawas').value,
+                catatan_f: document.getElementById('catatan-f').value,
+                catatan_g: document.getElementById('catatan-g').value,
+                skor: {}
+            };
+            sections.forEach(sec => {
+                const rowData = [];
+                document.querySelectorAll(`#${sec.bodyId} tr`).forEach(row => {
+                    rowData.push({
+                        aspek: row.cells[1].querySelector('textarea').value,
+                        indikator: row.cells[2].querySelector('textarea').value,
+                        skor: row.cells[3].querySelector('select').value
+                    });
+                });
+                data.skor[sec.bodyId] = rowData;
+            });
+            localStorage.setItem('gemini_saved_session', JSON.stringify(data));
+            alert('Data Berhasil Disimpan!');
+        }
+
+        function loadSavedData() {
+            const savedGuru = localStorage.getItem('gemini_guru_list');
+            if (savedGuru) renderGuruDropdown(JSON.parse(savedGuru));
+
+            const customLogo = localStorage.getItem('gemini_custom_logo');
+            if (customLogo) {
+                document.getElementById('side-logo-preview').src = customLogo;
+                document.getElementById('kop-logo-preview').src = customLogo;
+            }
+
+            const session = localStorage.getItem('gemini_saved_session');
+            if (session) {
+                const d = JSON.parse(session);
+                document.getElementById('select-guru').value = d.id_guru || '';
+                document.getElementById('select-mapel').value = d.id_mapel || '';
+                document.getElementById('select-kelas').value = d.id_kelas || '';
+                document.getElementById('input-tanggal').value = d.tgl || '';
+                document.getElementById('input-nama-pengawas').value = d.nama_pengawas || '';
+                document.getElementById('input-nip-pengawas').value = d.nip_pengawas || '';
+                document.getElementById('catatan-f').value = d.catatan_f || '';
+                document.getElementById('catatan-g').value = d.catatan_g || '';
+
+                if (d.skor) {
+                    sections.forEach(sec => {
+                        const body = document.getElementById(sec.bodyId);
+                        body.innerHTML = '';
+                        if (d.skor[sec.bodyId]) {
+                            d.skor[sec.bodyId].forEach(item => {
+                                tambahBaris(sec.bodyId, item.aspek, item.indikator, item.skor);
+                            });
+                        }
+                    });
+                }
+                handleGuruChange(); syncIdentitas(); syncPengawas(); syncTanggal(); hitungNilai();
+            } else {
+                tambahDefault();
+            }
+        }
+
+        function tambahDefault() {
+            tambahBaris('body-c1', 'Tujuan Pembelajaran', 'Kesesuaian dengan CP/ATP', 0);
+            tambahBaris('body-c2', 'Pembukaan', 'Apersepsi dan Motivasi', 0);
+            tambahBaris('body-c3', 'Mindful', 'Guru hadir utuh', 0);
+            tambahBaris('body-c4', 'Asesmen Formatif', 'Observasi proses', 0);
+        }
+
+        function resetAplikasi() {
+            if(confirm('Hapus semua data input?')) {
+                localStorage.removeItem('gemini_saved_session');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
