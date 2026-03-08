@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Operator Sekolah Kec. Babelan</title>
+    
+    <meta property="og:title" content="Portal Operator Sekolah - Kec. Babelan">
+    <meta property="og:description" content="Pusat Layanan Data Pendidikan & Keuangan Sekolah Terpadu. Salam Satu Data!">
+    <meta property="og:image" content="profil.jpg"> 
+    <meta property="og:url" content="https://operator-sekolah.my.id/">
+    <meta name="theme-color" content="#764ba2">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -13,6 +20,7 @@
             --shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
+        /* 5. ANIMASI BACKGROUND */
         body { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-attachment: fixed;
@@ -20,6 +28,23 @@
             margin: 0; 
             padding: 40px 20px;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Efek Partikel Halus */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.3;
+            z-index: -1;
+            animation: moveBg 50s linear infinite;
+        }
+
+        @keyframes moveBg {
+            from { background-position: 0 0; }
+            to { background-position: 500px 1000px; }
         }
 
         .container { 
@@ -34,14 +59,32 @@
             border: 1px solid rgba(255,255,255,0.4);
             backdrop-filter: blur(15px);
             box-sizing: border-box;
+            position: relative;
         }
 
-        /* Gaya Baris Menu Warna-Warni */
+        /* 4. SLOT BERITA / INFO TERKINI */
+        .info-terkini {
+            background: #fff5f5;
+            border-left: 5px solid #e74c3c;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .info-terkini i { color: #e74c3c; font-size: 20px; animation: blink 1s infinite; }
+        .info-terkini span { font-size: 13px; font-weight: 700; color: #c0392b; }
+        
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Gaya Baris Menu */
         .menu-category {
             margin-bottom: 20px;
             border-radius: 20px;
             overflow: hidden;
-            border: none;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             transition: 0.4s;
         }
@@ -51,11 +94,12 @@
             box-shadow: 0 12px 25px rgba(0,0,0,0.2);
         }
 
-        /* Pewarnaan Header Berdasarkan Kategori */
+        /* Warna Header */
         .header-keuangan { background: linear-gradient(to right, #2ecc71, #27ae60) !important; color: white !important; }
         .header-gtk { background: linear-gradient(to right, #3498db, #2980b9) !important; color: white !important; }
         .header-pusat { background: linear-gradient(to right, #f1c40f, #f39c12) !important; color: white !important; }
         .header-daerah { background: linear-gradient(to right, #9b59b6, #8e44ad) !important; color: white !important; }
+        .header-tools { background: linear-gradient(to right, #607d8b, #455a64) !important; color: white !important; }
         .header-info { background: linear-gradient(to right, #e74c3c, #c0392b) !important; color: white !important; }
 
         .category-header {
@@ -67,7 +111,6 @@
             font-weight: 800;
             text-transform: uppercase;
             font-size: 14px;
-            transition: 0.3s;
         }
 
         .category-header i.arrow { transition: 0.3s; }
@@ -79,12 +122,11 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 15px;
             background: rgba(255,255,255,0.8);
-            border-top: 2px solid rgba(0,0,0,0.05);
         }
 
         .menu-content.show { display: grid; }
 
-        /* Style Header */
+        /* Header Profile */
         .header-section {
             display: flex;
             align-items: center;
@@ -98,7 +140,6 @@
             border-radius: 50%;
             padding: 3px;
             background: linear-gradient(to right, #3498db, #9b59b6);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .profile-inner {
@@ -111,17 +152,17 @@
 
         .profile-img { width: 100%; height: 100%; object-fit: cover; }
 
-        .header-text h1 { font-size: 24px; margin: 0; color: var(--dark); letter-spacing: 1px; }
-        .header-text .sub-title { color: var(--primary); font-weight: 700; font-size: 14px; text-transform: uppercase; margin: 0; }
+        .header-text h1 { font-size: 24px; margin: 0; color: var(--dark); }
+        .header-text .sub-title { color: var(--primary); font-weight: 700; font-size: 14px; margin: 0; }
 
         /* Marquee */
         .marquee-container {
-            background: rgba(52, 152, 219, 0.15);
+            background: rgba(52, 152, 219, 0.1);
             overflow: hidden;
             white-space: nowrap;
             padding: 10px 0;
             border-radius: 12px;
-            margin: 25px 0;
+            margin: 20px 0;
             border: 1px dashed var(--primary);
         }
 
@@ -129,7 +170,6 @@
             display: inline-block;
             padding-left: 100%;
             animation: marquee 30s linear infinite;
-            color: var(--dark);
             font-size: 12px;
             font-weight: 700;
         }
@@ -139,7 +179,7 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* Tombol Link */
+        /* Link Buttons */
         .link-btn { 
             display: flex;
             align-items: center;
@@ -151,16 +191,10 @@
             color: white; 
             transition: 0.3s; 
             font-size: 13px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .link-btn:hover { 
-            transform: scale(1.03); 
-            filter: brightness(1.1); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
-        }
+        .link-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
         
-        /* Warna Tombol */
         .btn-blue { background: linear-gradient(45deg, #3498db, #2980b9); }
         .btn-green { background: linear-gradient(45deg, #27ae60, #1e8449); }
         .btn-purple { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
@@ -171,10 +205,17 @@
         .btn-pink { background: linear-gradient(45deg, #ff4757, #e84118); }
         .btn-slate { background: linear-gradient(45deg, #607d8b, #455a64); }
 
+        /* 3. CALENDAR STYLING */
+        .calendar-wrapper {
+            margin-top: 15px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
         .datetime-box {
             background: #f8f9fa; padding: 15px; border-radius: 20px;
             margin-top: 30px; color: #555; font-size: 13px; font-weight: 700;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .footer { font-size: 12px; color: #95a5a6; margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
@@ -199,6 +240,11 @@
             </div>
         </div>
 
+        <div class="info-terkini">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span><b>INFO TERKINI:</b> ⚠️ Batas Cut Off BOP Tahap 1 tinggal 3 hari lagi! Segera selesaikan sinkronisasi Arkas dan Dapodik Anda.</span>
+        </div>
+
         <div class="marquee-container">
             <div class="marquee-text">
                 <i class="fa-solid fa-bullhorn"></i> Selamat Datang! Dashboard Terintegrasi Layanan Pendidikan. Salam Satu Data! <i class="fa-solid fa-star"></i> Tetap semangat melayani data pendidikan Indonesia.
@@ -221,6 +267,19 @@
         </div>
 
         <div class="menu-category">
+            <div class="category-header header-tools" onclick="toggleMenu('tools')">
+                <span><i class="fa-solid fa-screwdriver-wrench"></i> Peralatan OPS (Tools)</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div id="tools" class="menu-content">
+                <a href="https://www.ilovepdf.com/id/mengompres-pdf" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-file-pdf"></i> Kompres PDF</a>
+                <a href="https://www.google.com/maps" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-map-location-dot"></i> Cek Jarak (Maps)</a>
+                <a href="https://cekdptonline.kpu.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-id-card"></i> Cek NIK (Umum)</a>
+                <a href="https://tinypng.com/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-image"></i> Kompres Foto</a>
+            </div>
+        </div>
+
+        <div class="menu-category">
             <div class="category-header header-gtk" onclick="toggleMenu('gtk')">
                 <span><i class="fa-solid fa-user-tie"></i> Layanan Guru & GTK</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
@@ -229,7 +288,6 @@
                 <a href="https://info.gtk.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-user-check"></i> Cek Info GTK</a>
                 <a href="https://guru.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-chalkboard-user"></i> Platform Merdeka</a>
                 <a href="https://akun.simpkb.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-key"></i> Akun SIMPKB</a>
-                <a href="https://guru.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-door-open"></i> Ruang GTK</a>
             </div>
         </div>
 
@@ -243,30 +301,21 @@
                 <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card"></i> Verval PD</a>
                 <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-user-tie"></i> Verval PTK</a>
                 <a href="https://pip.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-address-card"></i> Cek PIP</a>
-                <a href="https://nisn.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-magnifying-glass"></i> Cek NISN</a>
-                <a href="https://myasn.bkn.go.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-user-shield"></i> My ASN</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header header-daerah" onclick="toggleMenu('daerah')">
-                <span><i class="fa-solid fa-map-location-dot"></i> Layanan Kabupaten Bekasi</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div id="daerah" class="menu-content">
-                <a href="https://sikawanbaru.bekasikab.go.id/" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-handshake-angle"></i> Sikawan Baru</a>
-                <a href="https://bisma.bekasikab.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-briefcase"></i> Bisma Bekasi</a>
             </div>
         </div>
 
         <div class="menu-category">
             <div class="category-header header-info" onclick="toggleMenu('info')">
-                <span><i class="fa-solid fa-circle-info"></i> Informasi & PPDB</span>
+                <span><i class="fa-solid fa-calendar-check"></i> Informasi & Kalender Akademik</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="info" class="menu-content">
-                <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate"><i class="fa-solid fa-calendar-day"></i> Kaldik Sekolah</a>
+                <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate"><i class="fa-solid fa-file-image"></i> Lihat Gambar Kaldik</a>
                 <a href="spmb.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-file-signature"></i> FORMULIR SPMB ONLINE</a>
+                
+                <div class="calendar-wrapper" style="grid-column: 1 / -1;">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=id.indonesian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FJakarta" style="border: 0" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
+                </div>
             </div>
         </div>
 
