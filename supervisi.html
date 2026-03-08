@@ -9,9 +9,7 @@
     <style>
         .sidebar-dark { background-color: #1e293b; }
         .sidebar-item:hover { background-color: #334155; }
-        .stat-card { transition: transform 0.2s; }
-        .stat-card:hover { transform: translateY(-5px); }
-
+        
         @media print { 
             @page { 
                 size: 215mm 330mm; 
@@ -65,7 +63,7 @@
         <div class="p-6 flex items-center gap-3 border-b border-slate-700">
             <img id="side-logo-preview" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Logo_Kabupaten_Bekasi.png" alt="Logo" class="logo-preview">
             <div>
-                <h1 class="font-bold text-xs text-orange-400 uppercase tracking-widest">Aplikasi Supervisi Guru</h1>
+                <h1 class="font-bold text-xs text-orange-400 uppercase tracking-widest">Aplikasi Supervisi</h1>
                 <h2 id="side-nama-sekolah" class="font-bold text-sm leading-tight">SDN Muara Bakti 01</h2>
             </div>
         </div>
@@ -82,10 +80,6 @@
                     <input type="text" id="set-kabupaten" onkeyup="updateIdentitasSekolah()" placeholder="Kabupaten..." class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
                 </div>
             </div>
-
-            <button onclick="simpanSemuaData()" class="w-full bg-blue-600 hover:bg-blue-500 p-3 rounded text-xs font-bold shadow-lg transition flex items-center justify-center gap-2 mb-2">
-                <i class="fas fa-save"></i> SIMPAN DATA (PERMANEN)
-            </button>
 
             <div class="border border-slate-700 rounded overflow-hidden">
                 <button onclick="toggleMenu('menu-pengaturan')" class="w-full flex justify-between items-center p-3 bg-slate-800 hover:bg-slate-700 transition font-bold text-[10px] uppercase tracking-wider text-emerald-400">
@@ -105,14 +99,13 @@
 
             <div class="border border-slate-700 rounded overflow-hidden">
                 <button onclick="toggleMenu('menu-pegawai')" class="w-full flex justify-between items-center p-3 bg-slate-800 hover:bg-slate-700 transition font-bold text-[10px] uppercase tracking-wider text-blue-400">
-                    <span><i class="fas fa-users-cog mr-2"></i> Input Data Pegawai</span>
+                    <span><i class="fas fa-users-cog mr-2"></i> Input Data Guru</span>
                     <i class="fas fa-chevron-down text-white"></i>
                 </button>
                 <div id="menu-pegawai" class="menu-content p-3 space-y-3 bg-slate-900/50 active">
                     <select id="select-guru" onchange="handleGuruChange()" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
                         <option value="">-- Pilih Guru --</option>
                     </select>
-                    
                     <select id="select-mapel" onchange="syncIdentitas()" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
                         <option value="">-- Pilih Mapel --</option>
                         <option value="Pendidikan Agama dan Budi Pekerti">Pendidikan Agama & BP</option>
@@ -127,7 +120,6 @@
                         <option value="Muatan Lokal (Bahasa Sunda)">B. Sunda</option>
                         <option value="PLBJ">PLBJ</option>
                     </select>
-
                     <select id="select-kelas" onchange="syncIdentitas()" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
                         <option value="">-- Pilih Kelas --</option>
                         <option value="1 (Satu) / Fase A">Kelas 1 / Fase A</option>
@@ -137,48 +129,40 @@
                         <option value="5 (Lima) / Fase C">Kelas 5 / Fase C</option>
                         <option value="6 (Enam) / Fase C">Kelas 6 / Fase C</option>
                     </select>
-
                     <div class="pt-2 border-t border-slate-700 mt-2 space-y-2">
                         <input type="text" id="input-nama-pengawas" onkeyup="syncPengawas()" placeholder="Nama Pengawas..." class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
                         <input type="text" id="input-nip-pengawas" onkeyup="syncPengawas()" placeholder="NIP Pengawas..." class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white outline-none text-xs">
                     </div>
-
-                    <div class="pt-2">
-                        <button onclick="document.getElementById('import-file').click()" class="w-full bg-slate-700 hover:bg-slate-600 border border-slate-500 p-2 rounded text-[10px] font-bold transition">
-                            <i class="fas fa-file-import mr-1"></i> IMPORT CSV GURU
-                        </button>
-                        <input type="file" id="import-file" class="hidden" accept=".csv" onchange="importCSV(event)">
-                    </div>
+                    <button onclick="document.getElementById('import-file').click()" class="w-full bg-slate-700 hover:bg-slate-600 border border-slate-500 p-2 rounded text-[10px] font-bold transition">
+                        <i class="fas fa-file-import mr-1"></i> IMPORT CSV GURU
+                    </button>
+                    <input type="file" id="import-file" class="hidden" accept=".csv" onchange="importCSV(event)">
                 </div>
             </div>
 
-            <div class="border border-slate-700 rounded overflow-hidden">
-                <div id="menu-rekap-nav" class="p-4 bg-slate-900/50 space-y-2">
-                    <div class="flex justify-between text-[11px]"><span>C1. Perencanaan:</span><span id="side-rekap-c1" class="font-bold">0</span></div>
-                    <div class="flex justify-between text-[11px]"><span>C2. Pelaksanaan:</span><span id="side-rekap-c2" class="font-bold">0</span></div>
-                    <div class="flex justify-between text-[11px]"><span>C3. Deep Learning:</span><span id="side-rekap-c3" class="font-bold">0</span></div>
-                    <div class="flex justify-between text-[11px]"><span>C4. Asesmen:</span><span id="side-rekap-c4" class="font-bold">0</span></div>
-                    <hr class="border-slate-700 my-2">
-                    <div class="text-center">
-                        <div id="side-rekap-akhir" class="text-3xl font-black text-orange-400">0</div>
-                        <div id="side-rekap-predikat" class="text-[9px] uppercase tracking-widest font-bold text-blue-300">NILAI AKHIR</div>
-                    </div>
+            <div id="rekap-sidebar" class="p-4 bg-slate-900/50 rounded border border-slate-700 space-y-2">
+                <div class="flex justify-between text-[11px]"><span>C1. Perencanaan:</span><span id="side-rekap-c1" class="font-bold">0</span></div>
+                <div class="flex justify-between text-[11px]"><span>C2. Pelaksanaan:</span><span id="side-rekap-c2" class="font-bold">0</span></div>
+                <div class="flex justify-between text-[11px]"><span>C3. Deep Learning:</span><span id="side-rekap-c3" class="font-bold">0</span></div>
+                <div class="flex justify-between text-[11px]"><span>C4. Asesmen:</span><span id="side-rekap-c4" class="font-bold">0</span></div>
+                <hr class="border-slate-700 my-2">
+                <div class="text-center">
+                    <div id="side-rekap-akhir" class="text-3xl font-black text-orange-400">0</div>
+                    <div class="text-[9px] uppercase tracking-widest font-bold text-blue-300">NILAI AKHIR</div>
                 </div>
             </div>
 
             <div class="space-y-2 pt-4">
+                <button onclick="simpanSemuaData()" class="w-full bg-blue-600 hover:bg-blue-500 p-3 rounded text-xs font-bold shadow-lg transition">
+                    <i class="fas fa-save mr-2"></i> SIMPAN PERMANEN
+                </button>
                 <button onclick="window.print()" class="w-full bg-emerald-500 hover:bg-emerald-400 p-3 rounded text-xs font-bold shadow-lg transition">
                     <i class="fas fa-print mr-2"></i> CETAK PDF (F4)
                 </button>
-                <button onclick="resetAplikasi()" class="w-full bg-red-600 hover:bg-red-500 p-3 rounded text-xs font-bold shadow-lg transition flex items-center justify-center gap-2">
-                    <i class="fas fa-undo"></i> RESET HASIL / FORM
+                <button onclick="resetAplikasi()" class="w-full bg-red-600 hover:bg-red-500 p-3 rounded text-xs font-bold shadow-lg transition">
+                    <i class="fas fa-undo mr-2"></i> RESET FORM
                 </button>
             </div>
-
-            <div class="mt-auto p-4 border-t border-slate-700 text-[10px] text-slate-500">
-                <p>© 2024 - 2026 APLIKASI DIGITAL</p>
-                <p>Dikembangkan oleh: Rohiman Supriyadi</p>
-            </div> 
         </nav>
     </aside>
 
@@ -208,18 +192,8 @@
                             <strong id="display-tanggal">..............................</strong>
                         </div>
                     </div>
-                    <div class="identitas-grid"><span>Supervisor</span><span>:</span><strong id="display-supervisor">TATI LESTARI, S.Pd</strong></div>
+                    <div class="identitas-grid"><span>Supervisor</span><span>:</span><strong>TATI LESTARI, S.Pd</strong></div>
                 </div>
-            </section>
-
-            <section class="mb-6 bg-white p-4 border border-black rounded">
-                <h3 class="font-bold text-[12px] mb-2 uppercase">B. Fokus Supervisi</h3>
-                <ol class="text-[11px] space-y-1 ml-4 list-decimal font-medium">
-                    <li>Perencanaan Pembelajaran (RPP/Modul Ajar)</li>
-                    <li>Pelaksanaan Pembelajaran di Kelas</li>
-                    <li>Asesmen & Refleksi</li>
-                    <li>Penerapan Deep Learning</li>
-                </ol>
             </section>
 
             <div id="wrapper-instrumen">
@@ -246,46 +220,39 @@
             <section class="mt-6 space-y-4">
                 <div class="border border-black p-3">
                     <h3 class="font-bold text-[11px] uppercase mb-1">F. Catatan Supervisor / Temuan</h3>
-                    <textarea id="catatan-f" oninput="autoResizeTextarea(this)" class="table-input italic text-[11px] w-full min-h-[60px]" placeholder="Tulis catatan temuan di sini..."></textarea>
+                    <textarea id="catatan-f" oninput="autoResizeTextarea(this)" class="table-input italic text-[11px] w-full min-h-[50px]" placeholder="Tulis catatan temuan di sini..."></textarea>
                 </div>
                 <div class="border border-black p-3">
                     <h3 class="font-bold text-[11px] uppercase mb-1">G. Rekomendasi / Tindak Lanjut</h3>
-                    <textarea id="catatan-g" oninput="autoResizeTextarea(this)" class="table-input italic text-[11px] w-full min-h-[60px]" placeholder="Tulis rekomendasi perbaikan di sini..."></textarea>
+                    <textarea id="catatan-g" oninput="autoResizeTextarea(this)" class="table-input italic text-[11px] w-full min-h-[50px]" placeholder="Tulis rekomendasi perbaikan di sini..."></textarea>
                 </div>
             </section>
 
-           <section class="mt-12 text-[11px]">
-    <div class="flex justify-between items-end text-center">
-        
-        <div class="w-1/2 flex flex-col items-center">
-            <p class="mb-[18px]">Guru Yang Disupervisi,</p> <div class="signature-space"></div>
-            <p class="font-bold underline uppercase" id="sign-guru">-</p>
-            <p>NIP. <span id="display-nip-guru">...................</span></p>
-        </div>
-
-        <div class="w-1/2 flex flex-col items-center">
-            <p class="mb-1">
-                <span id="display-lokasi-ttd">Babelan</span>, 
-                <span id="sign-tanggal">....................</span>
-            </p>
-            <p class="mb-1">Kepala Sekolah / Supervisor,</p>
-            <div class="signature-space"></div>
-            <p class="font-bold underline uppercase">TATI LESTARI, S.Pd</p>
-            <p>NIP. 197705122008012009</p>
-        </div>
-        
-    </div>
-
-    <div class="mt-10 flex justify-center text-center">
-        <div class="w-1/2 flex flex-col items-center border-t border-transparent">
-            <p>Mengetahui,</p>
-            <p>Pengawas Bina</p>
-            <div class="signature-space"></div>
-            <p class="font-bold underline uppercase" id="display-nama-pengawas">........................................</p>
-            <p>NIP. <span id="display-nip-pengawas">........................................</span></p>
-        </div>
-    </div>
-</section>
+            <section class="mt-12 text-[11px]">
+                <div class="flex justify-between items-end text-center">
+                    <div class="w-1/2 flex flex-col items-center">
+                        <p class="mb-[18px]">Guru Yang Disupervisi,</p>
+                        <div class="signature-space"></div>
+                        <p class="font-bold underline uppercase" id="sign-guru">-</p>
+                        <p>NIP. <span id="display-nip-guru">...................</span></p>
+                    </div>
+                    <div class="w-1/2 flex flex-col items-center">
+                        <p class="mb-1"><span id="display-lokasi-ttd">Babelan</span>, <span id="sign-tanggal">....................</span></p>
+                        <p class="mb-1">Kepala Sekolah / Supervisor,</p>
+                        <div class="signature-space"></div>
+                        <p class="font-bold underline uppercase">TATI LESTARI, S.Pd</p>
+                        <p>NIP. 197705122008012009</p>
+                    </div>
+                </div>
+                <div class="mt-10 flex justify-center text-center">
+                    <div class="w-1/2 flex flex-col items-center">
+                        <p>Mengetahui, Pengawas Bina</p>
+                        <div class="signature-space"></div>
+                        <p class="font-bold underline uppercase" id="display-nama-pengawas">........................................</p>
+                        <p>NIP. <span id="display-nip-pengawas">........................................</span></p>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
@@ -321,44 +288,12 @@
         window.onload = () => {
             initTables();
             loadIdentitasSekolah();
+            loadLogo();
             loadSavedData();
-            // Logo default dikembalikan ke wiki bekasi
         };
 
         function toggleMenu(id) {
-            const menu = document.getElementById(id);
-            menu.classList.toggle('active');
-        }
-
-        function updateIdentitasSekolah() {
-            const nama = document.getElementById('set-nama-sekolah').value || "SD Negeri Muara Bakti 01";
-            const kec = document.getElementById('set-kecamatan').value || "Babelan";
-            const kab = document.getElementById('set-kabupaten').value || "Bekasi";
-
-            document.getElementById('side-nama-sekolah').innerText = nama;
-            document.getElementById('display-nama-sekolah-kop').innerText = nama;
-            document.getElementById('display-alamat-kop').innerText = `Kecamatan ${kec}, Kabupaten ${kab}, Provinsi Jawa Barat`;
-            document.getElementById('display-lokasi-ttd').innerText = kec;
-            document.getElementById('app-title').innerText = `Aplikasi Supervisi - ${nama}`;
-
-            localStorage.setItem('gemini_identitas_sekolah', JSON.stringify({ nama, kec, kab }));
-        }
-
-        function loadIdentitasSekolah() {
-            const saved = localStorage.getItem('gemini_identitas_sekolah');
-            if (saved) {
-                const d = JSON.parse(saved);
-                document.getElementById('set-nama-sekolah').value = d.nama;
-                document.getElementById('set-kecamatan').value = d.kec;
-                document.getElementById('set-kabupaten').value = d.kab;
-                updateIdentitasSekolah();
-            }
-        }
-
-        function autoResizeTextarea(textarea) {
-            if (!textarea) return;
-            textarea.style.height = 'auto';
-            textarea.style.height = (textarea.scrollHeight) + 'px';
+            document.getElementById(id).classList.toggle('active');
         }
 
         function initTables() {
@@ -368,46 +303,91 @@
             });
         }
 
+        function updateIdentitasSekolah() {
+            const nama = document.getElementById('set-nama-sekolah').value || "SD Negeri Muara Bakti 01";
+            const kec = document.getElementById('set-kecamatan').value || "Babelan";
+            const kab = document.getElementById('set-kabupaten').value || "Bekasi";
+            
+            document.getElementById('side-nama-sekolah').innerText = nama;
+            document.getElementById('display-nama-sekolah-kop').innerText = nama;
+            document.getElementById('display-alamat-kop').innerText = `Kecamatan ${kec}, Kabupaten ${kab}, Provinsi Jawa Barat`;
+            document.getElementById('display-lokasi-ttd').innerText = kec;
+            localStorage.setItem('config_sekolah', JSON.stringify({nama, kec, kab}));
+        }
+
+        function loadIdentitasSekolah() {
+            const saved = localStorage.getItem('config_sekolah');
+            if(saved) {
+                const d = JSON.parse(saved);
+                document.getElementById('set-nama-sekolah').value = d.nama;
+                document.getElementById('set-kecamatan').value = d.kec;
+                document.getElementById('set-kabupaten').value = d.kab;
+                updateIdentitasSekolah();
+            }
+        }
+
+        function uploadLogo(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const src = e.target.result;
+                document.getElementById('side-logo-preview').src = src;
+                document.getElementById('kop-logo-preview').src = src;
+                localStorage.setItem('custom_logo', src);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function loadLogo() {
+            const savedLogo = localStorage.getItem('custom_logo');
+            if(savedLogo) {
+                document.getElementById('side-logo-preview').src = savedLogo;
+                document.getElementById('kop-logo-preview').src = savedLogo;
+            }
+        }
+
+        function hapusLogo() {
+            const def = "https://upload.wikimedia.org/wikipedia/commons/b/b2/Logo_Kabupaten_Bekasi.png";
+            localStorage.removeItem('custom_logo');
+            document.getElementById('side-logo-preview').src = def;
+            document.getElementById('kop-logo-preview').src = def;
+        }
+
         function importCSV(event) {
             const file = event.target.files[0];
             if (!file) return;
             const reader = new FileReader();
-            reader.onload = function(e) {
-                const text = e.target.result;
-                const rows = text.split('\n').filter(r => r.trim() !== "");
-                const listGuru = [];
-                rows.forEach((row, index) => {
-                    if (index === 0) return;
+            reader.onload = (e) => {
+                const rows = e.target.result.split('\n').filter(r => r.trim() !== "");
+                const list = rows.slice(1).map(row => {
                     const cols = row.split(',').map(c => c.replace(/"/g, '').trim());
-                    if (cols.length >= 2) listGuru.push({ nama: cols[0], nip: cols[1] });
+                    return { nama: cols[0], nip: cols[1] };
                 });
-                if (listGuru.length > 0) {
-                    localStorage.setItem('gemini_guru_list', JSON.stringify(listGuru));
-                    renderGuruDropdown(listGuru);
-                    alert('Data guru berhasil diimpor!');
-                }
+                localStorage.setItem('guru_list', JSON.stringify(list));
+                renderGuruDropdown(list);
+                alert('Data guru berhasil diimpor!');
             };
             reader.readAsText(file);
         }
 
         function renderGuruDropdown(list) {
-            const selectGuru = document.getElementById('select-guru');
-            selectGuru.innerHTML = '<option value="">-- Pilih Guru --</option>';
+            const sel = document.getElementById('select-guru');
+            sel.innerHTML = '<option value="">-- Pilih Guru --</option>';
             list.forEach(g => {
                 const opt = document.createElement('option');
                 opt.value = g.nama;
                 opt.text = g.nama;
                 opt.dataset.nip = g.nip;
-                selectGuru.appendChild(opt);
+                sel.appendChild(opt);
             });
         }
 
         function handleGuruChange() {
             const sel = document.getElementById('select-guru');
-            const nama = sel.value;
             const nip = sel.options[sel.selectedIndex]?.dataset.nip || '';
-            document.getElementById('display-guru').innerText = nama || '-';
-            document.getElementById('sign-guru').innerText = nama || '-';
+            document.getElementById('display-guru').innerText = sel.value || '-';
+            document.getElementById('sign-guru').innerText = sel.value || '-';
             document.getElementById('display-nip-guru').innerText = nip || '...................';
         }
 
@@ -422,81 +402,60 @@
         }
 
         function syncTanggal() {
-            const tgl = document.getElementById('input-tanggal').value;
-            if (tgl) {
-                const d = new Date(tgl);
-                const formatted = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-                document.getElementById('display-tanggal').innerText = formatted;
-                document.getElementById('sign-tanggal').innerText = formatted;
+            const val = document.getElementById('input-tanggal').value;
+            if (val) {
+                const d = new Date(val);
+                const f = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                document.getElementById('display-tanggal').innerText = f;
+                document.getElementById('sign-tanggal').innerText = f;
             }
         }
 
-        // --- RUMUS SKOR DENGAN PEMBULATAN TANPA KOMA ---
         function hitungNilai() {
-            let totalSemua = 0, countIndikator = 0;
+            let total = 0, count = 0;
             ['c1', 'c2', 'c3', 'c4'].forEach(c => {
-                let subTotal = 0;
-                document.querySelectorAll(`.skor-input[data-category="body-${c}"]`).forEach(sel => {
-                    subTotal += parseInt(sel.value) || 0;
-                    countIndikator++;
+                let sub = 0;
+                document.querySelectorAll(`.skor-input[data-category="body-${c}"]`).forEach(s => {
+                    sub += parseInt(s.value);
+                    count++;
                 });
-                document.getElementById(`side-rekap-${c}`).innerText = subTotal;
-                totalSemua += subTotal;
+                document.getElementById(`side-rekap-${c}`).innerText = sub;
+                total += sub;
             });
-            
-            // Rumus: (Total Skor / (Jumlah Item * 4)) * 100
-            // Gunakan Math.round untuk menghilangkan koma
-            const nAkhir = countIndikator > 0 ? Math.round((totalSemua / (countIndikator * 4)) * 100) : 0;
-            
-            document.getElementById('rekap-total-skor').innerText = totalSemua;
-            document.getElementById('rekap-akhir').innerText = nAkhir;
-            document.getElementById('side-rekap-akhir').innerText = nAkhir;
+            const skorAkhir = count > 0 ? Math.round((total / (count * 4)) * 100) : 0;
+            document.getElementById('rekap-total-skor').innerText = total;
+            document.getElementById('rekap-akhir').innerText = skorAkhir;
+            document.getElementById('side-rekap-akhir').innerText = skorAkhir;
 
-            let predikat = "-";
-            if (nAkhir >= 91) predikat = "Sangat Baik";
-            else if (nAkhir >= 81) predikat = "Baik";
-            else if (nAkhir >= 71) predikat = "Cukup";
-            else if (nAkhir > 0) predikat = "Perlu Bimbingan";
-            
-            document.getElementById('display-predikat-besar').innerText = predikat;
+            let pred = "-";
+            if (skorAkhir >= 91) pred = "Sangat Baik";
+            else if (skorAkhir >= 81) pred = "Baik";
+            else if (skorAkhir >= 71) pred = "Cukup";
+            else if (skorAkhir > 0) pred = "Perlu Bimbingan";
+            document.getElementById('display-predikat-besar').innerText = pred;
         }
 
-        function tambahBaris(targetId, aspek = '', indikator = '', skor = 0) {
+        function tambahBaris(targetId, asp = '', ind = '', sk = 0) {
             const table = document.getElementById(targetId);
-            const rowCount = table.rows.length + 1;
-            const newRow = `<tr>
-                <td class="border border-black p-1 text-center font-bold">${rowCount}</td>
-                <td class="border border-black p-1"><textarea oninput="autoResizeTextarea(this)" class="table-input font-bold" rows="1">${aspek}</textarea></td>
-                <td class="border border-black p-1"><textarea oninput="autoResizeTextarea(this)" class="table-input italic text-[10px]" rows="1">${indikator}</textarea></td>
+            const rowIdx = table.rows.length + 1;
+            const html = `<tr>
+                <td class="border border-black p-1 text-center font-bold">${rowIdx}</td>
+                <td class="border border-black p-1"><textarea oninput="autoResizeTextarea(this)" class="table-input font-bold" rows="1">${asp}</textarea></td>
+                <td class="border border-black p-1"><textarea oninput="autoResizeTextarea(this)" class="table-input italic text-[10px]" rows="1">${ind}</textarea></td>
                 <td class="border border-black p-1 text-center">
-                    <select class="skor-input w-full text-center font-bold bg-transparent outline-none cursor-pointer" data-category="${targetId}" onchange="hitungNilai()">
-                        ${[0,1,2,3,4].map(v => `<option value="${v}" ${skor == v ? 'selected' : ''}>${v}</option>`).join('')}
+                    <select class="skor-input w-full text-center font-bold bg-transparent outline-none" data-category="${targetId}" onchange="hitungNilai()">
+                        ${[0,1,2,3,4].map(v => `<option value="${v}" ${sk == v ? 'selected' : ''}>${v}</option>`).join('')}
                     </select>
                 </td>
             </tr>`;
-            table.insertAdjacentHTML('beforeend', newRow);
-            table.lastElementChild.querySelectorAll('textarea').forEach(tx => autoResizeTextarea(tx));
+            table.insertAdjacentHTML('beforeend', html);
+            table.lastElementChild.querySelectorAll('textarea').forEach(t => autoResizeTextarea(t));
             hitungNilai();
         }
 
-        function uploadLogo(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const src = e.target.result;
-                document.getElementById('side-logo-preview').src = src;
-                document.getElementById('kop-logo-preview').src = src;
-                localStorage.setItem('gemini_custom_logo', src);
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function hapusLogo() {
-            const defaultLogo = "https://upload.wikimedia.org/wikipedia/commons/b/b2/Logo_Kabupaten_Bekasi.png";
-            document.getElementById('side-logo-preview').src = defaultLogo;
-            document.getElementById('kop-logo-preview').src = defaultLogo;
-            localStorage.removeItem('gemini_custom_logo');
+        function autoResizeTextarea(t) {
+            t.style.height = 'auto';
+            t.style.height = t.scrollHeight + 'px';
         }
 
         function simpanSemuaData() {
@@ -505,76 +464,57 @@
                 id_mapel: document.getElementById('select-mapel').value,
                 id_kelas: document.getElementById('select-kelas').value,
                 tgl: document.getElementById('input-tanggal').value,
-                nama_pengawas: document.getElementById('input-nama-pengawas').value,
-                nip_pengawas: document.getElementById('input-nip-pengawas').value,
                 catatan_f: document.getElementById('catatan-f').value,
                 catatan_g: document.getElementById('catatan-g').value,
                 skor: {}
             };
-            sections.forEach(sec => {
-                const rowData = [];
-                document.querySelectorAll(`#${sec.bodyId} tr`).forEach(row => {
-                    rowData.push({
-                        aspek: row.cells[1].querySelector('textarea').value,
-                        indikator: row.cells[2].querySelector('textarea').value,
-                        skor: row.cells[3].querySelector('select').value
+            sections.forEach(s => {
+                const rows = [];
+                document.querySelectorAll(`#${s.bodyId} tr`).forEach(r => {
+                    rows.push({
+                        aspek: r.cells[1].querySelector('textarea').value,
+                        indikator: r.cells[2].querySelector('textarea').value,
+                        skor: r.cells[3].querySelector('select').value
                     });
                 });
-                data.skor[sec.bodyId] = rowData;
+                data.skor[s.bodyId] = rows;
             });
-            localStorage.setItem('gemini_saved_session', JSON.stringify(data));
-            alert('Data Berhasil Disimpan!');
+            localStorage.setItem('session_data', JSON.stringify(data));
+            alert('Data Berhasil Disimpan di Browser!');
         }
 
         function loadSavedData() {
-            const savedGuru = localStorage.getItem('gemini_guru_list');
-            if (savedGuru) renderGuruDropdown(JSON.parse(savedGuru));
+            const savedList = localStorage.getItem('guru_list');
+            if(savedList) renderGuruDropdown(JSON.parse(savedList));
 
-            const customLogo = localStorage.getItem('gemini_custom_logo');
-            if (customLogo) {
-                document.getElementById('side-logo-preview').src = customLogo;
-                document.getElementById('kop-logo-preview').src = customLogo;
-            }
-
-            const session = localStorage.getItem('gemini_saved_session');
-            if (session) {
+            const session = localStorage.getItem('session_data');
+            if(session) {
                 const d = JSON.parse(session);
                 document.getElementById('select-guru').value = d.id_guru || '';
+                handleGuruChange();
                 document.getElementById('select-mapel').value = d.id_mapel || '';
                 document.getElementById('select-kelas').value = d.id_kelas || '';
                 document.getElementById('input-tanggal').value = d.tgl || '';
-                document.getElementById('input-nama-pengawas').value = d.nama_pengawas || '';
-                document.getElementById('input-nip-pengawas').value = d.nip_pengawas || '';
                 document.getElementById('catatan-f').value = d.catatan_f || '';
                 document.getElementById('catatan-g').value = d.catatan_g || '';
-
-                if (d.skor) {
-                    sections.forEach(sec => {
-                        const body = document.getElementById(sec.bodyId);
-                        body.innerHTML = '';
-                        if (d.skor[sec.bodyId]) {
-                            d.skor[sec.bodyId].forEach(item => {
-                                tambahBaris(sec.bodyId, item.aspek, item.indikator, item.skor);
-                            });
-                        }
-                    });
-                }
-                handleGuruChange(); syncIdentitas(); syncPengawas(); syncTanggal(); hitungNilai();
+                syncIdentitas();
+                syncTanggal();
+                
+                Object.keys(d.skor).forEach(key => {
+                    d.skor[key].forEach(r => tambahBaris(key, r.aspek, r.indikator, r.skor));
+                });
             } else {
-                tambahDefault();
+                // Load default rows if no session
+                tambahBaris('body-c1', 'Modul Ajar', 'Kesesuaian TP dan ATP');
+                tambahBaris('body-c2', 'Kegiatan Inti', 'Penerapan Diferensiasi');
+                tambahBaris('body-c3', 'Critical Thinking', 'Siswa bertanya kritis');
+                tambahBaris('body-c4', 'Formatif', 'Umpan balik seketika');
             }
         }
 
-        function tambahDefault() {
-            tambahBaris('body-c1', 'Tujuan Pembelajaran', 'Kesesuaian dengan CP/ATP', 0);
-            tambahBaris('body-c2', 'Pembukaan', 'Apersepsi dan Motivasi', 0);
-            tambahBaris('body-c3', 'Mindful', 'Guru hadir utuh', 0);
-            tambahBaris('body-c4', 'Asesmen Formatif', 'Observasi proses', 0);
-        }
-
         function resetAplikasi() {
-            if(confirm('Hapus semua data input?')) {
-                localStorage.removeItem('gemini_saved_session');
+            if(confirm("Hapus semua inputan?")) {
+                localStorage.removeItem('session_data');
                 location.reload();
             }
         }
