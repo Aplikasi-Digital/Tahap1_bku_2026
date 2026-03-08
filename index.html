@@ -20,7 +20,7 @@
             --shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        /* 5. ANIMASI BACKGROUND */
+        /* ANIMASI BACKGROUND */
         body { 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-attachment: fixed;
@@ -31,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* Efek Partikel Halus */
         body::before {
             content: "";
             position: fixed;
@@ -62,7 +61,7 @@
             position: relative;
         }
 
-        /* 4. SLOT BERITA / INFO TERKINI */
+        /* SLOT BERITA / INFO TERKINI */
         .info-terkini {
             background: #fff5f5;
             border-left: 5px solid #e74c3c;
@@ -80,7 +79,6 @@
         
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* Gaya Baris Menu */
         .menu-category {
             margin-bottom: 20px;
             border-radius: 20px;
@@ -100,6 +98,7 @@
         .header-pusat { background: linear-gradient(to right, #f1c40f, #f39c12) !important; color: white !important; }
         .header-daerah { background: linear-gradient(to right, #9b59b6, #8e44ad) !important; color: white !important; }
         .header-tools { background: linear-gradient(to right, #607d8b, #455a64) !important; color: white !important; }
+        .header-download { background: linear-gradient(to right, #00b894, #00cec9) !important; color: white !important; }
         .header-info { background: linear-gradient(to right, #e74c3c, #c0392b) !important; color: white !important; }
 
         .category-header {
@@ -179,7 +178,6 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* Link Buttons */
         .link-btn { 
             display: flex;
             align-items: center;
@@ -204,8 +202,8 @@
         .btn-teal { background: linear-gradient(45deg, #009688, #00796b); }
         .btn-pink { background: linear-gradient(45deg, #ff4757, #e84118); }
         .btn-slate { background: linear-gradient(45deg, #607d8b, #455a64); }
+        .btn-emerald { background: linear-gradient(45deg, #10ac84, #1dd1a1); }
 
-        /* 3. CALENDAR STYLING */
         .calendar-wrapper {
             margin-top: 15px;
             border-radius: 15px;
@@ -267,6 +265,24 @@
         </div>
 
         <div class="menu-category">
+            <div class="category-header header-download" onclick="toggleMenu('download')">
+                <span><i class="fa-solid fa-cloud-arrow-down"></i> Download Format Dokumen</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div id="download" class="menu-content">
+                <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Sertijab</a>
+                <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Tim Manajemen BOSP</a>
+                <a href="FORMAT Permohonan Pencetakan Rekening Koran BOSP Reguler.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Permohonan Rek. Koran</a>
+                <a href="FORMAT SK PENGANGKATAN_GTY.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Pengangkatan GTY</a>
+                <a href="BERITA ACARA RAPAT PENYUSUNAN RKAS DAN ADM LAINNYA.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Penyusunan RKAS</a>
+                <a href="FORMAT Spesiment BOS Pusat.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Spesimen BOS Pusat</a>
+                <a href="FORMAT SK_BENDAHARA_SEKOLAH.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Bendahara Sekolah</a>
+                <a href="FORMAT SURAT KETERANGAN AKTIF_MENGAJAR_2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Aktif Mengajar</a>
+                <a href="FORMAT SURAT PERMOHONAN HAPUS BUNGA BANK.xlsx" download class="link-btn btn-green"><i class="fa-solid fa-file-excel"></i> Permohonan Hapus Bunga</a>
+            </div>
+        </div>
+
+        <div class="menu-category">
             <div class="category-header header-tools" onclick="toggleMenu('tools')">
                 <span><i class="fa-solid fa-screwdriver-wrench"></i> Peralatan OPS (Tools)</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
@@ -274,7 +290,6 @@
             <div id="tools" class="menu-content">
                 <a href="https://www.ilovepdf.com/id/mengompres-pdf" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-file-pdf"></i> Kompres PDF</a>
                 <a href="https://www.google.com/maps" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-map-location-dot"></i> Cek Jarak (Maps)</a>
-                <a href="https://cekdptonline.kpu.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-id-card"></i> Cek NIK (Umum)</a>
                 <a href="https://tinypng.com/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-image"></i> Kompres Foto</a>
             </div>
         </div>
@@ -331,6 +346,10 @@
         function toggleMenu(id) {
             const content = document.getElementById(id);
             const header = content.previousElementSibling;
+            
+            // Tutup menu lain jika ingin mode akordion (opsional)
+            // document.querySelectorAll('.menu-content').forEach(m => { if(m.id !== id) m.classList.remove('show'); });
+            
             content.classList.toggle('show');
             header.classList.toggle('active');
         }
