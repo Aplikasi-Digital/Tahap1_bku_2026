@@ -28,7 +28,7 @@
             border-radius: 35px; 
             box-shadow: var(--shadow); 
             width: 100%; 
-            max-width: 1000px; /* Diubah ke Landscape/Lebar */
+            max-width: 1000px;
             margin: 0 auto; 
             text-align: center;
             border: 1px solid rgba(255,255,255,0.4);
@@ -36,7 +36,6 @@
             box-sizing: border-box;
         }
 
-        /* Gaya Accordion / Collapsible */
         .menu-category {
             margin-bottom: 15px;
             border-radius: 15px;
@@ -64,7 +63,7 @@
         .category-header.active i.arrow { transform: rotate(180deg); }
 
         .menu-content {
-            display: none; /* Sembunyi secara default */
+            display: none;
             padding: 20px;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 12px;
@@ -73,7 +72,6 @@
 
         .menu-content.show { display: grid; }
 
-        /* Style Header yang sudah ada */
         .header-section {
             display: flex;
             align-items: center;
@@ -126,7 +124,6 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* Tombol Link */
         .link-btn { 
             display: flex;
             align-items: center;
@@ -142,7 +139,6 @@
 
         .link-btn:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         
-        /* Warna Tombol */
         .btn-blue { background: linear-gradient(45deg, #3498db, #2980b9); }
         .btn-green { background: linear-gradient(45deg, #27ae60, #1e8449); }
         .btn-purple { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
@@ -196,8 +192,8 @@
                 <a href="https://bosp.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-coins"></i> Portal BOSP</a>
                 <a href="https://arkas.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-calculator"></i> ARKAS</a>
                 <a href="https://siplah.tokoladang.co.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-cart-shopping"></i> SIPLah Ladang</a>
-                <a href="index.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-user-clock"></i> Aplikasi Absen</a>
-                <a href="bku.html" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-hand-holding-dollar"></i> Tanda Terima Honor</a>
+                <a href="absen.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-user-clock"></i> Aplikasi Absen</a>
+                <a href="tanda terima honor.html" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-hand-holding-dollar"></i> Tanda Terima Honor</a>
             </div>
         </div>
 
@@ -210,6 +206,7 @@
                 <a href="https://info.gtk.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-user-check"></i> Cek Info GTK</a>
                 <a href="https://guru.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-chalkboard-user"></i> Platform Merdeka</a>
                 <a href="https://akun.simpkb.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-key"></i> Akun SIMPKB</a>
+                <a href="https://guru.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-door-open"></i> Ruang GTK</a>
             </div>
         </div>
 
@@ -223,6 +220,8 @@
                 <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card"></i> Verval PD</a>
                 <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-user-tie"></i> Verval PTK</a>
                 <a href="https://pip.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-address-card"></i> Cek PIP</a>
+                <a href="https://nisn.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-magnifying-glass"></i> Cek NISN</a>
+                <a href="https://myasn.bkn.go.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-user-shield"></i> My ASN</a>
             </div>
         </div>
 
@@ -257,16 +256,9 @@
     </div>
 
     <script>
-        // Fungsi Dropdown/Accordion
         function toggleMenu(id) {
             const content = document.getElementById(id);
             const header = content.previousElementSibling;
-            
-            // Tutup menu lain (opsional, jika ingin satu-satu yang terbuka)
-            // document.querySelectorAll('.menu-content').forEach(el => {
-            //     if(el.id !== id) el.classList.remove('show');
-            // });
-
             content.classList.toggle('show');
             header.classList.toggle('active');
         }
