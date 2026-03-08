@@ -10,7 +10,7 @@
             --primary: #3498db;
             --dark: #2c3e50;
             --glass: rgba(255, 255, 255, 0.95);
-            --shadow: 0 10px 30px rgba(0,0,0,0.15);
+            --shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
         body { 
@@ -36,55 +36,69 @@
             box-sizing: border-box;
         }
 
+        /* Gaya Baris Menu Warna-Warni */
         .menu-category {
-            margin-bottom: 15px;
-            border-radius: 15px;
+            margin-bottom: 20px;
+            border-radius: 20px;
             overflow: hidden;
-            background: rgba(255,255,255,0.5);
-            border: 1px solid #eee;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: 0.4s;
         }
 
+        .menu-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Pewarnaan Header Berdasarkan Kategori */
+        .header-keuangan { background: linear-gradient(to right, #2ecc71, #27ae60) !important; color: white !important; }
+        .header-gtk { background: linear-gradient(to right, #3498db, #2980b9) !important; color: white !important; }
+        .header-pusat { background: linear-gradient(to right, #f1c40f, #f39c12) !important; color: white !important; }
+        .header-daerah { background: linear-gradient(to right, #9b59b6, #8e44ad) !important; color: white !important; }
+        .header-info { background: linear-gradient(to right, #e74c3c, #c0392b) !important; color: white !important; }
+
         .category-header {
-            background: white;
-            padding: 15px 20px;
+            padding: 18px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: 0.3s;
             font-weight: 800;
             text-transform: uppercase;
-            font-size: 13px;
-            color: var(--dark);
+            font-size: 14px;
+            transition: 0.3s;
         }
 
-        .category-header:hover { background: #f8f9fa; }
         .category-header i.arrow { transition: 0.3s; }
         .category-header.active i.arrow { transform: rotate(180deg); }
 
         .menu-content {
             display: none;
-            padding: 20px;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            border-top: 1px solid #eee;
+            padding: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            background: rgba(255,255,255,0.8);
+            border-top: 2px solid rgba(0,0,0,0.05);
         }
 
         .menu-content.show { display: grid; }
 
+        /* Style Header */
         .header-section {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .profile-box {
-            width: 80px; height: 80px;
+            width: 85px; height: 85px;
             border-radius: 50%;
             padding: 3px;
             background: linear-gradient(to right, #3498db, #9b59b6);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .profile-inner {
@@ -97,26 +111,27 @@
 
         .profile-img { width: 100%; height: 100%; object-fit: cover; }
 
-        .header-text h1 { font-size: 22px; margin: 0; color: var(--dark); }
+        .header-text h1 { font-size: 24px; margin: 0; color: var(--dark); letter-spacing: 1px; }
         .header-text .sub-title { color: var(--primary); font-weight: 700; font-size: 14px; text-transform: uppercase; margin: 0; }
 
+        /* Marquee */
         .marquee-container {
-            background: rgba(52, 152, 219, 0.1);
+            background: rgba(52, 152, 219, 0.15);
             overflow: hidden;
             white-space: nowrap;
-            padding: 8px 0;
-            border-radius: 10px;
-            margin: 20px 0;
+            padding: 10px 0;
+            border-radius: 12px;
+            margin: 25px 0;
             border: 1px dashed var(--primary);
         }
 
         .marquee-text {
             display: inline-block;
             padding-left: 100%;
-            animation: marquee 25s linear infinite;
+            animation: marquee 30s linear infinite;
             color: var(--dark);
-            font-size: 11px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
         }
 
         @keyframes marquee {
@@ -124,21 +139,28 @@
             100% { transform: translate(-100%, 0); }
         }
 
+        /* Tombol Link */
         .link-btn { 
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             padding: 15px;
-            border-radius: 12px; 
+            border-radius: 15px; 
             text-decoration: none; 
             font-weight: 600; 
             color: white; 
             transition: 0.3s; 
-            font-size: 12px;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .link-btn:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .link-btn:hover { 
+            transform: scale(1.03); 
+            filter: brightness(1.1); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
+        }
         
+        /* Warna Tombol */
         .btn-blue { background: linear-gradient(45deg, #3498db, #2980b9); }
         .btn-green { background: linear-gradient(45deg, #27ae60, #1e8449); }
         .btn-purple { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
@@ -150,11 +172,12 @@
         .btn-slate { background: linear-gradient(45deg, #607d8b, #455a64); }
 
         .datetime-box {
-            background: #f8f9fa; padding: 12px; border-radius: 15px;
-            margin-top: 25px; color: #555; font-size: 12px; font-weight: 700;
+            background: #f8f9fa; padding: 15px; border-radius: 20px;
+            margin-top: 30px; color: #555; font-size: 13px; font-weight: 700;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        .footer { font-size: 11px; color: #95a5a6; margin-top: 20px; border-top: 1px solid #f1f1f1; padding-top: 15px; }
+        .footer { font-size: 12px; color: #95a5a6; margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
 
         @media (max-width: 600px) {
             .menu-content { grid-template-columns: 1fr; }
@@ -183,7 +206,7 @@
         </div>
 
         <div class="menu-category">
-            <div class="category-header" onclick="toggleMenu('keuangan')">
+            <div class="category-header header-keuangan" onclick="toggleMenu('keuangan')">
                 <span><i class="fa-solid fa-wallet"></i> Keuangan Sekolah</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
@@ -198,7 +221,7 @@
         </div>
 
         <div class="menu-category">
-            <div class="category-header" onclick="toggleMenu('gtk')">
+            <div class="category-header header-gtk" onclick="toggleMenu('gtk')">
                 <span><i class="fa-solid fa-user-tie"></i> Layanan Guru & GTK</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
@@ -211,7 +234,7 @@
         </div>
 
         <div class="menu-category">
-            <div class="category-header" onclick="toggleMenu('pusat')">
+            <div class="category-header header-pusat" onclick="toggleMenu('pusat')">
                 <span><i class="fa-solid fa-school"></i> Kemendikdasmen Home</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
@@ -226,7 +249,7 @@
         </div>
 
         <div class="menu-category">
-            <div class="category-header" onclick="toggleMenu('daerah')">
+            <div class="category-header header-daerah" onclick="toggleMenu('daerah')">
                 <span><i class="fa-solid fa-map-location-dot"></i> Layanan Kabupaten Bekasi</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
@@ -237,7 +260,7 @@
         </div>
 
         <div class="menu-category">
-            <div class="category-header" onclick="toggleMenu('info')">
+            <div class="category-header header-info" onclick="toggleMenu('info')">
                 <span><i class="fa-solid fa-circle-info"></i> Informasi & PPDB</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
