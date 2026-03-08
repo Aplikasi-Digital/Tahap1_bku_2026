@@ -98,9 +98,9 @@
 
         .btn-login:hover { background: #2980b9; transform: scale(1.02); }
 
-        /* PORTAL CONTENT (Awalnya Tersembunyi) */
+        /* PORTAL CONTENT */
         .container { 
-            display: none; /* Disembunyikan sampai password benar */
+            display: none; 
             background: var(--glass);
             padding: 30px; 
             border-radius: 35px; 
@@ -115,13 +115,14 @@
             position: relative;
         }
 
-        /* Gaya lainnya tetap sama seperti kode awal Anda */
         .info-terkini { background: #fff5f5; border-left: 5px solid #e74c3c; padding: 15px; margin-bottom: 25px; border-radius: 15px; display: flex; align-items: center; gap: 15px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .info-terkini i { color: #e74c3c; font-size: 20px; animation: blink 1s infinite; }
         .info-terkini span { font-size: 13px; font-weight: 700; color: #c0392b; }
         @keyframes blink { 50% { opacity: 0; } }
+        
         .menu-category { margin-bottom: 20px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: 0.4s; }
         .menu-category:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.2); }
+        
         .header-keuangan { background: linear-gradient(to right, #2ecc71, #27ae60) !important; color: white !important; }
         .header-gtk { background: linear-gradient(to right, #3498db, #2980b9) !important; color: white !important; }
         .header-pusat { background: linear-gradient(to right, #f1c40f, #f39c12) !important; color: white !important; }
@@ -129,22 +130,28 @@
         .header-tools { background: linear-gradient(to right, #607d8b, #455a64) !important; color: white !important; }
         .header-download { background: linear-gradient(to right, #00b894, #00cec9) !important; color: white !important; }
         .header-info { background: linear-gradient(to right, #e74c3c, #c0392b) !important; color: white !important; }
+        
         .category-header { padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 800; text-transform: uppercase; font-size: 14px; }
         .category-header i.arrow { transition: 0.3s; }
         .category-header.active i.arrow { transform: rotate(180deg); }
+        
         .menu-content { display: none; padding: 25px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; background: rgba(255,255,255,0.8); }
         .menu-content.show { display: grid; }
+        
         .header-section { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px; }
         .profile-box { width: 85px; height: 85px; border-radius: 50%; padding: 3px; background: linear-gradient(to right, #3498db, #9b59b6); }
         .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; border: 2px solid #fff; }
         .profile-img { width: 100%; height: 100%; object-fit: cover; }
         .header-text h1 { font-size: 24px; margin: 0; color: var(--dark); }
         .header-text .sub-title { color: var(--primary); font-weight: 700; font-size: 14px; margin: 0; }
+        
         .marquee-container { background: rgba(52, 152, 219, 0.1); overflow: hidden; white-space: nowrap; padding: 10px 0; border-radius: 12px; margin: 20px 0; border: 1px dashed var(--primary); }
         .marquee-text { display: inline-block; padding-left: 100%; animation: marquee 30s linear infinite; font-size: 12px; font-weight: 700; }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+        
         .link-btn { display: flex; align-items: center; gap: 12px; padding: 15px; border-radius: 15px; text-decoration: none; font-weight: 600; color: white; transition: 0.3s; font-size: 13px; }
         .link-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+        
         .btn-blue { background: linear-gradient(45deg, #3498db, #2980b9); }
         .btn-green { background: linear-gradient(45deg, #27ae60, #1e8449); }
         .btn-purple { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
@@ -155,6 +162,7 @@
         .btn-pink { background: linear-gradient(45deg, #ff4757, #e84118); }
         .btn-slate { background: linear-gradient(45deg, #607d8b, #455a64); }
         .btn-emerald { background: linear-gradient(45deg, #10ac84, #1dd1a1); }
+        
         .calendar-wrapper { margin-top: 15px; border-radius: 15px; overflow: hidden; border: 1px solid #ddd; }
         .datetime-box { background: #f8f9fa; padding: 15px; border-radius: 20px; margin-top: 30px; color: #555; font-size: 13px; font-weight: 700; }
         .footer { font-size: 12px; color: #95a5a6; margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
@@ -237,6 +245,8 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="gtk" class="menu-content">
+                <a href="supervisi.html" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-file-signature"></i> Supervisi Guru</a>
+                
                 <a href="https://info.gtk.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-user-check"></i> Cek Info GTK</a>
                 <a href="https://guru.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-chalkboard-user"></i> Platform Merdeka</a>
                 <a href="https://akun.simpkb.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-key"></i> Akun SIMPKB</a>
@@ -304,7 +314,6 @@
     </div>
 
     <script>
-        // KATA KUNCI: Silahkan ganti 'Bismillah2026' dengan password yang Anda inginkan
         const SECRET_KEY = "Bismillah2026";
 
         function checkPassword() {
@@ -316,7 +325,6 @@
             if (input === SECRET_KEY) {
                 overlay.style.display = 'none';
                 mainContent.style.display = 'block';
-                // Animasi masuk
                 mainContent.style.animation = 'fadeIn 0.8s ease-in-out';
             } else {
                 error.style.display = 'block';
