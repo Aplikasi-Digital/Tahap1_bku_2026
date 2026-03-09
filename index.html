@@ -109,23 +109,19 @@
         .header-text h1 { font-size: 28px; margin: 0; color: var(--dark); font-weight: 900; letter-spacing: -1px; }
         .header-text .sub-title { color: var(--accent); font-weight: 700; font-size: 14px; text-transform: uppercase; margin-top: 5px; }
 
-        /* MARQUEE MEWAH (REVISI: RED CANDY & BLINK) */
-        .marquee-container { 
-            background: #fff0f3; padding: 12px; border-radius: 20px;
+        /* UCAPAN DASHBOARD (PENGGANTI MARQUEE) */
+        .welcome-box { 
+            background: #fff0f3; padding: 15px; border-radius: 20px;
             margin: 25px 0; border: 2px solid var(--candy-red);
+            text-align: center;
             box-shadow: 0 0 15px rgba(255, 8, 68, 0.1);
-            overflow: hidden;
         }
-        .marquee-text { 
-            font-size: 14px; 
+        .welcome-text { 
+            font-size: 16px; 
             font-weight: 800; 
             color: var(--candy-red); 
-            animation: blinker 1.5s linear infinite;
-            display: inline-block;
-        }
-
-        @keyframes blinker {
-            50% { opacity: 0.4; }
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         /* MENU CATEGORY */
@@ -218,10 +214,10 @@
             </div>
         </div>
 
-        <div class="marquee-container">
-            <marquee class="marquee-text" scrollamount="6" behavior="scroll" direction="left">
-                <i class="fa-solid fa-bullhorn"></i> Selamat Datang! Portal Terintegrasi Layanan Data Pendidikan & Keuangan Sekolah. Salam Satu Data! — Tetap semangat melayani data pendidikan Indonesia dengan integritas tinggi.
-            </marquee>
+        <div class="welcome-box">
+            <div class="welcome-text">
+                <i class="fa-solid fa-face-smile"></i> SELAMAT DATANG DI DASHBOARD WARNA WARNI
+            </div>
         </div>
 
         <div class="menu-category">
@@ -270,7 +266,6 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="pusat" class="menu-content">
-                <a href="https://dapo.kemendikdasmen.go.id/berita" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-newspaper"></i> UPDATE BERITA DAPODIK</a>
                 <a href="https://dapo.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-database"></i> Aplikasi Dapodik</a>
                 <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card"></i> Verval PD (Siswa)</a>
                 <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-user-check"></i> Verval PTK</a>
