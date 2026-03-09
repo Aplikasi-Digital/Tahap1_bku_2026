@@ -2,88 +2,78 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lampiran Keuangan - Babelan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: sans-serif; background: #eef1f7; padding: 20px; }
-        .box { max-width: 850px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        .login-box { text-align: center; padding: 40px; }
-        input[type="password"] { padding: 12px; width: 250px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 15px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background: #0056b3; color: white; }
-        .btn-back { display: inline-block; margin-bottom: 15px; text-decoration: none; color: #0056b3; font-weight: bold; }
-        .btn-view { color: #d9534f; text-decoration: none; font-weight: bold; }
+        body { 
+            background: linear-gradient(135deg, #1e8449 0%, #2ecc71 100%);
+            font-family: 'Segoe UI', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0;
+        }
+        .box { 
+            background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 25px; 
+            width: 90%; max-width: 800px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); text-align: center;
+        }
+        .btn-back { display: block; margin-bottom: 20px; text-decoration: none; color: #27ae60; font-weight: bold; text-align: left; font-size: 14px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border-radius: 10px; overflow: hidden; }
+        th, td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; font-size: 13px; }
+        th { background: #27ae60; color: white; }
+        .btn-view { background: #e74c3c; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; }
     </style>
 </head>
 <body>
 
 <div class="box">
-    <a href="../index.html" class="btn-back">← Kembali ke Beranda</a>
+    <a href="../index.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Portal Utama</a>
     
-    <div id="login-section" class="login-box">
-        <h2>🔒 Area Terbatas</h2>
-        <p>Masukkan password untuk melihat dokumen lampiran</p>
-        <input type="password" id="passInput" placeholder="Password Keuangan">
-        <br>
-        <button onclick="cekLogin()" style="padding:10px 30px; background:#0056b3; color:white; border:none; border-radius:5px; cursor:pointer;">MASUK</button>
+    <div id="login-area">
+        <i class="fa-solid fa-lock" style="font-size: 40px; color: #27ae60;"></i>
+        <h2>Akses Lampiran BOSP</h2>
+        <input type="password" id="pass" placeholder="Password Keuangan..." style="padding: 12px; border-radius: 10px; border: 1px solid #ddd; width: 250px; text-align: center;">
+        <br><br>
+        <button onclick="cek()" style="background: #27ae60; color: white; border: none; padding: 10px 30px; border-radius: 10px; cursor: pointer; font-weight: bold;">BUKA DOKUMEN</button>
     </div>
 
-    <div id="content-section" style="display:none;">
-        <h2 style="color: #0056b3;">Daftar Lampiran Dokumen BOSP</h2>
-        <p>Klik "Lihat PDF" untuk membuka dokumen di tab baru.</p>
-        
-        <table id="tabelDokumen">
+    <div id="daftar-dokumen" style="display:none;">
+        <h3 style="color: #27ae60;"><i class="fa-solid fa-file-pdf"></i> Arsip Dokumen Lampiran</h3>
+        <table>
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Dokumen / Nama Sekolah</th>
+                    <th>Nama Dokumen</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody id="daftarOtomatis">
-                </tbody>
+            <tbody id="tabel-isi"></tbody>
         </table>
     </div>
 </div>
 
 <script>
-    // DAFTAR OTOMATIS: Tambahkan nama file Anda di sini
-    // Pastikan nama file sama persis dengan yang diunggah ke GitHub
-    const daftarFile = [
+    // DAFTAR OTOMATIS: Tambahkan nama file PDF Anda di sini
+    const listFile = [
         "BUKU REKENING TK AL-BINA.pdf",
         "BUKU REKENING TK AL-FALIK.pdf",
         "KTP TK AZZAHRO.pdf",
         "TK AL-HIDAYAH.pdf",
-        "TK AL-MISHBAH.pdf",
-        "TK AR-RAHIM.pdf"
+        "TK AL-MISHBAH.pdf"
     ];
 
-    function cekLogin() {
-        const pass = document.getElementById('passInput').value;
-        if (pass === "Babelan2026") { // Password Anda
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('content-section').style.display = 'block';
-            muatDaftar();
-        } else {
-            alert("Password Salah!");
-        }
-    }
-
-    function muatDaftar() {
-        const tbody = document.getElementById('daftarOtomatis');
-        tbody.innerHTML = "";
-        
-        daftarFile.sort().forEach((file, index) => {
-            let namaBersih = file.replace(".pdf", "").replace(/_/g, " ");
-            let row = `<tr>
-                <td>${index + 1}</td>
-                <td>${namaBersih}</td>
-                <td><a href="${file}" target="_blank" class="btn-view">Lihat PDF</a></td>
-            </tr>`;
-            tbody.innerHTML += row;
-        });
+    function cek() {
+        if(document.getElementById('pass').value === "Babelan2026") {
+            document.getElementById('login-area').style.display = 'none';
+            document.getElementById('daftar-dokumen').style.display = 'block';
+            
+            const tbody = document.getElementById('tabel-isi');
+            listFile.sort().forEach((file, i) => {
+                tbody.innerHTML += `<tr>
+                    <td>${i+1}</td>
+                    <td>${file.replace('.pdf', '')}</td>
+                    <td><a href="${file}" target="_blank" class="btn-view">LIHAT PDF</a></td>
+                </tr>`;
+            });
+        } else { alert("Password Salah!"); }
     }
 </script>
-
 </body>
 </html>
