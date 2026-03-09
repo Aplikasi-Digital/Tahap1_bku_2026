@@ -66,6 +66,18 @@
             transition: 0.5s;
         }
 
+        /* FOTO PROFIL DI LOGIN */
+        .login-profile {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid white;
+            margin: 0 auto 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .login-profile img { width: 100%; height: 100%; object-fit: cover; }
+
         .login-box h2 { 
             margin-bottom: 30px; 
             color: #fff; 
@@ -98,15 +110,6 @@
             box-shadow: 0 10px 20px rgba(255, 8, 68, 0.3);
         }
         .btn-login:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(255, 8, 68, 0.4); }
-
-        .wa-footer { margin-top: 30px; }
-        .wa-icon {
-            width: 55px; height: 55px; background: var(--wa-green);
-            border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
-            font-size: 30px; color: white; cursor: pointer; transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
-        }
-        .wa-icon:hover { transform: scale(1.1) rotate(10deg); }
 
         /* CONTAINER DASHBOARD */
         .container { 
@@ -152,12 +155,19 @@
         /* MENU CATEGORY */
         .menu-category { margin-bottom: 15px; border-radius: 25px; overflow: hidden; transition: 0.4s; }
         .category-header { 
-            padding: 20px 30px; display: flex; justify-content: space-between; 
+            padding: 15px 25px; display: flex; justify-content: space-between; 
             align-items: center; cursor: pointer; transition: 0.3s;
             font-weight: 700; font-size: 15px;
         }
-        .category-header:hover { filter: brightness(1.1); padding-left: 35px; }
+        .category-header:hover { filter: brightness(1.1); padding-left: 30px; }
         
+        /* MINI PROFILE IN CATEGORY */
+        .mini-profile {
+            width: 35px; height: 35px; border-radius: 50%; 
+            border: 2px solid rgba(255,255,255,0.8);
+            margin-right: 12px; vertical-align: middle;
+        }
+
         .header-keuangan { background: linear-gradient(to right, #00b894, #55efc4); color: white; }
         .header-gtk { background: linear-gradient(to right, #0984e3, #74b9ff); color: white; }
         .header-daerah { background: linear-gradient(to right, #636e72, #b2bec3); color: white; }
@@ -217,18 +227,16 @@
 
     <div id="login-overlay">
         <div class="login-box">
+            <div class="login-profile">
+                <img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=6c5ce7&color=fff&size=128'">
+            </div>
             <h2>SILAHKAN LOGIN</h2>
             <div class="password-container">
                 <label>Akses Keamanan</label>
                 <input type="password" id="passkey" placeholder="••••••••" onkeypress="handleEnter(event)">
             </div>
             <button class="btn-login" onclick="checkPassword()">BUKA DASHBOARD</button>
-            <div class="wa-footer">
-                <p style="font-size: 10px; color: #fff; margin-bottom: 10px; opacity: 0.8;">BANTUAN ADMIN</p>
-                <div class="wa-icon" onclick="window.open('https://wa.me/628123456789')">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </div>
-            </div>
+            
             <p id="error-msg" style="color: #ff4d4d; font-size: 12px; margin-top: 15px; display: none; font-weight: 700;">Kode Salah! Akses Ditolak.</p>
         </div>
     </div>
@@ -254,7 +262,10 @@
 
         <div class="menu-category">
             <div class="category-header header-keuangan" onclick="toggleMenu('keuangan')">
-                <span><i class="fa-solid fa-coins"></i> MANAJEMEN BOSP REGULER</span>
+                <span>
+                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=00b894'">
+                    <i class="fa-solid fa-coins"></i> MANAJEMEN BOSP REGULER
+                </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="keuangan" class="menu-content">
@@ -268,7 +279,10 @@
 
         <div class="menu-category">
             <div class="category-header header-gtk" onclick="toggleMenu('gtk')">
-                <span><i class="fa-solid fa-user-tie"></i> LAYANAN GURU & GTK</span>
+                <span>
+                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=0984e3'">
+                    <i class="fa-solid fa-user-tie"></i> LAYANAN GURU & GTK
+                </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="gtk" class="menu-content">
@@ -282,7 +296,10 @@
 
         <div class="menu-category">
             <div class="category-header header-daerah" onclick="toggleMenu('daerah')">
-                <span><i class="fa-solid fa-map-location-dot"></i> LAYANAN KABUPATEN BEKASI</span>
+                <span>
+                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=636e72'">
+                    <i class="fa-solid fa-map-location-dot"></i> LAYANAN KABUPATEN BEKASI
+                </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="daerah" class="menu-content">
@@ -294,7 +311,10 @@
 
         <div class="menu-category">
             <div class="category-header header-pusat" onclick="toggleMenu('pusat')">
-                <span><i class="fa-solid fa-server"></i> KEMENDIKDASMEN HOME</span>
+                <span>
+                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=e17055'">
+                    <i class="fa-solid fa-server"></i> KEMENDIKDASMEN HOME
+                </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="pusat" class="menu-content">
@@ -308,7 +328,10 @@
 
         <div class="menu-category">
             <div class="category-header header-download" onclick="toggleMenu('download')">
-                <span><i class="fa-solid fa-file-arrow-down"></i> FORMAT DOKUMEN ADMINISTRASI</span>
+                <span>
+                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=fdcb6e'">
+                    <i class="fa-solid fa-file-arrow-down"></i> FORMAT DOKUMEN ADMINISTRASI
+                </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="download" class="menu-content">
@@ -326,7 +349,10 @@
 
         <div class="menu-category">
             <div class="category-header header-info" onclick="toggleMenu('info')">
-                <span><i class="fa-solid fa-calendar-check"></i> KALDIK & VALIDASI SPMB</span>
+                <span>
+                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=d63031'">
+                    <i class="fa-solid fa-calendar-check"></i> KALDIK & VALIDASI SPMB
+                </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="info" class="menu-content">
