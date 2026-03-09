@@ -60,7 +60,6 @@
             box-shadow: var(--shadow);
             max-width: 380px; width: 90%;
             border: 1px solid rgba(255,255,255,0.5);
-            transform: translateY(0);
             transition: 0.5s;
         }
 
@@ -126,12 +125,10 @@
         .category-header:hover { filter: brightness(1.1); padding-left: 35px; }
         
         /* WARNA GRADIEN KATEGORI */
-        .header-home { background: linear-gradient(to right, #ff7675, #fab1a0); color: white; }
         .header-keuangan { background: linear-gradient(to right, #00b894, #55efc4); color: white; }
-        .header-admin { background: linear-gradient(to right, #6c5ce7, #a29bfe); color: white; }
         .header-gtk { background: linear-gradient(to right, #0984e3, #74b9ff); color: white; }
-        .header-pusat { background: linear-gradient(to right, #e17055, #fab1a0); color: white; }
         .header-daerah { background: linear-gradient(to right, #636e72, #b2bec3); color: white; }
+        .header-pusat { background: linear-gradient(to right, #e17055, #fab1a0); color: white; }
         .header-download { background: linear-gradient(to right, #fdcb6e, #ffeaa7); color: #636e72; }
         .header-info { background: linear-gradient(to right, #d63031, #ff7675); color: white; }
 
@@ -151,8 +148,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         .link-btn:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .link-btn i { font-size: 18px; }
-
+        
         /* WARNA TOMBOL */
         .btn-blue { background: #0984e3; }
         .btn-green { background: #00b894; }
@@ -173,6 +169,12 @@
         }
         .footer { font-size: 12px; color: #777; margin-top: 30px; line-height: 1.6; text-align: center; }
         .footer b { color: var(--accent); }
+
+        @media (max-width: 600px) {
+            .menu-content { grid-template-columns: 1fr; }
+            .container { padding: 25px 15px; border-radius: 30px; }
+            .header-text h1 { font-size: 20px; }
+        }
 
         @keyframes shake {
             0%, 100% {transform: translateX(0);}
@@ -214,18 +216,6 @@
         </div>
 
         <div class="menu-category">
-            <div class="category-header header-home" onclick="toggleMenu('home-pusat')">
-                <span><i class="fa-solid fa-house-chimney"></i> KEMENDIKDASMEN HOME</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div id="home-pusat" class="menu-content">
-                <a href="https://www.kemdikbud.go.id/" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-globe"></i> Website Utama</a>
-                <a href="https://pusdatin.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-server"></i> Pusdatin Pusat</a>
-                <a href="https://jendela.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-window-restore"></i> Jendela Data</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
             <div class="category-header header-keuangan" onclick="toggleMenu('keuangan')">
                 <span><i class="fa-solid fa-coins"></i> MANAJEMEN KEUANGAN</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
@@ -235,18 +225,7 @@
                 <a href="https://bosp.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-building-columns"></i> Portal BOSP</a>
                 <a href="https://arkas.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-calculator"></i> Aplikasi ARKAS</a>
                 <a href="absen.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-user-clock"></i> Aplikasi Absensi</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header header-admin" onclick="toggleMenu('admin-guru')">
-                <span><i class="fa-solid fa-book-open"></i> PUSAT PERANGKAT AJAR (TK & SD)</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div id="admin-guru" class="menu-content">
-                <a href="https://guru.kemendikbud.go.id/perangkat-ajar/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-folder-open"></i> Akses Perangkat Ajar</a>
-                <a href="https://buku.kemdikbud.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-book"></i> Katalog Buku Kurmer</a>
-                <a href="https://belajar.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-address-card"></i> Akun Belajar.id</a>
+                <a href="tanda terima honor.html" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-hand-holding-dollar"></i> Tanda Terima Honor</a>
             </div>
         </div>
 
@@ -256,35 +235,36 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="gtk" class="menu-content">
-                <a href="https://info.gtk.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-shield-check"></i> Cek Info GTK</a>
+                <a href="https://info.gtk.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-shield-check"></i> Info GTK</a>
+                <a href="https://gtk.belajar.kemdikbud.go.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-door-open"></i> Ruang GTK</a>
+                <a href="https://guru.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-laptop-code"></i> Platform Merdeka Mengajar</a>
+                <a href="https://belajar.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-address-card"></i> Akun Belajar.id</a>
                 <a href="https://akun.simpkb.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-key"></i> Akun SIMPKB</a>
-                <a href="https://gtk.belajar.kemdikbud.go.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-door-open"></i> Pencarian Data GTK</a>
             </div>
         </div>
 
         <div class="menu-category">
-            <div class="category-header header-daerah" onclick="toggleMenu('bekasi')">
+            <div class="category-header header-daerah" onclick="toggleMenu('daerah')">
                 <span><i class="fa-solid fa-map-location-dot"></i> LAYANAN KABUPATEN BEKASI</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
-            <div id="bekasi" class="menu-content">
-                <a href="https://disdik.bekasikab.go.id/" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-building"></i> Disdik Kab. Bekasi</a>
-                <a href="https://sim-asn.bekasikab.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-user-gear"></i> SIM-ASN Bekasi</a>
-                <a href="https://e-kinerja.bekasikab.go.id/" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-chart-line"></i> E-Kinerja Bekasi</a>
+            <div id="daerah" class="menu-content">
+                <a href="https://sikawan.bekasikab.go.id/" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-leaf"></i> SIKAWAN BARU</a>
+                <a href="https://myasn.bkn.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-user-shield"></i> My ASN BKN</a>
+                <a href="https://disdik.bekasikab.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-building-columns"></i> Disdik Kab. Bekasi</a>
             </div>
         </div>
 
         <div class="menu-category">
-            <div class="category-header header-info" onclick="toggleMenu('info')">
-                <span><i class="fa-solid fa-calendar-check"></i> KALDIK & INFO SPMB</span>
+            <div class="category-header header-pusat" onclick="toggleMenu('pusat')">
+                <span><i class="fa-solid fa-server"></i> KEMENDIKDASMEN PUSAT</span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
-            <div id="info" class="menu-content">
-                <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
-                <a href="spmb.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-signature"></i> Portal Validasi SPMB</a>
-                <div class="calendar-wrapper" style="grid-column: 1 / -1; margin-top: 15px;">
-                    <iframe src="https://calendar.google.com/calendar/embed?src=id.indonesian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FJakarta" style="border: 0; border-radius: 15px;" width="100%" height="320" frameborder="0" scrolling="no"></iframe>
-                </div>
+            <div id="pusat" class="menu-content">
+                <a href="https://dapo.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-database"></i> Aplikasi Dapodik</a>
+                <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card"></i> Verval PD (Siswa)</a>
+                <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-user-check"></i> Verval PTK</a>
+                <a href="https://pip.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-credit-card"></i> Monitoring PIP</a>
             </div>
         </div>
 
@@ -297,6 +277,26 @@
                 <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Sertijab</a>
                 <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Tim BOSP 2026</a>
                 <a href="FORMAT Permohonan Pencetakan Rekening Koran BOSP Reguler.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Permohonan Rek. Koran</a>
+                <a href="FORMAT SK PENGANGKATAN_GTY.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Pengangkatan GTY</a>
+                <a href="BERITA ACARA RAPAT PENYUSUNAN RKAS DAN ADM LAINNYA.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Penyusunan RKAS</a>
+                <a href="FORMAT Spesiment BOS Pusat.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Spesimen BOS Pusat</a>
+                <a href="FORMAT SK_BENDAHARA_SEKOLAH.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Bendahara Sekolah</a>
+                <a href="FORMAT SURAT KETERANGAN AKTIF_MENGAJAR_2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Aktif Mengajar</a>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <div class="category-header header-info" onclick="toggleMenu('info')">
+                <span><i class="fa-solid fa-calendar-check"></i> KALDIK & INFORMASI</span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+            <div id="info" class="menu-content">
+                <a href="https://disdik.jabarprov.go.id/unduh" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-download"></i> Link Update Kaldik Jabar</a>
+                <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
+                <a href="spmb.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-signature"></i> Cek Validasi Usia SPMB</a>
+                <div class="calendar-wrapper" style="grid-column: 1 / -1; margin-top: 15px;">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=id.indonesian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FJakarta" style="border: 0; border-radius: 15px;" width="100%" height="320" frameborder="0" scrolling="no"></iframe>
+                </div>
             </div>
         </div>
 
