@@ -14,166 +14,140 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #3498db;
-            --dark: #2c3e50;
-            --glass: rgba(255, 255, 255, 0.95);
-            --shadow: 0 15px 35px rgba(0,0,0,0.2);
+            --primary: #4facfe;
+            --dark: #1e272e;
+            --glass: rgba(255, 255, 255, 0.90);
+            --shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
-        /* ANIMASI BACKGROUND */
+        /* ANIMASI BACKGROUND ELEGAN */
         body { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-attachment: fixed;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #6B8DD6, #8E37D7);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
             font-family: 'Segoe UI', Roboto, sans-serif;
             margin: 0; 
             padding: 40px 20px;
             min-height: 100vh;
-            overflow-x: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.3;
-            z-index: -1;
-            animation: moveBg 50s linear infinite;
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        @keyframes moveBg {
-            from { background-position: 0 0; }
-            to { background-position: 500px 1000px; }
-        }
-
-        /* KEAMANAN: LOGIN BOX */
+        /* LOGIN BOX */
         #login-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(15px);
+            display: flex; align-items: center; justify-content: center;
             z-index: 9999;
         }
 
         .login-box {
             background: var(--glass);
-            padding: 40px;
-            border-radius: 30px;
+            padding: 45px;
+            border-radius: 40px;
             text-align: center;
             box-shadow: var(--shadow);
-            max-width: 350px;
-            width: 90%;
+            max-width: 380px; width: 90%;
+            border: 1px solid rgba(255,255,255,0.4);
         }
 
-        .login-box i { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
-        .login-box h2 { margin-bottom: 10px; color: var(--dark); font-size: 18px; }
+        .login-box i { font-size: 55px; color: #764ba2; margin-bottom: 25px; }
+        .login-box h2 { margin-bottom: 10px; color: var(--dark); font-weight: 800; }
         .login-box input {
-            width: 100%;
-            padding: 12px;
-            margin: 20px 0;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            text-align: center;
-            font-size: 16px;
-            box-sizing: border-box;
+            width: 100%; padding: 15px; margin: 25px 0; border-radius: 15px;
+            border: 1px solid #ddd; text-align: center; font-size: 16px; outline: none;
         }
 
         .btn-login {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            transition: 0.3s;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white; border: none; padding: 15px; border-radius: 15px;
+            cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s;
         }
+        .btn-login:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3); }
 
-        .btn-login:hover { background: #2980b9; transform: scale(1.02); }
-
-        /* PORTAL CONTENT */
+        /* CONTENT CONTAINER */
         .container { 
             display: none; 
             background: var(--glass);
-            padding: 30px; 
-            border-radius: 35px; 
+            padding: 40px; 
+            border-radius: 45px; 
             box-shadow: var(--shadow); 
             width: 100%; 
-            max-width: 1000px;
-            margin: 0 auto; 
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.4);
-            backdrop-filter: blur(15px);
-            box-sizing: border-box;
-            position: relative;
+            max-width: 1050px;
+            border: 1px solid rgba(255,255,255,0.5);
+            backdrop-filter: blur(20px);
         }
 
-        .menu-category { margin-bottom: 20px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: 0.4s; }
-        .menu-category:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.2); }
-        
-        .header-keuangan { background: linear-gradient(to right, #2ecc71, #27ae60) !important; color: white !important; }
-        .header-gtk { background: linear-gradient(to right, #3498db, #2980b9) !important; color: white !important; }
-        .header-pusat { background: linear-gradient(to right, #f1c40f, #f39c12) !important; color: white !important; }
-        .header-daerah { background: linear-gradient(to right, #9b59b6, #8e44ad) !important; color: white !important; }
-        .header-tools { background: linear-gradient(to right, #607d8b, #455a64) !important; color: white !important; }
-        .header-download { background: linear-gradient(to right, #00b894, #00cec9) !important; color: white !important; }
-        .header-info { background: linear-gradient(to right, #e74c3c, #c0392b) !important; color: white !important; }
-        
-        .category-header { padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 800; text-transform: uppercase; font-size: 14px; }
-        .category-header i.arrow { transition: 0.3s; }
-        .category-header.active i.arrow { transform: rotate(180deg); }
-        
-        .menu-content { display: none; padding: 25px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; background: rgba(255,255,255,0.8); }
-        .menu-content.show { display: grid; }
-        
-        .header-section { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px; }
-        .profile-box { width: 85px; height: 85px; border-radius: 50%; padding: 3px; background: linear-gradient(to right, #3498db, #9b59b6); }
-        .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; border: 2px solid #fff; }
+        .header-section { margin-bottom: 30px; text-align: center; }
+        .profile-box { 
+            width: 95px; height: 95px; margin: 0 auto 15px;
+            border-radius: 50%; padding: 4px; 
+            background: linear-gradient(to right, #667eea, #764ba2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; }
         .profile-img { width: 100%; height: 100%; object-fit: cover; }
-        .header-text h1 { font-size: 24px; margin: 0; color: var(--dark); }
-        .header-text .sub-title { color: var(--primary); font-weight: 700; font-size: 14px; margin: 0; }
+        .header-text h1 { font-size: 26px; margin: 0; color: var(--dark); letter-spacing: -1px; }
+        .header-text .sub-title { color: #764ba2; font-weight: 800; font-size: 14px; margin-top: 5px; }
+
+        /* MENU CATEGORY */
+        .menu-category { margin-bottom: 15px; border-radius: 25px; overflow: hidden; transition: 0.4s; }
+        .category-header { padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 800; text-transform: uppercase; font-size: 14px; }
         
-        .marquee-container { background: rgba(52, 152, 219, 0.1); overflow: hidden; white-space: nowrap; padding: 10px 0; border-radius: 12px; margin: 20px 0; border: 1px dashed var(--primary); }
-        .marquee-text { display: inline-block; padding-left: 100%; animation: marquee 30s linear infinite; font-size: 12px; font-weight: 700; }
-        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+        .header-keuangan { background: linear-gradient(to right, #00b894, #00cec9) !important; color: white !important; }
+        .header-admin { background: linear-gradient(to right, #6c5ce7, #a29bfe) !important; color: white !important; }
+        .header-gtk { background: linear-gradient(to right, #0984e3, #74b9ff) !important; color: white !important; }
+        .header-pusat { background: linear-gradient(to right, #f39c12, #f1c40f) !important; color: white !important; }
+        .header-daerah { background: linear-gradient(to right, #8e44ad, #9b59b6) !important; color: white !important; }
+        .header-tools { background: linear-gradient(to right, #2d3436, #636e72) !important; color: white !important; }
+        .header-download { background: linear-gradient(to right, #10ac84, #1dd1a1) !important; color: white !important; }
+        .header-info { background: linear-gradient(to right, #e17055, #fab1a0) !important; color: white !important; }
+
+        .menu-content { display: none; padding: 25px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; background: rgba(255,255,255,0.4); }
+        .menu-content.show { display: grid; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* BUTTONS */
+        .link-btn { display: flex; align-items: center; gap: 12px; padding: 18px; border-radius: 20px; text-decoration: none; font-weight: 700; color: white; transition: 0.3s; font-size: 13px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .link-btn:hover { transform: translateY(-5px) scale(1.02); filter: brightness(1.1); }
         
-        .link-btn { display: flex; align-items: center; gap: 12px; padding: 15px; border-radius: 15px; text-decoration: none; font-weight: 600; color: white; transition: 0.3s; font-size: 13px; }
-        .link-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
-        
-        .btn-blue { background: linear-gradient(45deg, #3498db, #2980b9); }
-        .btn-green { background: linear-gradient(45deg, #27ae60, #1e8449); }
-        .btn-purple { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
-        .btn-orange { background: linear-gradient(45deg, #f39c12, #d35400); }
-        .btn-red { background: linear-gradient(45deg, #e74c3c, #c0392b); }
-        .btn-indigo { background: linear-gradient(45deg, #3f51b5, #303f9f); }
-        .btn-teal { background: linear-gradient(45deg, #009688, #00796b); }
-        .btn-pink { background: linear-gradient(45deg, #ff4757, #e84118); }
-        .btn-slate { background: linear-gradient(45deg, #607d8b, #455a64); }
-        .btn-emerald { background: linear-gradient(45deg, #10ac84, #1dd1a1); }
-        
-        .calendar-wrapper { margin-top: 15px; border-radius: 15px; overflow: hidden; border: 1px solid #ddd; }
-        .datetime-box { background: #f8f9fa; padding: 15px; border-radius: 20px; margin-top: 30px; color: #555; font-size: 13px; font-weight: 700; }
-        .footer { font-size: 12px; color: #95a5a6; margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
-        @media (max-width: 600px) { .menu-content { grid-template-columns: 1fr; } body { padding: 10px; } }
+        .btn-blue { background: #0984e3; }
+        .btn-green { background: #00b894; }
+        .btn-orange { background: #f39c12; }
+        .btn-purple { background: #8e44ad; }
+        .btn-red { background: #d63031; }
+        .btn-teal { background: #00cec9; }
+        .btn-indigo { background: #3c40c6; }
+        .btn-pink { background: #e84393; }
+        .btn-slate { background: #2d3436; }
+        .btn-emerald { background: #00b894; }
+
+        .datetime-box { background: rgba(255,255,255,0.7); padding: 15px; border-radius: 20px; margin-top: 35px; color: #444; font-size: 14px; font-weight: 800; }
+        .footer { font-size: 12px; color: #777; margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 20px; }
+
+        marquee { font-size: 13px; font-weight: 700; color: #764ba2; margin: 15px 0; display: block; }
     </style>
 </head>
 <body>
 
     <div id="login-overlay">
         <div class="login-box">
-            <i class="fa-solid fa-shield-halved"></i>
-            <h2>Kata Kunci Diperlukan</h2>
-            <p style="font-size: 12px; color: #666;">Masukkan kata kunci untuk masuk ke Portal Operator Sekolah</p>
+            <i class="fa-solid fa-user-shield"></i>
+            <h2>Security Access</h2>
+            <p style="font-size: 12px; color: #777;">Gunakan kata kunci untuk membuka portal</p>
             <input type="password" id="passkey" placeholder="Kata Kunci..." onkeypress="handleEnter(event)">
-            <button class="btn-login" onclick="checkPassword()">MASUK PORTAL</button>
-            <p id="error-msg" style="color: #e74c3c; font-size: 12px; margin-top: 10px; display: none;">Kata kunci salah! Silahkan coba lagi.</p>
+            <button class="btn-login" onclick="checkPassword()">UNLOCK DASHBOARD</button>
+            <p id="error-msg" style="color: #d63031; font-size: 12px; margin-top: 15px; display: none; font-weight: bold;">Password Salah!</p>
         </div>
     </div>
 
@@ -181,7 +155,7 @@
         <div class="header-section">
             <div class="profile-box">
                 <div class="profile-inner">
-                    <img src="profil.jpg" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=2980b9&color=fff&size=128'">
+                    <img src="profil.jpg" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=764ba2&color=fff&size=128'">
                 </div>
             </div>
             <div class="header-text">
@@ -190,33 +164,47 @@
             </div>
         </div>
 
-        <div class="marquee-container">
-            <div class="marquee-text">
-                <i class="fa-solid fa-bullhorn"></i> Selamat Datang! Dashboard Terintegrasi Layanan Pendidikan. Salam Satu Data! <i class="fa-solid fa-star"></i> Tetap semangat melayani data pendidikan Indonesia.
-            </div>
-        </div>
+        <marquee>
+            <i class="fa-solid fa-bullhorn"></i> Selamat Datang! Dashboard Layanan Pendidikan & Keuangan Terintegrasi 2026. Salam Satu Data! <i class="fa-solid fa-star"></i> Tetap semangat melayani dengan data yang akurat.
+        </marquee>
 
         <div class="menu-category">
             <div class="category-header header-keuangan" onclick="toggleMenu('keuangan')">
-                <span><i class="fa-solid fa-wallet"></i> Keuangan Sekolah</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
+                <span><i class="fa-solid fa-money-bill-transfer"></i> Keuangan Sekolah</span>
+                <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="keuangan" class="menu-content">
-                <a href="bku.html" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-file-invoice-dollar"></i> Pendampingan BKU</a>
-                <a href="https://bosp.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-coins"></i> Portal BOSP</a>
-                <a href="https://arkas.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-calculator"></i> ARKAS</a>
-                <a href="https://siplah.tokoladang.co.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-cart-shopping"></i> SIPLah Ladang</a>
+                <a href="bku.html" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-file-invoice"></i> Pendampingan BKU</a>
+                <a href="https://bosp.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-vault"></i> Portal BOSP</a>
+                <a href="https://arkas.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-calculator"></i> ARKAS 4.0</a>
+                <a href="https://siplah.tokoladang.co.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-basket-shopping"></i> SIPLah Ladang</a>
                 <a href="absen.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-user-clock"></i> Aplikasi Absen</a>
                 <a href="tanda terima honor.html" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-hand-holding-dollar"></i> Tanda Terima Honor</a>
             </div>
         </div>
 
         <div class="menu-category">
+            <div class="category-header header-admin" onclick="toggleMenu('admin-guru')">
+                <span><i class="fa-solid fa-book-bookmark"></i> Administrasi & Perangkat Ajar</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div id="admin-guru" class="menu-content">
+                <a href="https://guru.kemendikbud.go.id/perangkat-ajar/search?jenjang=PAUD" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-child"></i> Modul Ajar TK/PAUD</a>
+                <a href="https://guru.kemendikbud.go.id/perangkat-ajar/search?jenjang=SD" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-school"></i> Modul Ajar SD</a>
+                <a href="https://buku.kemdikbud.go.id/perangkat-ajar" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-folder-open"></i> Bank Perangkat Ajar</a>
+                <a href="https://belajar.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card-clip"></i> Cek Akun Belajar.id</a>
+                <a href="https://guru.kemendikbud.go.id/kurikulum/referensi-penerapan/capaian-pembelajaran/" target="_blank" class="link-btn btn-slate"><i class="fa-solid fa-file-lines"></i> Download CP & ATP</a>
+            </div>
+        </div>
+
+        <div class="menu-category">
             <div class="category-header header-download" onclick="toggleMenu('download')">
-                <span><i class="fa-solid fa-cloud-arrow-down"></i> Download Format Dokumen</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
+                <span><i class="fa-solid fa-file-arrow-down"></i> Download Format Dokumen</span>
+                <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="download" class="menu-content">
+                <a href="Format STANDING INSTRUCTION_(S).docx" download class="link-btn btn-red"><i class="fa-solid fa-file-signature"></i> Standing Instruction (SI)</a>
+                
                 <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Sertijab</a>
                 <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Tim Manajemen BOSP</a>
                 <a href="FORMAT Permohonan Pencetakan Rekening Koran BOSP Reguler.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Permohonan Rek. Koran</a>
@@ -231,70 +219,18 @@
 
         <div class="menu-category">
             <div class="category-header header-gtk" onclick="toggleMenu('gtk')">
-                <span><i class="fa-solid fa-user-tie"></i> Layanan Guru & GTK</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
+                <span><i class="fa-solid fa-user-graduate"></i> Layanan Guru & GTK</span>
+                <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="gtk" class="menu-content">
-                <a href="https://info.gtk.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-user-check"></i> Cek Info GTK</a>
+                <a href="https://info.gtk.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-id-badge"></i> Cek Info GTK</a>
                 <a href="https://guru.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-chalkboard-user"></i> Platform Merdeka</a>
                 <a href="https://akun.simpkb.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-key"></i> Akun SIMPKB</a>
                 <a href="https://gtk.belajar.kemdikbud.go.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-door-open"></i> Ruang GTK</a>
             </div>
         </div>
 
-        <div class="menu-category">
-            <div class="category-header header-daerah" onclick="toggleMenu('bekasi')">
-                <span><i class="fa-solid fa-city"></i> Kabupaten Bekasi</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div id="bekasi" class="menu-content">
-                <a href="https://sikawanbaru.bekasikab.go.id/signin/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-users-gear"></i> Sikawan Baru</a>
-                <a href="https://myasn.bkn.go.id/" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-user-shield"></i> My ASN (BKN)</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header header-pusat" onclick="toggleMenu('pusat')">
-                <span><i class="fa-solid fa-school"></i> Kemendikdasmen Home</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div id="pusat" class="menu-content">
-                <a href="https://dapo.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-database"></i> Dapodik</a>
-                <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card"></i> Verval PD</a>
-                <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-user-tie"></i> Verval PTK / Tambah PTK</a>
-                <a href="https://vervalyayasan.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-building-columns"></i> Verval Yayasan</a>
-                <a href="https://pip.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-address-card"></i> Cek PIP</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header header-tools" onclick="toggleMenu('tools')">
-                <span><i class="fa-solid fa-screwdriver-wrench"></i> Peralatan OPS (Tools)</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div id="tools" class="menu-content">
-                <a href="https://www.ilovepdf.com/id/mengompres-pdf" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-file-pdf"></i> Kompres PDF</a>
-                <a href="https://www.google.com/maps" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-map-location-dot"></i> Cek Jarak (Maps)</a>
-                <a href="https://tinypng.com/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-image"></i> Kompres Foto</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header header-info" onclick="toggleMenu('info')">
-                <span><i class="fa-solid fa-calendar-check"></i> Informasi & Kalender Akademik</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div id="info" class="menu-content">
-                <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate"><i class="fa-solid fa-file-image"></i> Lihat Gambar Kaldik</a>
-                <a href="https://disdik.jabarprov.go.id/unduh" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-file-pdf"></i> Download Kaldik Jabar (Portal Resmi)</a>
-                <a href="spmb.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-file-signature"></i> FORMULIR dan CEK VALIDASI USIA SPMB</a>
-                <div class="calendar-wrapper" style="grid-column: 1 / -1;">
-                    <iframe src="https://calendar.google.com/calendar/embed?src=id.indonesian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FJakarta" style="border: 0" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <div class="datetime-box" id="tanggal-jam">Memuat Waktu...</div>
+        <div class="datetime-box" id="tanggal-jam">Memuat Sistem Waktu...</div>
 
         <div class="footer">
             © 2026 <b>ROHIMAN SUPRIYADI</b> <br>
@@ -314,31 +250,20 @@
             if (input === SECRET_KEY) {
                 overlay.style.display = 'none';
                 mainContent.style.display = 'block';
-                mainContent.style.animation = 'fadeIn 0.8s ease-in-out';
             } else {
                 error.style.display = 'block';
                 document.getElementById('passkey').value = "";
             }
         }
 
-        function handleEnter(e) {
-            if (e.key === "Enter") checkPassword();
-        }
+        function handleEnter(e) { if (e.key === "Enter") checkPassword(); }
 
         function toggleMenu(id) {
             const content = document.getElementById(id);
-            const headers = document.querySelectorAll('.category-header');
             const contents = document.querySelectorAll('.menu-content');
             
-            contents.forEach(c => {
-                if(c.id !== id) c.classList.remove('show');
-            });
-            headers.forEach(h => {
-                if(h !== content.previousElementSibling) h.classList.remove('active');
-            });
-
+            contents.forEach(c => { if(c.id !== id) c.classList.remove('show'); });
             content.classList.toggle('show');
-            content.previousElementSibling.classList.toggle('active');
         }
 
         function updateWaktu() {
