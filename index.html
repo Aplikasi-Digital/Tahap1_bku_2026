@@ -218,6 +218,7 @@
                 <a href="https://siplah.tokoladang.co.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-cart-shopping"></i> SIPLah Ladang</a>
                 <a href="absen.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-user-clock"></i> Aplikasi Absen</a>
                 <a href="tanda terima honor.html" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-hand-holding-dollar"></i> Tanda Terima Honor</a>
+                <a href="lampiran/index.html" class="link-btn btn-emerald"><i class="fa-solid fa-folder-open"></i> Lampiran Keuangan (RKAS/KTP)</a>
             </div>
         </div>
 
@@ -336,9 +337,19 @@
 
         function toggleMenu(id) {
             const content = document.getElementById(id);
-            const header = content.previousElementSibling;
+            const headers = document.querySelectorAll('.category-header');
+            const contents = document.querySelectorAll('.menu-content');
+            
+            // Logika agar hanya satu menu yang terbuka (opsional, tapi lebih rapi)
+            contents.forEach(c => {
+                if(c.id !== id) c.classList.remove('show');
+            });
+            headers.forEach(h => {
+                if(h !== content.previousElementSibling) h.classList.remove('active');
+            });
+
             content.classList.toggle('show');
-            header.classList.toggle('active');
+            content.previousElementSibling.classList.toggle('active');
         }
 
         function updateWaktu() {
