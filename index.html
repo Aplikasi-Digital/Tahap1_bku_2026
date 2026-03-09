@@ -20,7 +20,7 @@
             --glass: rgba(255, 255, 255, 0.85);
             --shadow: 0 20px 50px rgba(0,0,0,0.15);
             --accent: #6c5ce7;
-            --candy-red: #ff0844; /* Warna Merah Candy */
+            --candy-red: #ff0844;
         }
 
         /* ANIMASI BACKGROUND MEWAH */
@@ -114,17 +114,18 @@
             background: #fff0f3; padding: 12px; border-radius: 20px;
             margin: 25px 0; border: 2px solid var(--candy-red);
             box-shadow: 0 0 15px rgba(255, 8, 68, 0.1);
-            overflow: hidden; /* Tambahkan ini agar teks tidak macet */
+            overflow: hidden;
         }
         .marquee-text { 
             font-size: 14px; 
             font-weight: 800; 
             color: var(--candy-red); 
             animation: blinker 1.5s linear infinite;
+            display: inline-block;
         }
 
         @keyframes blinker {
-            50% { opacity: 0.3; }
+            50% { opacity: 0.4; }
         }
 
         /* MENU CATEGORY */
@@ -136,7 +137,6 @@
         }
         .category-header:hover { filter: brightness(1.1); padding-left: 35px; }
         
-        /* WARNA GRADIEN KATEGORI */
         .header-keuangan { background: linear-gradient(to right, #00b894, #55efc4); color: white; }
         .header-gtk { background: linear-gradient(to right, #0984e3, #74b9ff); color: white; }
         .header-daerah { background: linear-gradient(to right, #636e72, #b2bec3); color: white; }
@@ -152,7 +152,6 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* BUTTON LINK */
         .link-btn { 
             display: flex; align-items: center; gap: 12px; padding: 18px; 
             border-radius: 20px; text-decoration: none; font-weight: 700; 
@@ -161,7 +160,6 @@
         }
         .link-btn:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         
-        /* WARNA TOMBOL */
         .btn-blue { background: #0984e3; }
         .btn-green { background: #00b894; }
         .btn-orange { background: #e17055; }
@@ -173,7 +171,6 @@
         .btn-emerald { background: #05c46b; }
         .btn-slate { background: #485460; }
 
-        /* DATETIME & FOOTER */
         .datetime-box { 
             background: rgba(255,255,255,0.6); padding: 15px; border-radius: 20px; 
             margin-top: 40px; color: var(--dark); font-size: 14px; font-weight: 800;
@@ -222,7 +219,7 @@
         </div>
 
         <div class="marquee-container">
-            <marquee class="marquee-text" scrollamount="6">
+            <marquee class="marquee-text" scrollamount="6" behavior="scroll" direction="left">
                 <i class="fa-solid fa-bullhorn"></i> Selamat Datang! Portal Terintegrasi Layanan Data Pendidikan & Keuangan Sekolah. Salam Satu Data! — Tetap semangat melayani data pendidikan Indonesia dengan integritas tinggi.
             </marquee>
         </div>
@@ -273,6 +270,7 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="pusat" class="menu-content">
+                <a href="https://dapo.kemendikdasmen.go.id/berita" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-newspaper"></i> UPDATE BERITA DAPODIK</a>
                 <a href="https://dapo.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-database"></i> Aplikasi Dapodik</a>
                 <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card"></i> Verval PD (Siswa)</a>
                 <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-user-check"></i> Verval PTK</a>
@@ -287,7 +285,7 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="download" class="menu-content">
-                <a href="FORMAT SURAT IZIN.docx" download class="link-btn btn-pink"><i class="fa-solid fa-file-circle-check"></i> Format SI (STANDING INSTRUCTION)</a>
+                <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn btn-pink"><i class="fa-solid fa-file-excel"></i> Format STANDING INSTRUCTION (SI)</a>
                 <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Sertijab</a>
                 <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Tim BOSP 2026</a>
                 <a href="FORMAT Permohonan Pencetakan Rekening Koran BOSP Reguler.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Permohonan Rek. Koran</a>
