@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Akses Lampiran Dokumen</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f4f4f4; }
+        .login-box { background: white; padding: 20px; border-radius: 10px; display: inline-block; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input { padding: 10px; margin: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 10px 20px; background: #0056b3; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div id="login-area" class="login-box">
+    <h3>Area Rahasia - Lampiran BOSP</h3>
+    <input type="password" id="pass" placeholder="Masukkan Password">
+    <br>
+    <button onclick="cekAkses()">Masuk</button>
+</div>
+
+<div id="konten-lampiran" style="display:none;">
+    <h2>Daftar Lampiran Dokumen</h2>
+    <p>Silakan pilih dokumen yang ingin dilihat:</p>
+    <ul id="list-file">
+        <li><a href="KTP_TK_AL-FALAH.pdf" target="_blank">KTP TK AL-FALAH</a></li>
+        <li><a href="BUKU_REKENING_TK_AL-BINA.pdf" target="_blank">Buku Rekening TK AL-BINA</a></li>
+    </ul>
+</div>
+
+<script>
+    function cekAkses() {
+        const input = document.getElementById('pass').value;
+        if (input === "Babelan2026") { // Ganti password sesuka Anda
+            document.getElementById('login-area').style.display = "none";
+            document.getElementById('konten-lampiran').style.display = "block";
+        } else {
+            alert("Password Salah!");
+        }
+    }
+</script>
+</body>
+</html>
