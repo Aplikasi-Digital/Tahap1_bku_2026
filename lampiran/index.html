@@ -1,42 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Akses Lampiran Dokumen</title>
+    <meta charset="UTF-8">
+    <title>Lampiran Keuangan - Babelan</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f4f4f4; }
-        .login-box { background: white; padding: 20px; border-radius: 10px; display: inline-block; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        input { padding: 10px; margin: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        button { padding: 10px 20px; background: #0056b3; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        body { font-family: sans-serif; background: #eef1f7; padding: 20px; }
+        .box { max-width: 850px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .login-box { text-align: center; padding: 40px; }
+        input[type="password"] { padding: 12px; width: 250px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #0056b3; color: white; }
+        .btn-back { display: inline-block; margin-bottom: 15px; text-decoration: none; color: #0056b3; font-weight: bold; }
+        .btn-view { color: #d9534f; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div id="login-area" class="login-box">
-    <h3>Area Rahasia - Lampiran BOSP</h3>
-    <input type="password" id="pass" placeholder="Masukkan Password">
-    <br>
-    <button onclick="cekAkses()">Masuk</button>
-</div>
+<div class="box">
+    <a href="../index.html" class="btn-back">← Kembali ke Beranda</a>
+    
+    <div id="login-section" class="login-box">
+        <h2>🔒 Area Terbatas</h2>
+        <p>Masukkan password untuk melihat dokumen lampiran</p>
+        <input type="password" id="passInput" placeholder="Password Keuangan">
+        <br>
+        <button onclick="cekLogin()" style="padding:10px 30px; background:#0056b3; color:white; border:none; border-radius:5px; cursor:pointer;">MASUK</button>
+    </div>
 
-<div id="konten-lampiran" style="display:none;">
-    <h2>Daftar Lampiran Dokumen</h2>
-    <p>Silakan pilih dokumen yang ingin dilihat:</p>
-    <ul id="list-file">
-        <li><a href="KTP_TK_AL-FALAH.pdf" target="_blank">KTP TK AL-FALAH</a></li>
-        <li><a href="BUKU_REKENING_TK_AL-BINA.pdf" target="_blank">Buku Rekening TK AL-BINA</a></li>
-    </ul>
+    <div id="content-section" style="display:none;">
+        <h2 style="color: #0056b3;">Daftar Lampiran Dokumen BOSP</h2>
+        <p>Klik "Lihat PDF" untuk membuka dokumen di tab baru.</p>
+        
+        <table id="tabelDokumen">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Dokumen / Nama Sekolah</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="daftarOtomatis">
+                </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
-    function cekAkses() {
-        const input = document.getElementById('pass').value;
-        if (input === "Babelan2026") { // Ganti password sesuka Anda
-            document.getElementById('login-area').style.display = "none";
-            document.getElementById('konten-lampiran').style.display = "block";
+    // DAFTAR OTOMATIS: Tambahkan nama file Anda di sini
+    // Pastikan nama file sama persis dengan yang diunggah ke GitHub
+    const daftarFile = [
+        "BUKU REKENING TK AL-BINA.pdf",
+        "BUKU REKENING TK AL-FALIK.pdf",
+        "KTP TK AZZAHRO.pdf",
+        "TK AL-HIDAYAH.pdf",
+        "TK AL-MISHBAH.pdf",
+        "TK AR-RAHIM.pdf"
+    ];
+
+    function cekLogin() {
+        const pass = document.getElementById('passInput').value;
+        if (pass === "Babelan2026") { // Password Anda
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('content-section').style.display = 'block';
+            muatDaftar();
         } else {
             alert("Password Salah!");
         }
     }
+
+    function muatDaftar() {
+        const tbody = document.getElementById('daftarOtomatis');
+        tbody.innerHTML = "";
+        
+        daftarFile.sort().forEach((file, index) => {
+            let namaBersih = file.replace(".pdf", "").replace(/_/g, " ");
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${namaBersih}</td>
+                <td><a href="${file}" target="_blank" class="btn-view">Lihat PDF</a></td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+    }
 </script>
+
 </body>
 </html>
