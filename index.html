@@ -155,18 +155,13 @@
         /* MENU CATEGORY */
         .menu-category { margin-bottom: 15px; border-radius: 25px; overflow: hidden; transition: 0.4s; }
         .category-header { 
-            padding: 15px 25px; display: flex; justify-content: space-between; 
+            padding: 20px 25px; display: flex; justify-content: space-between; 
             align-items: center; cursor: pointer; transition: 0.3s;
             font-weight: 700; font-size: 15px;
         }
         .category-header:hover { filter: brightness(1.1); padding-left: 30px; }
         
-        /* MINI PROFILE IN CATEGORY */
-        .mini-profile {
-            width: 35px; height: 35px; border-radius: 50%; 
-            border: 2px solid rgba(255,255,255,0.8);
-            margin-right: 12px; vertical-align: middle;
-        }
+        .category-header span i { margin-right: 12px; font-size: 18px; }
 
         .header-keuangan { background: linear-gradient(to right, #00b894, #55efc4); color: white; }
         .header-gtk { background: linear-gradient(to right, #0984e3, #74b9ff); color: white; }
@@ -236,7 +231,6 @@
                 <input type="password" id="passkey" placeholder="••••••••" onkeypress="handleEnter(event)">
             </div>
             <button class="btn-login" onclick="checkPassword()">BUKA DASHBOARD</button>
-            
             <p id="error-msg" style="color: #ff4d4d; font-size: 12px; margin-top: 15px; display: none; font-weight: 700;">Kode Salah! Akses Ditolak.</p>
         </div>
     </div>
@@ -263,8 +257,7 @@
         <div class="menu-category">
             <div class="category-header header-keuangan" onclick="toggleMenu('keuangan')">
                 <span>
-                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=00b894'">
-                    <i class="fa-solid fa-coins"></i> MANAJEMEN BOSP REGULER
+                    <i class="fa-solid fa-vault"></i> MANAJEMEN BOSP REGULER
                 </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
@@ -280,16 +273,15 @@
         <div class="menu-category">
             <div class="category-header header-gtk" onclick="toggleMenu('gtk')">
                 <span>
-                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=0984e3'">
-                    <i class="fa-solid fa-user-tie"></i> LAYANAN GURU & GTK
+                    <i class="fa-solid fa-user-gear"></i> LAYANAN GURU & GTK
                 </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="gtk" class="menu-content">
-                <a href="https://info.gtk.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-shield-check"></i> Info GTK</a>
+                <a href="https://info.gtk.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-shield-halved"></i> Info GTK</a>
                 <a href="https://coretaxdjp.pajak.go.id/identityproviderportal/account/login" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-landmark-dome"></i> Login Coretax Pajak</a>
-                <a href="https://guru.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-laptop-code"></i> Platform Merdeka Mengajar</a>
-                <a href="https://belajar.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-address-card"></i> Akun Belajar.id</a>
+                <a href="https://guru.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-graduation-cap"></i> Platform Merdeka Mengajar</a>
+                <a href="https://belajar.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-id-badge"></i> Akun Belajar.id</a>
                 <a href="https://akun.simpkb.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-key"></i> Akun SIMPKB</a>
             </div>
         </div>
@@ -297,29 +289,27 @@
         <div class="menu-category">
             <div class="category-header header-daerah" onclick="toggleMenu('daerah')">
                 <span>
-                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=636e72'">
                     <i class="fa-solid fa-map-location-dot"></i> LAYANAN KABUPATEN BEKASI
                 </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="daerah" class="menu-content">
-                <a href="https://sikawanbaru.bekasikab.go.id/signin/?next=/ekinerja/dashboard/" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-leaf"></i> SIKAWAN BARU</a>
+                <a href="https://sikawanbaru.bekasikab.go.id/signin/?next=/ekinerja/dashboard/" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-rocket"></i> SIKAWAN BARU</a>
                 <a href="https://myasn.bkn.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-user-shield"></i> My ASN BKN</a>
-                <a href="https://disdik.bekasikab.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-building-columns"></i> Disdik Kab. Bekasi</a>
+                <a href="https://disdik.bekasikab.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-school-flag"></i> Disdik Kab. Bekasi</a>
             </div>
         </div>
 
         <div class="menu-category">
             <div class="category-header header-pusat" onclick="toggleMenu('pusat')">
                 <span>
-                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=e17055'">
                     <i class="fa-solid fa-server"></i> KEMENDIKDASMEN HOME
                 </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="pusat" class="menu-content">
                 <a href="https://dapo.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-database"></i> Aplikasi Dapodik</a>
-                <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card"></i> Verval PD (Siswa)</a>
+                <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card-clip"></i> Verval PD (Siswa)</a>
                 <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-user-check"></i> Verval PTK</a>
                 <a href="https://vervalyayasan.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-landmark"></i> Verval Yayasan</a>
                 <a href="https://pip.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-credit-card"></i> Monitoring PIP</a>
@@ -329,13 +319,12 @@
         <div class="menu-category">
             <div class="category-header header-download" onclick="toggleMenu('download')">
                 <span>
-                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=fdcb6e'">
-                    <i class="fa-solid fa-file-arrow-down"></i> FORMAT DOKUMEN ADMINISTRASI
+                    <i class="fa-solid fa-file-signature"></i> FORMAT DOKUMEN ADMINISTRASI
                 </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="download" class="menu-content">
-                <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn btn-pink"><i class="fa-solid fa-file-excel"></i> Format STANDING INSTRUCTION (SI)</a>
+                <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn btn-pink"><i class="fa-solid fa-file-excel"></i> Format SI</a>
                 <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Sertijab</a>
                 <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Tim BOSP 2026</a>
                 <a href="FORMAT Permohonan Pencetakan Rekening Koran BOSP Reguler.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Permohonan Rek. Koran</a>
@@ -350,15 +339,14 @@
         <div class="menu-category">
             <div class="category-header header-info" onclick="toggleMenu('info')">
                 <span>
-                    <img src="profil.jpg" class="mini-profile" onerror="this.src='https://ui-avatars.com/api/?name=R&background=fff&color=d63031'">
-                    <i class="fa-solid fa-calendar-check"></i> KALDIK & VALIDASI SPMB
+                    <i class="fa-solid fa-calendar-day"></i> KALDIK & VALIDASI SPMB
                 </span>
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="info" class="menu-content">
-                <a href="https://disdik.jabarprov.go.id/unduh" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-download"></i> Link Update Kaldik Jabar</a>
+                <a href="https://disdik.jabarprov.go.id/unduh" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-cloud-arrow-down"></i> Link Update Kaldik Jabar</a>
                 <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
-                <a href="spmb.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-signature"></i> Cek Validasi Usia SPMB</a>
+                <a href="spmb.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-fingerprint"></i> Cek Validasi Usia SPMB</a>
                 <div class="calendar-wrapper" style="grid-column: 1 / -1; margin-top: 15px;">
                     <iframe src="https://calendar.google.com/calendar/embed?src=id.indonesian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FJakarta" style="border: 0; border-radius: 15px;" width="100%" height="320" frameborder="0" scrolling="no"></iframe>
                 </div>
