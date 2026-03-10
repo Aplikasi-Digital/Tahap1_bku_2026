@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Portal Operator Sekolah Kec. Babelan</title>
     
     <meta property="og:title" content="Portal Operator Sekolah - Kec. Babelan">
@@ -15,7 +15,7 @@
     <style>
         :root {
             --primary: #4facfe; --secondary: #00f2fe; --dark: #1e272e;
-            --glass: rgba(255, 255, 255, 0.85); --shadow: 0 20px 50px rgba(0,0,0,0.15);
+            --glass: rgba(255, 255, 255, 0.9); --shadow: 0 20px 50px rgba(0,0,0,0.15);
             --accent: #6c5ce7; --candy-red: #ff0844; --wa-green: #25D366; --gold: #d4af37;
         }
 
@@ -23,13 +23,15 @@
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%; animation: gradientBG 15s ease infinite;
             font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
-            margin: 0; padding: 40px 20px; min-height: 100vh;
+            margin: 0; padding: 20px 10px; min-height: 100vh;
             display: flex; align-items: center; justify-content: center;
             user-select: none; -webkit-user-select: none;
+            overflow-x: hidden; /* Mencegah layar goyang ke samping */
         }
 
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
+        /* Viewer App */
         #app-viewer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 20000; display: none;
@@ -37,69 +39,64 @@
         .viewer-header {
             height: 55px; background: var(--dark); color: white;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding: 0 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         .btn-close-viewer {
             background: var(--candy-red); color: white; border: none;
-            padding: 8px 15px; border-radius: 10px; cursor: pointer;
-            font-weight: 800; font-size: 11px;
+            padding: 8px 12px; border-radius: 10px; cursor: pointer;
+            font-weight: 800; font-size: 10px;
         }
         #viewer-frame { width: 100%; height: calc(100% - 55px); border: none; }
 
+        /* Login System */
         #login-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(25px);
+            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(25px);
             display: flex; align-items: center; justify-content: center;
-            z-index: 9999; transition: 0.5s;
+            z-index: 9999;
         }
-
         .login-box {
-            background: rgba(255, 255, 255, 0.2); padding: 50px 40px;
-            border-radius: 40px; text-align: center; box-shadow: var(--shadow);
-            max-width: 380px; width: 90%; border: 1px solid rgba(255,255,255,0.4);
+            background: rgba(255, 255, 255, 0.2); padding: 40px 30px;
+            border-radius: 30px; text-align: center; box-shadow: var(--shadow);
+            max-width: 350px; width: 85%; border: 1px solid rgba(255,255,255,0.4);
         }
-
         .login-profile { width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; margin: 0 auto 15px; overflow: hidden; }
         .login-profile img { width: 100%; height: 100%; object-fit: cover; }
-
-        .login-box h2 { margin-bottom: 30px; color: #fff; font-weight: 800; font-size: 24px; }
-        .password-container { text-align: left; margin-bottom: 25px; }
-        .password-container label { font-size: 11px; color: rgba(255,255,255,0.9); text-transform: uppercase; font-weight: 700; }
-
         .login-box input {
-            width: 100%; padding: 18px; margin-top: 10px; border-radius: 15px; 
+            width: 100%; padding: 15px; margin-top: 10px; border-radius: 15px; 
             border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
-            text-align: center; font-size: 20px; color: white; outline: none; letter-spacing: 5px; box-sizing: border-box;
+            text-align: center; font-size: 18px; color: white; outline: none; letter-spacing: 3px; box-sizing: border-box;
         }
-
         .btn-login {
             background: linear-gradient(to right, #ff0844, #ffb199);
-            color: white; border: none; padding: 18px; border-radius: 15px;
-            cursor: pointer; font-weight: 800; width: 100%; box-shadow: 0 10px 20px rgba(255, 8, 68, 0.3);
+            color: white; border: none; padding: 15px; border-radius: 15px;
+            cursor: pointer; font-weight: 800; width: 100%; margin-top: 20px;
         }
 
+        /* Main Container */
         .container { 
-            display: none; background: var(--glass); padding: 40px; border-radius: 50px;
-            box-shadow: var(--shadow); width: 100%; max-width: 1100px;
+            display: none; background: var(--glass); padding: 30px 20px; border-radius: 35px;
+            box-shadow: var(--shadow); width: 100%; max-width: 1000px;
             border: 1px solid rgba(255,255,255,0.6); backdrop-filter: blur(20px);
             animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            box-sizing: border-box;
         }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .header-section { margin-bottom: 35px; text-align: center; }
-        .profile-box { width: 100px; height: 100px; margin: 0 auto 20px; border-radius: 50%; padding: 5px; background: linear-gradient(45deg, #6c5ce7, #00f2fe); }
+        .header-section { margin-bottom: 25px; text-align: center; }
+        .profile-box { width: 90px; height: 90px; margin: 0 auto 15px; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, #6c5ce7, #00f2fe); }
         .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; }
         .profile-img { width: 100%; height: 100%; object-fit: cover; }
-        .header-text h1 { font-size: 28px; margin: 0; color: var(--dark); font-weight: 900; }
-        .header-text .sub-title { color: var(--accent); font-weight: 700; font-size: 14px; text-transform: uppercase; }
+        .header-text h1 { font-size: 22px; margin: 0; color: var(--dark); font-weight: 900; line-height: 1.2; }
+        .header-text .sub-title { color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; }
 
-        .welcome-box { background: #fff0f3; padding: 15px; border-radius: 20px; margin: 25px 0; border: 2px solid var(--candy-red); text-align: center; }
-        .welcome-text { font-size: 14px; font-weight: 800; color: var(--candy-red); }
+        .welcome-box { background: #fff0f3; padding: 12px; border-radius: 15px; margin: 20px 0; border: 2px solid var(--candy-red); text-align: center; }
+        .welcome-text { font-size: 12px; font-weight: 800; color: var(--candy-red); }
 
-        .menu-category { margin-bottom: 15px; border-radius: 25px; overflow: hidden; }
-        .category-header { padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; }
-        .category-header:hover { filter: brightness(1.1); padding-left: 30px; transition: 0.3s; }
+        /* Menu System */
+        .menu-category { margin-bottom: 12px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .category-header { padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; font-size: 14px; }
 
         .header-keuangan { background: linear-gradient(to right, #00b894, #55efc4); color: white; }
         .header-gtk { background: linear-gradient(to right, #0984e3, #74b9ff); color: white; }
@@ -108,29 +105,47 @@
         .header-download { background: linear-gradient(to right, #fdcb6e, #ffeaa7); color: #636e72; }
         .header-info { background: linear-gradient(to right, #d63031, #ff7675); color: white; }
 
-        .menu-content { display: none; padding: 25px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; background: rgba(255,255,255,0.5); }
-        .menu-content.show { display: grid; animation: fadeIn 0.4s ease; }
+        .menu-content { 
+            display: none; padding: 20px; 
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+            gap: 12px; background: rgba(255,255,255,0.7); 
+        }
+        .menu-content.show { display: grid; animation: fadeIn 0.3s ease; }
 
-        .link-btn { display: flex; align-items: center; gap: 12px; padding: 18px; border-radius: 20px; text-decoration: none; font-weight: 700; color: white; transition: 0.4s; font-size: 13px; cursor: pointer; }
-        .link-btn:hover { transform: translateY(-5px); }
+        .link-btn { 
+            display: flex; align-items: center; gap: 10px; padding: 15px; 
+            border-radius: 15px; text-decoration: none; font-weight: 700; 
+            color: white; transition: 0.3s; font-size: 12px; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .link-btn:active { transform: scale(0.95); }
 
         .btn-blue { background: #0984e3; } .btn-green { background: #00b894; } .btn-orange { background: #e17055; }
         .btn-purple { background: #6c5ce7; } .btn-red { background: #d63031; } .btn-teal { background: #00cec9; }
         .btn-indigo { background: #3c40c6; } .btn-pink { background: #ef5777; } .btn-emerald { background: #05c46b; }
         .btn-slate { background: #485460; } .btn-gold { background: var(--gold); }
 
-        .datetime-box { background: rgba(255,255,255,0.6); padding: 15px; border-radius: 20px; margin-top: 40px; text-align: center; font-weight: 800; }
-        .footer { font-size: 12px; color: #777; margin-top: 30px; text-align: center; }
+        .datetime-box { background: rgba(255,255,255,0.8); padding: 15px; border-radius: 20px; margin-top: 30px; text-align: center; font-weight: 800; font-size: 13px; color: var(--dark); }
+        .footer { font-size: 11px; color: #555; margin-top: 25px; text-align: center; line-height: 1.6; }
         
-        @media (max-width: 600px) { .menu-content { grid-template-columns: 1fr; } .container { padding: 25px 15px; } }
-        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-10px);} 75% {transform: translateX(10px);} }
+        /* Mobile Fixes - Anti Menumpuk */
+        @media (max-width: 600px) {
+            .menu-content { grid-template-columns: 1fr; padding: 15px; }
+            .header-text h1 { font-size: 18px; }
+            .container { padding: 25px 15px; border-radius: 25px; }
+            .link-btn { padding: 12px; }
+            .category-header { font-size: 12px; padding: 15px; }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-8px);} 75% {transform: translateX(8px);} }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
     <div id="app-viewer">
         <div class="viewer-header">
-            <div id="viewer-title" style="font-weight: 800; font-size: 14px;">Memuat Halaman...</div>
+            <div id="viewer-title" style="font-weight: 800; font-size: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-right: 10px;">Memuat...</div>
             <button class="btn-close-viewer" onclick="closeViewer()"><i class="fa-solid fa-circle-left"></i> KEMBALI</button>
         </div>
         <iframe id="viewer-frame" src=""></iframe>
@@ -139,13 +154,13 @@
     <div id="login-overlay">
         <div class="login-box">
             <div class="login-profile"><img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=6c5ce7&color=fff&size=128'"></div>
-            <h2>SILAHKAN LOGIN</h2>
-            <div class="password-container">
-                <label>Akses Keamanan</label>
+            <h2 style="color: white; font-size: 18px; margin-bottom: 20px;">SILAHKAN LOGIN</h2>
+            <div style="text-align: left;">
+                <label style="font-size: 10px; color: #eee; font-weight: 700; text-transform: uppercase;">Akses Keamanan</label>
                 <input type="password" id="passkey" placeholder="••••••••" onkeypress="handleEnter(event)">
             </div>
             <button class="btn-login" onclick="checkPassword()">BUKA DASHBOARD</button>
-            <p id="error-msg" style="color: #ff4d4d; font-size: 12px; margin-top: 15px; display: none; font-weight: 700;">Kode Salah!</p>
+            <p id="error-msg" style="color: #ff4d4d; font-size: 11px; margin-top: 15px; display: none; font-weight: 700;">Kode Salah!</p>
         </div>
     </div>
 
@@ -244,7 +259,7 @@
                 <a onclick="smartOpen('Gambar Kaldik', 'Kaldik.jpg')" class="link-btn btn-slate"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
                 <a onclick="smartOpen('Validasi SPMB', 'spmb.html')" class="link-btn btn-red"><i class="fa-solid fa-fingerprint"></i> Cek Validasi Usia SPMB</a>
                 <div class="calendar-wrapper" style="grid-column: 1 / -1; margin-top: 15px;">
-                    <iframe src="https://calendar.google.com/calendar/embed?src=id.indonesian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FJakarta" style="border: 0; border-radius: 15px;" width="100%" height="320" frameborder="0" scrolling="no"></iframe>
+                    <iframe src="https://calendar.google.com/calendar/embed?src=id.indonesian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FJakarta" style="border: 0; border-radius: 15px; background: white;" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
         </div>
@@ -261,9 +276,11 @@
             if (input === SECRET_KEY) {
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
+                document.body.style.overflow = 'auto';
             } else {
                 document.getElementById('error-msg').style.display = 'block';
                 document.querySelector('.login-box').style.animation = 'shake 0.3s';
+                setTimeout(() => { document.querySelector('.login-box').style.animation = ''; }, 300);
             }
         }
 
@@ -271,8 +288,15 @@
 
         function toggleMenu(id) {
             const content = document.getElementById(id);
-            document.querySelectorAll('.menu-content').forEach(c => { if(c.id !== id) c.classList.remove('show'); });
-            content.classList.toggle('show');
+            const isShowing = content.classList.contains('show');
+            
+            // Tutup semua menu lain
+            document.querySelectorAll('.menu-content').forEach(c => { 
+                c.classList.remove('show'); 
+            });
+            
+            // Toggle menu yang diklik
+            if (!isShowing) content.classList.add('show');
         }
 
         function smartOpen(title, url) {
@@ -302,11 +326,12 @@
         function updateWaktu() {
             const now = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('tanggal-jam').innerHTML = `<i class="fa-solid fa-clock"></i> ${now.toLocaleDateString('id-ID', options)} | ${now.toLocaleTimeString('id-ID')}`;
+            document.getElementById('tanggal-jam').innerHTML = `<i class="fa-solid fa-clock"></i> ${now.toLocaleDateString('id-ID', options)}<br>${now.toLocaleTimeString('id-ID')} WIB`;
         }
         setInterval(updateWaktu, 1000);
         updateWaktu();
 
+        // Mencegah klik kanan
         document.addEventListener('contextmenu', e => e.preventDefault());
     </script>
 </body>
