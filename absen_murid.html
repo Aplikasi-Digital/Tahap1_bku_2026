@@ -21,11 +21,10 @@
 
         .preview-wrapper { display: flex; justify-content: center; padding: 20px; background: #cbd5e1; min-height: 100vh; }
         
-        /* Layout Utama untuk Tampilan Layar */
         .print-container { 
             background: white; 
             width: var(--width-f4); 
-            padding: 15mm; /* Margin standar layar */
+            padding: 10mm 15mm; 
             box-sizing: border-box; 
             color: black; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
@@ -33,7 +32,7 @@
             zoom: 0.8; 
         }
 
-        .table-absen { border: 1.5pt solid #000; border-collapse: collapse; width: 100%; table-layout: fixed; }
+        .table-absen { border: 1.5pt solid #000; border-collapse: collapse; width: 100%; table-layout: fixed; margin-bottom: 5mm; }
         .table-absen th { border: 1pt solid #000; padding: 3px 0; background-color: #f8fafc !important; font-size: 7.5pt; font-weight: bold; text-align: center; }
         .table-absen td { border: 1pt solid #000; padding: 0; font-size: 8pt; height: 26px; vertical-align: middle; text-align: center; cursor: pointer; }
         
@@ -47,11 +46,10 @@
         .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .active-content { max-height: 800px; }
 
-        /* REVISI MARGIN PRINT: Presisi Atas Bawah Kiri Kanan */
         @media print {
             @page { 
                 size: 330mm 215mm landscape; 
-                margin: 10mm 10mm 10mm 10mm; /* Margin fisik kertas */
+                margin: 7mm 10mm 7mm 10mm; 
             }
             .no-print { display: none !important; }
             body { background: white; margin: 0; padding: 0; }
@@ -59,15 +57,16 @@
             .print-container { 
                 box-shadow: none !important; 
                 margin: 0 !important; 
-                padding: 0 !important; /* Nolkan padding agar dikontrol @page */
+                padding: 0 !important; 
                 width: 100%; 
                 zoom: 1; 
             }
-            .table-absen { page-break-inside: auto; }
-            .table-absen tr { page-break-inside: avoid; page-break-after: auto; }
-            .ttd-section { page-break-inside: avoid; margin-top: 15mm; }
-            
-            /* Memastikan warna cell tetap muncul saat cetak */
+            .table-absen tr { page-break-inside: avoid; }
+            .ttd-section { 
+                page-break-inside: avoid; 
+                display: flex !important; 
+                margin-top: 5mm;
+            }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         }
     </style>
@@ -174,25 +173,27 @@
                     </div>
                 </div>
 
-                <table class="table-absen" id="mainTable">
-                    <thead id="headTabel"></thead>
-                    <tbody id="bodyTabel"></tbody>
-                </table>
+                <div class="content-wrapper">
+                    <table class="table-absen" id="mainTable">
+                        <thead id="headTabel"></thead>
+                        <tbody id="bodyTabel"></tbody>
+                    </table>
 
-                <div class="ttd-section flex justify-between" style="font-size: 9.5pt; padding: 0 15mm;">
-                    <div class="text-center">
-                        <p>Mengetahui,</p>
-                        <p>Kepala Sekolah</p>
-                        <div style="height: 22mm;"></div> 
-                        <p id="dispKepala" class="font-bold underline uppercase">.........................................</p>
-                        <p id="dispNipKepala" class="text-[8.5pt]"></p>
-                    </div>
-                    <div class="text-center">
-                        <p id="dispTglTtd">Bekasi, ..........................</p>
-                        <p>Guru Kelas,</p>
-                        <div style="height: 22mm;"></div>
-                        <p id="dispWali" class="font-bold underline uppercase">.........................................</p>
-                        <p id="dispNipWali" class="text-[8.5pt]"></p>
+                    <div class="ttd-section flex justify-between" style="font-size: 9.5pt; padding: 0 10mm;">
+                        <div class="text-center" style="min-width: 80mm;">
+                            <p>Mengetahui,</p>
+                            <p>Kepala Sekolah</p>
+                            <div style="height: 18mm;"></div> 
+                            <p id="dispKepala" class="font-bold underline uppercase">.........................................</p>
+                            <p id="dispNipKepala" class="text-[8.5pt]"></p>
+                        </div>
+                        <div class="text-center" style="min-width: 80mm;">
+                            <p id="dispTglTtd">Bekasi, ..........................</p>
+                            <p>Guru Kelas,</p>
+                            <div style="height: 18mm;"></div>
+                            <p id="dispWali" class="font-bold underline uppercase">.........................................</p>
+                            <p id="dispNipWali" class="text-[8.5pt]"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -216,13 +217,14 @@
             });
         }
 
+        // PERBAIKAN: Fungsi ini sekarang memastikan syncFromCSV dipanggil dengan benar
         function applyKelasMenu() {
             const kls = document.getElementById('selKelasList').value;
             if(kls) {
                 document.getElementById('inKelas').value = kls;
                 document.getElementById('inSearch').value = kls;
                 updateHeader();
-                syncFromCSV(); 
+                syncFromCSV(); // Memanggil fungsi pencarian otomatis
             }
         }
 
@@ -249,7 +251,8 @@
                 statusSekolah: document.getElementById('inStatusSekolah').value,
                 jenjang: document.getElementById('selJenjang').value,
                 siswa: currentSiswa,
-                attendance: attendanceData
+                attendance: attendanceData,
+                db: fullDatabase // Menyimpan database ke state agar tidak hilang saat refresh
             };
             localStorage.setItem('sigapSiswaState', JSON.stringify(state));
         }
@@ -272,6 +275,7 @@
                 document.getElementById('selJenjang').value = s.jenjang || "SD";
                 currentSiswa = s.siswa || [];
                 attendanceData = s.attendance || {};
+                fullDatabase = s.db || []; 
                 toggleNIP(); 
                 updateHeader(); 
                 generateTable();
@@ -289,26 +293,44 @@
                 complete: function(res) {
                     fullDatabase = res.data;
                     alert("Database CSV " + fullDatabase.length + " data berhasil dimuat!");
+                    saveState(); // Simpan database yang baru dimuat
                 }
             });
         });
 
+        // PERBAIKAN: Logika filter diperkuat untuk mendeteksi berbagai variasi kolom CSV
         function syncFromCSV() {
             const query = document.getElementById('inSearch').value.trim().toUpperCase();
-            if(!query || fullDatabase.length === 0) return;
+            if(!query) {
+                alert("Masukkan atau pilih kelas terlebih dahulu!");
+                return;
+            }
+            if(fullDatabase.length === 0) {
+                alert("Silakan upload file CSV database terlebih dahulu di menu Pengaturan!");
+                return;
+            }
             
             const filtered = fullDatabase.filter(r => {
-                const valKelas = (r.Kelas || r.KELAS || r.Rombel || "").toString().toUpperCase();
-                return valKelas.includes(query);
+                const valKelas = (r.Kelas || r.KELAS || r.Rombel || r.ROMBEL || "").toString().toUpperCase();
+                // Menggunakan perbandingan presisi agar kelas "1 A" tidak tercampur dengan "11 A"
+                return valKelas === query || valKelas.includes(query);
             });
             
             if(filtered.length > 0) {
-                document.getElementById('inLembaga').value = filtered[0].Nama_Sekolah || filtered[0].Nama_Instansi || "";
-                currentSiswa = filtered.map(f => f.Nama_Siswa || f.Nama || f.NAMA).filter(n => n);
+                // Update Nama Sekolah jika tersedia di CSV
+                const schoolName = filtered[0].Nama_Sekolah || filtered[0].Nama_Instansi || filtered[0].Sekolah || "";
+                if(schoolName) document.getElementById('inLembaga').value = schoolName;
+
+                // Ambil Nama Siswa
+                currentSiswa = filtered.map(f => f.Nama_Siswa || f.Nama || f.NAMA || f.nama_siswa).filter(n => n);
                 currentSiswa.sort();
+                
+                // Reset absen jika ganti kelas (Opsional, di sini kita pertahankan data lama jika nama cocok)
                 generateTable();
                 updateHeader();
                 saveState();
+            } else {
+                alert("Data untuk kelas '" + query + "' tidak ditemukan dalam database.");
             }
         }
 
