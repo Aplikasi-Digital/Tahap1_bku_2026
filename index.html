@@ -15,9 +15,11 @@
     <style>
         :root {
             --primary: #4facfe; --secondary: #00f2fe; --dark: #1e272e;
-            --glass: rgba(255, 255, 255, 0.9); --shadow: 0 20px 50px rgba(0,0,0,0.15);
+            --glass: rgba(255, 255, 255, 0.95); --shadow: 0 20px 50px rgba(0,0,0,0.15);
             --accent: #6c5ce7; --candy-red: #ff0844; --wa-green: #25D366; --gold: #d4af37;
         }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body { 
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
@@ -26,7 +28,7 @@
             margin: 0; padding: 20px 10px; min-height: 100vh;
             display: flex; align-items: center; justify-content: center;
             user-select: none; -webkit-user-select: none;
-            overflow-x: hidden; /* Mencegah layar goyang ke samping */
+            overflow-x: hidden;
         }
 
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -35,106 +37,105 @@
         #app-viewer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 20000; display: none;
+            animation: fadeIn 0.3s ease;
         }
         .viewer-header {
-            height: 55px; background: var(--dark); color: white;
+            height: 60px; background: var(--dark); color: white;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         .btn-close-viewer {
             background: var(--candy-red); color: white; border: none;
-            padding: 8px 12px; border-radius: 10px; cursor: pointer;
-            font-weight: 800; font-size: 10px;
+            padding: 10px 15px; border-radius: 12px; cursor: pointer;
+            font-weight: 800; font-size: 11px;
         }
-        #viewer-frame { width: 100%; height: calc(100% - 55px); border: none; }
+        #viewer-frame { width: 100%; height: calc(100% - 60px); border: none; }
 
         /* Login System */
         #login-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(25px);
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(25px);
             display: flex; align-items: center; justify-content: center;
             z-index: 9999;
         }
         .login-box {
             background: rgba(255, 255, 255, 0.2); padding: 40px 30px;
-            border-radius: 30px; text-align: center; box-shadow: var(--shadow);
-            max-width: 350px; width: 85%; border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 35px; text-align: center; box-shadow: var(--shadow);
+            max-width: 360px; width: 85%; border: 1px solid rgba(255,255,255,0.4);
         }
-        .login-profile { width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; margin: 0 auto 15px; overflow: hidden; }
+        .login-profile { width: 85px; height: 85px; border-radius: 50%; border: 3px solid white; margin: 0 auto 15px; overflow: hidden; }
         .login-profile img { width: 100%; height: 100%; object-fit: cover; }
         .login-box input {
             width: 100%; padding: 15px; margin-top: 10px; border-radius: 15px; 
             border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
-            text-align: center; font-size: 18px; color: white; outline: none; letter-spacing: 3px; box-sizing: border-box;
+            text-align: center; font-size: 18px; color: white; outline: none; letter-spacing: 3px;
         }
         .btn-login {
             background: linear-gradient(to right, #ff0844, #ffb199);
-            color: white; border: none; padding: 15px; border-radius: 15px;
-            cursor: pointer; font-weight: 800; width: 100%; margin-top: 20px;
+            color: white; border: none; padding: 16px; border-radius: 15px;
+            cursor: pointer; font-weight: 800; width: 100%; margin-top: 20px; transition: 0.3s;
         }
 
         /* Main Container */
         .container { 
-            display: none; background: var(--glass); padding: 30px 20px; border-radius: 35px;
-            box-shadow: var(--shadow); width: 100%; max-width: 1000px;
-            border: 1px solid rgba(255,255,255,0.6); backdrop-filter: blur(20px);
-            animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-            box-sizing: border-box;
+            display: none; background: var(--glass); padding: 35px 25px; border-radius: 40px;
+            box-shadow: var(--shadow); width: 100%; max-width: 950px;
+            border: 1px solid rgba(255,255,255,0.8); backdrop-filter: blur(20px);
+            animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .header-section { margin-bottom: 25px; text-align: center; }
-        .profile-box { width: 90px; height: 90px; margin: 0 auto 15px; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, #6c5ce7, #00f2fe); }
+        .header-section { margin-bottom: 30px; text-align: center; }
+        .profile-box { width: 95px; height: 95px; margin: 0 auto 15px; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, #6c5ce7, #00f2fe); }
         .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; }
         .profile-img { width: 100%; height: 100%; object-fit: cover; }
-        .header-text h1 { font-size: 22px; margin: 0; color: var(--dark); font-weight: 900; line-height: 1.2; }
-        .header-text .sub-title { color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; }
+        .header-text h1 { font-size: 22px; margin: 0; color: var(--dark); font-weight: 900; }
+        .header-text .sub-title { color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .welcome-box { background: #fff0f3; padding: 12px; border-radius: 15px; margin: 20px 0; border: 2px solid var(--candy-red); text-align: center; }
+        .welcome-box { background: #fff0f3; padding: 14px; border-radius: 18px; margin: 20px 0; border: 2px solid var(--candy-red); text-align: center; }
         .welcome-text { font-size: 12px; font-weight: 800; color: var(--candy-red); }
 
-        /* Menu System */
-        .menu-category { margin-bottom: 12px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .category-header { padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; font-size: 14px; }
+        /* Menu System - High Stability */
+        .menu-category { margin-bottom: 15px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white; }
+        .category-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 800; font-size: 14px; transition: 0.3s; }
 
         .header-keuangan { background: linear-gradient(to right, #00b894, #55efc4); color: white; }
         .header-gtk { background: linear-gradient(to right, #0984e3, #74b9ff); color: white; }
         .header-daerah { background: linear-gradient(to right, #636e72, #b2bec3); color: white; }
         .header-pusat { background: linear-gradient(to right, #e17055, #fab1a0); color: white; }
-        .header-download { background: linear-gradient(to right, #fdcb6e, #ffeaa7); color: #636e72; }
+        .header-download { background: linear-gradient(to right, #fdcb6e, #ffeaa7); color: #444; }
         .header-info { background: linear-gradient(to right, #d63031, #ff7675); color: white; }
 
         .menu-content { 
-            display: none; padding: 20px; 
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-            gap: 12px; background: rgba(255,255,255,0.7); 
+            max-height: 0; overflow: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fafafa; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
         }
-        .menu-content.show { display: grid; animation: fadeIn 0.3s ease; }
+        .menu-content.show { max-height: 2000px; padding: 25px 20px; border-top: 1px solid #eee; }
 
         .link-btn { 
-            display: flex; align-items: center; gap: 10px; padding: 15px; 
+            display: flex; align-items: center; gap: 12px; padding: 16px; 
             border-radius: 15px; text-decoration: none; font-weight: 700; 
             color: white; transition: 0.3s; font-size: 12px; cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+        .link-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
         .link-btn:active { transform: scale(0.95); }
 
-        .btn-blue { background: #0984e3; } .btn-green { background: #00b894; } .btn-orange { background: #e17055; }
-        .btn-purple { background: #6c5ce7; } .btn-red { background: #d63031; } .btn-teal { background: #00cec9; }
+        /* Button Colors */
+        .btn-blue { background: #0984e3; } .btn-green { background: #27ae60; } .btn-orange { background: #e67e22; }
+        .btn-purple { background: #6c5ce7; } .btn-red { background: #d63031; } .btn-teal { background: #16a085; }
         .btn-indigo { background: #3c40c6; } .btn-pink { background: #ef5777; } .btn-emerald { background: #05c46b; }
         .btn-slate { background: #485460; } .btn-gold { background: var(--gold); }
 
-        .datetime-box { background: rgba(255,255,255,0.8); padding: 15px; border-radius: 20px; margin-top: 30px; text-align: center; font-weight: 800; font-size: 13px; color: var(--dark); }
-        .footer { font-size: 11px; color: #555; margin-top: 25px; text-align: center; line-height: 1.6; }
+        .datetime-box { background: rgba(255,255,255,0.9); padding: 18px; border-radius: 20px; margin-top: 30px; text-align: center; font-weight: 800; font-size: 13px; color: var(--dark); border: 1px solid #eee; }
+        .footer { font-size: 11px; color: #666; margin-top: 30px; text-align: center; line-height: 1.8; }
         
-        /* Mobile Fixes - Anti Menumpuk */
-        @media (max-width: 600px) {
-            .menu-content { grid-template-columns: 1fr; padding: 15px; }
-            .header-text h1 { font-size: 18px; }
-            .container { padding: 25px 15px; border-radius: 25px; }
-            .link-btn { padding: 12px; }
-            .category-header { font-size: 12px; padding: 15px; }
+        @media (max-width: 650px) {
+            .menu-content { grid-template-columns: 1fr; }
+            .container { padding: 25px 15px; }
+            .header-text h1 { font-size: 19px; }
+            .category-header { font-size: 12px; }
         }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -145,7 +146,7 @@
 
     <div id="app-viewer">
         <div class="viewer-header">
-            <div id="viewer-title" style="font-weight: 800; font-size: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-right: 10px;">Memuat...</div>
+            <div id="viewer-title" style="font-weight: 800; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;">Memuat...</div>
             <button class="btn-close-viewer" onclick="closeViewer()"><i class="fa-solid fa-circle-left"></i> KEMBALI</button>
         </div>
         <iframe id="viewer-frame" src=""></iframe>
@@ -154,13 +155,13 @@
     <div id="login-overlay">
         <div class="login-box">
             <div class="login-profile"><img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=6c5ce7&color=fff&size=128'"></div>
-            <h2 style="color: white; font-size: 18px; margin-bottom: 20px;">SILAHKAN LOGIN</h2>
+            <h2 style="color: white; font-size: 18px; margin-bottom: 20px; font-weight: 800;">AKSES DASHBOARD</h2>
             <div style="text-align: left;">
-                <label style="font-size: 10px; color: #eee; font-weight: 700; text-transform: uppercase;">Akses Keamanan</label>
+                <label style="font-size: 10px; color: #eee; font-weight: 700; text-transform: uppercase; margin-left: 5px;">Password Keamanan</label>
                 <input type="password" id="passkey" placeholder="••••••••" onkeypress="handleEnter(event)">
             </div>
-            <button class="btn-login" onclick="checkPassword()">BUKA DASHBOARD</button>
-            <p id="error-msg" style="color: #ff4d4d; font-size: 11px; margin-top: 15px; display: none; font-weight: 700;">Kode Salah!</p>
+            <button class="btn-login" onclick="checkPassword()">BUKA PORTAL</button>
+            <p id="error-msg" style="color: #ff4d4d; font-size: 11px; margin-top: 15px; display: none; font-weight: 800; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 5px;">KODE AKSES SALAH!</p>
         </div>
     </div>
 
@@ -173,7 +174,7 @@
             </div>
         </div>
 
-        <div class="welcome-box"><div class="welcome-text"><i class="fa-solid fa-face-smile"></i> SELAMAT DATANG DI DASHBOARD TERPADU</div></div>
+        <div class="welcome-box"><div class="welcome-text"><i class="fa-solid fa-face-smile-beam"></i> SELAMAT DATANG DI PUSAT DATA TERPADU 2026</div></div>
 
         <div class="menu-category">
             <div class="category-header header-keuangan" onclick="toggleMenu('keuangan')">
@@ -196,7 +197,7 @@
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="gtk" class="menu-content">
-                <a onclick="smartOpen('Pembuat Soal', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn btn-gold"><i class="fa-solid fa-wand-magic-sparkles"></i> Aplikasi Pembuat Soal</a>
+                <a onclick="smartOpen('Pembuat Soal AI', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn btn-gold"><i class="fa-solid fa-wand-magic-sparkles"></i> Aplikasi Pembuat Soal</a>
                 <a onclick="smartOpen('Info GTK', 'https://info.gtk.kemendikdasmen.go.id/')" class="link-btn btn-pink"><i class="fa-solid fa-shield-halved"></i> Info GTK</a>
                 <a onclick="smartOpen('Coretax Pajak', 'https://coretaxdjp.pajak.go.id/')" class="link-btn btn-indigo"><i class="fa-solid fa-landmark-dome"></i> Login Coretax Pajak</a>
                 <a onclick="smartOpen('PMM', 'https://guru.kemendikdasmen.go.id/')" class="link-btn btn-blue"><i class="fa-solid fa-graduation-cap"></i> Platform Merdeka Mengajar</a>
@@ -265,7 +266,7 @@
         </div>
 
         <div class="datetime-box" id="tanggal-jam">Memuat Sistem Waktu...</div>
-        <div class="footer">© 2026 <b>ROHIMAN SUPRIYADI</b> <br> Kecamatan Babelan — Kabupaten Bekasi</div>
+        <div class="footer">© 2026 <b>ROHIMAN SUPRIYADI</b> <br> Kecamatan Babelan — Kabupaten Bekasi <br> <span style="font-size: 9px; opacity: 0.7;">Stable Version 2.0 - High Response</span></div>
     </div>
 
     <script>
@@ -274,9 +275,12 @@
         function checkPassword() {
             const input = document.getElementById('passkey').value;
             if (input === SECRET_KEY) {
-                document.getElementById('login-overlay').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-                document.body.style.overflow = 'auto';
+                document.getElementById('login-overlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('login-overlay').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    document.body.style.overflow = 'auto';
+                }, 300);
             } else {
                 document.getElementById('error-msg').style.display = 'block';
                 document.querySelector('.login-box').style.animation = 'shake 0.3s';
@@ -286,19 +290,21 @@
 
         function handleEnter(e) { if (e.key === "Enter") checkPassword(); }
 
+        // Optimized Menu Toggle - Menghindari Lag
         function toggleMenu(id) {
             const content = document.getElementById(id);
             const isShowing = content.classList.contains('show');
             
-            // Tutup semua menu lain
             document.querySelectorAll('.menu-content').forEach(c => { 
                 c.classList.remove('show'); 
             });
             
-            // Toggle menu yang diklik
-            if (!isShowing) content.classList.add('show');
+            if (!isShowing) {
+                content.classList.add('show');
+            }
         }
 
+        // Smart Opener untuk Eksternal Link & Iframe
         function smartOpen(title, url) {
             const listBlokir = [
                 'kemendikdasmen.go.id', 'kemdikbud.go.id', 'google.com', 
@@ -319,7 +325,7 @@
 
         function closeViewer() {
             document.getElementById('app-viewer').style.display = 'none';
-            document.getElementById('viewer-frame').src = "";
+            document.getElementById('viewer-frame').src = "about:blank"; // Membersihkan memori RAM
             document.body.style.overflow = 'auto';
         }
 
@@ -331,7 +337,6 @@
         setInterval(updateWaktu, 1000);
         updateWaktu();
 
-        // Mencegah klik kanan
         document.addEventListener('contextmenu', e => e.preventDefault());
     </script>
 </body>
