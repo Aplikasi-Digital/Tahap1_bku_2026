@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <style>
         :root { --width-f4: 330mm; }
-        body { font-family: 'Tahoma', sans-serif; background: #f1f5f9; margin: 0; color: #1e293b; }
+        body { font-family: 'Tahoma', sans-serif; background: #f1f5f9; margin: 0; color: #1e293b; overflow-x: hidden; }
         
         .top-nav-candy { 
             background: linear-gradient(135deg, #991b1b 0%, #ef4444 100%);
@@ -19,7 +19,16 @@
         .input-candy { background: white; border: 1px solid #cbd5e1; color: #1e293b; transition: all 0.2s; }
         .input-candy:focus { border-color: #ef4444; outline: none; box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2); }
 
-        .preview-wrapper { display: flex; justify-content: center; padding: 20px; background: #cbd5e1; min-height: 100vh; }
+        /* Solusi Utama Mobile: Wrapper untuk scroll horizontal */
+        .preview-wrapper { 
+            display: flex; 
+            justify-content: flex-start; /* Ubah ke start agar scroll mulai dari kiri */
+            padding: 15px; 
+            background: #cbd5e1; 
+            min-height: 100vh;
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch;
+        }
         
         .print-container { 
             background: white; 
@@ -29,12 +38,13 @@
             color: black; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
             position: relative; 
-            zoom: 0.8; 
+            zoom: 0.85; 
+            flex-shrink: 0; /* Penting agar tabel tidak menyusut */
         }
 
         .table-absen { border: 1.5pt solid #000; border-collapse: collapse; width: 100%; table-layout: fixed; margin-bottom: 5mm; }
         .table-absen th { border: 1pt solid #000; padding: 3px 0; background-color: #f8fafc !important; font-size: 7.5pt; font-weight: bold; text-align: center; }
-        .table-absen td { border: 1pt solid #000; padding: 0; font-size: 8pt; height: 26px; vertical-align: middle; text-align: center; cursor: pointer; }
+        .table-absen td { border: 1pt solid #000; padding: 0; font-size: 8pt; height: 28px; vertical-align: middle; text-align: center; cursor: pointer; }
         
         .cell-H { background-color: #dcfce7 !important; color: #166534; font-weight: bold; }
         .cell-S { background-color: #fef9c3 !important; color: #854d0e; font-weight: bold; }
@@ -44,30 +54,24 @@
         .rekap-col { background-color: #f1f5f9; font-weight: bold; font-size: 7pt !important; width: 6.5mm !important; }
 
         .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .active-content { max-height: 800px; }
+        .active-content { max-height: 1500px; padding-bottom: 20px; }
 
+        /* Aturan Cetak (F4) */
         @media print {
-            @page { 
-                size: 330mm 215mm landscape; 
-                margin: 7mm 10mm 7mm 10mm; 
-            }
+            @page { size: 330mm 215mm landscape; margin: 7mm 10mm 7mm 10mm; }
             .no-print { display: none !important; }
-            body { background: white; margin: 0; padding: 0; }
-            .preview-wrapper { padding: 0 !important; background: white; display: block; }
-            .print-container { 
-                box-shadow: none !important; 
-                margin: 0 !important; 
-                padding: 0 !important; 
-                width: 100%; 
-                zoom: 1; 
-            }
+            body { background: white; }
+            .preview-wrapper { padding: 0 !important; background: white; display: block; overflow: visible; }
+            .print-container { box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100%; zoom: 1; }
             .table-absen tr { page-break-inside: avoid; }
-            .ttd-section { 
-                page-break-inside: avoid; 
-                display: flex !important; 
-                margin-top: 5mm;
-            }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        }
+
+        /* Penyesuaian khusus layar HP */
+        @media (max-width: 768px) {
+            .print-container { zoom: 0.5; } /* Zoom dikecilkan di HP agar preview lebih luas */
+            .top-nav-candy { padding: 10px; }
+            .btn-text { display: none; } /* Sembunyikan teks tombol di layar sangat kecil */
         }
     </style>
 </head>
@@ -75,8 +79,8 @@
 
     <header class="top-nav-candy text-white p-3 no-print sticky top-0 z-50">
         <div class="max-w-[1600px] mx-auto">
-            <div class="flex items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3 w-full md:w-auto">
                     <div class="bg-white p-1.5 rounded-lg text-red-700"><i class="fas fa-user-graduate text-2xl"></i></div>
                     <div>
                         <h1 class="text-xl font-black tracking-tighter leading-none">SIGAP <span class="text-yellow-300">SISWA</span></h1>
@@ -84,34 +88,34 @@
                     </div>
                 </div>
 
-                <div class="flex-1 flex gap-2 max-w-2xl">
-                    <div class="relative flex-1">
+                <div class="flex-1 flex flex-wrap gap-2 w-full">
+                    <div class="relative flex-1 min-w-[200px]">
                         <input type="text" id="inSearch" placeholder="Cari Kelas (Contoh: 1 A)..." class="w-full p-2 pl-3 rounded-lg text-xs input-candy font-bold shadow-inner">
-                        <button onclick="syncFromCSV()" class="absolute right-1 top-1 bottom-1 bg-yellow-500 hover:bg-yellow-400 text-red-900 px-3 rounded-md font-bold text-xs transition-colors">
-                            <i class="fas fa-filter"></i> FILTER KELAS
+                        <button onclick="syncFromCSV()" class="absolute right-1 top-1 bottom-1 bg-yellow-500 hover:bg-yellow-400 text-red-900 px-3 rounded-md font-bold text-[10px]">
+                            <i class="fas fa-filter"></i> <span class="hidden sm:inline">FILTER</span>
                         </button>
                     </div>
-                    <div class="flex gap-1">
-                        <input type="text" id="manNama" onkeypress="if(event.key === 'Enter') tambahNama()" placeholder="+ Siswa..." class="w-32 p-2 rounded-lg text-xs input-candy font-bold">
-                        <button onclick="tambahNama()" class="bg-green-500 hover:bg-green-400 px-3 rounded-lg shadow-md"><i class="fas fa-plus"></i></button>
+                    <div class="flex gap-1 w-full sm:w-auto">
+                        <input type="text" id="manNama" onkeypress="if(event.key === 'Enter') tambahNama()" placeholder="+ Siswa..." class="flex-1 sm:w-32 p-2 rounded-lg text-xs input-candy font-bold">
+                        <button onclick="tambahNama()" class="bg-green-500 hover:bg-green-400 px-4 rounded-lg shadow-md"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
 
-                <div class="flex gap-2">
-                    <button onclick="manualSave()" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-2 border border-white/30 shadow-lg">
-                        <i class="fas fa-save"></i> SIMPAN DATA
+                <div class="flex gap-2 w-full md:w-auto justify-center">
+                    <button onclick="manualSave()" class="flex-1 md:flex-none bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-xl font-bold text-[10px] flex items-center justify-center gap-1 border border-white/30 shadow-lg">
+                        <i class="fas fa-save"></i> <span class="btn-text">SIMPAN</span>
                     </button>
-                    <button onclick="toggleSettings()" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-2 border border-white/30">
-                        <i class="fas fa-sliders-h"></i> PENGATURAN
+                    <button onclick="toggleSettings()" class="flex-1 md:flex-none bg-white/20 hover:bg-white/30 px-3 py-2 rounded-xl font-bold text-[10px] flex items-center justify-center gap-1 border border-white/30">
+                        <i class="fas fa-sliders-h"></i> <span class="btn-text">OPSI</span>
                     </button>
-                    <button onclick="window.print()" class="bg-white text-red-700 hover:bg-red-50 px-5 py-2 rounded-xl font-black shadow-lg flex items-center gap-2">
-                        <i class="fas fa-print"></i> CETAK
+                    <button onclick="window.print()" class="flex-1 md:flex-none bg-white text-red-700 hover:bg-red-50 px-4 py-2 rounded-xl font-black text-[10px] shadow-lg flex items-center justify-center gap-1">
+                        <i class="fas fa-print"></i> <span class="btn-text">CETAK</span>
                     </button>
                 </div>
             </div>
 
             <div id="settingsPanel" class="collapsible-content">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mt-3 p-4 bg-black/10 rounded-xl border border-white/10">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-3 p-4 bg-black/10 rounded-xl border border-white/10">
                     <div class="space-y-2">
                         <label class="text-[10px] font-bold uppercase text-red-100">1. Upload Database</label>
                         <input type="file" id="csvFileInput" accept=".csv" class="w-full text-[10px] file:bg-red-700 file:text-white file:border-0 file:rounded file:px-2 bg-white/10 p-1 rounded">
@@ -161,7 +165,7 @@
         </div>
     </header>
 
-    <main class="flex-1">
+    <main class="flex-1 overflow-hidden">
         <div class="preview-wrapper">
             <div id="printArea" class="print-container">
                 <div class="text-center mb-4">
@@ -201,6 +205,7 @@
     </main>
 
     <script>
+        // Logika Script tetap sama untuk menjaga kompatibilitas data sebelumnya
         let fullDatabase = [];
         let currentSiswa = [];
         let attendanceData = {}; 
@@ -217,14 +222,13 @@
             });
         }
 
-        // PERBAIKAN: Fungsi ini sekarang memastikan syncFromCSV dipanggil dengan benar
         function applyKelasMenu() {
             const kls = document.getElementById('selKelasList').value;
             if(kls) {
                 document.getElementById('inKelas').value = kls;
                 document.getElementById('inSearch').value = kls;
                 updateHeader();
-                syncFromCSV(); // Memanggil fungsi pencarian otomatis
+                syncFromCSV(); 
             }
         }
 
@@ -252,7 +256,7 @@
                 jenjang: document.getElementById('selJenjang').value,
                 siswa: currentSiswa,
                 attendance: attendanceData,
-                db: fullDatabase // Menyimpan database ke state agar tidak hilang saat refresh
+                db: fullDatabase
             };
             localStorage.setItem('sigapSiswaState', JSON.stringify(state));
         }
@@ -293,44 +297,31 @@
                 complete: function(res) {
                     fullDatabase = res.data;
                     alert("Database CSV " + fullDatabase.length + " data berhasil dimuat!");
-                    saveState(); // Simpan database yang baru dimuat
+                    saveState();
                 }
             });
         });
 
-        // PERBAIKAN: Logika filter diperkuat untuk mendeteksi berbagai variasi kolom CSV
         function syncFromCSV() {
             const query = document.getElementById('inSearch').value.trim().toUpperCase();
-            if(!query) {
-                alert("Masukkan atau pilih kelas terlebih dahulu!");
-                return;
-            }
-            if(fullDatabase.length === 0) {
-                alert("Silakan upload file CSV database terlebih dahulu di menu Pengaturan!");
-                return;
-            }
+            if(!query) { alert("Masukkan kelas!"); return; }
+            if(fullDatabase.length === 0) { alert("Upload CSV dulu!"); return; }
             
             const filtered = fullDatabase.filter(r => {
                 const valKelas = (r.Kelas || r.KELAS || r.Rombel || r.ROMBEL || "").toString().toUpperCase();
-                // Menggunakan perbandingan presisi agar kelas "1 A" tidak tercampur dengan "11 A"
                 return valKelas === query || valKelas.includes(query);
             });
             
             if(filtered.length > 0) {
-                // Update Nama Sekolah jika tersedia di CSV
                 const schoolName = filtered[0].Nama_Sekolah || filtered[0].Nama_Instansi || filtered[0].Sekolah || "";
                 if(schoolName) document.getElementById('inLembaga').value = schoolName;
-
-                // Ambil Nama Siswa
                 currentSiswa = filtered.map(f => f.Nama_Siswa || f.Nama || f.NAMA || f.nama_siswa).filter(n => n);
                 currentSiswa.sort();
-                
-                // Reset absen jika ganti kelas (Opsional, di sini kita pertahankan data lama jika nama cocok)
                 generateTable();
                 updateHeader();
                 saveState();
             } else {
-                alert("Data untuk kelas '" + query + "' tidak ditemukan dalam database.");
+                alert("Data tidak ditemukan.");
             }
         }
 
@@ -421,7 +412,7 @@
         }
 
         function hapusSiswa(idx) { 
-            if(confirm("Hapus siswa ini dari daftar?")) { 
+            if(confirm("Hapus siswa ini?")) { 
                 currentSiswa.splice(idx, 1); 
                 generateTable(); 
                 saveState(); 
@@ -429,7 +420,7 @@
         }
 
         function clearAttendance() { 
-            if(confirm("Hapus semua status kehadiran?")) { 
+            if(confirm("Kosongkan absen?")) { 
                 attendanceData = {}; 
                 generateTable(); 
                 saveState(); 
