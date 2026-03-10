@@ -19,10 +19,9 @@
         .input-candy { background: white; border: 1px solid #cbd5e1; color: #1e293b; transition: all 0.2s; }
         .input-candy:focus { border-color: #ef4444; outline: none; box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2); }
 
-        /* Solusi Utama Mobile: Wrapper untuk scroll horizontal */
         .preview-wrapper { 
             display: flex; 
-            justify-content: flex-start; /* Ubah ke start agar scroll mulai dari kiri */
+            justify-content: flex-start; 
             padding: 15px; 
             background: #cbd5e1; 
             min-height: 100vh;
@@ -39,7 +38,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
             position: relative; 
             zoom: 0.85; 
-            flex-shrink: 0; /* Penting agar tabel tidak menyusut */
+            flex-shrink: 0; 
         }
 
         .table-absen { border: 1.5pt solid #000; border-collapse: collapse; width: 100%; table-layout: fixed; margin-bottom: 5mm; }
@@ -50,13 +49,17 @@
         .cell-S { background-color: #fef9c3 !important; color: #854d0e; font-weight: bold; }
         .cell-I { background-color: #dbeafe !important; color: #1e40af; font-weight: bold; }
         .cell-A { background-color: #fee2e2 !important; color: #991b1b; font-weight: bold; }
-        .holiday { background-color: #e2e8f0 !important; color: #64748b !important; cursor: not-allowed; }
+        
+        /* Warna untuk Hari Libur */
+        .holiday { background-color: #fee2e2 !important; color: #b91c1c !important; cursor: not-allowed; }
+        .sunday { background-color: #fca5a5 !important; color: #7f1d1d !important; cursor: not-allowed; }
+        .saturday { background-color: #e2e8f0 !important; color: #475569 !important; cursor: not-allowed; }
+
         .rekap-col { background-color: #f1f5f9; font-weight: bold; font-size: 7pt !important; width: 6.5mm !important; }
 
         .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .active-content { max-height: 1500px; padding-bottom: 20px; }
 
-        /* Aturan Cetak (F4) */
         @media print {
             @page { size: 330mm 215mm landscape; margin: 7mm 10mm 7mm 10mm; }
             .no-print { display: none !important; }
@@ -67,11 +70,10 @@
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         }
 
-        /* Penyesuaian khusus layar HP */
         @media (max-width: 768px) {
-            .print-container { zoom: 0.5; } /* Zoom dikecilkan di HP agar preview lebih luas */
+            .print-container { zoom: 0.5; }
             .top-nav-candy { padding: 10px; }
-            .btn-text { display: none; } /* Sembunyikan teks tombol di layar sangat kecil */
+            .btn-text { display: none; }
         }
     </style>
 </head>
@@ -137,11 +139,7 @@
                     </div>
 
                     <div class="space-y-2">
-                        <label class="text-[10px] font-bold uppercase text-red-100">3. Waktu & Status</label>
-                        <select id="inStatusSekolah" onchange="toggleNIP(); updateHeader(); saveState();" class="w-full p-2 rounded-lg text-xs input-candy font-bold mb-1">
-                            <option value="Negeri">Sekolah Negeri</option>
-                            <option value="Swasta">Sekolah Swasta</option>
-                        </select>
+                        <label class="text-[10px] font-bold uppercase text-red-100">3. Waktu & Libur</label>
                         <div class="flex gap-1">
                             <select id="selBulan" onchange="generateTable(); updateHeader(); saveState();" class="flex-1 p-2 rounded-lg text-xs input-candy font-bold">
                                 <option value="1">Januari</option><option value="2">Februari</option><option value="3">Maret</option>
@@ -151,10 +149,23 @@
                             </select>
                             <input type="date" id="inTanggalTtd" oninput="updateHeader(); saveState();" class="flex-1 p-2 rounded-lg text-xs input-candy font-bold">
                         </div>
+                        <div class="bg-white/10 p-2 rounded-lg mt-1 border border-white/5">
+                            <p class="text-[9px] font-bold mb-1 text-yellow-300">TAMBAH HARI LIBUR:</p>
+                            <div class="flex gap-1">
+                                <input type="number" id="inTglLibur" placeholder="Tgl" min="1" max="31" class="w-12 p-1 text-xs rounded border-none font-bold">
+                                <button onclick="addHoliday()" class="bg-red-500 px-2 py-1 rounded text-[10px] font-bold">SET LIBUR</button>
+                                <button onclick="resetHolidays()" class="bg-gray-500 px-2 py-1 rounded text-[10px] font-bold"><i class="fas fa-sync"></i></button>
+                            </div>
+                            <div id="listLibur" class="text-[9px] mt-1 text-white opacity-80 italic"></div>
+                        </div>
                     </div>
                     
                     <div class="space-y-2">
                         <label class="text-[10px] font-bold uppercase text-red-100">4. Penandatangan</label>
+                        <select id="inStatusSekolah" onchange="toggleNIP(); updateHeader(); saveState();" class="w-full p-2 rounded-lg text-xs input-candy font-bold mb-1">
+                            <option value="Negeri">Sekolah Negeri</option>
+                            <option value="Swasta">Sekolah Swasta</option>
+                        </select>
                         <input type="text" id="inKepsek" oninput="updateHeader(); saveState();" placeholder="Nama Kepala Sekolah" class="w-full p-2 rounded-lg text-xs input-candy font-bold">
                         <input type="text" id="inNipKepsek" oninput="updateHeader(); saveState();" placeholder="NIP Kepala Sekolah" class="nip-field w-full p-2 rounded-lg text-xs input-candy font-bold">
                         <input type="text" id="inWali" oninput="updateHeader(); saveState();" placeholder="Nama Guru Kelas" class="w-full p-2 rounded-lg text-xs input-candy font-bold mt-1">
@@ -205,10 +216,10 @@
     </main>
 
     <script>
-        // Logika Script tetap sama untuk menjaga kompatibilitas data sebelumnya
         let fullDatabase = [];
         let currentSiswa = [];
         let attendanceData = {}; 
+        let customHolidays = []; // Array untuk menyimpan tanggal libur tambahan
 
         function updateKelasList() {
             const jenjang = document.getElementById('selJenjang').value;
@@ -241,6 +252,33 @@
             alert("✅ Data berhasil disimpan!");
         }
 
+        function addHoliday() {
+            const tgl = parseInt(document.getElementById('inTglLibur').value);
+            if (tgl >= 1 && tgl <= 31) {
+                if (!customHolidays.includes(tgl)) {
+                    customHolidays.push(tgl);
+                    customHolidays.sort((a, b) => a - b);
+                    generateTable();
+                    saveState();
+                    updateHolidayList();
+                }
+                document.getElementById('inTglLibur').value = '';
+            }
+        }
+
+        function resetHolidays() {
+            if(confirm("Hapus semua daftar libur tambahan?")) {
+                customHolidays = [];
+                generateTable();
+                saveState();
+                updateHolidayList();
+            }
+        }
+
+        function updateHolidayList() {
+            document.getElementById('listLibur').innerText = customHolidays.length > 0 ? "Libur: Tgl " + customHolidays.join(", ") : "";
+        }
+
         function saveState() {
             const state = {
                 search: document.getElementById('inSearch').value,
@@ -256,7 +294,8 @@
                 jenjang: document.getElementById('selJenjang').value,
                 siswa: currentSiswa,
                 attendance: attendanceData,
-                db: fullDatabase
+                db: fullDatabase,
+                holidays: customHolidays
             };
             localStorage.setItem('sigapSiswaState', JSON.stringify(state));
         }
@@ -280,8 +319,10 @@
                 currentSiswa = s.siswa || [];
                 attendanceData = s.attendance || {};
                 fullDatabase = s.db || []; 
+                customHolidays = s.holidays || [];
                 toggleNIP(); 
                 updateHeader(); 
+                updateHolidayList();
                 generateTable();
             }
         }
@@ -306,12 +347,10 @@
             const query = document.getElementById('inSearch').value.trim().toUpperCase();
             if(!query) { alert("Masukkan kelas!"); return; }
             if(fullDatabase.length === 0) { alert("Upload CSV dulu!"); return; }
-            
             const filtered = fullDatabase.filter(r => {
                 const valKelas = (r.Kelas || r.KELAS || r.Rombel || r.ROMBEL || "").toString().toUpperCase();
                 return valKelas === query || valKelas.includes(query);
             });
-            
             if(filtered.length > 0) {
                 const schoolName = filtered[0].Nama_Sekolah || filtered[0].Nama_Instansi || filtered[0].Sekolah || "";
                 if(schoolName) document.getElementById('inLembaga').value = schoolName;
@@ -320,9 +359,7 @@
                 generateTable();
                 updateHeader();
                 saveState();
-            } else {
-                alert("Data tidak ditemukan.");
-            }
+            } else { alert("Data tidak ditemukan."); }
         }
 
         function generateTable() {
@@ -331,8 +368,17 @@
             
             let htmlHead = `<tr><th rowspan="2" style="width:7mm">NO</th><th rowspan="2" style="width:65mm">NAMA LENGKAP SISWA</th><th colspan="${jmlHari}">TANGGAL</th><th colspan="4" style="width:28mm">KETERANGAN</th><th rowspan="2" class="no-print" style="width:10mm">#</th></tr><tr>`;
             for(let d=1; d<=jmlHari; d++) {
-                const isSun = new Date(2026, bulan-1, d).getDay() === 0;
-                htmlHead += `<th class="${isSun ? 'holiday' : ''}" style="width:7.5mm">${d}</th>`;
+                const dayOfWeek = new Date(2026, bulan-1, d).getDay();
+                const isSun = dayOfWeek === 0;
+                const isSat = dayOfWeek === 6;
+                const isCustomHoliday = customHolidays.includes(d);
+
+                let classHoliday = '';
+                if (isSun) classHoliday = 'sunday';
+                else if (isSat) classHoliday = 'saturday';
+                else if (isCustomHoliday) classHoliday = 'holiday';
+
+                htmlHead += `<th class="${classHoliday}" style="width:7.5mm">${d}</th>`;
             }
             htmlHead += `<th class="rekap-col">H</th><th class="rekap-col">S</th><th class="rekap-col">I</th><th class="rekap-col">A</th></tr>`;
             document.getElementById('headTabel').innerHTML = htmlHead;
@@ -345,9 +391,14 @@
                     <td class="text-left px-2 uppercase font-bold text-[7.5pt]" onclick="fillRowHadir('${nama}')">${nama}</td>`;
                 
                 for(let d=1; d<=jmlHari; d++) {
-                    const isSun = new Date(2026, bulan-1, d).getDay() === 0;
-                    if(isSun) { 
-                        htmlBody += `<td class="holiday"></td>`; 
+                    const dayOfWeek = new Date(2026, bulan-1, d).getDay();
+                    const isSun = dayOfWeek === 0;
+                    const isSat = dayOfWeek === 6;
+                    const isCustomHoliday = customHolidays.includes(d);
+                    
+                    if(isSun || isSat || isCustomHoliday) { 
+                        let holidayType = isSun ? 'sunday' : (isSat ? 'saturday' : 'holiday');
+                        htmlBody += `<td class="${holidayType}"></td>`; 
                     } else {
                         const val = attendanceData[`${nama}-${d}`] || "";
                         if(val) rekap[val]++;
@@ -377,8 +428,11 @@
             const bulan = parseInt(document.getElementById('selBulan').value);
             const jmlHari = new Date(2026, bulan, 0).getDate();
             for(let d=1; d<=jmlHari; d++) {
-                const isSun = new Date(2026, bulan-1, d).getDay() === 0;
-                if(!isSun && !attendanceData[`${nama}-${d}`]) attendanceData[`${nama}-${d}`] = "H";
+                const dayOfWeek = new Date(2026, bulan-1, d).getDay();
+                const isSun = dayOfWeek === 0;
+                const isSat = dayOfWeek === 6;
+                const isCustomHoliday = customHolidays.includes(d);
+                if(!isSun && !isSat && !isCustomHoliday && !attendanceData[`${nama}-${d}`]) attendanceData[`${nama}-${d}`] = "H";
             }
             generateTable(); 
             saveState();
@@ -391,11 +445,9 @@
             document.getElementById('dispPeriode').innerText = `BULAN: ${blnSelect.options[blnSelect.selectedIndex].text.toUpperCase()} 2026`;
             document.getElementById('dispKepala').innerText = document.getElementById('inKepsek').value || ".........................................";
             document.getElementById('dispWali').innerText = document.getElementById('inWali').value || ".........................................";
-            
             const isNegeri = document.getElementById('inStatusSekolah').value === 'Negeri';
             document.getElementById('dispNipKepala').innerText = isNegeri ? "NIP. " + (document.getElementById('inNipKepsek').value || "........................") : "";
             document.getElementById('dispNipWali').innerText = isNegeri ? "NIP. " + (document.getElementById('inNipWali').value || "........................") : "";
-
             const tgl = document.getElementById('inTanggalTtd').value;
             document.getElementById('dispTglTtd').innerText = tgl ? "Bekasi, " + new Date(tgl).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'}) : "Bekasi, ..........................";
         }
