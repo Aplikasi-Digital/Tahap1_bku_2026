@@ -37,7 +37,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* MENCEGAH SELEKSI TEKS */
             user-select: none;
             -webkit-user-select: none;
         }
@@ -47,6 +46,23 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+
+        /* STYLE INTERNAL VIEWER (IFRAME) */
+        #app-viewer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 20000; display: none;
+        }
+        .viewer-header {
+            height: 55px; background: var(--dark); color: white;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .btn-close-viewer {
+            background: var(--candy-red); color: white; border: none;
+            padding: 8px 15px; border-radius: 10px; cursor: pointer;
+            font-weight: 800; font-size: 11px;
+        }
+        #viewer-frame { width: 100%; height: calc(100% - 55px); border: none; }
 
         /* STYLE LOGIN OVERLAY */
         #login-overlay {
@@ -170,7 +186,7 @@
             display: flex; align-items: center; gap: 12px; padding: 18px; 
             border-radius: 20px; text-decoration: none; font-weight: 700; 
             color: white; transition: 0.4s; font-size: 13px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer;
         }
         .link-btn:hover { transform: translateY(-5px) scale(1.02); }
         
@@ -203,6 +219,14 @@
     </style>
 </head>
 <body oncontextmenu="return false;">
+
+    <div id="app-viewer">
+        <div class="viewer-header">
+            <div id="viewer-title" style="font-weight: 800; font-size: 14px;">Memuat Halaman...</div>
+            <button class="btn-close-viewer" onclick="closeViewer()"><i class="fa-solid fa-circle-left"></i> KEMBALI</button>
+        </div>
+        <iframe id="viewer-frame" src=""></iframe>
+    </div>
 
     <div id="login-overlay">
         <div class="login-box">
@@ -244,11 +268,11 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="keuangan" class="menu-content">
-                <a href="bku.html" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-file-invoice-dollar"></i> Pendampingan BKU</a>
-                <a href="https://bosp.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-building-columns"></i> Portal BOSP</a>
-                <a href="https://arkas.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-calculator"></i> Aplikasi ARKAS</a>
-                <a href="absen.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-user-clock"></i> Aplikasi Absensi</a>
-                <a href="tanda terima honor.html" target="_blank" class="link-btn btn-purple"><i class="fa-solid fa-hand-holding-dollar"></i> Tanda Terima Honor</a>
+                <a onclick="openInViewer('Pendampingan BKU', 'bku.html')" class="link-btn btn-blue"><i class="fa-solid fa-file-invoice-dollar"></i> Pendampingan BKU</a>
+                <a onclick="openInViewer('Portal BOSP', 'https://bosp.kemendikdasmen.go.id/')" class="link-btn btn-teal"><i class="fa-solid fa-building-columns"></i> Portal BOSP</a>
+                <a onclick="openInViewer('ARKAS', 'https://arkas.kemendikdasmen.go.id/')" class="link-btn btn-orange"><i class="fa-solid fa-calculator"></i> Aplikasi ARKAS</a>
+                <a onclick="openInViewer('Absensi', 'absen.html')" class="link-btn btn-red"><i class="fa-solid fa-user-clock"></i> Aplikasi Absensi</a>
+                <a onclick="openInViewer('Tanda Terima Honor', 'tanda terima honor.html')" class="link-btn btn-purple"><i class="fa-solid fa-hand-holding-dollar"></i> Tanda Terima Honor</a>
             </div>
         </div>
 
@@ -258,13 +282,12 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="gtk" class="menu-content">
-                <a href="https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true&showAssistant=true&showPreview=true" target="_blank" class="link-btn btn-gold"><i class="fa-solid fa-wand-magic-sparkles"></i> Aplikasi Pembuat Soal</a>
-                
-                <a href="https://info.gtk.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-pink"><i class="fa-solid fa-shield-halved"></i> Info GTK</a>
-                <a href="https://coretaxdjp.pajak.go.id/identityproviderportal/account/login" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-landmark-dome"></i> Login Coretax Pajak</a>
-                <a href="https://guru.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-graduation-cap"></i> Platform Merdeka Mengajar</a>
-                <a href="https://belajar.id/" target="_blank" class="link-btn btn-teal"><i class="fa-solid fa-id-badge"></i> Akun Belajar.id</a>
-                <a href="https://akun.simpkb.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-key"></i> Akun SIMPKB</a>
+                <a onclick="openInViewer('Pembuat Soal', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn btn-gold"><i class="fa-solid fa-wand-magic-sparkles"></i> Aplikasi Pembuat Soal</a>
+                <a onclick="openInViewer('Info GTK', 'https://info.gtk.kemendikdasmen.go.id/')" class="link-btn btn-pink"><i class="fa-solid fa-shield-halved"></i> Info GTK</a>
+                <a onclick="openInViewer('Coretax Pajak', 'https://coretaxdjp.pajak.go.id/identityproviderportal/account/login')" class="link-btn btn-indigo"><i class="fa-solid fa-landmark-dome"></i> Login Coretax Pajak</a>
+                <a onclick="openInViewer('PMM', 'https://guru.kemendikdasmen.go.id/')" class="link-btn btn-blue"><i class="fa-solid fa-graduation-cap"></i> Platform Merdeka Mengajar</a>
+                <a onclick="openInViewer('Belajar.id', 'https://belajar.id/')" class="link-btn btn-teal"><i class="fa-solid fa-id-badge"></i> Akun Belajar.id</a>
+                <a onclick="openInViewer('SIMPKB', 'https://akun.simpkb.id/')" class="link-btn btn-orange"><i class="fa-solid fa-key"></i> Akun SIMPKB</a>
             </div>
         </div>
 
@@ -274,9 +297,9 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="daerah" class="menu-content">
-                <a href="https://sikawanbaru.bekasikab.go.id/signin/?next=/ekinerja/dashboard/" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-rocket"></i> SIKAWAN BARU</a>
-                <a href="https://myasn.bkn.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-user-shield"></i> My ASN BKN</a>
-                <a href="https://disdik.bekasikab.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-school-flag"></i> Disdik Kab. Bekasi</a>
+                <a onclick="openInViewer('SIKAWAN BARU', 'https://sikawanbaru.bekasikab.go.id/signin/')" class="link-btn btn-emerald"><i class="fa-solid fa-rocket"></i> SIKAWAN BARU</a>
+                <a onclick="openInViewer('My ASN BKN', 'https://myasn.bkn.go.id/')" class="link-btn btn-blue"><i class="fa-solid fa-user-shield"></i> My ASN BKN</a>
+                <a onclick="openInViewer('Disdik Bekasi', 'https://disdik.bekasikab.go.id/')" class="link-btn btn-green"><i class="fa-solid fa-school-flag"></i> Disdik Kab. Bekasi</a>
             </div>
         </div>
 
@@ -286,11 +309,11 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="pusat" class="menu-content">
-                <a href="https://dapo.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-blue"><i class="fa-solid fa-database"></i> Aplikasi Dapodik</a>
-                <a href="https://vervalpd.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-orange"><i class="fa-solid fa-id-card-clip"></i> Verval PD (Siswa)</a>
-                <a href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-green"><i class="fa-solid fa-user-check"></i> Verval PTK</a>
-                <a href="https://vervalyayasan.data.kemdikbud.go.id/" target="_blank" class="link-btn btn-indigo"><i class="fa-solid fa-landmark"></i> Verval Yayasan</a>
-                <a href="https://pip.kemendikdasmen.go.id/" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-credit-card"></i> Monitoring PIP</a>
+                <a onclick="openInViewer('Dapodik', 'https://dapo.kemendikdasmen.go.id/')" class="link-btn btn-blue"><i class="fa-solid fa-database"></i> Aplikasi Dapodik</a>
+                <a onclick="openInViewer('Verval PD', 'https://vervalpd.data.kemdikbud.go.id/')" class="link-btn btn-orange"><i class="fa-solid fa-id-card-clip"></i> Verval PD (Siswa)</a>
+                <a onclick="openInViewer('Verval PTK', 'https://vervalptk.data.kemdikbud.go.id/')" class="link-btn btn-green"><i class="fa-solid fa-user-check"></i> Verval PTK</a>
+                <a onclick="openInViewer('Verval Yayasan', 'https://vervalyayasan.data.kemdikbud.go.id/')" class="link-btn btn-indigo"><i class="fa-solid fa-landmark"></i> Verval Yayasan</a>
+                <a onclick="openInViewer('Monitoring PIP', 'https://pip.kemendikdasmen.go.id/')" class="link-btn btn-red"><i class="fa-solid fa-credit-card"></i> Monitoring PIP</a>
             </div>
         </div>
 
@@ -318,9 +341,9 @@
                 <i class="fa-solid fa-chevron-down arrow"></i>
             </div>
             <div id="info" class="menu-content">
-                <a href="https://disdik.jabarprov.go.id/unduh" target="_blank" class="link-btn btn-emerald"><i class="fa-solid fa-cloud-arrow-down"></i> Link Update Kaldik Jabar</a>
-                <a href="Kaldik.jpg" target="_blank" class="link-btn btn-slate"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
-                <a href="spmb.html" target="_blank" class="link-btn btn-red"><i class="fa-solid fa-fingerprint"></i> Cek Validasi Usia SPMB</a>
+                <a onclick="openInViewer('Update Kaldik', 'https://disdik.jabarprov.go.id/unduh')" class="link-btn btn-emerald"><i class="fa-solid fa-cloud-arrow-down"></i> Link Update Kaldik Jabar</a>
+                <a onclick="openInViewer('Gambar Kaldik', 'Kaldik.jpg')" class="link-btn btn-slate"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
+                <a onclick="openInViewer('Validasi SPMB', 'spmb.html')" class="link-btn btn-red"><i class="fa-solid fa-fingerprint"></i> Cek Validasi Usia SPMB</a>
                 <div class="calendar-wrapper" style="grid-column: 1 / -1; margin-top: 15px;">
                     <iframe src="https://calendar.google.com/calendar/embed?src=id.indonesian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FJakarta" style="border: 0; border-radius: 15px;" width="100%" height="320" frameborder="0" scrolling="no"></iframe>
                 </div>
@@ -339,6 +362,7 @@
     <script>
         const SECRET_KEY = "Bismillah2026";
 
+        // LOGIN SYSTEM
         function checkPassword() {
             const input = document.getElementById('passkey').value;
             const error = document.getElementById('error-msg');
@@ -361,6 +385,7 @@
 
         function handleEnter(e) { if (e.key === "Enter") checkPassword(); }
 
+        // MENU SYSTEM
         function toggleMenu(id) {
             const content = document.getElementById(id);
             const contents = document.querySelectorAll('.menu-content');
@@ -368,6 +393,21 @@
             content.classList.toggle('show');
         }
 
+        // INTERNAL VIEWER SYSTEM (Fungsi Baru yang Digabung)
+        function openInViewer(title, url) {
+            document.getElementById('viewer-title').innerText = title;
+            document.getElementById('viewer-frame').src = url;
+            document.getElementById('app-viewer').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeViewer() {
+            document.getElementById('app-viewer').style.display = 'none';
+            document.getElementById('viewer-frame').src = "";
+            document.body.style.overflow = 'auto';
+        }
+
+        // TIME SYSTEM
         function updateWaktu() {
             const now = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -377,33 +417,15 @@
             const detik = String(now.getSeconds()).padStart(2, '0');
             document.getElementById('tanggal-jam').innerHTML = `<i class="fa-solid fa-clock"></i> ${tanggal} | ${jam}:${menit}:${detik}`;
         }
-
         setInterval(updateWaktu, 1000);
         updateWaktu();
 
-        // ==========================================
-        // FITUR KEAMANAN (ANTI COPY-PASTE & INSPECT)
-        // ==========================================
-
-        // 1. Matikan Klik Kanan
+        // SECURITY SYSTEM
         document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // 2. Matikan Shortcut Keyboard (Ctrl+U, Ctrl+C, Ctrl+S, F12, Ctrl+Shift+I)
         document.onkeydown = function(e) {
-            if (e.ctrlKey && 
-                (e.keyCode === 67 || // Ctrl+C
-                 e.keyCode === 85 || // Ctrl+U
-                 e.keyCode === 83 || // Ctrl+S
-                 e.keyCode === 73 || // Ctrl+Shift+I
-                 e.keyCode === 74)) { // Ctrl+Shift+J
-                return false;
-            }
-            if (e.keyCode === 123) { // F12
-                return false;
-            }
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73 || e.keyCode === 74)) return false;
+            if (e.keyCode === 123) return false;
         };
-
-        // 3. Mencegah Dragging Elemen
         document.addEventListener('dragstart', e => e.preventDefault());
     </script>
 </body>
