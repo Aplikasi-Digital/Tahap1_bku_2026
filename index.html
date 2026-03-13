@@ -12,23 +12,46 @@
     <meta name="theme-color" content="#1a1a2e">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #00d2ff; --secondary: #3a7bd5; --dark: #1a1a2e;
-            --glass: rgba(255, 255, 255, 0.15); 
-            --glass-border: 1px solid rgba(255, 255, 255, 0.4);
-            --shadow-vibrant: 0 15px 35px rgba(0,0,0,0.5);
-            --accent: #ff4757;
+            /* Palette Warna Baru Berdasarkan Deskripsi */
+            --bg-deep-blue: #1A1A40;
+            --bg-purple: #4B0082;
+            --bg-pink: #FF1493;
+            --bg-orange: #FF8C00;
+            --bg-golden: #FFD700;
+            
+            /* Warna Tombol Menu Baru */
+            --btn-green-start: #00FF7F; --btn-green-end: #008000;
+            --btn-blue-start: #00BFFF; --btn-blue-end: #0000CD;
+            --btn-grey-start: #708090; --btn-grey-end: #2F4F4F;
+            --btn-orange-start: #FF8C00; --btn-orange-end: #8B4513;
+            --btn-yellow-start: #FFD700; --btn-yellow-end: #B8860B;
+            --btn-red-start: #FF0000; --btn-red-end: #800000;
+
+            --text-main: #FFFFFF;
+            --glass: rgba(255, 255, 255, 0.1); 
+            --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+            --shadow-standard: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body { 
-            /* Background Dashboard Utama */
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-                        url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2000&auto=format&fit=crop');
+            /* REVISI BACKGROUND TOTAL */
+            /* Layer 1: Cinematic Sky Gradient */
+            background: linear-gradient(to bottom, 
+                var(--bg-deep-blue) 0%, 
+                var(--bg-purple) 25%, 
+                var(--bg-pink) 50%, 
+                var(--bg-orange) 75%, 
+                var(--bg-golden) 100%
+            ),
+            /* Layer 2: Cityscape Mockup (Menggunakan placeholder URL, ganti dengan gambar Anda jika ada) */
+            url('https://images.unsplash.com/photo-1518171167-3363402446A3?q=80&w=2000&auto=format&fit=crop'); 
+            
             background-size: cover;
             background-position: center bottom;
             background-attachment: fixed;
@@ -37,96 +60,26 @@
             display: flex; align-items: center; justify-content: center;
             user-select: none; -webkit-user-select: none;
             overflow-x: hidden;
-        }
-
-        /* --- LOGIN OVERLAY FANTASY STYLE --- */
-        #login-overlay {
-            position: fixed; inset: 0;
-            /* Background Nebula & Kota Malam */
-            background: linear-gradient(to bottom, rgba(10, 10, 46, 0.8), rgba(0, 0, 0, 0.6)),
-                        url('https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            backdrop-filter: blur(8px);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .login-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px 30px;
-            border-radius: 40px;
-            text-align: center;
-            max-width: 380px; width: 90%;
-            border: 2px solid transparent;
-            /* Bingkai Gradien Pelangi */
-            border-image: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
-            border-image-slice: 1;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            color: var(--text-main);
             position: relative;
         }
 
-        /* Dekorasi Sulur Tanaman (Simulasi menggunakan pseudo-element) */
-        .login-box::before, .login-box::after {
-            content: '✿'; font-size: 30px; color: rgba(255,255,255,0.3);
-            position: absolute; top: 50%; transform: translateY(-50%);
-        }
-        .login-box::before { left: -15px; } .login-box::after { right: -15px; }
-
-        .login-profile { 
-            width: 100px; height: 100px; 
-            border-radius: 50%; 
-            border: 3px solid #fff; 
-            margin: 0 auto 10px; 
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(255,255,255,0.5);
-        }
-        .login-profile img { width: 100%; height: 100%; object-fit: cover; }
-
-        .title-fantasy {
-            font-family: 'Great Vibes', cursive;
-            color: white; font-size: 42px; margin: 0;
-            text-shadow: 0 0 10px rgba(255,255,255,0.8);
-        }
-        .subtitle-fantasy {
-            color: #ddd; font-size: 13px; margin-bottom: 25px; font-weight: 300;
+        /* Elemen Partikel Cahaya (Glow Particles/Sparkles) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            z-index: 1;
+            opacity: 0.6;
         }
 
-        .input-group { text-align: left; margin-top: 15px; position: relative; }
-        .input-group label { color: gold; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-left: 10px; }
-        
-        .input-wrapper { position: relative; display: flex; align-items: center; }
-        .input-wrapper i.left-icon { position: absolute; left: 15px; color: #fff; }
-        .input-wrapper i.right-icon { position: absolute; right: 15px; color: #fff; cursor: pointer; }
-
-        .login-box input {
-            width: 100%; padding: 15px 45px; margin-top: 5px; border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.4); background: rgba(0,0,0,0.3);
-            font-size: 16px; color: white; outline: none; transition: 0.3s;
-        }
-        .login-box input:focus { background: rgba(0,0,0,0.5); border-color: gold; }
-
-        .remember-forgot {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-top: 15px; color: white; font-size: 11px;
-        }
-
-        .btn-login-fantasy {
-            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
-            color: white; border: none; padding: 18px; border-radius: 50px;
-            cursor: pointer; font-weight: 900; width: 100%; margin-top: 25px;
-            text-transform: uppercase; letter-spacing: 2px;
-            box-shadow: 0 10px 20px rgba(245, 87, 108, 0.4);
-            transition: 0.3s;
-        }
-        .btn-login-fantasy:hover { transform: scale(1.05); filter: brightness(1.1); }
-
-        .signup-text { margin-top: 20px; color: #fff; font-size: 12px; }
-        .signup-text span { color: gold; font-weight: 800; cursor: pointer; }
-
-        /* --- VIEWER & DASHBOARD (STRUKTUR ASLI DIBAWAH) --- */
+        /* --- Viewer App (Tetap Asli) --- */
         #app-viewer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 20000; display: none;
@@ -144,61 +97,193 @@
         }
         #viewer-frame { width: 100%; height: calc(100% - 60px); border: none; }
 
+        /* --- Login Overlay (Tetap Asli, tapi visual disesuaikan tema) --- */
+        #login-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(15px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+        }
+        .login-box {
+            background: var(--glass); padding: 40px 30px;
+            border-radius: 35px; text-align: center; box-shadow: var(--shadow-standard);
+            max-width: 360px; width: 85%; border: var(--glass-border);
+        }
+        .login-profile { width: 85px; height: 85px; border-radius: 50%; border: 3px solid white; margin: 0 auto 15px; overflow: hidden; box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+        .login-profile img { width: 100%; height: 100%; object-fit: cover; }
+        .login-box input {
+            width: 100%; padding: 15px; margin-top: 10px; border-radius: 15px; 
+            border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3);
+            text-align: center; font-size: 18px; color: white; outline: none; letter-spacing: 3px;
+        }
+        .btn-login {
+            background: linear-gradient(45deg, #FF1493, #FF8C00);
+            color: white; border: none; padding: 16px; border-radius: 15px;
+            cursor: pointer; font-weight: 800; width: 100%; margin-top: 20px; transition: 0.3s;
+        }
+
+        /* --- Main Container (FUTURISTIC DASHBOARD) --- */
         .container { 
-            display: none; background: rgba(0, 0, 0, 0.5); padding: 35px 25px; border-radius: 40px;
-            box-shadow: var(--shadow-vibrant); width: 100%; max-width: 950px;
-            border: var(--glass-border); backdrop-filter: blur(20px);
+            display: none; background: transparent; padding: 0; border: none;
+            width: 100%; max-width: 480px; /* Mobile width */
             animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 2;
         }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- TOP PROFILE SECTION --- */
+        .header-section { margin-bottom: 25px; text-align: center; }
+        
+        /* Bingkai Foto Profil Bercahaya */
+        .profile-box { 
+            width: 110px; height: 110px; margin: 0 auto 15px; border-radius: 50%; padding: 5px; 
+            background: linear-gradient(45deg, var(--bg-pink), var(--bg-golden)); 
+            box-shadow: 0 0 25px rgba(255,20,147,0.7); 
+            position: relative;
+        }
+        /* Elemen Glow Tambahan */
+        .profile-box::after {
+            content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 50%; background: inherit; filter: blur(15px); opacity: 0.5; z-index: -1;
+        }
+
+        .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; border: 3px solid white; }
+        .profile-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Judul Utama: PORTAL OPERATOR SEKOLAH */
+        .header-text h1 { 
+            font-size: 26px; margin: 0; color: white; font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8); 
+        }
+        /* Subtitle */
+        .header-text .sub-title { 
+            color: rgba(255,255,255,0.8); font-weight: 400; font-size: 13px; 
+            text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;
+        }
+
+        /* --- WELCOME BANNER (RED BANNER) --- */
+        .welcome-box { 
+            background: linear-gradient(90deg, #FF0000, #800000); 
+            padding: 12px; border-radius: 50px; margin: 20px 0; 
+            border: var(--glass-border); 
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(255,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .welcome-text { 
+            font-size: 13px; font-weight: 700; color: white; 
+            display: flex; align-items: center; gap: 8px;
+        }
+        /* Icon Check */
+        .welcome-text i { color: #00FF00; font-size: 14px; }
+
+        /* --- MENU SECTION (TOMBOL BERCAHAYA) --- */
+        .menu-category { margin-bottom: 15px; border-radius: 20px; overflow: hidden; border: none; background: transparent; box-shadow: none; }
+        
+        /* Mengubah Category Header menjadi Tombol Navigasi Utama */
+        .category-header { 
+            padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; 
+            cursor: pointer; font-weight: 700; font-size: 15px; transition: 0.3s; 
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            border-radius: 20px; 
+            border: var(--glass-border);
+            position: relative; overflow: hidden;
+        }
+        /* Efek Kilau (Glossy) */
+        .category-header::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            transform: rotate(30deg);
+        }
+
+        /* Warna Gradient Tombol Menu Sesuai Prompt */
+        .header-keuangan { 
+            background: linear-gradient(135deg, var(--btn-green-start), var(--btn-green-end)); 
+            color: white; box-shadow: 0 5px 15px rgba(0,255,127,0.4); 
+        }
+        .header-guru { 
+            background: linear-gradient(135deg, var(--btn-blue-start), var(--btn-blue-end)); 
+            color: white; box-shadow: 0 5px 15px rgba(0,191,255,0.4); 
+        }
+        /* GTK Gabung ke Guru sesuai prompt, tapi kode asli pisah. Kita ikuti kode asli tapi visual prompt */
+        .header-gtk { 
+            background: linear-gradient(135deg, var(--btn-blue-start), var(--btn-blue-end)); 
+            color: white; box-shadow: 0 5px 15px rgba(0,191,255,0.4); 
+        }
+        .header-daerah { 
+            background: linear-gradient(135deg, var(--btn-grey-start), var(--btn-grey-end)); 
+            color: white; box-shadow: 0 5px 15px rgba(112,128,144,0.4); 
+        }
+        .header-pusat { 
+            background: linear-gradient(135deg, var(--btn-orange-start), var(--btn-orange-end)); 
+            color: white; box-shadow: 0 5px 15px rgba(255,140,0,0.4); 
+        }
+        .header-download { 
+            background: linear-gradient(135deg, var(--btn-yellow-start), var(--btn-yellow-end)); 
+            color: white; box-shadow: 0 5px 15px rgba(255,215,0,0.4); 
+        }
+        .header-info { 
+            background: linear-gradient(135deg, var(--btn-red-start), var(--btn-red-end)); 
+            color: white; box-shadow: 0 5px 15px rgba(255,0,0,0.4); 
+        }
+
+        /* Teks Menu dan Ikon Kiri */
+        .category-header span { display: flex; align-items: center; gap: 12px; }
+        .category-header i:first-child { font-size: 20px; }
+        /* Ikon Panah Kanan */
+        .category-header .fa-chevron-down { font-size: 14px; opacity: 0.7; }
+
+        /* Content Menu (Dropdown) */
+        .menu-content { 
+            max-height: 0; overflow: hidden; transition: all 0.5s ease;
+            background: var(--glass); display: grid; grid-template-columns: 1fr; gap: 8px;
+            border-radius: 0 0 20px 20px;
+            border: var(--glass-border); border-top: none;
+            backdrop-filter: blur(10px);
+        }
+        .menu-content.show { max-height: 2000px; padding: 15px; margin-top: -10px; margin-bottom: 10px; }
+
+        /* Tombol Link di dalam Dropdown (TETAP ASLI WARNANYA) */
+        .link-btn { 
+            display: flex; align-items: center; gap: 10px; padding: 14px; 
+            border-radius: 12px; text-decoration: none; font-weight: 600; 
+            color: white; transition: 0.3s; font-size: 12px; cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .link-btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 5px 10px rgba(0,0,0,0.3); }
+
+        /* --- DATE AND TIME CARD (GLASS CARD) --- */
+        .datetime-box { 
+            background: var(--glass); padding: 18px; border-radius: 20px; margin-top: 25px; 
+            text-align: center; font-weight: 700; font-size: 13px; color: white; 
+            border: var(--glass-border); 
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-standard);
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        
+        /* --- FOOTER --- */
+        .footer { 
+            font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 25px; 
+            text-align: center; line-height: 1.6; text-shadow: 1px 1px 2px black; 
+        }
+        .footer b { color: white; }
+        
+        /* Mobile Responsive */
+        @media (max-width: 650px) {
+            .container { width: 100%; }
+        }
+
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-8px);} 75% {transform: translateX(8px);} }
-
-        /* Style Header & Menu Dashboard (Tetap Sama) */
-        .header-section { margin-bottom: 30px; text-align: center; }
-        .profile-box { width: 95px; height: 95px; margin: 0 auto 15px; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, #00d2ff, #92fe9d); box-shadow: 0 0 20px rgba(0,210,255,0.5); }
-        .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; }
-        .profile-img { width: 100%; height: 100%; object-fit: cover; }
-        .header-text h1 { font-size: 24px; margin: 0; color: white; font-weight: 900; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        .header-text .sub-title { color: var(--primary); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
-
-        .welcome-box { background: linear-gradient(90deg, #ff4757, #ff6b81); padding: 10px; border-radius: 18px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.3); overflow: hidden; }
-        .marquee { white-space: nowrap; overflow: hidden; display: inline-block; animation: marquee 15s linear infinite; }
-        .welcome-text { font-size: 14px; font-weight: 800; color: white; text-transform: uppercase; }
-        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-        .menu-category { margin-bottom: 18px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.3); border: var(--glass-border); }
-        .category-header { padding: 22px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 900; font-size: 14px; transition: 0.3s; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-        
-        /* Warna Header Kategori */
-        .header-keuangan { background: linear-gradient(135deg, #11998e, #38ef7d); color: white; }
-        .header-guru { background: linear-gradient(135deg, #00c6ff, #0072ff); color: white; }
-        .header-gtk { background: linear-gradient(135deg, #6a11cb, #2575fc); color: white; }
-        .header-daerah { background: linear-gradient(135deg, #485460, #1e272e); color: white; }
-        .header-pusat { background: linear-gradient(135deg, #f80759, #bc4e9c); color: white; }
-        .header-download { background: linear-gradient(135deg, #fdc830, #f37335); color: white; }
-        .header-info { background: linear-gradient(135deg, #ff4757, #be2ed1); color: white; }
-
-        .menu-content { max-height: 0; overflow: hidden; transition: all 0.5s ease; background: rgba(255, 255, 255, 0.05); display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-        .menu-content.show { max-height: 2000px; padding: 25px 20px; }
-
-        .link-btn { display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: 15px; text-decoration: none; font-weight: 700; color: white; transition: 0.3s; font-size: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: brightness(1.1); }
-        .link-btn:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.2); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
-
-        .btn-blue { background: #1e90ff; } .btn-green { background: #2ed573; } .btn-orange { background: #ffa502; }
-        .btn-purple { background: #a55eea; } .btn-red { background: #ff4757; } .btn-teal { background: #1abc9c; }
-        .btn-indigo { background: #5352ed; } .btn-pink { background: #ff6b81; } .btn-emerald { background: #26de81; }
-        .btn-slate { background: #747d8c; } .btn-gold { background: #eccc68; color: #2f3542; }
-
-        .datetime-box { background: rgba(0, 0, 0, 0.3); padding: 18px; border-radius: 20px; margin-top: 30px; text-align: center; font-weight: 800; font-size: 13px; color: white; border: var(--glass-border); }
-        .footer { font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 30px; text-align: center; line-height: 1.8; text-shadow: 1px 1px 2px black; }
-        
-        @media (max-width: 650px) {
-            .menu-content { grid-template-columns: 1fr; }
-            .container { padding: 25px 15px; border-radius: 30px; width: 95%; }
-            .header-text h1 { font-size: 19px; }
-        }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -234,7 +319,7 @@
                 <div style="cursor:pointer">Forgot Password?</div>
             </div>
 
-            <button class="btn-login-fantasy" onclick="checkPassword()">Login</button>
+            <button class="btn-login" onclick="checkPassword()">Login</button>
             
             <div class="signup-text">Don't have an account? <span>Sign Up</span></div>
 
@@ -243,8 +328,13 @@
     </div>
 
     <div class="container" id="main-content">
+        
         <div class="header-section">
-            <div class="profile-box"><div class="profile-inner"><img src="profil.jpg" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi'"></div></div>
+            <div class="profile-box">
+                <div class="profile-inner">
+                    <img src="profil.jpg" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi'">
+                </div>
+            </div>
             <div class="header-text">
                 <h1>PORTAL OPERATOR SEKOLAH</h1>
                 <p class="sub-title">Kecamatan Babelan — Kabupaten Bekasi</p>
@@ -253,13 +343,13 @@
 
         <div class="welcome-box">
             <div class="marquee">
-                <span class="welcome-text"><i class="fa-solid fa-bullhorn"></i> SELAMAT DATANG DI PUSAT DATA TERPADU 2026 — SALAM SATU DATA — PORTAL OPERATOR SEKOLAH KECAMATAN BABELAN — KABUPATEN BEKASI — SEMANGAT BEKERJA!</span>
+                <span class="welcome-text"><i class="fa-solid fa-circle-check"></i> Selamat Datang di Pusat Data Terpadu 2026</span>
             </div>
         </div>
 
         <div class="menu-category">
             <div class="category-header header-keuangan" onclick="toggleMenu('keuangan')">
-                <span><i class="fa-solid fa-vault"></i> MANAJEMEN BOSP REGULER</span>
+                <span><i class="fa-solid fa-file-invoice-dollar"></i> Manajemen BOSP Reguler</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="keuangan" class="menu-content">
@@ -272,7 +362,7 @@
 
         <div class="menu-category">
             <div class="category-header header-guru" onclick="toggleMenu('guru-kelas')">
-                <span><i class="fa-solid fa-chalkboard-user"></i> ADMINISTRASI GURU KELAS</span>
+                <span><i class="fa-solid fa-chalkboard-user"></i> Administrasi Guru Kelas</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="guru-kelas" class="menu-content">
@@ -283,7 +373,7 @@
 
         <div class="menu-category">
             <div class="category-header header-gtk" onclick="toggleMenu('gtk')">
-                <span><i class="fa-solid fa-user-gear"></i> LAYANAN GURU & GTK</span>
+                <span><i class="fa-solid fa-user-gear"></i> Layanan Guru & GTK</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="gtk" class="menu-content">
@@ -299,7 +389,7 @@
 
         <div class="menu-category">
             <div class="category-header header-daerah" onclick="toggleMenu('daerah')">
-                <span><i class="fa-solid fa-map-location-dot"></i> LAYANAN KABUPATEN BEKASI</span>
+                <span><i class="fa-solid fa-building"></i> Layanan Kabupaten Bekasi</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="daerah" class="menu-content">
@@ -311,7 +401,7 @@
 
         <div class="menu-category">
             <div class="category-header header-pusat" onclick="toggleMenu('pusat')">
-                <span><i class="fa-solid fa-server"></i> KEMENDIKDASMEN HOME</span>
+                <span><i class="fa-solid fa-house"></i> KEMENDIKDASMEN Home</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="pusat" class="menu-content">
@@ -325,7 +415,7 @@
 
         <div class="menu-category">
             <div class="category-header header-download" onclick="toggleMenu('download')">
-                <span><i class="fa-solid fa-file-signature"></i> FORMAT DOKUMEN SEKOLAH</span>
+                <span><i class="fa-solid fa-file-contract"></i> Format Dokumen Sekolah</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="download" class="menu-content">
@@ -343,7 +433,7 @@
 
         <div class="menu-category">
             <div class="category-header header-info" onclick="toggleMenu('info')">
-                <span><i class="fa-solid fa-calendar-day"></i> VALIDASI USIA SPMB DAN KALDIK</span>
+                <span><i class="fa-solid fa-magnifying-glass-chart"></i> Kaldik & Validasi Usia SPMB</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="info" class="menu-content">
@@ -357,7 +447,8 @@
         </div>
 
         <div class="datetime-box" id="tanggal-jam">Memuat Sistem Waktu...</div>
-        <div class="footer">© 2026 <b>ROHIMAN SUPRIYADI</b> <br> Kecamatan Babelan — Kabupaten Bekasi <br> <span style="font-size: 9px; opacity: 0.7;">Stable Version 2.2 - Ultra Dark UI Enhanced</span></div>
+        
+        <div class="footer">© 2026 <b>ROHIMAN SUPRIYADI</b> <br> Kecamatan Babelan — Kabupaten Bekasi <br> <span style="font-size: 9px; opacity: 0.7;">Sistem Versi 2.0 — High Response</span></div>
     </div>
 
     <script>
@@ -407,6 +498,7 @@
             document.body.style.overflow = 'auto';
         }
 
+        // Fungsi Waktu (Tetap Asli,ID tetap tanggal-jam)
         function updateWaktu() {
             const now = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
