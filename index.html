@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Palette Warna Sesuai Gambar */
             --primary: #00d2ff; --secondary: #3a7bd5; --dark: #1a1a2e;
             --glass: rgba(255, 255, 255, 0.15); 
             --glass-border: 1px solid rgba(255, 255, 255, 0.4);
@@ -25,7 +24,6 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body { 
-            /* REVISI BACKGROUND: Menggunakan gambar kota malam yang sesuai dengan referensi */
             background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                         url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2000&auto=format&fit=crop');
             background-size: cover;
@@ -99,12 +97,12 @@
         .header-text h1 { font-size: 24px; margin: 0; color: white; font-weight: 900; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
         .header-text .sub-title { color: var(--primary); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* REVISI: Welcome Box Running Text */
+        /* Welcome Box Running Text */
         .welcome-box { 
             background: linear-gradient(90deg, #ff4757, #ff6b81); 
             padding: 10px; border-radius: 18px; margin: 20px 0; 
             border: 1px solid rgba(255,255,255,0.3); 
-            overflow: hidden; /* Penting untuk teks berjalan */
+            overflow: hidden;
             box-shadow: 0 5px 15px rgba(255,71,87,0.4);
         }
         .marquee {
