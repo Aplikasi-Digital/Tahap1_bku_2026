@@ -9,31 +9,34 @@
     <meta property="og:description" content="Pusat Layanan Data Pendidikan & Keuangan Sekolah Terpadu. Salam Satu Data!">
     <meta property="og:image" content="profil.jpg"> 
     <meta property="og:url" content="https://operator-sekolah.my.id/">
-    <meta name="theme-color" content="#764ba2">
+    <meta name="theme-color" content="#1a1a2e">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Palette Warna Terang Baru */
-            --primary: #00d2ff; --secondary: #3a7bd5; --dark: #2f3542;
-            --glass: rgba(255, 255, 255, 0.95); --shadow: 0 20px 50px rgba(0,0,0,0.1);
-            --accent: #ff4757; --wa-green: #2ecc71; --gold: #ffa502;
+            /* Palette Warna Baru Sesuai Gambar */
+            --primary: #00d2ff; --secondary: #3a7bd5; --dark: #1a1a2e;
+            --glass: rgba(255, 255, 255, 0.15); 
+            --glass-border: 1px solid rgba(255, 255, 255, 0.4);
+            --shadow-vibrant: 0 15px 35px rgba(0,0,0,0.5);
+            --accent: #ff4757;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body { 
-            /* Background gradasi lebih cerah */
-            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
-            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+            /* Background Gambar Kota & Bintang (Visual Simulasi via CSS Gradient) */
+            background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.8)), 
+                        url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
             margin: 0; padding: 20px 10px; min-height: 100vh;
             display: flex; align-items: center; justify-content: center;
             user-select: none; -webkit-user-select: none;
             overflow-x: hidden;
         }
-
-        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         /* Viewer App */
         #app-viewer {
@@ -53,92 +56,93 @@
         }
         #viewer-frame { width: 100%; height: calc(100% - 60px); border: none; }
 
-        /* Login System */
+        /* Login System - Glassmorphism */
         #login-overlay {
             position: fixed; inset: 0;
-            background: rgba(47, 53, 66, 0.8); backdrop-filter: blur(25px);
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(15px);
             display: flex; align-items: center; justify-content: center;
             z-index: 9999;
         }
         .login-box {
-            background: rgba(255, 255, 255, 0.25); padding: 40px 30px;
-            border-radius: 35px; text-align: center; box-shadow: var(--shadow);
-            max-width: 360px; width: 85%; border: 1px solid rgba(255,255,255,0.4);
+            background: rgba(255, 255, 255, 0.1); padding: 40px 30px;
+            border-radius: 35px; text-align: center; box-shadow: var(--shadow-vibrant);
+            max-width: 360px; width: 85%; border: var(--glass-border);
+            backdrop-filter: blur(10px);
         }
         .login-profile { width: 85px; height: 85px; border-radius: 50%; border: 3px solid white; margin: 0 auto 15px; overflow: hidden; }
         .login-profile img { width: 100%; height: 100%; object-fit: cover; }
         .login-box input {
             width: 100%; padding: 15px; margin-top: 10px; border-radius: 15px; 
-            border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
             text-align: center; font-size: 18px; color: white; outline: none; letter-spacing: 3px;
         }
-        .login-box input::placeholder { color: rgba(255,255,255,0.7); }
         .btn-login {
-            background: linear-gradient(to right, #00dbde, #fc00ff);
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
             color: white; border: none; padding: 16px; border-radius: 15px;
             cursor: pointer; font-weight: 800; width: 100%; margin-top: 20px; transition: 0.3s;
         }
 
         /* Main Container */
         .container { 
-            display: none; background: var(--glass); padding: 35px 25px; border-radius: 40px;
-            box-shadow: var(--shadow); width: 100%; max-width: 950px;
-            border: 1px solid rgba(255,255,255,1); backdrop-filter: blur(20px);
+            display: none; background: rgba(255, 255, 255, 0.08); padding: 35px 25px; border-radius: 40px;
+            box-shadow: var(--shadow-vibrant); width: 100%; max-width: 950px;
+            border: var(--glass-border); backdrop-filter: blur(25px);
             animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .header-section { margin-bottom: 30px; text-align: center; }
-        .profile-box { width: 95px; height: 95px; margin: 0 auto 15px; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, #00d2ff, #92fe9d); }
+        .profile-box { width: 95px; height: 95px; margin: 0 auto 15px; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, #00d2ff, #92fe9d); box-shadow: 0 0 20px rgba(0,210,255,0.5); }
         .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; }
         .profile-img { width: 100%; height: 100%; object-fit: cover; }
-        .header-text h1 { font-size: 22px; margin: 0; color: #2f3542; font-weight: 900; }
-        .header-text .sub-title { color: #3742fa; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .header-text h1 { font-size: 24px; margin: 0; color: white; font-weight: 900; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .header-text .sub-title { color: var(--primary); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
 
-        .welcome-box { background: #e8faff; padding: 14px; border-radius: 18px; margin: 20px 0; border: 2px solid #70a1ff; text-align: center; }
-        .welcome-text { font-size: 12px; font-weight: 800; color: #1e90ff; }
+        .welcome-box { background: rgba(255, 255, 255, 0.1); padding: 14px; border-radius: 18px; margin: 20px 0; border: 1px solid rgba(255,71,87,0.5); text-align: center; box-shadow: 0 0 15px rgba(255,71,87,0.2); }
+        .welcome-text { font-size: 12px; font-weight: 800; color: #ff4757; text-shadow: 0 0 5px rgba(255,71,87,0.5); }
 
-        /* Menu System - Header Warna Terang */
-        .menu-category { margin-bottom: 15px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white; }
-        .category-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 800; font-size: 14px; transition: 0.3s; }
+        /* Menu System - Header Glossy Sesuai Gambar */
+        .menu-category { margin-bottom: 18px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.3); border: var(--glass-border); }
+        .category-header { padding: 22px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 900; font-size: 14px; transition: 0.3s; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
 
-        .header-keuangan { background: linear-gradient(to right, #11998e, #38ef7d); color: white; }
-        .header-guru { background: linear-gradient(to right, #00c6ff, #0072ff); color: white; }
-        .header-gtk { background: linear-gradient(to right, #6a11cb, #2575fc); color: white; }
-        .header-daerah { background: linear-gradient(to right, #ff9966, #ff5e62); color: white; }
-        .header-pusat { background: linear-gradient(to right, #f80759, #bc4e9c); color: white; }
-        .header-download { background: linear-gradient(to right, #FDC830, #F37335); color: white; }
-        .header-info { background: linear-gradient(to right, #2193b0, #6dd5ed); color: white; }
+        .header-keuangan { background: linear-gradient(135deg, rgba(17, 153, 142, 0.9), rgba(56, 239, 125, 0.9)); color: white; }
+        .header-guru { background: linear-gradient(135deg, rgba(0, 198, 255, 0.9), rgba(0, 114, 255, 0.9)); color: white; }
+        .header-gtk { background: linear-gradient(135deg, rgba(106, 17, 203, 0.9), rgba(37, 117, 252, 0.9)); color: white; }
+        .header-daerah { background: linear-gradient(135deg, rgba(72, 84, 96, 0.95), rgba(30, 39, 46, 0.95)); color: white; }
+        .header-pusat { background: linear-gradient(135deg, rgba(248, 7, 89, 0.9), rgba(188, 78, 156, 0.9)); color: white; }
+        .header-download { background: linear-gradient(135deg, rgba(253, 200, 48, 0.9), rgba(243, 115, 53, 0.9)); color: white; }
+        .header-info { background: linear-gradient(135deg, rgba(255, 71, 87, 0.9), rgba(190, 46, 221, 0.9)); color: white; }
 
         .menu-content { 
-            max-height: 0; overflow: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #ffffff; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
+            max-height: 0; overflow: hidden; transition: all 0.5s ease;
+            background: rgba(255, 255, 255, 0.1); display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
         }
-        .menu-content.show { max-height: 2000px; padding: 25px 20px; border-top: 1px solid #f1f2f6; }
+        .menu-content.show { max-height: 2000px; padding: 25px 20px; }
 
         .link-btn { 
             display: flex; align-items: center; gap: 12px; padding: 16px; 
             border-radius: 15px; text-decoration: none; font-weight: 700; 
             color: white; transition: 0.3s; font-size: 12px; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: brightness(1.1);
         }
-        .link-btn:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .link-btn:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.2); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
 
-        /* Button Colors - Versi Terang/Vibrant */
+        /* Button Colors */
         .btn-blue { background: #1e90ff; } .btn-green { background: #2ed573; } .btn-orange { background: #ffa502; }
         .btn-purple { background: #a55eea; } .btn-red { background: #ff4757; } .btn-teal { background: #1abc9c; }
         .btn-indigo { background: #5352ed; } .btn-pink { background: #ff6b81; } .btn-emerald { background: #26de81; }
         .btn-slate { background: #747d8c; } .btn-gold { background: #eccc68; color: #2f3542; }
 
-        .datetime-box { background: #f1f2f6; padding: 18px; border-radius: 20px; margin-top: 30px; text-align: center; font-weight: 800; font-size: 13px; color: #2f3542; border: 1px solid #dfe4ea; }
-        .footer { font-size: 11px; color: #747d8c; margin-top: 30px; text-align: center; line-height: 1.8; }
+        .datetime-box { background: rgba(255, 255, 255, 0.1); padding: 18px; border-radius: 20px; margin-top: 30px; text-align: center; font-weight: 800; font-size: 13px; color: white; border: var(--glass-border); }
+        .footer { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 30px; text-align: center; line-height: 1.8; }
         
         @media (max-width: 650px) {
             .menu-content { grid-template-columns: 1fr; }
-            .container { padding: 25px 15px; }
+            .container { padding: 25px 15px; border-radius: 30px; }
             .header-text h1 { font-size: 19px; }
-            .category-header { font-size: 12px; }
         }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -164,7 +168,7 @@
                 <input type="password" id="passkey" placeholder="••••••••" onkeypress="handleEnter(event)">
             </div>
             <button class="btn-login" onclick="checkPassword()">BUKA PORTAL</button>
-            <p id="error-msg" style="color: #ff4757; font-size: 11px; margin-top: 15px; display: none; font-weight: 800; background: rgba(255,255,255,0.9); padding: 8px; border-radius: 10px;">KODE AKSES SALAH!</p>
+            <p id="error-msg" style="color: #ff4757; font-size: 11px; margin-top: 15px; display: none; font-weight: 800; background: white; padding: 8px; border-radius: 10px;">KODE AKSES SALAH!</p>
         </div>
     </div>
 
@@ -279,7 +283,7 @@
         </div>
 
         <div class="datetime-box" id="tanggal-jam">Memuat Sistem Waktu...</div>
-        <div class="footer">© 2026 <b>ROHIMAN SUPRIYADI</b> <br> Kecamatan Babelan — Kabupaten Bekasi <br> <span style="font-size: 9px; opacity: 0.7;">Stable Version 2.1 - Vibrant UI Enhanced</span></div>
+        <div class="footer">© 2026 <b>ROHIMAN SUPRIYADI</b> <br> Kecamatan Babelan — Kabupaten Bekasi <br> <span style="font-size: 9px; opacity: 0.7;">Stable Version 2.2 - Ultra Dark UI Enhanced</span></div>
     </div>
 
     <script>
@@ -306,25 +310,13 @@
         function toggleMenu(id) {
             const content = document.getElementById(id);
             const isShowing = content.classList.contains('show');
-            
-            document.querySelectorAll('.menu-content').forEach(c => { 
-                c.classList.remove('show'); 
-            });
-            
-            if (!isShowing) {
-                content.classList.add('show');
-            }
+            document.querySelectorAll('.menu-content').forEach(c => c.classList.remove('show'));
+            if (!isShowing) content.classList.add('show');
         }
 
         function smartOpen(title, url) {
-            const listBlokir = [
-                'kemendikdasmen.go.id', 'kemdikbud.go.id', 'google.com', 
-                'bekasikab.go.id', 'pajak.go.id', 'bkn.go.id', 'simpkb.id', 
-                'jabarprov.go.id', 's.id', 'drive.google.com', 'aistudio.google.com'
-            ];
-            
+            const listBlokir = ['kemendikdasmen.go.id', 'kemdikbud.go.id', 'google.com', 'bekasikab.go.id', 'pajak.go.id', 'bkn.go.id', 'simpkb.id', 'jabarprov.go.id', 's.id', 'drive.google.com', 'aistudio.google.com'];
             const harusTabBaru = listBlokir.some(domain => url.includes(domain));
-
             if (harusTabBaru) {
                 window.open(url, '_blank');
             } else {
@@ -348,7 +340,6 @@
         }
         setInterval(updateWaktu, 1000);
         updateWaktu();
-
         document.addEventListener('contextmenu', e => e.preventDefault());
     </script>
 </body>
