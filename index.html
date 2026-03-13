@@ -28,26 +28,70 @@
 
         .container { max-width: 480px; margin: 0 auto; display: none; }
 
-        /* Login Section */
-        #login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: center; z-index: 9999; }
-        .login-box { background: var(--glass); padding: 30px; border-radius: 30px; text-align: center; width: 85%; border: var(--glass-border); }
-        .login-box input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: none; text-align: center; font-size: 18px; }
-        .btn-login { background: var(--btn-red); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        /* --- Tampilan Login Baru --- */
+        #login-overlay { 
+            position: fixed; inset: 0; 
+            background: radial-gradient(circle at center, #252a41 0%, #0f111a 100%); 
+            display: flex; align-items: center; justify-content: center; z-index: 9999; 
+        }
 
-        /* Header */
+        .login-card {
+            width: 85%; max-width: 350px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 40px;
+            padding: 40px 25px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 2px solid transparent;
+            background-image: linear-gradient(rgba(37, 42, 65, 0.95), rgba(37, 42, 65, 0.95)), 
+                              linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .profile-img-container {
+            width: 120px; height: 120px; margin: 0 auto 15px;
+            border-radius: 50%; padding: 5px; background: white;
+            box-shadow: 0 0 25px rgba(255,255,255,0.6);
+        }
+
+        .profile-img-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+        .login-card h2 { 
+            font-family: 'Brush Script MT', cursive, sans-serif; font-size: 42px; margin: 0; 
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+        }
+
+        .login-card p.subtitle { font-size: 14px; opacity: 0.8; margin-bottom: 30px; }
+        .input-group { position: relative; margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; font-size: 12px; font-weight: bold; color: #FFD700; margin-bottom: 8px; margin-left: 10px; }
+        
+        .input-wrapper {
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px; display: flex; align-items: center; padding: 12px 20px;
+        }
+
+        .input-wrapper input { background: transparent; border: none; color: white; width: 100%; font-size: 16px; outline: none; }
+
+        .btn-login-new {
+            background: linear-gradient(to right, #ff7eb3, #ff758c);
+            color: white; border: none; padding: 15px; width: 100%;
+            border-radius: 30px; font-weight: 900; font-size: 18px;
+            cursor: pointer; box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4);
+            margin-top: 10px; letter-spacing: 2px;
+        }
+
+        /* --- Menu Styles --- */
         .header-section { text-align: center; margin-bottom: 20px; }
-        .profile-box { width: 100px; height: 100px; margin: 0 auto 10px; border-radius: 50%; border: 3px solid white; overflow: hidden; box-shadow: 0 0 20px rgba(255,255,255,0.3); }
-        .profile-box img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* Menu Styles */
         .menu-category { margin-bottom: 12px; }
         .category-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-radius: 15px; font-weight: bold; border: var(--glass-border); }
         .menu-content { max-height: 0; overflow: hidden; transition: 0.4s ease; background: rgba(0,0,0,0.2); border-radius: 0 0 15px 15px; }
-        .menu-content.show { max-height: 1000px; padding: 10px; }
+        .menu-content.show { max-height: 1500px; padding: 10px; }
 
-        .link-btn { display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(255,255,255,0.1); margin-bottom: 8px; border-radius: 10px; text-decoration: none; color: white; font-size: 13px; border: 1px solid rgba(255,255,255,0.05); }
+        .link-btn { display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(255,255,255,0.1); margin-bottom: 8px; border-radius: 10px; text-decoration: none; color: white; font-size: 13px; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
         
-        /* Specific Colors */
+        /* Category Colors */
         .h-bosp { background: var(--btn-green); }
         .h-guru { background: var(--btn-blue); }
         .h-bekasi { background: var(--btn-grey); }
@@ -64,18 +108,27 @@
 <body oncontextmenu="return false;">
 
     <div id="login-overlay">
-        <div class="login-box">
-            <div class="profile-box"><img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=RS'"></div>
-            <h3>Silahkan Login</h3>
-            <input type="password" id="passkey" placeholder="Password">
-            <button class="btn-login" onclick="checkPassword()">LOGIN</button>
-            <p id="error-msg" style="color:red; display:none; font-size:12px; margin-top:10px;">Password Salah!</p>
+        <div class="login-card">
+            <div class="profile-img-container">
+                <img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=RS&background=FF0000&color=fff'">
+            </div>
+            <h2>Silahkan Login</h2>
+            <p class="subtitle">Please Sign In to Your Account</p>
+            <div class="input-group">
+                <label>PASSWORD</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock" style="margin-right:10px; opacity:0.7;"></i>
+                    <input type="password" id="passkey" placeholder="Enter your password">
+                </div>
+            </div>
+            <button class="btn-login-new" onclick="checkPassword()">LOGIN</button>
+            <p id="error-msg" style="color:#ff4d4d; display:none; font-size:12px; margin-top:15px; font-weight:bold;">Password Salah!</p>
         </div>
     </div>
 
     <div id="app-viewer">
         <div class="viewer-header">
-            <span id="v-title" style="font-size:12px;">Memuat...</span>
+            <span id="v-title" style="font-size:12px; color:white;">Memuat...</span>
             <button onclick="closeViewer()" style="background:red; color:white; border:none; padding:5px 10px; border-radius:5px;">TUTUP</button>
         </div>
         <iframe id="v-frame" style="width:100%; height:calc(100% - 50px); border:none;"></iframe>
@@ -83,7 +136,9 @@
 
     <div class="container" id="main-content">
         <div class="header-section">
-            <div class="profile-box"><img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=RS'"></div>
+            <div style="width:80px; height:80px; margin: 0 auto 10px; border-radius:50%; border:2px solid white; overflow:hidden;">
+                <img src="profil.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://ui-avatars.com/api/?name=RS'">
+            </div>
             <h2 style="margin:0; font-size:20px;">PORTAL OPERATOR SEKOLAH</h2>
             <small>Kec. Babelan - Kab. Bekasi</small>
         </div>
@@ -122,7 +177,7 @@
                 <a onclick="smartOpen('Adm Lengkap', 'https://s.id/EduAdminApps-V18')" class="link-btn"><i class="fa-solid fa-folder-tree"></i> Aplikasi Adm Lengkap</a>
                 <a onclick="smartOpen('Info GTK', 'https://info.gtk.kemendikdasmen.go.id/info')" class="link-btn"><i class="fa-solid fa-id-card"></i> Info GTK</a>
                 <a onclick="smartOpen('Login Coretax', 'https://coretaxdjp.pajak.go.id/identityproviderportal/Account/Login')" class="link-btn"><i class="fa-solid fa-coins"></i> Login Coretax</a>
-                <a onclick="smartOpen('PMM', 'https://guru.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-graduation-cap"></i> Platform Merdeka Mengajar</a>
+                <a onclick="smartOpen('Merdeka Mengajar', 'https://guru.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-graduation-cap"></i> Platform Merdeka Mengajar</a>
                 <a onclick="smartOpen('Id Belajar', 'https://belajar.id/')" class="link-btn"><i class="fa-solid fa-at"></i> Login Id Belajar</a>
                 <a onclick="smartOpen('Simpkb', 'https://paspor-gtk.simpkb.id/')" class="link-btn"><i class="fa-solid fa-key"></i> SIMPKB</a>
             </div>
@@ -181,9 +236,6 @@
                 <a onclick="smartOpen('Validasi SPMB', 'spmb.html')" class="link-btn"><i class="fa-solid fa-check-double"></i> Cek Validasi Usia SPMB</a>
                 <a onclick="smartOpen('Kaldik Jabar', 'https://disdik.jabarprov.go.id/unduh')" class="link-btn"><i class="fa-solid fa-download"></i> Link Update Kaldik Jabar</a>
                 <a onclick="smartOpen('Kaldik Image', 'Kaldik.jpg')" class="link-btn"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
-                <div style="margin-top:10px;">
-                    <iframe src="https://calendar.google.com/calendar/embed?src=id.indonesian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FJakarta" style="border:0; width:100%; height:250px; border-radius:10px;"></iframe>
-                </div>
             </div>
         </div>
 
