@@ -16,14 +16,14 @@
     
     <style>
         :root {
-            /* Palette Warna Baru Berdasarkan Deskripsi */
+            /* Palette Warna */
             --bg-deep-blue: #1A1A40;
             --bg-purple: #4B0082;
             --bg-pink: #FF1493;
             --bg-orange: #FF8C00;
             --bg-golden: #FFD700;
             
-            /* Warna Tombol Menu Baru */
+            /* Warna Tombol Menu */
             --btn-green-start: #00FF7F; --btn-green-end: #008000;
             --btn-blue-start: #00BFFF; --btn-blue-end: #0000CD;
             --btn-grey-start: #708090; --btn-grey-end: #2F4F4F;
@@ -40,8 +40,6 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body { 
-            /* REVISI BACKGROUND TOTAL */
-            /* Layer 1: Cinematic Sky Gradient */
             background: linear-gradient(to bottom, 
                 var(--bg-deep-blue) 0%, 
                 var(--bg-purple) 25%, 
@@ -49,7 +47,6 @@
                 var(--bg-orange) 75%, 
                 var(--bg-golden) 100%
             ),
-            /* Layer 2: Cityscape Mockup (Menggunakan placeholder URL, ganti dengan gambar Anda jika ada) */
             url('https://images.unsplash.com/photo-1518171167-3363402446A3?q=80&w=2000&auto=format&fit=crop'); 
             
             background-size: cover;
@@ -64,7 +61,6 @@
             position: relative;
         }
 
-        /* Elemen Partikel Cahaya (Glow Particles/Sparkles) */
         body::before {
             content: '';
             position: fixed;
@@ -79,7 +75,7 @@
             opacity: 0.6;
         }
 
-        /* --- Viewer App (Tetap Asli) --- */
+        /* Viewer App */
         #app-viewer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 20000; display: none;
@@ -97,7 +93,7 @@
         }
         #viewer-frame { width: 100%; height: calc(100% - 60px); border: none; }
 
-        /* --- Login Overlay (Tetap Asli, tapi visual disesuaikan tema) --- */
+        /* Login Overlay */
         #login-overlay {
             position: fixed; inset: 0;
             background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(15px);
@@ -122,48 +118,28 @@
             cursor: pointer; font-weight: 800; width: 100%; margin-top: 20px; transition: 0.3s;
         }
 
-        /* --- Main Container (FUTURISTIC DASHBOARD) --- */
+        /* Main Container */
         .container { 
             display: none; background: transparent; padding: 0; border: none;
-            width: 100%; max-width: 480px; /* Mobile width */
+            width: 100%; max-width: 480px;
             animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             z-index: 2;
         }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- TOP PROFILE SECTION --- */
         .header-section { margin-bottom: 25px; text-align: center; }
-        
-        /* Bingkai Foto Profil Bercahaya */
         .profile-box { 
             width: 110px; height: 110px; margin: 0 auto 15px; border-radius: 50%; padding: 5px; 
             background: linear-gradient(45deg, var(--bg-pink), var(--bg-golden)); 
             box-shadow: 0 0 25px rgba(255,20,147,0.7); 
             position: relative;
         }
-        /* Elemen Glow Tambahan */
-        .profile-box::after {
-            content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;
-            border-radius: 50%; background: inherit; filter: blur(15px); opacity: 0.5; z-index: -1;
-        }
-
         .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; border: 3px solid white; }
         .profile-img { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* Judul Utama: PORTAL OPERATOR SEKOLAH */
-        .header-text h1 { 
-            font-size: 26px; margin: 0; color: white; font-weight: 900; 
-            text-transform: uppercase; letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255,255,255,0.8); 
-        }
-        /* Subtitle */
-        .header-text .sub-title { 
-            color: rgba(255,255,255,0.8); font-weight: 400; font-size: 13px; 
-            text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;
-        }
+        .header-text h1 { font-size: 26px; margin: 0; color: white; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
+        .header-text .sub-title { color: rgba(255,255,255,0.8); font-weight: 400; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
 
-        /* --- WELCOME BANNER (RED BANNER) --- */
         .welcome-box { 
             background: linear-gradient(90deg, #FF0000, #800000); 
             padding: 12px; border-radius: 50px; margin: 20px 0; 
@@ -172,116 +148,50 @@
             box-shadow: 0 5px 20px rgba(255,0,0,0.5);
             display: flex; align-items: center; justify-content: center;
         }
-        .marquee {
-            white-space: nowrap;
-            overflow: hidden;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .welcome-text { 
-            font-size: 13px; font-weight: 700; color: white; 
-            display: flex; align-items: center; gap: 8px;
-        }
-        /* Icon Check */
-        .welcome-text i { color: #00FF00; font-size: 14px; }
+        .marquee { white-space: nowrap; overflow: hidden; display: flex; align-items: center; gap: 10px; }
+        .welcome-text { font-size: 13px; font-weight: 700; color: white; display: flex; align-items: center; gap: 8px; }
 
-        /* --- MENU SECTION (TOMBOL BERCAHAYA) --- */
-        .menu-category { margin-bottom: 15px; border-radius: 20px; overflow: hidden; border: none; background: transparent; box-shadow: none; }
-        
-        /* Mengubah Category Header menjadi Tombol Navigasi Utama */
+        .menu-category { margin-bottom: 15px; border-radius: 20px; overflow: hidden; }
         .category-header { 
             padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; 
             cursor: pointer; font-weight: 700; font-size: 15px; transition: 0.3s; 
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-            border-radius: 20px; 
-            border: var(--glass-border);
-            position: relative; overflow: hidden;
+            border-radius: 20px; border: var(--glass-border);
         }
-        /* Efek Kilau (Glossy) */
-        .category-header::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-            transform: rotate(30deg);
-        }
+        
+        .header-keuangan { background: linear-gradient(135deg, var(--btn-green-start), var(--btn-green-end)); box-shadow: 0 5px 15px rgba(0,255,127,0.4); }
+        .header-guru { background: linear-gradient(135deg, var(--btn-blue-start), var(--btn-blue-end)); box-shadow: 0 5px 15px rgba(0,191,255,0.4); }
+        .header-gtk { background: linear-gradient(135deg, var(--btn-blue-start), var(--btn-blue-end)); box-shadow: 0 5px 15px rgba(0,191,255,0.4); }
+        .header-daerah { background: linear-gradient(135deg, var(--btn-grey-start), var(--btn-grey-end)); box-shadow: 0 5px 15px rgba(112,128,144,0.4); }
+        .header-pusat { background: linear-gradient(135deg, var(--btn-orange-start), var(--btn-orange-end)); box-shadow: 0 5px 15px rgba(255,140,0,0.4); }
+        .header-download { background: linear-gradient(135deg, var(--btn-yellow-start), var(--btn-yellow-end)); box-shadow: 0 5px 15px rgba(255,215,0,0.4); }
+        .header-info { background: linear-gradient(135deg, var(--btn-red-start), var(--btn-red-end)); box-shadow: 0 5px 15px rgba(255,0,0,0.4); }
 
-        /* Warna Gradient Tombol Menu Sesuai Prompt */
-        .header-keuangan { 
-            background: linear-gradient(135deg, var(--btn-green-start), var(--btn-green-end)); 
-            color: white; box-shadow: 0 5px 15px rgba(0,255,127,0.4); 
-        }
-        .header-guru { 
-            background: linear-gradient(135deg, var(--btn-blue-start), var(--btn-blue-end)); 
-            color: white; box-shadow: 0 5px 15px rgba(0,191,255,0.4); 
-        }
-        /* GTK Gabung ke Guru sesuai prompt, tapi kode asli pisah. Kita ikuti kode asli tapi visual prompt */
-        .header-gtk { 
-            background: linear-gradient(135deg, var(--btn-blue-start), var(--btn-blue-end)); 
-            color: white; box-shadow: 0 5px 15px rgba(0,191,255,0.4); 
-        }
-        .header-daerah { 
-            background: linear-gradient(135deg, var(--btn-grey-start), var(--btn-grey-end)); 
-            color: white; box-shadow: 0 5px 15px rgba(112,128,144,0.4); 
-        }
-        .header-pusat { 
-            background: linear-gradient(135deg, var(--btn-orange-start), var(--btn-orange-end)); 
-            color: white; box-shadow: 0 5px 15px rgba(255,140,0,0.4); 
-        }
-        .header-download { 
-            background: linear-gradient(135deg, var(--btn-yellow-start), var(--btn-yellow-end)); 
-            color: white; box-shadow: 0 5px 15px rgba(255,215,0,0.4); 
-        }
-        .header-info { 
-            background: linear-gradient(135deg, var(--btn-red-start), var(--btn-red-end)); 
-            color: white; box-shadow: 0 5px 15px rgba(255,0,0,0.4); 
-        }
-
-        /* Teks Menu dan Ikon Kiri */
-        .category-header span { display: flex; align-items: center; gap: 12px; }
-        .category-header i:first-child { font-size: 20px; }
-        /* Ikon Panah Kanan */
-        .category-header .fa-chevron-down { font-size: 14px; opacity: 0.7; }
-
-        /* Content Menu (Dropdown) */
         .menu-content { 
             max-height: 0; overflow: hidden; transition: all 0.5s ease;
             background: var(--glass); display: grid; grid-template-columns: 1fr; gap: 8px;
-            border-radius: 0 0 20px 20px;
-            border: var(--glass-border); border-top: none;
+            border-radius: 0 0 20px 20px; border: var(--glass-border); border-top: none;
             backdrop-filter: blur(10px);
         }
         .menu-content.show { max-height: 2000px; padding: 15px; margin-top: -10px; margin-bottom: 10px; }
 
-        /* Tombol Link di dalam Dropdown (TETAP ASLI WARNANYA) */
         .link-btn { 
             display: flex; align-items: center; gap: 10px; padding: 14px; 
             border-radius: 12px; text-decoration: none; font-weight: 600; 
             color: white; transition: 0.3s; font-size: 12px; cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1);
         }
-        .link-btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 5px 10px rgba(0,0,0,0.3); }
+        .btn-blue { background: #3498db; } .btn-teal { background: #1abc9c; } .btn-orange { background: #e67e22; }
+        .btn-purple { background: #9b59b6; } .btn-emerald { background: #2ecc71; } .btn-red { background: #e74c3c; }
+        .btn-pink { background: #fd79a8; } .btn-indigo { background: #6610f2; } .btn-gold { background: #f1c40f; }
+        .btn-slate { background: #7f8c8d; }
 
-        /* --- DATE AND TIME CARD (GLASS CARD) --- */
         .datetime-box { 
             background: var(--glass); padding: 18px; border-radius: 20px; margin-top: 25px; 
             text-align: center; font-weight: 700; font-size: 13px; color: white; 
-            border: var(--glass-border); 
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-standard);
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            border: var(--glass-border); backdrop-filter: blur(10px);
         }
+        .footer { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 25px; text-align: center; line-height: 1.6; }
         
-        /* --- FOOTER --- */
-        .footer { 
-            font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 25px; 
-            text-align: center; line-height: 1.6; text-shadow: 1px 1px 2px black; 
-        }
-        .footer b { color: white; }
-        
-        /* Mobile Responsive */
-        @media (max-width: 650px) {
-            .container { width: 100%; }
-        }
-
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-8px);} 75% {transform: translateX(8px);} }
     </style>
@@ -301,34 +211,14 @@
             <div class="login-profile">
                 <img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=1e90ff&color=fff&size=128'">
             </div>
-            
-            <h1 class="title-fantasy">Silahkan Login</h1>
-            <p class="subtitle-fantasy">Please Sign In to Your Account</p>
-
-            <div class="input-group">
-                <label>Password</label>
-                <div class="input-wrapper">
-                    <i class="fa-solid fa-lock left-icon"></i>
-                    <input type="password" id="passkey" placeholder="Enter your password" onkeypress="handleEnter(event)">
-                    <i class="fa-solid fa-eye right-icon"></i>
-                </div>
-            </div>
-
-            <div class="remember-forgot">
-                <div><input type="checkbox" id="rem"> <label for="rem">Remember Me</label></div>
-                <div style="cursor:pointer">Forgot Password?</div>
-            </div>
-
+            <h1 style="font-size: 20px;">Silahkan Login</h1>
+            <input type="password" id="passkey" placeholder="Masukkan Password" onkeypress="handleEnter(event)">
             <button class="btn-login" onclick="checkPassword()">Login</button>
-            
-            <div class="signup-text">Don't have an account? <span>Sign Up</span></div>
-
-            <p id="error-msg" style="color: #ff4757; font-size: 11px; margin-top: 15px; display: none; font-weight: 800; background: white; padding: 8px; border-radius: 10px;">KODE AKSES SALAH!</p>
+            <p id="error-msg" style="color: #ff4757; font-size: 11px; margin-top: 15px; display: none; font-weight: 800; background: white; padding: 8px; border-radius: 10px;">PASSWORD SALAH!</p>
         </div>
     </div>
 
     <div class="container" id="main-content">
-        
         <div class="header-section">
             <div class="profile-box">
                 <div class="profile-inner">
@@ -419,15 +309,16 @@
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div id="download" class="menu-content">
-                <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn btn-pink"><i class="fa-solid fa-file-excel"></i> Format SI</a>
-                <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Sertijab</a>
-                <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Tim BOSP 2026</a>
-                <a href="FORMAT Permohonan Pencetakan Rekening Koran BOSP Reguler.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Permohonan Rek. Koran</a>
-                <a href="FORMAT SK PENGANGKATAN_GTY.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Pengangkatan GTY</a>
+                <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn btn-pink"><i class="fa-solid fa-file-excel"></i> Format SI (Standing Instruction)</a>
+                <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Sertijab Kepala Sekolah</a>
+                <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Tim Manajemen BOSP 2026</a>
+                <a href="FORMAT Permohonan Pencetakan Rekening Koran BOSP Reguler.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Permohonan Rek. Koran Bank</a>
+                <a href="FORMAT SK PENGANGKATAN_GTY.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Pengangkatan GTY/PTY</a>
                 <a href="BERITA ACARA RAPAT PENYUSUNAN RKAS DAN ADM LAINNYA.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Penyusunan RKAS</a>
-                <a href="FORMAT Spesiment BOS Pusat.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Spesimen BOS Pusat</a>
+                <a href="FORMAT Spesiment BOS Pusat.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Format Spesimen BOS Pusat</a>
                 <a href="FORMAT SK_BENDAHARA_SEKOLAH.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Bendahara Sekolah</a>
-                <a href="FORMAT SURAT KETERANGAN AKTIF_MENGAJAR_2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Aktif Mengajar</a>
+                <a href="FORMAT SURAT KETERANGAN AKTIF_MENGAJAR_2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Aktif Mengajar 2026</a>
+                <a href="SURAT TUGAS OPERATOR.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Surat Tugas Operator Sekolah</a>
             </div>
         </div>
 
@@ -498,7 +389,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Fungsi Waktu (Tetap Asli,ID tetap tanggal-jam)
         function updateWaktu() {
             const now = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
