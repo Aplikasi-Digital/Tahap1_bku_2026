@@ -12,6 +12,8 @@
     <meta name="theme-color" content="#1a1a2e">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary: #00d2ff; --secondary: #3a7bd5; --dark: #1a1a2e;
@@ -24,19 +26,107 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body { 
+            /* Background Dashboard Utama */
             background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
                         url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2000&auto=format&fit=crop');
             background-size: cover;
             background-position: center bottom;
             background-attachment: fixed;
-            font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0; padding: 20px 10px; min-height: 100vh;
             display: flex; align-items: center; justify-content: center;
             user-select: none; -webkit-user-select: none;
             overflow-x: hidden;
         }
 
-        /* Viewer App */
+        /* --- LOGIN OVERLAY FANTASY STYLE --- */
+        #login-overlay {
+            position: fixed; inset: 0;
+            /* Background Nebula & Kota Malam */
+            background: linear-gradient(to bottom, rgba(10, 10, 46, 0.8), rgba(0, 0, 0, 0.6)),
+                        url('https://images.unsplash.com/photo-1464802686167-b939a6910659?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px 30px;
+            border-radius: 40px;
+            text-align: center;
+            max-width: 380px; width: 90%;
+            border: 2px solid transparent;
+            /* Bingkai Gradien Pelangi */
+            border-image: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+            border-image-slice: 1;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        /* Dekorasi Sulur Tanaman (Simulasi menggunakan pseudo-element) */
+        .login-box::before, .login-box::after {
+            content: '✿'; font-size: 30px; color: rgba(255,255,255,0.3);
+            position: absolute; top: 50%; transform: translateY(-50%);
+        }
+        .login-box::before { left: -15px; } .login-box::after { right: -15px; }
+
+        .login-profile { 
+            width: 100px; height: 100px; 
+            border-radius: 50%; 
+            border: 3px solid #fff; 
+            margin: 0 auto 10px; 
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+        .login-profile img { width: 100%; height: 100%; object-fit: cover; }
+
+        .title-fantasy {
+            font-family: 'Great Vibes', cursive;
+            color: white; font-size: 42px; margin: 0;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+        }
+        .subtitle-fantasy {
+            color: #ddd; font-size: 13px; margin-bottom: 25px; font-weight: 300;
+        }
+
+        .input-group { text-align: left; margin-top: 15px; position: relative; }
+        .input-group label { color: gold; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-left: 10px; }
+        
+        .input-wrapper { position: relative; display: flex; align-items: center; }
+        .input-wrapper i.left-icon { position: absolute; left: 15px; color: #fff; }
+        .input-wrapper i.right-icon { position: absolute; right: 15px; color: #fff; cursor: pointer; }
+
+        .login-box input {
+            width: 100%; padding: 15px 45px; margin-top: 5px; border-radius: 20px; 
+            border: 1px solid rgba(255,255,255,0.4); background: rgba(0,0,0,0.3);
+            font-size: 16px; color: white; outline: none; transition: 0.3s;
+        }
+        .login-box input:focus { background: rgba(0,0,0,0.5); border-color: gold; }
+
+        .remember-forgot {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 15px; color: white; font-size: 11px;
+        }
+
+        .btn-login-fantasy {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            color: white; border: none; padding: 18px; border-radius: 50px;
+            cursor: pointer; font-weight: 900; width: 100%; margin-top: 25px;
+            text-transform: uppercase; letter-spacing: 2px;
+            box-shadow: 0 10px 20px rgba(245, 87, 108, 0.4);
+            transition: 0.3s;
+        }
+        .btn-login-fantasy:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        .signup-text { margin-top: 20px; color: #fff; font-size: 12px; }
+        .signup-text span { color: gold; font-weight: 800; cursor: pointer; }
+
+        /* --- VIEWER & DASHBOARD (STRUKTUR ASLI DIBAWAH) --- */
         #app-viewer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 20000; display: none;
@@ -54,42 +144,18 @@
         }
         #viewer-frame { width: 100%; height: calc(100% - 60px); border: none; }
 
-        /* Login System */
-        #login-overlay {
-            position: fixed; inset: 0;
-            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(15px);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9999;
-        }
-        .login-box {
-            background: rgba(255, 255, 255, 0.1); padding: 40px 30px;
-            border-radius: 35px; text-align: center; box-shadow: var(--shadow-vibrant);
-            max-width: 360px; width: 85%; border: var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-        .login-profile { width: 85px; height: 85px; border-radius: 50%; border: 3px solid white; margin: 0 auto 15px; overflow: hidden; }
-        .login-profile img { width: 100%; height: 100%; object-fit: cover; }
-        .login-box input {
-            width: 100%; padding: 15px; margin-top: 10px; border-radius: 15px; 
-            border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
-            text-align: center; font-size: 18px; color: white; outline: none; letter-spacing: 3px;
-        }
-        .btn-login {
-            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
-            color: white; border: none; padding: 16px; border-radius: 15px;
-            cursor: pointer; font-weight: 800; width: 100%; margin-top: 20px; transition: 0.3s;
-        }
-
-        /* Main Container */
         .container { 
-            display: none; background: rgba(0, 0, 0, 0.4); padding: 35px 25px; border-radius: 40px;
+            display: none; background: rgba(0, 0, 0, 0.5); padding: 35px 25px; border-radius: 40px;
             box-shadow: var(--shadow-vibrant); width: 100%; max-width: 950px;
             border: var(--glass-border); backdrop-filter: blur(20px);
             animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-8px);} 75% {transform: translateX(8px);} }
 
+        /* Style Header & Menu Dashboard (Tetap Sama) */
         .header-section { margin-bottom: 30px; text-align: center; }
         .profile-box { width: 95px; height: 95px; margin: 0 auto 15px; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, #00d2ff, #92fe9d); box-shadow: 0 0 20px rgba(0,210,255,0.5); }
         .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; }
@@ -97,33 +163,15 @@
         .header-text h1 { font-size: 24px; margin: 0; color: white; font-weight: 900; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
         .header-text .sub-title { color: var(--primary); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* Welcome Box Running Text */
-        .welcome-box { 
-            background: linear-gradient(90deg, #ff4757, #ff6b81); 
-            padding: 10px; border-radius: 18px; margin: 20px 0; 
-            border: 1px solid rgba(255,255,255,0.3); 
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(255,71,87,0.4);
-        }
-        .marquee {
-            white-space: nowrap;
-            overflow: hidden;
-            display: inline-block;
-            animation: marquee 15s linear infinite;
-        }
-        .welcome-text { 
-            font-size: 14px; font-weight: 800; color: white; 
-            text-transform: uppercase;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
+        .welcome-box { background: linear-gradient(90deg, #ff4757, #ff6b81); padding: 10px; border-radius: 18px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.3); overflow: hidden; }
+        .marquee { white-space: nowrap; overflow: hidden; display: inline-block; animation: marquee 15s linear infinite; }
+        .welcome-text { font-size: 14px; font-weight: 800; color: white; text-transform: uppercase; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* Menu System */
         .menu-category { margin-bottom: 18px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.3); border: var(--glass-border); }
         .category-header { padding: 22px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 900; font-size: 14px; transition: 0.3s; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-
+        
+        /* Warna Header Kategori */
         .header-keuangan { background: linear-gradient(135deg, #11998e, #38ef7d); color: white; }
         .header-guru { background: linear-gradient(135deg, #00c6ff, #0072ff); color: white; }
         .header-gtk { background: linear-gradient(135deg, #6a11cb, #2575fc); color: white; }
@@ -132,23 +180,12 @@
         .header-download { background: linear-gradient(135deg, #fdc830, #f37335); color: white; }
         .header-info { background: linear-gradient(135deg, #ff4757, #be2ed1); color: white; }
 
-        .menu-content { 
-            max-height: 0; overflow: hidden; transition: all 0.5s ease;
-            background: rgba(255, 255, 255, 0.05); display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
-        }
+        .menu-content { max-height: 0; overflow: hidden; transition: all 0.5s ease; background: rgba(255, 255, 255, 0.05); display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
         .menu-content.show { max-height: 2000px; padding: 25px 20px; }
 
-        .link-btn { 
-            display: flex; align-items: center; gap: 12px; padding: 16px; 
-            border-radius: 15px; text-decoration: none; font-weight: 700; 
-            color: white; transition: 0.3s; font-size: 12px; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: brightness(1.1);
-        }
+        .link-btn { display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: 15px; text-decoration: none; font-weight: 700; color: white; transition: 0.3s; font-size: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: brightness(1.1); }
         .link-btn:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.2); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
 
-        /* Button Colors */
         .btn-blue { background: #1e90ff; } .btn-green { background: #2ed573; } .btn-orange { background: #ffa502; }
         .btn-purple { background: #a55eea; } .btn-red { background: #ff4757; } .btn-teal { background: #1abc9c; }
         .btn-indigo { background: #5352ed; } .btn-pink { background: #ff6b81; } .btn-emerald { background: #26de81; }
@@ -162,9 +199,6 @@
             .container { padding: 25px 15px; border-radius: 30px; width: 95%; }
             .header-text h1 { font-size: 19px; }
         }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-8px);} 75% {transform: translateX(8px);} }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -179,13 +213,31 @@
 
     <div id="login-overlay">
         <div class="login-box">
-            <div class="login-profile"><img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=1e90ff&color=fff&size=128'"></div>
-            <h2 style="color: white; font-size: 18px; margin-bottom: 20px; font-weight: 800;">AKSES DASHBOARD</h2>
-            <div style="text-align: left;">
-                <label style="font-size: 10px; color: #eee; font-weight: 700; text-transform: uppercase; margin-left: 5px;">Password Keamanan</label>
-                <input type="password" id="passkey" placeholder="••••••••" onkeypress="handleEnter(event)">
+            <div class="login-profile">
+                <img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=1e90ff&color=fff&size=128'">
             </div>
-            <button class="btn-login" onclick="checkPassword()">BUKA PORTAL</button>
+            
+            <h1 class="title-fantasy">Silahkan Login</h1>
+            <p class="subtitle-fantasy">Please Sign In to Your Account</p>
+
+            <div class="input-group">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock left-icon"></i>
+                    <input type="password" id="passkey" placeholder="Enter your password" onkeypress="handleEnter(event)">
+                    <i class="fa-solid fa-eye right-icon"></i>
+                </div>
+            </div>
+
+            <div class="remember-forgot">
+                <div><input type="checkbox" id="rem"> <label for="rem">Remember Me</label></div>
+                <div style="cursor:pointer">Forgot Password?</div>
+            </div>
+
+            <button class="btn-login-fantasy" onclick="checkPassword()">Login</button>
+            
+            <div class="signup-text">Don't have an account? <span>Sign Up</span></div>
+
             <p id="error-msg" style="color: #ff4757; font-size: 11px; margin-top: 15px; display: none; font-weight: 800; background: white; padding: 8px; border-radius: 10px;">KODE AKSES SALAH!</p>
         </div>
     </div>
@@ -319,7 +371,7 @@
                     document.getElementById('login-overlay').style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
                     document.body.style.overflow = 'auto';
-                }, 300);
+                }, 500);
             } else {
                 document.getElementById('error-msg').style.display = 'block';
                 document.querySelector('.login-box').style.animation = 'shake 0.3s';
