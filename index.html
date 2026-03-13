@@ -2,342 +2,250 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Portal Operator Sekolah Kec. Babelan</title>
-    
-    <meta property="og:title" content="Portal Operator Sekolah - Kec. Babelan">
-    <meta property="og:description" content="Pusat Layanan Data Pendidikan & Keuangan Sekolah Terpadu. Salam Satu Data!">
-    <meta property="og:image" content="profil.jpg"> 
-    <meta property="og:url" content="https://operator-sekolah.my.id/">
-    <meta name="theme-color" content="#764ba2">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium School Portal 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4facfe; --secondary: #00f2fe; --dark: #1e272e;
-            --glass: rgba(255, 255, 255, 0.95); --shadow: 0 20px 50px rgba(0,0,0,0.15);
-            --accent: #6c5ce7; --candy-red: #ff0844; --wa-green: #25D366; --gold: #d4af37;
+            --bg-body: #f0f2f5;
+            /* Palette Gradasi Ceria & Semangat */
+            --c-bosp: linear-gradient(135deg, #00b894, #55efc4);
+            --c-guru: linear-gradient(135deg, #0984e3, #74b9ff);
+            --c-gtk: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            --c-bekasi: linear-gradient(135deg, #2d3436, #636e72);
+            --c-pusat: linear-gradient(135deg, #e17055, #fab1a0);
+            --c-doc: linear-gradient(135deg, #fdcb6e, #ffeaa7);
+            --c-spmb: linear-gradient(135deg, #d63031, #ff7675);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            margin: 0; padding: 20px;
+            color: #1e293b;
+        }
 
-        body { 
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
-            font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
-            margin: 0; padding: 20px 10px; min-height: 100vh;
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .main-header {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .main-header h1 {
+            margin: 0; font-size: 26px; font-weight: 800;
+            background: linear-gradient(to right, #2d3436, #0984e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        /* Card Style - Berwarna Penuh */
+        .cat-card {
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cat-card:hover { transform: translateY(-8px); }
+
+        .cat-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .title-content { display: flex; align-items: center; gap: 12px; }
+        .cat-title span { font-weight: 800; font-size: 15px; letter-spacing: 0.5px; }
+
+        .icon-wrap {
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            user-select: none; -webkit-user-select: none;
-            overflow-x: hidden;
+            font-size: 18px;
         }
 
-        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        /* Menu Links */
+        .menu-list { display: flex; flex-direction: column; gap: 10px; }
 
-        /* Viewer App */
-        #app-viewer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 20000; display: none;
-            animation: fadeIn 0.3s ease;
-        }
-        .viewer-header {
-            height: 60px; background: var(--dark); color: white;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        .btn-close-viewer {
-            background: var(--candy-red); color: white; border: none;
-            padding: 10px 15px; border-radius: 12px; cursor: pointer;
-            font-weight: 800; font-size: 11px;
-        }
-        #viewer-frame { width: 100%; height: calc(100% - 60px); border: none; }
-
-        /* Login System */
-        #login-overlay {
-            position: fixed; inset: 0;
-            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(25px);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9999;
-        }
-        .login-box {
-            background: rgba(255, 255, 255, 0.2); padding: 40px 30px;
-            border-radius: 35px; text-align: center; box-shadow: var(--shadow);
-            max-width: 360px; width: 85%; border: 1px solid rgba(255,255,255,0.4);
-        }
-        .login-profile { width: 85px; height: 85px; border-radius: 50%; border: 3px solid white; margin: 0 auto 15px; overflow: hidden; }
-        .login-profile img { width: 100%; height: 100%; object-fit: cover; }
-        .login-box input {
-            width: 100%; padding: 15px; margin-top: 10px; border-radius: 15px; 
-            border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
-            text-align: center; font-size: 18px; color: white; outline: none; letter-spacing: 3px;
-        }
-        .btn-login {
-            background: linear-gradient(to right, #ff0844, #ffb199);
-            color: white; border: none; padding: 16px; border-radius: 15px;
-            cursor: pointer; font-weight: 800; width: 100%; margin-top: 20px; transition: 0.3s;
+        .menu-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 14px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Main Container */
-        .container { 
-            display: none; background: var(--glass); padding: 35px 25px; border-radius: 40px;
-            box-shadow: var(--shadow); width: 100%; max-width: 950px;
-            border: 1px solid rgba(255,255,255,0.8); backdrop-filter: blur(20px);
-            animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        .menu-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(5px);
+            border-color: rgba(255,255,255,0.4);
         }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        /* Khusus Warna Kuning (Doc) agar teks terbaca */
+        .bg-doc { background: var(--c-doc); color: #2d3436; }
+        .bg-doc .menu-link { color: #2d3436; background: rgba(255,255,255,0.4); border-color: rgba(0,0,0,0.05); }
+        .bg-doc .cat-title { border-color: rgba(0,0,0,0.1); }
+        .bg-doc .icon-wrap { background: rgba(0,0,0,0.05); }
 
-        .header-section { margin-bottom: 30px; text-align: center; }
-        .profile-box { width: 95px; height: 95px; margin: 0 auto 15px; border-radius: 50%; padding: 4px; background: linear-gradient(45deg, #6c5ce7, #00f2fe); }
-        .profile-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #fff; }
-        .profile-img { width: 100%; height: 100%; object-fit: cover; }
-        .header-text h1 { font-size: 22px; margin: 0; color: var(--dark); font-weight: 900; }
-        .header-text .sub-title { color: var(--accent); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        /* Assign Colors */
+        .bg-bosp { background: var(--c-bosp); }
+        .bg-guru { background: var(--c-guru); }
+        .bg-gtk { background: var(--c-gtk); }
+        .bg-bekasi { background: var(--c-bekasi); }
+        .bg-pusat { background: var(--c-pusat); }
+        .bg-spmb { background: var(--c-spmb); }
 
-        .welcome-box { background: #fff0f3; padding: 14px; border-radius: 18px; margin: 20px 0; border: 2px solid var(--candy-red); text-align: center; }
-        .welcome-text { font-size: 12px; font-weight: 800; color: var(--candy-red); }
-
-        /* Menu System - High Stability */
-        .menu-category { margin-bottom: 15px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white; }
-        .category-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 800; font-size: 14px; transition: 0.3s; }
-
-        .header-keuangan { background: linear-gradient(to right, #00b894, #55efc4); color: white; }
-        .header-gtk { background: linear-gradient(to right, #0984e3, #74b9ff); color: white; }
-        .header-daerah { background: linear-gradient(to right, #636e72, #b2bec3); color: white; }
-        .header-pusat { background: linear-gradient(to right, #e17055, #fab1a0); color: white; }
-        .header-download { background: linear-gradient(to right, #fdcb6e, #ffeaa7); color: #444; }
-        .header-info { background: linear-gradient(to right, #d63031, #ff7675); color: white; }
-
-        .menu-content { 
-            max-height: 0; overflow: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #fafafa; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
-        }
-        .menu-content.show { max-height: 2000px; padding: 25px 20px; border-top: 1px solid #eee; }
-
-        .link-btn { 
-            display: flex; align-items: center; gap: 12px; padding: 16px; 
-            border-radius: 15px; text-decoration: none; font-weight: 700; 
-            color: white; transition: 0.3s; font-size: 12px; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .link-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
-        .link-btn:active { transform: scale(0.95); }
-
-        /* Button Colors */
-        .btn-blue { background: #0984e3; } .btn-green { background: #27ae60; } .btn-orange { background: #e67e22; }
-        .btn-purple { background: #6c5ce7; } .btn-red { background: #d63031; } .btn-teal { background: #16a085; }
-        .btn-indigo { background: #3c40c6; } .btn-pink { background: #ef5777; } .btn-emerald { background: #05c46b; }
-        .btn-slate { background: #485460; } .btn-gold { background: var(--gold); }
-
-        .datetime-box { background: rgba(255,255,255,0.9); padding: 18px; border-radius: 20px; margin-top: 30px; text-align: center; font-weight: 800; font-size: 13px; color: var(--dark); border: 1px solid #eee; }
-        .footer { font-size: 11px; color: #666; margin-top: 30px; text-align: center; line-height: 1.8; }
-        
-        @media (max-width: 650px) {
-            .menu-content { grid-template-columns: 1fr; }
-            .container { padding: 25px 15px; }
-            .header-text h1 { font-size: 19px; }
-            .category-header { font-size: 12px; }
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-8px);} 75% {transform: translateX(8px);} }
+        @media (max-width: 600px) { .dashboard-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <div id="app-viewer">
-        <div class="viewer-header">
-            <div id="viewer-title" style="font-weight: 800; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;">Memuat...</div>
-            <button class="btn-close-viewer" onclick="closeViewer()"><i class="fa-solid fa-circle-left"></i> KEMBALI</button>
-        </div>
-        <iframe id="viewer-frame" src=""></iframe>
-    </div>
+<div class="container">
+    <header class="main-header">
+        <h1>PORTAL OPERATOR TERPADU</h1>
+        <p style="color: #636e72; font-size: 12px; font-weight: 700; margin-top: 8px; letter-spacing: 2px;">KECAMATAN BABELAN — EDISI 2026</p>
+    </header>
 
-    <div id="login-overlay">
-        <div class="login-box">
-            <div class="login-profile"><img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi&background=6c5ce7&color=fff&size=128'"></div>
-            <h2 style="color: white; font-size: 18px; margin-bottom: 20px; font-weight: 800;">AKSES DASHBOARD</h2>
-            <div style="text-align: left;">
-                <label style="font-size: 10px; color: #eee; font-weight: 700; text-transform: uppercase; margin-left: 5px;">Password Keamanan</label>
-                <input type="password" id="passkey" placeholder="••••••••" onkeypress="handleEnter(event)">
-            </div>
-            <button class="btn-login" onclick="checkPassword()">BUKA PORTAL</button>
-            <p id="error-msg" style="color: #ff4d4d; font-size: 11px; margin-top: 15px; display: none; font-weight: 800; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 5px;">KODE AKSES SALAH!</p>
-        </div>
-    </div>
-
-    <div class="container" id="main-content">
-        <div class="header-section">
-            <div class="profile-box"><div class="profile-inner"><img src="profil.jpg" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Rohiman+Supriyadi'"></div></div>
-            <div class="header-text">
-                <h1>PORTAL OPERATOR SEKOLAH</h1>
-                <p class="sub-title">Kecamatan Babelan — Kabupaten Bekasi</p>
-            </div>
-        </div>
-
-        <div class="welcome-box"><div class="welcome-text"><i class="fa-solid fa-face-smile-beam"></i> SELAMAT DATANG DI PUSAT DATA TERPADU 2026</div></div>
-
-        <div class="menu-category">
-            <div class="category-header header-keuangan" onclick="toggleMenu('keuangan')">
-                <span><i class="fa-solid fa-vault"></i> MANAJEMEN BOSP REGULER</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="keuangan" class="menu-content">
-                <a onclick="smartOpen('Presisi Absensi - SIGAP SISWA', 'absen_murid.html')" class="link-btn btn-emerald"><i class="fa-solid fa-fingerprint"></i> Absensi Murid (SIGAP)</a>
-                <a onclick="smartOpen('Pendampingan BKU', 'bku.html')" class="link-btn btn-blue"><i class="fa-solid fa-file-invoice-dollar"></i> Pendampingan BKU</a>
-                <a onclick="smartOpen('Portal BOSP', 'https://bosp.kemendikdasmen.go.id/')" class="link-btn btn-teal"><i class="fa-solid fa-building-columns"></i> Portal BOSP</a>
-                <a onclick="smartOpen('ARKAS', 'https://arkas.kemendikdasmen.go.id/')" class="link-btn btn-orange"><i class="fa-solid fa-calculator"></i> Aplikasi ARKAS</a>
-                <a onclick="smartOpen('Absensi', 'absen.html')" class="link-btn btn-red"><i class="fa-solid fa-user-clock"></i> Aplikasi Absensi Guru</a>
-                <a onclick="smartOpen('Tanda Terima Honor', 'tanda terima honor.html')" class="link-btn btn-purple"><i class="fa-solid fa-hand-holding-dollar"></i> Tanda Terima Honor</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header header-gtk" onclick="toggleMenu('gtk')">
-                <span><i class="fa-solid fa-user-gear"></i> LAYANAN GURU & GTK</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="gtk" class="menu-content">
-                <a onclick="smartOpen('Pembuat Soal AI', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn btn-gold"><i class="fa-solid fa-wand-magic-sparkles"></i> Aplikasi Pembuat Soal</a>
-                <a onclick="smartOpen('Info GTK', 'https://info.gtk.kemendikdasmen.go.id/')" class="link-btn btn-pink"><i class="fa-solid fa-shield-halved"></i> Info GTK</a>
-                <a onclick="smartOpen('Coretax Pajak', 'https://coretaxdjp.pajak.go.id/')" class="link-btn btn-indigo"><i class="fa-solid fa-landmark-dome"></i> Login Coretax Pajak</a>
-                <a onclick="smartOpen('PMM', 'https://guru.kemendikdasmen.go.id/')" class="link-btn btn-blue"><i class="fa-solid fa-graduation-cap"></i> Platform Merdeka Mengajar</a>
-                <a onclick="smartOpen('Belajar.id', 'https://belajar.id/')" class="link-btn btn-teal"><i class="fa-solid fa-id-badge"></i> Akun Belajar.id</a>
-                <a onclick="smartOpen('SIMPKB', 'https://akun.simpkb.id/')" class="link-btn btn-orange"><i class="fa-solid fa-key"></i> Akun SIMPKB</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header header-daerah" onclick="toggleMenu('daerah')">
-                <span><i class="fa-solid fa-map-location-dot"></i> LAYANAN KABUPATEN BEKASI</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="daerah" class="menu-content">
-                <a onclick="smartOpen('SIKAWAN BARU', 'https://sikawanbaru.bekasikab.go.id/')" class="link-btn btn-emerald"><i class="fa-solid fa-rocket"></i> SIKAWAN BARU</a>
-                <a onclick="smartOpen('My ASN BKN', 'https://myasn.bkn.go.id/')" class="link-btn btn-blue"><i class="fa-solid fa-user-shield"></i> My ASN BKN</a>
-                <a onclick="smartOpen('Disdik Bekasi', 'https://disdik.bekasikab.go.id/')" class="link-btn btn-green"><i class="fa-solid fa-school-flag"></i> Disdik Kab. Bekasi</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header header-pusat" onclick="toggleMenu('pusat')">
-                <span><i class="fa-solid fa-server"></i> KEMENDIKDASMEN HOME</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="pusat" class="menu-content">
-                <a onclick="smartOpen('Dapodik', 'https://dapo.kemendikdasmen.go.id/')" class="link-btn btn-blue"><i class="fa-solid fa-database"></i> Aplikasi Dapodik</a>
-                <a onclick="smartOpen('Verval PD', 'https://vervalpd.data.kemdikbud.go.id/')" class="link-btn btn-orange"><i class="fa-solid fa-id-card-clip"></i> Verval PD (Siswa)</a>
-                <a onclick="smartOpen('Verval PTK', 'https://vervalptk.data.kemdikbud.go.id/')" class="link-btn btn-green"><i class="fa-solid fa-user-check"></i> Verval PTK</a>
-                <a onclick="smartOpen('Verval Yayasan', 'https://vervalyayasan.data.kemdikbud.go.id/')" class="link-btn btn-indigo"><i class="fa-solid fa-landmark"></i> Verval Yayasan</a>
-                <a onclick="smartOpen('Monitoring PIP', 'https://pip.kemendikdasmen.go.id/')" class="link-btn btn-red"><i class="fa-solid fa-credit-card"></i> Monitoring PIP</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header header-download" onclick="toggleMenu('download')">
-                <span><i class="fa-solid fa-file-signature"></i> FORMAT DOKUMEN ADMINISTRASI</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="download" class="menu-content">
-                <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn btn-pink"><i class="fa-solid fa-file-excel"></i> Format SI</a>
-                <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Sertijab</a>
-                <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Tim BOSP 2026</a>
-                <a href="FORMAT Permohonan Pencetakan Rekening Koran BOSP Reguler.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Permohonan Rek. Koran</a>
-                <a href="FORMAT SK PENGANGKATAN_GTY.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Pengangkatan GTY</a>
-                <a href="BERITA ACARA RAPAT PENYUSUNAN RKAS DAN ADM LAINNYA.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> BA Penyusunan RKAS</a>
-                <a href="FORMAT Spesiment BOS Pusat.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> Spesimen BOS Pusat</a>
-                <a href="FORMAT SK_BENDAHARA_SEKOLAH.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Bendahara Sekolah</a>
-                <a href="FORMAT SURAT KETERANGAN AKTIF_MENGAJAR_2026.docx" download class="link-btn btn-emerald"><i class="fa-solid fa-file-word"></i> SK Aktif Mengajar</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header header-info" onclick="toggleMenu('info')">
-                <span><i class="fa-solid fa-calendar-day"></i> KALDIK & VALIDASI USIA SPMB</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="info" class="menu-content">
-                <a onclick="smartOpen('Update Kaldik', 'https://disdik.jabarprov.go.id/unduh')" class="link-btn btn-emerald"><i class="fa-solid fa-cloud-arrow-down"></i> Link Update Kaldik Jabar</a>
-                <a onclick="smartOpen('Gambar Kaldik', 'Kaldik.jpg')" class="link-btn btn-slate"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
-                <a onclick="smartOpen('Validasi SPMB', 'spmb.html')" class="link-btn btn-red"><i class="fa-solid fa-fingerprint"></i> Cek Validasi Usia SPMB</a>
-                <div class="calendar-wrapper" style="grid-column: 1 / -1; margin-top: 15px;">
-                    <iframe src="https://calendar.google.com/calendar/embed?src=id.indonesian%23holiday%40group.v.calendar.google.com&ctz=Asia%2FJakarta" style="border: 0; border-radius: 15px; background: white;" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
+    <div class="dashboard-grid">
+        
+        <div class="cat-card bg-bosp">
+            <div class="cat-title">
+                <div class="title-content">
+                    <div class="icon-wrap"><i class="fas fa-wallet"></i></div>
+                    <span>MANAJEMEN BOSP REGULER</span>
                 </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-list">
+                <a href="#" class="menu-link">Aplikasi Pendampingan BKU <i class="fas fa-arrow-right"></i></a>
+                <a href="https://bosp.kemendikdasmen.go.id/" class="menu-link">Portal BOS <i class="fas fa-external-link-alt"></i></a>
+                <a href="https://arkas.kemendikdasmen.go.id/" class="menu-link">Portal ARKAS <i class="fas fa-external-link-alt"></i></a>
+                <a href="#" class="menu-link">Tanda Terima Honor <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
 
-        <div class="datetime-box" id="tanggal-jam">Memuat Sistem Waktu...</div>
-        <div class="footer">© 2026 <b>ROHIMAN SUPRIYADI</b> <br> Kecamatan Babelan — Kabupaten Bekasi <br> <span style="font-size: 9px; opacity: 0.7;">Stable Version 2.0 - High Response</span></div>
+        <div class="cat-card bg-guru">
+            <div class="cat-title">
+                <div class="title-content">
+                    <div class="icon-wrap"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <span>ADMINISTRASI GURU KELAS</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-list">
+                <a href="#" class="menu-link">Aplikasi Absensi Siswa <i class="fas fa-user-check"></i></a>
+                <a href="#" class="menu-link">Aplikasi Absensi Guru <i class="fas fa-clock"></i></a>
+            </div>
+        </div>
+
+        <div class="cat-card bg-gtk">
+            <div class="cat-title">
+                <div class="title-content">
+                    <div class="icon-wrap"><i class="fas fa-user-cog"></i></div>
+                    <span>LAYANAN GURU DAN GTK</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-list">
+                <a href="https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true" class="menu-link">Aplikasi Pembuat Soal AI <i class="fas fa-magic"></i></a>
+                <a href="https://s.id/EduAdminApps-V18" class="menu-link">Aplikasi Adm Lengkap <i class="fas fa-folder-open"></i></a>
+                <a href="https://info.gtk.kemendikdasmen.go.id/info" class="menu-link">Info GTK <i class="fas fa-id-card"></i></a>
+                <a href="https://coretaxdjp.pajak.go.id/identityproviderportal/Account/Login" class="menu-link">Login Coretax <i class="fas fa-coins"></i></a>
+                <a href="https://guru.kemendikdasmen.go.id/" class="menu-link">Platform Merdeka Belajar <i class="fas fa-graduation-cap"></i></a>
+                <a href="https://belajar.id/" class="menu-link">Login Id Belajar <i class="fas fa-user-circle"></i></a>
+                <a href="https://paspor-gtk.simpkb.id/casgpo/login?service=https%3A%2F%2Fppg-backend.simpkb.id%2Fauth%2Flogin" class="menu-link">SIMPKB <i class="fas fa-key"></i></a>
+            </div>
+        </div>
+
+        <div class="cat-card bg-bekasi">
+            <div class="cat-title">
+                <div class="title-content">
+                    <div class="icon-wrap"><i class="fas fa-map-marker-alt"></i></div>
+                    <span>LAYANAN KABUPATEN BEKASI</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-list">
+                <a href="https://sikawanbaru.bekasikab.go.id/" class="menu-link">SIKAWAN BARU <i class="fas fa-rocket"></i></a>
+                <a href="https://myasn.bkn.go.id/" class="menu-link">MyASN BKN <i class="fas fa-shield-alt"></i></a>
+                <a href="https://disdik.bekasikab.go.id/" class="menu-link">Disdik Kab. Bekasi <i class="fas fa-school"></i></a>
+            </div>
+        </div>
+
+        <div class="cat-card bg-pusat">
+            <div class="cat-title">
+                <div class="title-content">
+                    <div class="icon-wrap"><i class="fas fa-landmark"></i></div>
+                    <span>KEMENDIKDASMEN HOME</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-list">
+                <a href="https://dapo.kemendikdasmen.go.id/" class="menu-link">Portal Dapodik <i class="fas fa-database"></i></a>
+                <a href="https://sso.data.kemendikdasmen.go.id/sys/login?appkey=348310F2-0262-4F5D-B7D1-41F92ECDCA93" class="menu-link">Verval PD <i class="fas fa-user-check"></i></a>
+                <a href="https://sso.data.kemendikdasmen.go.id/sys/login?appkey=ECAEF583-9134-43B6-B092-01E9E864FB23" class="menu-link">Verval PTK <i class="fas fa-users-cog"></i></a>
+                <a href="https://vervalyayasan.data.kemdikbud.go.id/" class="menu-link">Verval Yayasan <i class="fas fa-sitemap"></i></a>
+                <a href="https://pip.kemendikdasmen.go.id/home_v1" class="menu-link">Portal PIP <i class="fas fa-hand-holding-heart"></i></a>
+            </div>
+        </div>
+
+        <div class="cat-card bg-doc">
+            <div class="cat-title">
+                <div class="title-content">
+                    <div class="icon-wrap"><i class="fas fa-file-signature"></i></div>
+                    <span>FORMAT DOCUMENT SEKOLAH</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-list">
+                <a href="#" class="menu-link">Download Format Persuratan <i class="fas fa-download"></i></a>
+                <a href="#" class="menu-link">Template Laporan Bulanan <i class="fas fa-file-alt"></i></a>
+            </div>
+        </div>
+
+        <div class="cat-card bg-spmb">
+            <div class="cat-title">
+                <div class="title-content">
+                    <div class="icon-wrap"><i class="fas fa-calendar-alt"></i></div>
+                    <span>VALIDASI USIA SPMB & KALDIK</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="menu-list">
+                <a href="#" class="menu-link">Cek Validasi Usia Siswa <i class="fas fa-user-clock"></i></a>
+                <a href="#" class="menu-link">Kalender Pendidikan 2025/2026 <i class="fas fa-calendar-check"></i></a>
+            </div>
+        </div>
+
     </div>
+</div>
 
-    <script>
-        const SECRET_KEY = "Bismillah2026";
-
-        function checkPassword() {
-            const input = document.getElementById('passkey').value;
-            if (input === SECRET_KEY) {
-                document.getElementById('login-overlay').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('login-overlay').style.display = 'none';
-                    document.getElementById('main-content').style.display = 'block';
-                    document.body.style.overflow = 'auto';
-                }, 300);
-            } else {
-                document.getElementById('error-msg').style.display = 'block';
-                document.querySelector('.login-box').style.animation = 'shake 0.3s';
-                setTimeout(() => { document.querySelector('.login-box').style.animation = ''; }, 300);
-            }
-        }
-
-        function handleEnter(e) { if (e.key === "Enter") checkPassword(); }
-
-        // Optimized Menu Toggle - Menghindari Lag
-        function toggleMenu(id) {
-            const content = document.getElementById(id);
-            const isShowing = content.classList.contains('show');
-            
-            document.querySelectorAll('.menu-content').forEach(c => { 
-                c.classList.remove('show'); 
-            });
-            
-            if (!isShowing) {
-                content.classList.add('show');
-            }
-        }
-
-        // Smart Opener untuk Eksternal Link & Iframe
-        function smartOpen(title, url) {
-            const listBlokir = [
-                'kemendikdasmen.go.id', 'kemdikbud.go.id', 'google.com', 
-                'bekasikab.go.id', 'pajak.go.id', 'bkn.go.id', 'simpkb.id', 'jabarprov.go.id'
-            ];
-
-            const harusTabBaru = listBlokir.some(domain => url.includes(domain));
-
-            if (harusTabBaru) {
-                window.open(url, '_blank');
-            } else {
-                document.getElementById('viewer-title').innerText = title;
-                document.getElementById('viewer-frame').src = url;
-                document.getElementById('app-viewer').style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        function closeViewer() {
-            document.getElementById('app-viewer').style.display = 'none';
-            document.getElementById('viewer-frame').src = "about:blank"; // Membersihkan memori RAM
-            document.body.style.overflow = 'auto';
-        }
-
-        function updateWaktu() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('tanggal-jam').innerHTML = `<i class="fa-solid fa-clock"></i> ${now.toLocaleDateString('id-ID', options)}<br>${now.toLocaleTimeString('id-ID')} WIB`;
-        }
-        setInterval(updateWaktu, 1000);
-        updateWaktu();
-
-        document.addEventListener('contextmenu', e => e.preventDefault());
-    </script>
 </body>
 </html>
