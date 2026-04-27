@@ -6,112 +6,160 @@
     <title>Portal Operator School Kec. Babelan</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-deep-blue: #1A1A40; --bg-purple: #4B0082; --bg-pink: #FF1493; --bg-orange: #FF8C00; --bg-golden: #FFD700;
-            --btn-green: linear-gradient(135deg, #00FF7F, #008000);
-            --btn-blue: linear-gradient(135deg, #00BFFF, #0000CD);
-            --btn-grey: linear-gradient(135deg, #708090, #2F4F4F);
-            --btn-orange: linear-gradient(135deg, #FF8C00, #8B4513);
-            --btn-yellow: linear-gradient(135deg, #FFD700, #B8860B);
-            --btn-red: linear-gradient(135deg, #FF0000, #800000);
-            --glass: rgba(255, 255, 255, 0.1);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+            --c-bosp: #27ae60;
+            --c-adm: #2980b9;
+            --c-gtk: #8e44ad;
+            --c-kab: #f39c12;
+            --c-pusat: #d35400;
+            --c-doc: #f1c40f;
+            --c-validasi: #e74c3c;
         }
 
-      body { 
-            /* Menggunakan gambar background.jpg dengan overlay gelap agar menu tetap terlihat */
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('background.jpg');
+        body { 
+            /* Ubah 'background.jpg' dengan nama file gambar kartun sekolah Anda */
+            background: url('background.jpg'); 
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             font-family: 'Poppins', sans-serif; 
-            margin: 0; 
-            padding: 20px 10px; 
-            color: white; 
-            overflow-x: hidden;
+            margin: 0; padding: 20px 10px; color: #333; overflow-x: hidden;
         }
 
-        .container { max-width: 480px; margin: 0 auto; display: none; }
+        /* --- Header Tampilan Dalam --- */
+        .header-section { text-align: center; margin-bottom: 30px; margin-top: 10px; }
+        .header-section h2 { 
+            margin: 0; font-size: 24px; font-weight: 800; 
+            color: #1e3a8a; 
+            text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff;
+            letter-spacing: 1px;
+        }
+        .header-section small { 
+            font-size: 14px; font-weight: 600; color: #1e3a8a; 
+            background: rgba(255,255,255,0.8); padding: 2px 10px; border-radius: 10px;
+        }
 
-        /* --- Tampilan Login Baru --- */
+        /* --- Layout List Menu (Grid Sesuai Gambar) --- */
+        .container { max-width: 850px; margin: 0 auto; display: none; padding-bottom: 30px; }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 15px;
+            align-items: start;
+        }
+
+        /* Khusus item terakhir agar di tengah jika ganjil */
+        .kaldik-wrapper {
+            grid-column: 1 / -1;
+            max-width: 450px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .menu-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .menu-wrapper:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.15); transform: translateY(-2px); }
+
+        .menu-card { 
+            display: flex; align-items: center; padding: 15px; 
+            cursor: pointer; background: transparent;
+        }
+
+        .icon-box {
+            width: 55px; height: 55px; border-radius: 14px;
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-size: 24px; flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .card-text { margin-left: 15px; flex-grow: 1; text-align: left; }
+        .card-text h3 { margin: 0 0 3px 0; font-size: 15px; font-weight: 700; }
+        .card-text p { margin: 0; font-size: 11px; color: #666; font-weight: 500; line-height: 1.3;}
+
+        .card-arrow { font-size: 16px; margin-right: 5px; transition: transform 0.3s ease; }
+        .menu-wrapper.open .card-arrow { transform: rotate(90deg); }
+
+        .menu-content { 
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease; 
+            background: #f8f9fa; border-top: 1px solid transparent;
+        }
+        .menu-content.show { max-height: 800px; padding: 15px; border-top: 1px solid #eee; }
+
+        /* Pewarnaan Kategori */
+        .c-bosp .icon-box { background: var(--c-bosp); } .c-bosp h3, .c-bosp .card-arrow { color: var(--c-bosp); }
+        .c-adm .icon-box { background: var(--c-adm); } .c-adm h3, .c-adm .card-arrow { color: var(--c-adm); }
+        .c-gtk .icon-box { background: var(--c-gtk); } .c-gtk h3, .c-gtk .card-arrow { color: var(--c-gtk); }
+        .c-kab .icon-box { background: var(--c-kab); } .c-kab h3, .c-kab .card-arrow { color: var(--c-kab); }
+        .c-pusat .icon-box { background: var(--c-pusat); } .c-pusat h3, .c-pusat .card-arrow { color: var(--c-pusat); }
+        .c-doc .icon-box { background: var(--c-doc); } .c-doc h3, .c-doc .card-arrow { color: var(--c-doc); }
+        .c-validasi .icon-box { background: var(--c-validasi); } .c-validasi h3, .c-validasi .card-arrow { color: var(--c-validasi); }
+
+        /* --- Style Tombol Dalam Menu (Light Theme) --- */
+        .link-btn { 
+            display: flex; align-items: center; gap: 10px; padding: 12px; 
+            background: #ffffff; margin-bottom: 8px; 
+            border-radius: 8px; text-decoration: none; color: #333; 
+            font-size: 13px; font-weight: 500; border: 1px solid #e0e0e0; 
+            cursor: pointer; transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .link-btn:hover { background: #f0f2f5; border-color: #d1d5db; }
+        .link-btn i { width: 20px; text-align: center; color: #555; }
+
+        /* --- STYLE WIDGET TANGGAL --- */
+        .datetime-wrapper {
+            display: flex; justify-content: center; margin-top: 35px;
+        }
+        .datetime-box { 
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 20px; border-radius: 30px; text-align: center; 
+            font-size: 13px; font-weight: 700; color: #333;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 20px;
+        }
+        .dt-icon { font-size: 18px; }
+
+        /* --- STYLE LOGIN LAMA (DIKEMBALIKAN UTUH 100%) --- */
         #login-overlay { 
-            position: fixed; inset: 0; 
-            background: radial-gradient(circle at center, #252a41 0%, #0f111a 100%); 
+            position: fixed; inset: 0; background: radial-gradient(circle at center, #252a41 0%, #0f111a 100%); 
             display: flex; align-items: center; justify-content: center; z-index: 9999; 
         }
-
         .login-card {
-            width: 85%; max-width: 350px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 40px;
-            padding: 40px 25px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border: 2px solid transparent;
-            background-image: linear-gradient(rgba(37, 42, 65, 0.95), rgba(37, 42, 65, 0.95)), 
-                              linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
+            width: 85%; max-width: 350px; background: rgba(255, 255, 255, 0.05);
+            border-radius: 40px; padding: 40px 25px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 2px solid transparent;
+            background-image: linear-gradient(rgba(37, 42, 65, 0.95), rgba(37, 42, 65, 0.95)), linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            background-origin: border-box; background-clip: padding-box, border-box;
+            color: white;
         }
-
-        .profile-img-container {
-            width: 120px; height: 120px; margin: 0 auto 15px;
-            border-radius: 50%; padding: 5px; background: white;
-            box-shadow: 0 0 25px rgba(255,255,255,0.6);
-        }
-
+        .profile-img-container { width: 120px; height: 120px; margin: 0 auto 15px; border-radius: 50%; padding: 5px; background: white; box-shadow: 0 0 25px rgba(255,255,255,0.6); }
         .profile-img-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-
-        .login-card h2 { 
-            font-family: 'Brush Script MT', cursive, sans-serif; font-size: 42px; margin: 0; 
-            text-shadow: 0 0 10px rgba(255,255,255,0.8);
-        }
-
+        .login-card h2 { font-family: 'Brush Script MT', cursive, sans-serif; font-size: 42px; margin: 0; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
         .login-card p.subtitle { font-size: 14px; opacity: 0.8; margin-bottom: 30px; }
         .input-group { position: relative; margin-bottom: 20px; text-align: left; }
         .input-group label { display: block; font-size: 12px; font-weight: bold; color: #FFD700; margin-bottom: 8px; margin-left: 10px; }
-        
-        .input-wrapper {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px; display: flex; align-items: center; padding: 12px 20px;
-        }
-
+        .input-wrapper { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 25px; display: flex; align-items: center; padding: 12px 20px; }
         .input-wrapper input { background: transparent; border: none; color: white; width: 100%; font-size: 16px; outline: none; }
+        .btn-login-new { background: linear-gradient(to right, #ff7eb3, #ff758c); color: white; border: none; padding: 15px; width: 100%; border-radius: 30px; font-weight: 900; font-size: 18px; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4); margin-top: 10px; letter-spacing: 2px; }
 
-        .btn-login-new {
-            background: linear-gradient(to right, #ff7eb3, #ff758c);
-            color: white; border: none; padding: 15px; width: 100%;
-            border-radius: 30px; font-weight: 900; font-size: 18px;
-            cursor: pointer; box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4);
-            margin-top: 10px; letter-spacing: 2px;
-        }
-
-        /* --- Menu Styles --- */
-        .header-section { text-align: center; margin-bottom: 20px; }
-        .menu-category { margin-bottom: 12px; }
-        .category-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-radius: 15px; font-weight: bold; border: var(--glass-border); }
-        .menu-content { max-height: 0; overflow: hidden; transition: 0.4s ease; background: rgba(0,0,0,0.2); border-radius: 0 0 15px 15px; }
-        .menu-content.show { max-height: 1500px; padding: 10px; }
-
-        .link-btn { display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(255,255,255,0.1); margin-bottom: 8px; border-radius: 10px; text-decoration: none; color: white; font-size: 13px; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
-        
-        /* Category Colors */
-        .h-bosp { background: var(--btn-green); }
-        .h-guru { background: var(--btn-blue); }
-        .h-bekasi { background: var(--btn-grey); }
-        .h-pusat { background: var(--btn-orange); }
-        .h-doc { background: var(--btn-yellow); }
-        .h-validasi { background: var(--btn-red); }
-
-        .datetime-box { background: var(--glass); padding: 15px; border-radius: 15px; text-align: center; margin-top: 20px; font-size: 13px; border: var(--glass-border); }
-        
         #app-viewer { position: fixed; inset: 0; background: white; z-index: 10000; display: none; }
         .viewer-header { height: 50px; background: #333; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; }
+        
+        @media (max-width: 600px) {
+            .menu-grid { grid-template-columns: 1fr; }
+            .kaldik-wrapper { max-width: 100%; }
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -138,125 +186,161 @@
     <div id="app-viewer">
         <div class="viewer-header">
             <span id="v-title" style="font-size:12px; color:white;">Memuat...</span>
-            <button onclick="closeViewer()" style="background:red; color:white; border:none; padding:5px 10px; border-radius:5px;">TUTUP</button>
+            <button onclick="closeViewer()" style="background:red; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">TUTUP</button>
         </div>
         <iframe id="v-frame" style="width:100%; height:calc(100% - 50px); border:none;"></iframe>
     </div>
 
     <div class="container" id="main-content">
         <div class="header-section">
-            <div style="width:80px; height:80px; margin: 0 auto 10px; border-radius:50%; border:2px solid white; overflow:hidden;">
+            <div style="width:80px; height:80px; margin: 0 auto 10px; border-radius:50%; border:3px solid #e74c3c; overflow:hidden; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
                 <img src="profil.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://ui-avatars.com/api/?name=RS'">
             </div>
-            <h2 style="margin:0; font-size:20px;">PORTAL OPERATOR SEKOLAH</h2>
+            <h2>PORTAL OPERATOR SEKOLAH</h2>
             <small>Kec. Babelan - Kab. Bekasi</small>
         </div>
 
-        <div class="menu-category">
-            <div class="category-header h-bosp" onclick="toggleMenu('m1')">
-                <span><i class="fa-solid fa-file-invoice-dollar"></i> Manajemen BOSP Reguler</span>
-                <i class="fa-solid fa-chevron-down"></i>
+        <div class="menu-grid">
+            <div class="menu-wrapper c-bosp" id="wrap-m1">
+                <div class="menu-card" onclick="toggleMenu('m1', 'wrap-m1')">
+                    <div class="icon-box"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                    <div class="card-text">
+                        <h3>Manajemen BOSP Reguler</h3>
+                        <p>Kelola data dan penyaluran BOSP Reguler</p>
+                    </div>
+                    <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+                <div id="m1" class="menu-content">
+                    <a onclick="smartOpen('Pendampingan BKU', 'bku.html')" class="link-btn"><i class="fa-solid fa-file-lines"></i> Aplikasi Pendampingan BKU</a>
+                    <a onclick="smartOpen('Portal BOS', 'https://bosp.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-globe"></i> Portal BOS</a>
+                    <a onclick="smartOpen('Portal ARKAS', 'https://arkas.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-calculator"></i> Portal ARKAS</a>
+                    <a onclick="smartOpen('Tanda Terima Honor', 'tanda terima honor.html')" class="link-btn"><i class="fa-solid fa-receipt"></i> Tanda Terima Honor</a>
+                </div>
             </div>
-            <div id="m1" class="menu-content">
-                <a onclick="smartOpen('Pendampingan BKU', 'bku.html')" class="link-btn"><i class="fa-solid fa-file-lines"></i> Aplikasi Pendampingan BKU</a>
-                <a onclick="smartOpen('Portal BOS', 'https://bosp.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-globe"></i> Portal BOS</a>
-                <a onclick="smartOpen('Portal ARKAS', 'https://arkas.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-calculator"></i> Portal ARKAS</a>
-                <a onclick="smartOpen('Tanda Terima Honor', 'tanda terima honor.html')" class="link-btn"><i class="fa-solid fa-receipt"></i> Tanda Terima Honor</a>
+
+            <div class="menu-wrapper c-adm" id="wrap-m2">
+                <div class="menu-card" onclick="toggleMenu('m2', 'wrap-m2')">
+                    <div class="icon-box"><i class="fa-solid fa-users"></i></div>
+                    <div class="card-text">
+                        <h3>Administrasi Guru Kelas</h3>
+                        <p>Kelola data guru kelas dengan mudah</p>
+                    </div>
+                    <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+                <div id="m2" class="menu-content">
+                    <a onclick="smartOpen('Absensi Siswa', 'absen_murid.html')" class="link-btn"><i class="fa-solid fa-user-check"></i> Aplikasi Absensi Siswa</a>
+                    <a onclick="smartOpen('Absensi Guru', 'absen.html')" class="link-btn"><i class="fa-solid fa-user-tie"></i> Aplikasi Absensi Guru</a>
+                </div>
+            </div>
+
+            <div class="menu-wrapper c-gtk" id="wrap-m3">
+                <div class="menu-card" onclick="toggleMenu('m3', 'wrap-m3')">
+                    <div class="icon-box"><i class="fa-solid fa-users-gear"></i></div>
+                    <div class="card-text">
+                        <h3>Layanan Guru dan GTK</h3>
+                        <p>Akses berbagai layanan untuk Guru & GTK</p>
+                    </div>
+                    <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+                <div id="m3" class="menu-content">
+                    <a onclick="smartOpen('Pembuat Soal', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Aplikasi Pembuat Soal AI</a>
+                    <a onclick="smartOpen('Adm Lengkap', 'https://s.id/EduAdminApps-V18')" class="link-btn"><i class="fa-solid fa-folder-tree"></i> Aplikasi Adm Lengkap</a>
+                    <a onclick="smartOpen('Info GTK', 'https://info.gtk.kemendikdasmen.go.id/info')" class="link-btn"><i class="fa-solid fa-id-card"></i> Info GTK</a>
+                    <a onclick="smartOpen('Login Coretax', 'https://coretaxdjp.pajak.go.id/identityproviderportal/Account/Login')" class="link-btn"><i class="fa-solid fa-coins"></i> Login Coretax</a>
+                    <a onclick="smartOpen('Merdeka Mengajar', 'https://guru.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-graduation-cap"></i> Platform Merdeka Mengajar</a>
+                    <a onclick="smartOpen('Id Belajar', 'https://belajar.id/')" class="link-btn"><i class="fa-solid fa-at"></i> Login Id Belajar</a>
+                    <a onclick="smartOpen('Simpkb', 'https://paspor-gtk.simpkb.id/')" class="link-btn"><i class="fa-solid fa-key"></i> SIMPKB</a>
+                </div>
+            </div>
+
+            <div class="menu-wrapper c-kab" id="wrap-m4">
+                <div class="menu-card" onclick="toggleMenu('m4', 'wrap-m4')">
+                    <div class="icon-box"><i class="fa-solid fa-building"></i></div>
+                    <div class="card-text">
+                        <h3>Layanan Kabupaten Bekasi</h3>
+                        <p>Layanan terintegrasi Pemerintah Kabupaten</p>
+                    </div>
+                    <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+                <div id="m4" class="menu-content">
+                    <a onclick="smartOpen('Sikawan Baru', 'https://sikawanbaru.bekasikab.go.id/')" class="link-btn"><i class="fa-solid fa-link"></i> SIKAWAN BARU</a>
+                    <a onclick="smartOpen('MyASN', 'https://myasn.bkn.go.id/')" class="link-btn"><i class="fa-solid fa-user-shield"></i> MyASN BKN</a>
+                    <a onclick="smartOpen('Disdik Bekasi', 'https://disdik.bekasikab.go.id/')" class="link-btn"><i class="fa-solid fa-building"></i> Disdik Kab. Bekasi</a>
+                </div>
+            </div>
+
+            <div class="menu-wrapper c-pusat" id="wrap-m5">
+                <div class="menu-card" onclick="toggleMenu('m5', 'wrap-m5')">
+                    <div class="icon-box"><i class="fa-solid fa-house"></i></div>
+                    <div class="card-text">
+                        <h3>Kemendikdasmen Home</h3>
+                        <p>Akses portal resmi Kemendikdasmen</p>
+                    </div>
+                    <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+                <div id="m5" class="menu-content">
+                    <a onclick="smartOpen('Dapodik', 'https://dapo.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-database"></i> Dapodik Dasmen</a>
+                    <a onclick="smartOpen('Verval PD', 'https://sso.data.kemendikdasmen.go.id/sys/login?appkey=348310F2-0262-4F5D-B7D1-41F92ECDCA93')" class="link-btn"><i class="fa-solid fa-id-card-clip"></i> Verval PD</a>
+                    <a onclick="smartOpen('Verval PTK', 'https://sso.data.kemendikdasmen.go.id/sys/login?appkey=ECAEF583-9134-43B6-B092-01E9E864FB23')" class="link-btn"><i class="fa-solid fa-user-check"></i> Verval PTK</a>
+                    <a onclick="smartOpen('Verval Yayasan', 'https://vervalyayasan.data.kemdikbud.go.id/')" class="link-btn"><i class="fa-solid fa-landmark"></i> Verval Yayasan</a>
+                    <a onclick="smartOpen('PIP', 'https://pip.kemendikdasmen.go.id/home_v1')" class="link-btn"><i class="fa-solid fa-money-bill-wave"></i> Portal PIP</a>
+                </div>
+            </div>
+
+            <div class="menu-wrapper c-doc" id="wrap-m6">
+                <div class="menu-card" onclick="toggleMenu('m6', 'wrap-m6')">
+                    <div class="icon-box"><i class="fa-solid fa-file-word"></i></div>
+                    <div class="card-text">
+                        <h3>Format Dokumen Sekolah</h3>
+                        <p>Unduh berbagai format dokumen sekolah</p>
+                    </div>
+                    <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                </div>
+                <div id="m6" class="menu-content">
+                    <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn"><i class="fa-solid fa-file-excel"></i> Format SI</a>
+                    <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> BA Sertijab</a>
+                    <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> SK Tim BOSP 2026</a>
+                    <a href="FORMAT Permohonan Pencetakan Rekening Koran BOSP Reguler.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> Permohonan Rek. Koran</a>
+                    <a href="FORMAT SK PENGANGKATAN_GTY.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> SK GTY</a>
+                    <a href="BERITA ACARA RAPAT PENYUSUNAN RKAS DAN ADM LAINNYA.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> BA RKAS</a>
+                    <a href="FORMAT Spesiment BOS Pusat.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> Spesimen BOS</a>
+                    <a href="FORMAT SK_BENDAHARA_SEKOLAH.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> SK Bendahara</a>
+                    <a href="FORMAT SURAT KETERANGAN AKTIF_MENGAJAR_2026.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> SK Aktif Mengajar</a>
+                </div>
+            </div>
+
+            <div class="kaldik-wrapper">
+                <div class="menu-wrapper c-validasi" id="wrap-m7">
+                    <div class="menu-card" onclick="toggleMenu('m7', 'wrap-m7')">
+                        <div class="icon-box"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="card-text">
+                            <h3>Kaldik & Validasi Usia</h3>
+                            <p>Kelola kalender pendidikan & validasi usia</p>
+                        </div>
+                        <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                    <div id="m7" class="menu-content">
+                        <a onclick="window.open('https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/', '_blank')" class="link-btn"><i class="fa-solid fa-cake-candles"></i> Cek Usia SPMB (Link Baru)</a>
+                        <a onclick="smartOpen('Validasi SPMB', 'spmb.html')" class="link-btn"><i class="fa-solid fa-check-double"></i> Cek Validasi Usia SPMB</a>
+                        <a onclick="smartOpen('Kaldik Jabar', 'https://disdik.jabarprov.go.id/unduh')" class="link-btn"><i class="fa-solid fa-download"></i> Link Update Kaldik Jabar</a>
+                        <a onclick="smartOpen('Kaldik Image', 'Kaldik.jpg')" class="link-btn"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="menu-category">
-            <div class="category-header h-guru" onclick="toggleMenu('m2')">
-                <span><i class="fa-solid fa-chalkboard-user"></i> Administrasi Guru Kelas</span>
-                <i class="fa-solid fa-chevron-down"></i>
+        <div class="datetime-wrapper">
+            <div class="datetime-box">
+                <div class="dt-icon"><i class="fa-solid fa-calendar-days" style="color: #3498db;"></i></div>
+                <div id="tanggal-jam">Memuat Waktu...</div>
+                <div class="dt-icon"><i class="fa-solid fa-leaf" style="color: #27ae60;"></i></div>
             </div>
-            <div id="m2" class="menu-content">
-                <a onclick="smartOpen('Absensi Siswa', 'absen_murid.html')" class="link-btn"><i class="fa-solid fa-user-check"></i> Aplikasi Absensi Siswa</a>
-                <a onclick="smartOpen('Absensi Guru', 'absen.html')" class="link-btn"><i class="fa-solid fa-user-tie"></i> Aplikasi Absensi Guru</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header h-guru" onclick="toggleMenu('m3')">
-                <span><i class="fa-solid fa-user-gear"></i> Layanan Guru dan GTK</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="m3" class="menu-content">
-                <a onclick="smartOpen('Pembuat Soal', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Aplikasi Pembuat Soal AI</a>
-                <a onclick="smartOpen('Adm Lengkap', 'https://s.id/EduAdminApps-V18')" class="link-btn"><i class="fa-solid fa-folder-tree"></i> Aplikasi Adm Lengkap</a>
-                <a onclick="smartOpen('Info GTK', 'https://info.gtk.kemendikdasmen.go.id/info')" class="link-btn"><i class="fa-solid fa-id-card"></i> Info GTK</a>
-                <a onclick="smartOpen('Login Coretax', 'https://coretaxdjp.pajak.go.id/identityproviderportal/Account/Login')" class="link-btn"><i class="fa-solid fa-coins"></i> Login Coretax</a>
-                <a onclick="smartOpen('Merdeka Mengajar', 'https://guru.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-graduation-cap"></i> Platform Merdeka Mengajar</a>
-                <a onclick="smartOpen('Id Belajar', 'https://belajar.id/')" class="link-btn"><i class="fa-solid fa-at"></i> Login Id Belajar</a>
-                <a onclick="smartOpen('Simpkb', 'https://paspor-gtk.simpkb.id/')" class="link-btn"><i class="fa-solid fa-key"></i> SIMPKB</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header h-bekasi" onclick="toggleMenu('m4')">
-                <span><i class="fa-solid fa-city"></i> Layanan Kabupaten Bekasi</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="m4" class="menu-content">
-                <a onclick="smartOpen('Sikawan Baru', 'https://sikawanbaru.bekasikab.go.id/')" class="link-btn"><i class="fa-solid fa-link"></i> SIKAWAN BARU</a>
-                <a onclick="smartOpen('MyASN', 'https://myasn.bkn.go.id/')" class="link-btn"><i class="fa-solid fa-user-shield"></i> MyASN BKN</a>
-                <a onclick="smartOpen('Disdik Bekasi', 'https://disdik.bekasikab.go.id/')" class="link-btn"><i class="fa-solid fa-building"></i> Disdik Kab. Bekasi</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header h-pusat" onclick="toggleMenu('m5')">
-                <span><i class="fa-solid fa-house"></i> Kemendikdasmen Home</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="m5" class="menu-content">
-                <a onclick="smartOpen('Dapodik', 'https://dapo.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-database"></i> Dapodik Dasmen</a>
-                <a onclick="smartOpen('Verval PD', 'https://sso.data.kemendikdasmen.go.id/sys/login?appkey=348310F2-0262-4F5D-B7D1-41F92ECDCA93')" class="link-btn"><i class="fa-solid fa-id-card-clip"></i> Verval PD</a>
-                <a onclick="smartOpen('Verval PTK', 'https://sso.data.kemendikdasmen.go.id/sys/login?appkey=ECAEF583-9134-43B6-B092-01E9E864FB23')" class="link-btn"><i class="fa-solid fa-user-check"></i> Verval PTK</a>
-                <a onclick="smartOpen('Verval Yayasan', 'https://vervalyayasan.data.kemdikbud.go.id/')" class="link-btn"><i class="fa-solid fa-landmark"></i> Verval Yayasan</a>
-                <a onclick="smartOpen('PIP', 'https://pip.kemendikdasmen.go.id/home_v1')" class="link-btn"><i class="fa-solid fa-money-bill-wave"></i> Portal PIP</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header h-doc" onclick="toggleMenu('m6')">
-                <span><i class="fa-solid fa-file-word"></i> Format Dokumen Sekolah</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="m6" class="menu-content">
-                <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn"><i class="fa-solid fa-file-excel"></i> Format SI</a>
-                <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> BA Sertijab</a>
-                <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> SK Tim BOSP 2026</a>
-                <a href="FORMAT Permohonan Pencetakan Rekening Koran BOSP Reguler.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> Permohonan Rek. Koran</a>
-                <a href="FORMAT SK PENGANGKATAN_GTY.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> SK GTY</a>
-                <a href="BERITA ACARA RAPAT PENYUSUNAN RKAS DAN ADM LAINNYA.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> BA RKAS</a>
-                <a href="FORMAT Spesiment BOS Pusat.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> Spesimen BOS</a>
-                <a href="FORMAT SK_BENDAHARA_SEKOLAH.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> SK Bendahara</a>
-                <a href="FORMAT SURAT KETERANGAN AKTIF_MENGAJAR_2026.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> SK Aktif Mengajar</a>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-header h-validasi" onclick="toggleMenu('m7')">
-                <span><i class="fa-solid fa-calendar-days"></i> Kaldik & Validasi Usia</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div id="m7" class="menu-content">
-                <a onclick="smartOpen('Validasi SPMB', 'spmb.html')" class="link-btn"><i class="fa-solid fa-check-double"></i> Cek Validasi Usia SPMB</a>
-                <a onclick="smartOpen('Kaldik Jabar', 'https://disdik.jabarprov.go.id/unduh')" class="link-btn"><i class="fa-solid fa-download"></i> Link Update Kaldik Jabar</a>
-                <a onclick="smartOpen('Kaldik Image', 'Kaldik.jpg')" class="link-btn"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
-            </div>
-        </div>
-
-        <div class="datetime-box" id="tanggal-jam">Memuat Waktu...</div>
-        <div style="text-align:center; font-size:10px; margin-top:20px; opacity:0.8;">
-            © 2026 ROHIMAN SUPRIYADI<br>Kecamatan Babelan — Kab. Bekasi
         </div>
     </div>
 
     <script>
         const SECRET = "Bismillah2026";
-
+        
         function checkPassword() {
             const val = document.getElementById('passkey').value;
             if(val === SECRET) {
@@ -267,12 +351,21 @@
             }
         }
 
-        function toggleMenu(id) {
-            const all = document.querySelectorAll('.menu-content');
-            const target = document.getElementById(id);
-            const isOpen = target.classList.contains('show');
-            all.forEach(m => m.classList.remove('show'));
-            if(!isOpen) target.classList.add('show');
+        // Script menu diubah untuk logic animasi panah (chevron) yang baru
+        function toggleMenu(contentId, wrapperId) {
+            const targetContent = document.getElementById(contentId);
+            const targetWrapper = document.getElementById(wrapperId);
+            const isOpen = targetContent.classList.contains('show');
+            
+            // Tutup semua menu yang sedang terbuka
+            document.querySelectorAll('.menu-content').forEach(m => m.classList.remove('show'));
+            document.querySelectorAll('.menu-wrapper').forEach(w => w.classList.remove('open'));
+            
+            // Buka menu yang diklik jika sebelumnya tertutup
+            if(!isOpen) {
+                targetContent.classList.add('show');
+                targetWrapper.classList.add('open');
+            }
         }
 
         function smartOpen(title, url) {
@@ -294,8 +387,10 @@
         function updateClock() {
             const now = new Date();
             const opt = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('tanggal-jam').innerHTML = now.toLocaleDateString('id-ID', opt) + "<br>" + now.toLocaleTimeString('id-ID') + " WIB";
+            const time = now.toLocaleTimeString('id-ID').replace(/\./g, ':');
+            document.getElementById('tanggal-jam').innerHTML = now.toLocaleDateString('id-ID', opt) + "<br>" + time + " WIB";
         }
+        
         setInterval(updateClock, 1000);
         updateClock();
     </script>
