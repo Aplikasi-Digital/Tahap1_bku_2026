@@ -43,6 +43,26 @@
             background: rgba(255,255,255,0.8); padding: 2px 10px; border-radius: 10px;
         }
 
+        /* Tombol Logout Baru */
+        .btn-logout {
+            margin-top: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .btn-logout:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
         /* --- Layout List Menu (Grid Sesuai Gambar) --- */
         .container { max-width: 850px; margin: 0 auto; display: none; padding-bottom: 30px; }
         
@@ -198,6 +218,8 @@
             </div>
             <h2>PORTAL OPERATOR SEKOLAH</h2>
             <small>Rohiman Supriyadi</small>
+            <br>
+            <button class="btn-logout" onclick="logoutApp()"><i class="fa-solid fa-right-from-bracket"></i> Kembali ke Login</button>
         </div>
 
         <div class="menu-grid">
@@ -343,14 +365,39 @@
     <script>
         const SECRET = "Bismillah2026";
         
+        // FUNGSI BARU: Cek status login saat halaman pertama kali dimuat (atau saat di-refresh)
+        window.onload = function() {
+            if(localStorage.getItem('userLoggedIn') === 'true') {
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            }
+        };
+
         function checkPassword() {
             const val = document.getElementById('passkey').value;
             if(val === SECRET) {
+                // Simpan status ke localStorage agar tidak hilang saat di-refresh
+                localStorage.setItem('userLoggedIn', 'true');
+                
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
+                document.getElementById('error-msg').style.display = 'none'; // Sembunyikan pesan error jika sebelumnya muncul
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
+        }
+
+        // FUNGSI BARU: Fungsi untuk logout dan kembali ke halaman login
+        function logoutApp() {
+            // Hapus memori login di browser
+            localStorage.removeItem('userLoggedIn');
+            
+            // Kosongkan form password
+            document.getElementById('passkey').value = '';
+            
+            // Tampilkan kembali login dan sembunyikan dashboard
+            document.getElementById('login-overlay').style.display = 'flex';
+            document.getElementById('main-content').style.display = 'none';
         }
 
         // Script menu diubah untuk logic animasi panah (chevron) yang baru
