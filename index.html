@@ -21,9 +21,18 @@
             --glass-border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        body { 
-            background: linear-gradient(to bottom, var(--bg-deep-blue), var(--bg-purple), var(--bg-pink), var(--bg-orange), var(--bg-golden));
-            background-attachment: fixed; font-family: 'Poppins', sans-serif; margin: 0; padding: 20px 10px; color: white; overflow-x: hidden;
+      body { 
+            /* Menggunakan gambar background.jpg dengan overlay gelap agar menu tetap terlihat */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif; 
+            margin: 0; 
+            padding: 20px 10px; 
+            color: white; 
+            overflow-x: hidden;
         }
 
         .container { max-width: 480px; margin: 0 auto; display: none; }
