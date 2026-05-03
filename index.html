@@ -17,10 +17,10 @@
             --c-pusat: #d35400;
             --c-doc: #f1c40f;
             --c-validasi: #e74c3c;
+            --c-panduan: #2c3e50;
         }
 
         body { 
-            /* Ubah 'background.jpg' dengan nama file gambar kartun sekolah Anda */
             background: url('background.jpg'); 
             background-size: cover;
             background-position: center;
@@ -30,7 +30,6 @@
             margin: 0; padding: 20px 10px; color: #333; overflow-x: hidden;
         }
 
-        /* --- Header Tampilan Dalam --- */
         .header-section { text-align: center; margin-bottom: 30px; margin-top: 10px; }
         .header-section h2 { 
             margin: 0; font-size: 24px; font-weight: 800; 
@@ -43,7 +42,6 @@
             background: rgba(255,255,255,0.8); padding: 2px 10px; border-radius: 10px;
         }
 
-        /* Tombol Logout Baru */
         .btn-logout {
             margin-top: 15px;
             background: #e74c3c;
@@ -63,7 +61,6 @@
             transform: translateY(-2px);
         }
 
-        /* --- Layout List Menu (Grid Sesuai Gambar) --- */
         .container { max-width: 850px; margin: 0 auto; display: none; padding-bottom: 30px; }
         
         .menu-grid {
@@ -73,7 +70,6 @@
             align-items: start;
         }
 
-        /* Khusus item terakhir agar di tengah jika ganjil */
         .kaldik-wrapper {
             grid-column: 1 / -1;
             max-width: 450px;
@@ -115,7 +111,7 @@
             max-height: 0; overflow: hidden; transition: max-height 0.4s ease; 
             background: #f8f9fa; border-top: 1px solid transparent;
         }
-        .menu-content.show { max-height: 800px; padding: 15px; border-top: 1px solid #eee; }
+        .menu-content.show { max-height: 850px; padding: 15px; border-top: 1px solid #eee; }
 
         /* Pewarnaan Kategori */
         .c-bosp .icon-box { background: var(--c-bosp); } .c-bosp h3, .c-bosp .card-arrow { color: var(--c-bosp); }
@@ -126,7 +122,6 @@
         .c-doc .icon-box { background: var(--c-doc); } .c-doc h3, .c-doc .card-arrow { color: var(--c-doc); }
         .c-validasi .icon-box { background: var(--c-validasi); } .c-validasi h3, .c-validasi .card-arrow { color: var(--c-validasi); }
 
-        /* --- Style Tombol Dalam Menu (Light Theme) --- */
         .link-btn { 
             display: flex; align-items: center; gap: 10px; padding: 12px; 
             background: #ffffff; margin-bottom: 8px; 
@@ -137,8 +132,11 @@
         }
         .link-btn:hover { background: #f0f2f5; border-color: #d1d5db; }
         .link-btn i { width: 20px; text-align: center; color: #555; }
+        
+        /* Tombol Panduan Khusus */
+        .btn-guide { background: #ebf5ff; border: 1px dashed #2980b9; color: #2980b9; }
+        .btn-guide i { color: #2980b9; }
 
-        /* --- STYLE WIDGET TANGGAL --- */
         .datetime-wrapper {
             display: flex; justify-content: center; margin-top: 35px;
         }
@@ -150,7 +148,6 @@
         }
         .dt-icon { font-size: 18px; }
 
-        /* --- STYLE LOGIN LAMA --- */
         #login-overlay { 
             position: fixed; inset: 0; background: radial-gradient(circle at center, #252a41 0%, #0f111a 100%); 
             display: flex; align-items: center; justify-content: center; z-index: 9999; 
@@ -173,7 +170,6 @@
         .input-wrapper input { background: transparent; border: none; color: white; width: 100%; font-size: 16px; outline: none; }
         .btn-login-new { background: linear-gradient(to right, #ff7eb3, #ff758c); color: white; border: none; padding: 15px; width: 100%; border-radius: 30px; font-weight: 900; font-size: 18px; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4); margin-top: 10px; letter-spacing: 2px; }
 
-        /* --- STYLE APP VIEWER (TAMPILAN BARU UNTUK KEMBALI KE MENU LOKAL) --- */
         #app-viewer { position: fixed; inset: 0; background: #f4f6f9; z-index: 10000; display: none; flex-direction: column; }
         .viewer-header { height: 60px; background: #2c3e50; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .btn-kembali { background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; }
@@ -238,6 +234,7 @@
                     <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
                 </div>
                 <div id="m1" class="menu-content">
+                    <a onclick="showGuide('BOSP')" class="link-btn btn-guide"><i class="fa-solid fa-circle-info"></i> Panduan Menu BOSP</a>
                     <a onclick="smartOpen('Pendampingan BKU', 'bku.html')" class="link-btn"><i class="fa-solid fa-file-lines"></i> Aplikasi Pendampingan BKU</a>
                     <a onclick="smartOpen('Portal BOS', 'https://bosp.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-globe"></i> Portal BOS</a>
                     <a onclick="smartOpen('Portal ARKAS', 'https://arkas.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-calculator"></i> Portal ARKAS</a>
@@ -255,6 +252,7 @@
                     <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
                 </div>
                 <div id="m2" class="menu-content">
+                    <a onclick="showGuide('ADM_GURU')" class="link-btn btn-guide"><i class="fa-solid fa-circle-info"></i> Panduan Administrasi Guru</a>
                     <a onclick="smartOpen('Aplikasi Olah Nilai', 'https://imanschool.my.id/aplikasi-nilai/#/login', 'User = admin\nPassword = admin')" class="link-btn"><i class="fa-solid fa-file-pen"></i> Aplikasi Olah Nilai</a>
                     <a onclick="smartOpen('Absensi Siswa', 'absen_murid.html')" class="link-btn"><i class="fa-solid fa-user-check"></i> Aplikasi Absensi Siswa</a>
                     <a onclick="smartOpen('Absensi Guru', 'absen.html')" class="link-btn"><i class="fa-solid fa-user-tie"></i> Aplikasi Absensi Guru</a>
@@ -275,6 +273,7 @@
                     <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
                 </div>
                 <div id="m3" class="menu-content">
+                    <a onclick="showGuide('GTK')" class="link-btn btn-guide"><i class="fa-solid fa-circle-info"></i> Panduan Layanan GTK</a>
                     <a onclick="smartOpen('Pembuat Soal', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Aplikasi Pembuat Soal AI</a>
                     <a onclick="smartOpen('Info GTK', 'https://info.gtk.kemendikdasmen.go.id/info')" class="link-btn"><i class="fa-solid fa-id-card"></i> Info GTK</a>
                     <a onclick="smartOpen('Login Coretax', 'https://coretaxdjp.pajak.go.id/identityproviderportal/Account/Login')" class="link-btn"><i class="fa-solid fa-coins"></i> Login Coretax</a>
@@ -294,6 +293,7 @@
                     <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
                 </div>
                 <div id="m4" class="menu-content">
+                    <a onclick="showGuide('KAB')" class="link-btn btn-guide"><i class="fa-solid fa-circle-info"></i> Panduan Layanan Kabupaten</a>
                     <a onclick="smartOpen('Sikawan Baru', 'https://sikawanbaru.bekasikab.go.id/')" class="link-btn"><i class="fa-solid fa-link"></i> SIKAWAN BARU</a>
                     <a onclick="smartOpen('MyASN', 'https://myasn.bkn.go.id/')" class="link-btn"><i class="fa-solid fa-user-shield"></i> MyASN BKN</a>
                     <a onclick="smartOpen('Disdik Bekasi', 'https://disdik.bekasikab.go.id/')" class="link-btn"><i class="fa-solid fa-building"></i> Disdik Kab. Bekasi</a>
@@ -310,6 +310,7 @@
                     <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
                 </div>
                 <div id="m5" class="menu-content">
+                    <a onclick="showGuide('PUSAT')" class="link-btn btn-guide"><i class="fa-solid fa-circle-info"></i> Panduan Menu Pusat</a>
                     <a onclick="smartOpen('Dapodik', 'https://dapo.kemendikdasmen.go.id/')" class="link-btn"><i class="fa-solid fa-database"></i> Dapodik Dasmen</a>
                     <a onclick="smartOpen('Verval PD', 'https://sso.data.kemendikdasmen.go.id/sys/login?appkey=348310F2-0262-4F5D-B7D1-41F92ECDCA93')" class="link-btn"><i class="fa-solid fa-id-card-clip"></i> Verval PD</a>
                     <a onclick="smartOpen('Verval PTK', 'https://sso.data.kemendikdasmen.go.id/sys/login?appkey=ECAEF583-9134-43B6-B092-01E9E864FB23')" class="link-btn"><i class="fa-solid fa-user-check"></i> Verval PTK</a>
@@ -328,6 +329,7 @@
                     <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
                 </div>
                 <div id="m6" class="menu-content">
+                    <a onclick="showGuide('DOC')" class="link-btn btn-guide"><i class="fa-solid fa-circle-info"></i> Panduan Download</a>
                     <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn"><i class="fa-solid fa-file-excel"></i> Format SI</a>
                     <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> BA Sertijab</a>
                     <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn"><i class="fa-solid fa-file-word"></i> SK Tim BOSP 2026</a>
@@ -355,6 +357,7 @@
                         <div class="card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
                     </div>
                     <div id="m7" class="menu-content">
+                        <a onclick="showGuide('VALIDASI')" class="link-btn btn-guide"><i class="fa-solid fa-circle-info"></i> Panduan Kaldik</a>
                         <a onclick="smartOpen('Validasi SPMB', 'https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/')" class="link-btn"><i class="fa-solid fa-check-double"></i> Cek Validasi Usia SPMB</a>
                         <a onclick="smartOpen('Kaldik Jabar', 'https://disdik.jabarprov.go.id/unduh')" class="link-btn"><i class="fa-solid fa-download"></i> Link Update Kaldik Jabar</a>
                         <a onclick="smartOpen('Kaldik Image', 'Kaldik.jpg')" class="link-btn"><i class="fa-solid fa-image"></i> Lihat Gambar Kaldik</a>
@@ -445,6 +448,35 @@
         
         setInterval(updateClock, 1000);
         updateClock();
+
+        // FUNGSI PANDUAN BARU
+        function showGuide(type) {
+            let text = "";
+            switch(type) {
+                case 'BOSP':
+                    text = "PANDUAN MANAJEMEN BOSP:\n\n1. Pendampingan BKU: Digunakan untuk mencatat transaksi harian sebelum diinput ke ARKAS.\n2. Portal BOS/ARKAS: Link resmi untuk sinkronisasi data pusat.\n3. Tanda Terima: Format otomatis untuk administrasi pembayaran honor.";
+                    break;
+                case 'ADM_GURU':
+                    text = "PANDUAN ADMINISTRASI GURU:\n\n1. Olah Nilai: Masukkan data nilai siswa untuk raport (Login: admin/admin).\n2. Absensi: Gunakan menu absen murid/guru setiap hari.\n3. PPDB & Kartu: Cek validasi usia siswa baru dan cetak kartu ujian/meja secara otomatis.";
+                    break;
+                case 'GTK':
+                    text = "PANDUAN LAYANAN GTK:\n\n1. Pembuat Soal AI: Gunakan kecerdasan buatan untuk membuat soal otomatis.\n2. Info GTK & SIMPKB: Cek validasi data sertifikasi dan pelatihan mandiri.\n3. Coretax: Layanan perpajakan GTK.";
+                    break;
+                case 'KAB':
+                    text = "PANDUAN LAYANAN KAB. BEKASI:\n\n1. SIKAWAN: Akses layanan kepegawaian daerah.\n2. MyASN: Update data mandiri BKN.\n3. Disdik: Informasi terkini dari Dinas Pendidikan Kabupaten Bekasi.";
+                    break;
+                case 'PUSAT':
+                    text = "PANDUAN KEMENDIKDASMEN:\n\n1. Dapodik: Pastikan sinkronisasi data berkala.\n2. Verval: Lakukan validasi PD (Siswa) dan PTK (Guru) untuk menghindari data residu.\n3. PIP: Cek bantuan siswa miskin secara berkala.";
+                    break;
+                case 'DOC':
+                    text = "PANDUAN UNDUHAN:\n\n1. Pastikan memiliki Microsoft Word/Excel.\n2. Klik nama dokumen untuk download otomatis.\n3. Gunakan Template CSV khusus untuk aplikasi Kartu Meja agar data terbaca sistem.";
+                    break;
+                case 'VALIDASI':
+                    text = "PANDUAN KALDIK & USIA:\n\n1. Gunakan Cek Validasi untuk menentukan kelayakan usia siswa pada PPDB.\n2. Lihat Gambar atau Download PDF untuk jadwal kegiatan akademik terbaru.";
+                    break;
+            }
+            alert(text);
+        }
     </script>
 </body>
 </html>
