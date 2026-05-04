@@ -232,29 +232,28 @@
             border-style: solid; border-color: transparent transparent transparent #2980b9;
         }
 
-        /* --- MASKOT BAPAK GURU (POJOK KANAN BAWAH) --- */
-        #mascot-guru {
+        /* --- ANIMASI MURID SD BERJALAN (UKURAN DIPERKECIL) --- */
+        #mascot-baru {
             position: fixed;
-            bottom: 10px;
-            right: 10px;
-            width: 220px; 
+            bottom: 20px;
+            left: -250px; 
+            width: 180px; /* Ukuran Desktop diperkecil dari 220px */
             z-index: 99;
             display: none; 
             pointer-events: none;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
-            animation: floatGuru 3s ease-in-out infinite;
+            animation: walkRight 15s linear infinite;
         }
 
-        @keyframes floatGuru {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(3deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
+        @keyframes walkRight {
+            0% { left: -250px; }
+            100% { left: 100%; } 
         }
 
         @media (max-width: 1100px) {
             .mascot-box { left: -250px; width: 300px; }
             .mascot-img { width: 130px; }
-            #mascot-guru { width: 150px; }
+            #mascot-baru { width: 130px; animation: walkRight 12s linear infinite; } /* Ukuran Tablet diperkecil */
         }
 
         @media (max-width: 768px) {
@@ -265,7 +264,7 @@
             .title-container { flex-direction: column; gap: 5px; }
             .menu-grid { grid-template-columns: 1fr; }
             .kaldik-wrapper { max-width: 100%; }
-            #mascot-guru { width: 120px; bottom: 5px; right: 5px; }
+            #mascot-baru { width: 100px; bottom: 10px; animation: walkRight 10s linear infinite; } /* Ukuran Mobile diperkecil */
         }
     </style>
 </head>
@@ -275,8 +274,8 @@
         <source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- MASKOT BAPAK GURU -->
-    <img id="mascot-guru" src="bapak_guru.gif" alt="Bapak Guru">
+    <!-- MASKOT ANIMASI MURID SD -->
+    <img id="mascot-baru" src="murid_SD.gif" alt="Animasi Murid">
 
     <div id="login-overlay">
         <div class="login-card">
@@ -362,7 +361,6 @@
                     <a onclick="smartOpen('Aplikasi Cek Usia PPDB', 'https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/')" class="link-btn"><i class="fa-solid fa-cake-candles"></i> Aplikasi Cek Usia PPDB</a>
                     <a onclick="smartOpen('Aplikasi Cetak Kartu', 'https://rohimansupriyadi82-cmd.github.io/aplikasi-cetak-kartu/', 'User = admin\nPassword = bismillah')" class="link-btn"><i class="fa-solid fa-id-card"></i> Aplikasi Cetak Kartu</a>
                     <a onclick="smartOpen('Aplikasi No Meja', 'aplikasinomormeja.html')" class="link-btn"><i class="fa-solid fa-border-all"></i> Aplikasi No Meja</a>
-                    <!-- LINK DIPERBARUI DIBAWAH INI -->
                     <a onclick="smartOpen('Aplikasi Kartu Meja V2', 'aplikasi_kartu_meja.V2.html')" class="link-btn"><i class="fa-solid fa-print"></i> Aplikasi Kartu Meja V2</a>
                 </div>
             </div>
@@ -493,14 +491,14 @@
 
         function showMascots(withSound = true) {
             const mascot = document.getElementById('mascot');
-            const mascotGuru = document.getElementById('mascot-guru'); 
+            const mascotBaru = document.getElementById('mascot-baru'); 
             const mascotText = document.getElementById('mascot-text');
             const sound = document.getElementById('soundHore');
 
             mascotText.innerText = MASCOT_MESSAGES[Math.floor(Math.random() * MASCOT_MESSAGES.length)];
             
             mascot.style.display = 'flex';
-            mascotGuru.style.display = 'block'; 
+            mascotBaru.style.display = 'block'; 
 
             if(withSound) {
                 sound.currentTime = 0;
@@ -527,7 +525,7 @@
             document.getElementById('login-overlay').style.display = 'flex';
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('mascot').style.display = 'none';
-            document.getElementById('mascot-guru').style.display = 'none'; 
+            document.getElementById('mascot-baru').style.display = 'none'; 
         }
 
         function toggleMenu(contentId, wrapperId) {
