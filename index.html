@@ -133,7 +133,6 @@
         .link-btn:hover { background: #f0f2f5; border-color: #d1d5db; }
         .link-btn i { width: 20px; text-align: center; color: #555; }
         
-        /* Tombol Panduan Khusus */
         .btn-guide { background: #ebf5ff; border: 1px dashed #2980b9; color: #2980b9; }
         .btn-guide i { color: #2980b9; }
 
@@ -175,71 +174,66 @@
         .btn-kembali { background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; }
         .btn-kembali:hover { background: #c0392b; transform: scale(1.05); }
 
-        /* --- STYLES MASKOT ANAK SD --- */
+        /* --- ANIMASI MASKOT --- */
         .mascot-box {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 140px;
-            z-index: 99999;
-            display: none; 
-            text-align: center;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
-            pointer-events: none;
+            position: fixed; bottom: 20px; right: 20px;
+            width: 220px; z-index: 99999; display: none; 
+            text-align: center; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); pointer-events: none;
         }
-        .mascot-img {
-            width: 100%;
-            height: auto;
+        
+        /* --- MASKOT BAPAK GURU (KIRI & BESAR) --- */
+        .teacher-box {
+            position: fixed; bottom: 20px; left: 20px;
+            width: 320px; z-index: 99999; display: none; 
+            text-align: center; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); pointer-events: none;
+        }
+
+        .mascot-img, .teacher-img {
+            width: 100%; height: auto;
             animation: jumpHigher 0.8s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
+        
         @keyframes jumpHigher {
             0% { transform: translateY(0) scale(1, 1); }
-            30% { transform: scale(1.1, 0.85); }
-            100% { transform: translateY(-70px) scale(0.9, 1.1); }
+            30% { transform: scale(1.1, 0.9); }
+            100% { transform: translateY(-80px) scale(0.9, 1.1); }
         }
+
         .speech-bubble {
-            background: #ffffff;
-            border: 3px solid #2980b9;
-            border-radius: 20px;
-            padding: 8px 12px;
-            font-size: 11px;
-            font-weight: 800;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            background: #ffffff; border: 3px solid #2980b9; border-radius: 20px;
+            padding: 8px 12px; font-size: 12px; font-weight: 800; color: #2c3e50;
+            margin-top: 10px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: inline-block;
         }
         .speech-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            right: 30px;
-            border-width: 15px 15px 0;
-            border-style: solid;
-            border-color: #2980b9 transparent;
+            content: ''; position: absolute; top: -15px; right: 50%;
+            transform: translateX(50%); border-width: 0 15px 15px;
+            border-style: solid; border-color: #2980b9 transparent;
         }
 
         @media (max-width: 600px) {
             .menu-grid { grid-template-columns: 1fr; }
             .kaldik-wrapper { max-width: 100%; }
-            .viewer-header { padding: 0 10px; }
-            .btn-kembali { font-size: 11px; padding: 6px 12px; }
-            .mascot-box { width: 100px; bottom: 10px; right: 10px; }
+            .mascot-box { width: 140px; }
+            .teacher-box { width: 180px; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- Audio Sorakan Hore -->
     <audio id="soundHore" preload="auto">
         <source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Maskot Anak SD Loncat -->
+    <!-- MASKOT BAPAK GURU (KIRI) -->
+    <div id="mascot-teacher" class="teacher-box">
+        <img class="teacher-img" src="bapak_guru.gif" alt="Bapak Guru">
+        <div class="speech-bubble">Halo Rekan Operator!</div>
+    </div>
+
+    <!-- MASKOT ANAK SD (KANAN) -->
     <div id="mascot" class="mascot-box">
-        <div class="speech-bubble" id="mascot-text">Berhasil Login!</div>
-        <!-- MEMANGGIL FILE LOKAL anak_sd.gif -->
         <img class="mascot-img" src="anak_sd.gif" alt="Anak SD Senang">
+        <div class="speech-bubble" id="mascot-text">Berhasil Login!</div>
     </div>
 
     <div id="login-overlay">
@@ -280,8 +274,8 @@
             <button class="btn-logout" onclick="logoutApp()"><i class="fa-solid fa-right-from-bracket"></i> Kembali ke Login</button>
         </div>
 
-        <!-- MENU TETAP 100% SESUAI REFERENSI ANDA -->
         <div class="menu-grid">
+            <!-- M1 -->
             <div class="menu-wrapper c-bosp" id="wrap-m1">
                 <div class="menu-card" onclick="toggleMenu('m1', 'wrap-m1')">
                     <div class="icon-box"><i class="fa-solid fa-file-invoice-dollar"></i></div>
@@ -300,6 +294,7 @@
                 </div>
             </div>
 
+            <!-- M2 -->
             <div class="menu-wrapper c-adm" id="wrap-m2">
                 <div class="menu-card" onclick="toggleMenu('m2', 'wrap-m2')">
                     <div class="icon-box"><i class="fa-solid fa-users"></i></div>
@@ -321,6 +316,7 @@
                 </div>
             </div>
 
+            <!-- M3 -->
             <div class="menu-wrapper c-gtk" id="wrap-m3">
                 <div class="menu-card" onclick="toggleMenu('m3', 'wrap-m3')">
                     <div class="icon-box"><i class="fa-solid fa-users-gear"></i></div>
@@ -341,6 +337,7 @@
                 </div>
             </div>
 
+            <!-- M4 -->
             <div class="menu-wrapper c-kab" id="wrap-m4">
                 <div class="menu-card" onclick="toggleMenu('m4', 'wrap-m4')">
                     <div class="icon-box"><i class="fa-solid fa-building"></i></div>
@@ -358,6 +355,7 @@
                 </div>
             </div>
 
+            <!-- M5 -->
             <div class="menu-wrapper c-pusat" id="wrap-m5">
                 <div class="menu-card" onclick="toggleMenu('m5', 'wrap-m5')">
                     <div class="icon-box"><i class="fa-solid fa-house"></i></div>
@@ -377,6 +375,7 @@
                 </div>
             </div>
 
+            <!-- M6 -->
             <div class="menu-wrapper c-doc" id="wrap-m6">
                 <div class="menu-card" onclick="toggleMenu('m6', 'wrap-m6')">
                     <div class="icon-box"><i class="fa-solid fa-file-word"></i></div>
@@ -404,6 +403,7 @@
                 </div>
             </div>
 
+            <!-- M7 -->
             <div class="kaldik-wrapper">
                 <div class="menu-wrapper c-validasi" id="wrap-m7">
                     <div class="menu-card" onclick="toggleMenu('m7', 'wrap-m7')">
@@ -435,30 +435,26 @@
 
     <script>
         const SECRET = "Bismillah2026";
-        
-        const MASCOT_MESSAGES = [
-            "Horeee! Berhasil Login!",
-            "Semangat Kerja Hari Ini Pak!",
-            "Halo Pak Operator, Siap Beraksi!",
-            "Data Sudah Sinkron, Mantap!",
-            "Luar Biasa, Maju Terus!"
-        ];
+        const MASCOT_MESSAGES = ["Yeeaaayy! Berhasil Login!", "Semangat Kerja Hari Ini Pak!", "Halo Pak Operator, Siap Beraksi!", "Data Sudah Sinkron, Mantap!", "Luar Biasa, Maju Terus!"];
 
         window.onload = function() {
             if(localStorage.getItem('userLoggedIn') === 'true') {
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                showMascot(false); 
+                showMascots(false); 
             }
         };
 
-        function showMascot(withSound = true) {
+        function showMascots(withSound = true) {
             const mascot = document.getElementById('mascot');
+            const teacher = document.getElementById('mascot-teacher');
             const mascotText = document.getElementById('mascot-text');
             const sound = document.getElementById('soundHore');
 
             mascotText.innerText = MASCOT_MESSAGES[Math.floor(Math.random() * MASCOT_MESSAGES.length)];
+            
             mascot.style.display = 'block';
+            teacher.style.display = 'block';
 
             if(withSound) {
                 sound.currentTime = 0;
@@ -473,7 +469,7 @@
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
                 document.getElementById('error-msg').style.display = 'none'; 
-                showMascot(true); 
+                showMascots(true); 
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
@@ -485,16 +481,15 @@
             document.getElementById('login-overlay').style.display = 'flex';
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('mascot').style.display = 'none';
+            document.getElementById('mascot-teacher').style.display = 'none';
         }
 
         function toggleMenu(contentId, wrapperId) {
             const targetContent = document.getElementById(contentId);
             const targetWrapper = document.getElementById(wrapperId);
             const isOpen = targetContent.classList.contains('show');
-            
             document.querySelectorAll('.menu-content').forEach(m => m.classList.remove('show'));
             document.querySelectorAll('.menu-wrapper').forEach(w => w.classList.remove('open'));
-            
             if(!isOpen) {
                 targetContent.classList.add('show');
                 targetWrapper.classList.add('open');
@@ -524,7 +519,6 @@
             const time = now.toLocaleTimeString('id-ID').replace(/\./g, ':');
             document.getElementById('tanggal-jam').innerHTML = now.toLocaleDateString('id-ID', opt) + "<br>" + time + " WIB";
         }
-        
         setInterval(updateClock, 1000);
         updateClock();
 
