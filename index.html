@@ -194,21 +194,21 @@
         .btn-kembali { background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; }
         .btn-kembali:hover { background: #c0392b; transform: scale(1.05); }
 
-        /* --- ANIMASI MASKOT ANAK SD (Update Ukuran & Posisi) --- */
+        /* --- ANIMASI MASKOT ANAK SD (ATAS) --- */
         .mascot-box {
             position: absolute; 
-            left: -400px; /* Geser lebih jauh ke kiri */
+            left: -400px; 
             top: -40px; 
-            width: 400px; /* Diperlebar agar ruang teks & gambar cukup */
+            width: 400px; 
             z-index: 1; display: none; 
             align-items: center; 
             justify-content: flex-end;
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9)); /* Shadow Kuning */
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9)); 
             pointer-events: none;
         }
 
         .mascot-img {
-            width: 170px; /* Diperbesar sesuai permintaan */
+            width: 170px; 
             height: auto;
             animation: jumpHigher 0.8s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
@@ -232,9 +232,29 @@
             border-style: solid; border-color: transparent transparent transparent #2980b9;
         }
 
+        /* --- MASKOT BAPAK GURU (POJOK KANAN BAWAH) --- */
+        #mascot-guru {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 220px; /* Ukuran agak besar */
+            z-index: 99;
+            display: none; /* Awalnya sembunyi */
+            pointer-events: none;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+            animation: floatGuru 3s ease-in-out infinite;
+        }
+
+        @keyframes floatGuru {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
         @media (max-width: 1100px) {
             .mascot-box { left: -250px; width: 300px; }
             .mascot-img { width: 130px; }
+            #mascot-guru { width: 150px; }
         }
 
         @media (max-width: 768px) {
@@ -245,6 +265,7 @@
             .title-container { flex-direction: column; gap: 5px; }
             .menu-grid { grid-template-columns: 1fr; }
             .kaldik-wrapper { max-width: 100%; }
+            #mascot-guru { width: 120px; bottom: 5px; right: 5px; }
         }
     </style>
 </head>
@@ -253,6 +274,9 @@
     <audio id="soundHore" preload="auto">
         <source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- MASKOT BAPAK GURU -->
+    <img id="mascot-guru" src="bapak_guru.gif" alt="Bapak Guru">
 
     <div id="login-overlay">
         <div class="login-card">
@@ -303,7 +327,6 @@
         </div>
 
         <div class="menu-grid">
-            <!-- Menu Items Tetap Sama -->
             <div class="menu-wrapper c-bosp" id="wrap-m1">
                 <div class="menu-card" onclick="toggleMenu('m1', 'wrap-m1')">
                     <div class="icon-box"><i class="fa-solid fa-file-invoice-dollar"></i></div>
@@ -469,10 +492,15 @@
 
         function showMascots(withSound = true) {
             const mascot = document.getElementById('mascot');
+            const mascotGuru = document.getElementById('mascot-guru'); // Bapak Guru
             const mascotText = document.getElementById('mascot-text');
             const sound = document.getElementById('soundHore');
+
             mascotText.innerText = MASCOT_MESSAGES[Math.floor(Math.random() * MASCOT_MESSAGES.length)];
+            
             mascot.style.display = 'flex';
+            mascotGuru.style.display = 'block'; // Tampilkan Bapak Guru di dashboard
+
             if(withSound) {
                 sound.currentTime = 0;
                 sound.play().catch(e => console.log("Audio Blocked"));
@@ -498,6 +526,7 @@
             document.getElementById('login-overlay').style.display = 'flex';
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('mascot').style.display = 'none';
+            document.getElementById('mascot-guru').style.display = 'none'; // Sembunyikan saat logout
         }
 
         function toggleMenu(contentId, wrapperId) {
