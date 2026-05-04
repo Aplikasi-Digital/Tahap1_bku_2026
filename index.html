@@ -237,9 +237,9 @@
             position: fixed;
             bottom: 10px;
             right: 10px;
-            width: 220px; /* Ukuran agak besar */
+            width: 220px; 
             z-index: 99;
-            display: none; /* Awalnya sembunyi */
+            display: none; 
             pointer-events: none;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
             animation: floatGuru 3s ease-in-out infinite;
@@ -362,7 +362,8 @@
                     <a onclick="smartOpen('Aplikasi Cek Usia PPDB', 'https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/')" class="link-btn"><i class="fa-solid fa-cake-candles"></i> Aplikasi Cek Usia PPDB</a>
                     <a onclick="smartOpen('Aplikasi Cetak Kartu', 'https://rohimansupriyadi82-cmd.github.io/aplikasi-cetak-kartu/', 'User = admin\nPassword = bismillah')" class="link-btn"><i class="fa-solid fa-id-card"></i> Aplikasi Cetak Kartu</a>
                     <a onclick="smartOpen('Aplikasi No Meja', 'aplikasinomormeja.html')" class="link-btn"><i class="fa-solid fa-border-all"></i> Aplikasi No Meja</a>
-                    <a onclick="smartOpen('Aplikasi Kartu Meja V2', 'aplikasi_kartu_me_V2.html')" class="link-btn"><i class="fa-solid fa-print"></i> Aplikasi Kartu Meja V2</a>
+                    <!-- LINK DIPERBARUI DIBAWAH INI -->
+                    <a onclick="smartOpen('Aplikasi Kartu Meja V2', 'aplikasi_kartu_meja.V2.html')" class="link-btn"><i class="fa-solid fa-print"></i> Aplikasi Kartu Meja V2</a>
                 </div>
             </div>
 
@@ -492,14 +493,14 @@
 
         function showMascots(withSound = true) {
             const mascot = document.getElementById('mascot');
-            const mascotGuru = document.getElementById('mascot-guru'); // Bapak Guru
+            const mascotGuru = document.getElementById('mascot-guru'); 
             const mascotText = document.getElementById('mascot-text');
             const sound = document.getElementById('soundHore');
 
             mascotText.innerText = MASCOT_MESSAGES[Math.floor(Math.random() * MASCOT_MESSAGES.length)];
             
             mascot.style.display = 'flex';
-            mascotGuru.style.display = 'block'; // Tampilkan Bapak Guru di dashboard
+            mascotGuru.style.display = 'block'; 
 
             if(withSound) {
                 sound.currentTime = 0;
@@ -526,7 +527,7 @@
             document.getElementById('login-overlay').style.display = 'flex';
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('mascot').style.display = 'none';
-            document.getElementById('mascot-guru').style.display = 'none'; // Sembunyikan saat logout
+            document.getElementById('mascot-guru').style.display = 'none'; 
         }
 
         function toggleMenu(contentId, wrapperId) {
