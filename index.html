@@ -175,15 +175,72 @@
         .btn-kembali { background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; }
         .btn-kembali:hover { background: #c0392b; transform: scale(1.05); }
 
+        /* --- STYLE MASKOT ANAK SD LONCAT (REVISI) --- */
+        .mascot-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            z-index: 99999;
+            display: none; 
+            text-align: center;
+            pointer-events: none;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+        }
+        .mascot-img {
+            width: 100%;
+            height: auto;
+            /* Animasi loncat kegirangan canggih */
+            animation: jumpingJoy 0.8s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+        }
+        @keyframes jumpingJoy {
+            0% { transform: translateY(0) scale(1, 1); }
+            30% { transform: scale(1.1, 0.9); }
+            100% { transform: translateY(-80px) scale(0.9, 1.1); }
+        }
+        .speech-bubble {
+            background: #ffffff;
+            border: 3px solid #2980b9;
+            border-radius: 20px;
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            right: 30px;
+            border-width: 12px 12px 0;
+            border-style: solid;
+            border-color: #2980b9 transparent;
+        }
+
         @media (max-width: 600px) {
             .menu-grid { grid-template-columns: 1fr; }
             .kaldik-wrapper { max-width: 100%; }
             .viewer-header { padding: 0 10px; }
             .btn-kembali { font-size: 11px; padding: 6px 12px; }
+            .mascot-box { width: 100px; bottom: 10px; right: 10px; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
+
+    <!-- Audio Sorakan Anak-anak (Cheers) -->
+    <audio id="soundHore" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Elemen Maskot Anak SD (Panggil File dari GitHub) -->
+    <div id="mascot" class="mascot-box">
+        <div class="speech-bubble" id="mascot-text">Yeeaaayy! Berhasil!</div>
+        <img class="mascot-img" src="https://raw.githubusercontent.com/RohimanSupriyadi82-cmd/portal-ops/main/anak-sd.gif" alt="Happy Mascot">
+    </div>
 
     <div id="login-overlay">
         <div class="login-card">
@@ -378,12 +435,38 @@
     <script>
         const SECRET = "Bismillah2026";
         
+        // Pesan otomatis maskot acak agar lebih hidup
+        const MASCOT_MESSAGES = [
+            "Horeee! Berhasil Login!",
+            "Semangat Kerja Hari Ini Pak!",
+            "Halo Pak Operator, Siap Beraksi!",
+            "Data Sudah Sinkron, Mantap!",
+            "Luar Biasa, Maju Terus!"
+        ];
+
         window.onload = function() {
             if(localStorage.getItem('userLoggedIn') === 'true') {
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
+                showMascot(false); 
             }
         };
+
+        function showMascot(withSound = true) {
+            const mascot = document.getElementById('mascot');
+            const mascotText = document.getElementById('mascot-text');
+            const sound = document.getElementById('soundHore');
+
+            // Pilih pesan acak
+            mascotText.innerText = MASCOT_MESSAGES[Math.floor(Math.random() * MASCOT_MESSAGES.length)];
+            
+            mascot.style.display = 'block';
+
+            if(withSound) {
+                sound.currentTime = 0;
+                sound.play().catch(e => console.log("Audio Playback Blocked"));
+            }
+        }
 
         function checkPassword() {
             const val = document.getElementById('passkey').value;
@@ -392,6 +475,7 @@
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
                 document.getElementById('error-msg').style.display = 'none'; 
+                showMascot(true); // Munculkan maskot & bunyi hore
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
@@ -402,6 +486,7 @@
             document.getElementById('passkey').value = '';
             document.getElementById('login-overlay').style.display = 'flex';
             document.getElementById('main-content').style.display = 'none';
+            document.getElementById('mascot').style.display = 'none';
         }
 
         function toggleMenu(contentId, wrapperId) {
@@ -449,7 +534,6 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // FUNGSI PANDUAN BARU
         function showGuide(type) {
             let text = "";
             switch(type) {
