@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
         :root { 
             --width-f4: 330mm; 
             --height-f4: 215mm; 
@@ -15,12 +17,12 @@
             --dark-green: #064e3b;
             --light-green: #ecfdf5;
             --accent-green: #10b981;
-            --sidebar-width: 280px;
+            --sidebar-width: 300px;
         }
         
         body { 
-            font-family: 'Inter', 'Tahoma', sans-serif; 
-            background: #f8fafc; 
+            font-family: 'Inter', sans-serif; 
+            background: #f1f5f9; 
             color: #1e293b; 
             margin: 0; 
             display: flex; 
@@ -39,31 +41,33 @@
             left: 0;
             top: 0;
             z-index: 50; 
+            box-shadow: 4px 0 24px rgba(0,0,0,0.02);
         }
 
         .sidebar-header { 
-            padding: 25px 20px; 
+            padding: 30px 24px; 
             background: var(--primary-green); 
             color: white; 
-            box-shadow: 0 4px 12px rgba(6, 95, 70, 0.2); 
+            box-shadow: 0 4px 12px rgba(6, 95, 70, 0.15); 
         }
 
         .nav-menu { 
-            padding: 20px 10px; 
+            padding: 24px 16px; 
             flex-grow: 1; 
         }
 
         .nav-tab { 
-            padding: 12px 15px; 
-            margin-bottom: 8px; 
+            padding: 14px 18px; 
+            margin-bottom: 6px; 
             cursor: pointer; 
             border-radius: 12px; 
             font-weight: 600; 
-            color: #475569; 
-            transition: all 0.2s; 
+            color: #64748b; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
             display: flex; 
             align-items: center; 
-            gap: 12px; 
+            gap: 14px; 
+            font-size: 14px;
         }
 
         .nav-tab:hover { 
@@ -74,13 +78,14 @@
         .nav-tab.active { 
             background: var(--primary-green); 
             color: white; 
+            box-shadow: 0 4px 12px rgba(6, 95, 70, 0.2);
         }
 
-        /* CONTENT AREA ADJUSTMENT */
+        /* CONTENT AREA */
         .content-area { 
             margin-left: var(--sidebar-width); 
             flex-grow: 1; 
-            padding: 30px; 
+            padding: 40px; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -90,21 +95,21 @@
         .menu-panel { 
             display: none; 
             background: white; 
-            padding: 25px; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(6, 78, 59, 0.05); 
+            padding: 30px; 
+            border-radius: 24px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
             width: 100%; 
             max-width: 1100px; 
-            margin-bottom: 30px; 
-            border: 1px solid #d1fae5; 
+            margin-bottom: 40px; 
+            border: 1px solid #f1f5f9; 
         }
 
         .menu-panel.active { display: block; }
 
         .input-custom { 
             width: 100%; 
-            background: #f9fdfb; 
-            border: 1px solid #a7f3d0; 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
             padding: 12px 16px; 
             border-radius: 12px; 
             font-size: 14px; 
@@ -113,6 +118,7 @@
 
         .input-custom:focus { 
             border-color: var(--accent-green); 
+            background: white;
             outline: none; 
             box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); 
         }
@@ -123,35 +129,35 @@
             min-height: var(--height-f4); 
             padding: 15mm 20mm; 
             color: black; 
-            box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.15); 
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.1); 
             position: relative; 
         }
 
         .table-spj { border: 1.5pt solid #000; border-collapse: collapse; width: 100%; }
-        .table-spj th, .table-spj td { border: 1pt solid #000; height: 35px; font-size: 9pt; padding: 0 5px; }
-        .table-spj th { background-color: #f0fdf4 !important; -webkit-print-color-adjust: exact; }
+        .table-spj th, .table-spj td { border: 1pt solid #000; height: 35px; font-size: 9pt; padding: 4px 8px; }
+        .table-spj th { background-color: #f8fafc !important; -webkit-print-color-adjust: exact; font-weight: 800; }
 
-        .editable-cell { background-color: #fffdec; border: 1px dashed #d9d9d9 !important; cursor: text; font-weight: bold; }
+        .editable-cell { background-color: #fffdec; border: 1px dashed #d9d9d9 !important; cursor: text; font-weight: bold; padding: 2px 4px; }
         
         .btn-primary { 
             background: var(--primary-green); 
             color: white; 
-            padding: 10px 24px; 
+            padding: 12px 24px; 
             border-radius: 12px; 
-            font-weight: bold; 
+            font-weight: 700; 
             transition: 0.3s; 
             display: flex; 
             align-items: center; 
-            gap: 8px; 
+            gap: 10px; 
             justify-content: center; 
         }
-        .btn-primary:hover { background: var(--dark-green); transform: translateY(-2px); }
+        .btn-primary:hover { background: var(--dark-green); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(6, 95, 70, 0.2); }
 
         @media print {
             .no-print { display: none !important; }
             body { background: white; display: block; }
             .content-area { margin-left: 0; padding: 0; width: 100%; }
-            .print-container { box-shadow: none !important; margin: 0 !important; width: 100%; }
+            .print-container { box-shadow: none !important; margin: 0 !important; width: 100%; padding: 10mm 15mm; }
             .editable-cell { background-color: transparent; border: none !important; }
         }
     </style>
@@ -160,73 +166,76 @@
 
     <aside class="sidebar no-print">
         <div class="sidebar-header">
-            <div class="flex items-center gap-3">
-                <i class="fas fa-file-invoice-dollar text-3xl"></i>
+            <div class="flex items-center gap-4">
+                <div class="bg-emerald-500/20 p-2.5 rounded-xl">
+                    <i class="fas fa-file-invoice-dollar text-2xl"></i>
+                </div>
                 <div>
-                    <h1 class="text-xl font-bold leading-none tracking-tight">SIP-HONOR</h1>
-                    <p class="text-[10px] opacity-90 mt-1 uppercase tracking-widest">Aplikasi Tanda Terima Honor</p>
+                    <h1 class="text-xl font-black leading-none tracking-tight">SIP-HONOR</h1>
+                    <p class="text-[10px] opacity-80 mt-1.5 uppercase tracking-[0.2em] font-bold">Smart System v2.0</p>
                 </div>
             </div>
         </div>
         
         <nav class="nav-menu">
             <div class="nav-tab active" onclick="openTab(event, 'tab-db')">
-                <i class="fas fa-database"></i> Database CSV
+                <i class="fas fa-database text-lg"></i> Database CSV
             </div>
             <div class="nav-tab" onclick="openTab(event, 'tab-manual')">
-                <i class="fas fa-keyboard"></i> Input Manual
+                <i class="fas fa-keyboard text-lg"></i> Input Manual
             </div>
             <div class="nav-tab" onclick="openTab(event, 'tab-settings')">
-                <i class="fas fa-cog"></i> Pengaturan Dok
+                <i class="fas fa-cog text-lg"></i> Pengaturan Dok
             </div>
             
-            <div class="mt-10 px-4">
-                <button onclick="window.print()" class="w-full bg-emerald-100 text-emerald-800 p-4 rounded-2xl font-bold hover:bg-emerald-200 transition-colors flex items-center justify-center gap-3 border border-emerald-200">
+            <div class="mt-12 px-2">
+                <button onclick="window.print()" class="w-full bg-emerald-600 text-white p-4 rounded-2xl font-black hover:bg-emerald-700 transition-all flex items-center justify-center gap-3 shadow-lg shadow-emerald-200">
                     <i class="fas fa-print"></i> CETAK LAPORAN
                 </button>
             </div>
         </nav>
 
-        <div class="p-6 text-[10px] text-emerald-600 text-center border-t border-emerald-50 font-medium">
-            SIP-HONOR v2.0<br>© 2026 ROHIMAN SUPRIYADI
+        <div class="p-8 text-[11px] text-slate-400 text-center border-t border-slate-100">
+            Dikembangkan Oleh:<br>
+            <span class="font-bold text-emerald-700">ROHIMAN SUPRIYADI</span><br>
+            © 2026 SIP-HONOR
         </div>
     </aside>
 
     <div class="content-area">
         
         <div id="tab-db" class="menu-panel active no-print">
-            <div class="flex justify-between items-center mb-5">
-                <h3 class="font-bold text-emerald-900 flex items-center gap-2 text-lg">
-                    <i class="fas fa-search-location text-emerald-600"></i> Cari & Muat Data Lembaga
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="font-black text-slate-800 flex items-center gap-3 text-xl">
+                    <i class="fas fa-folder-open text-emerald-600"></i> Sumber Data Lembaga
                 </h3>
-                <!-- TOMBOL UNDUH TEMPLATE -->
-                <button onclick="downloadTemplate()" class="text-xs bg-white border border-emerald-200 text-emerald-700 px-3 py-2 rounded-lg hover:bg-emerald-50 transition-all flex items-center gap-2 font-bold">
-                    <i class="fas fa-file-excel"></i> UNDUH TEMPLATE EXCEL/CSV
+                <button onclick="downloadTemplate()" class="text-xs bg-emerald-50 text-emerald-700 px-4 py-2.5 rounded-xl hover:bg-emerald-100 transition-all flex items-center gap-2 font-bold border border-emerald-200">
+                    <i class="fas fa-file-excel"></i> UNDUH TEMPLATE CSV
                 </button>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100">
-                    <label class="block text-xs font-black text-emerald-700 mb-3 uppercase tracking-wider">Langkah 1: Import</label>
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                    <label class="block text-[10px] font-black text-slate-400 mb-3 uppercase tracking-widest">1. Upload File</label>
                     <input type="file" id="csvFileInput" accept=".csv" class="hidden" onchange="importCSV(this)">
-                    <button onclick="document.getElementById('csvFileInput').click()" class="w-full bg-white border-2 border-dashed border-emerald-300 text-emerald-600 p-4 rounded-xl font-bold hover:border-emerald-500 hover:text-emerald-700 transition-all group">
-                        <i class="fas fa-upload mr-2"></i> UPLOAD DATA BARU
+                    <button onclick="document.getElementById('csvFileInput').click()" class="w-full bg-white border-2 border-dashed border-emerald-200 text-emerald-600 p-5 rounded-xl font-bold hover:border-emerald-500 hover:bg-emerald-50 transition-all group">
+                        <i class="fas fa-cloud-upload-alt text-xl mb-2 block"></i> IMPORT CSV BARU
                     </button>
                 </div>
                 
-                <div class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100">
-                    <label class="block text-xs font-black text-emerald-700 mb-3 uppercase tracking-wider">Langkah 2: Cari Lembaga</label>
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                    <label class="block text-[10px] font-black text-slate-400 mb-3 uppercase tracking-widest">2. Cari Lembaga</label>
                     <div class="relative">
-                        <input type="text" id="inputNPSN" placeholder="Masukkan NPSN..." onkeyup="filterLembaga()" class="input-custom pr-10">
-                        <i class="fas fa-search absolute right-4 top-4 text-emerald-300"></i>
+                        <input type="text" id="inputNPSN" placeholder="NPSN atau Nama..." onkeyup="filterLembaga()" class="input-custom pr-10">
+                        <i class="fas fa-search absolute right-4 top-4 text-slate-300"></i>
                     </div>
                 </div>
 
-                <div class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100">
-                    <label class="block text-xs font-black text-emerald-700 mb-3 uppercase tracking-wider">Hasil Pencarian</label>
-                    <div id="daftarNPSN" class="text-xs font-bold text-emerald-800">
-                        <div class="p-3 bg-white/50 rounded-lg border border-dashed border-emerald-200 text-emerald-400 italic">
-                            Menunggu input NPSN...
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                    <label class="block text-[10px] font-black text-slate-400 mb-3 uppercase tracking-widest">3. Pilih Hasil</label>
+                    <div id="daftarNPSN">
+                        <div class="p-3 bg-white rounded-lg border border-dashed border-slate-200 text-slate-400 italic text-xs">
+                            Menunggu pencarian...
                         </div>
                     </div>
                 </div>
@@ -234,39 +243,39 @@
         </div>
 
         <div id="tab-manual" class="menu-panel no-print">
-            <h3 class="font-bold text-emerald-900 mb-5 flex items-center gap-2 text-lg">
-                <i class="fas fa-user-plus text-emerald-600"></i> Tambah Data Penerima Manual
+            <h3 class="font-black text-slate-800 mb-6 flex items-center gap-3 text-xl">
+                <i class="fas fa-user-plus text-emerald-600"></i> Tambah Penerima Manual
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                <input type="text" id="addNama" placeholder="Nama Lengkap & Gelar" class="input-custom">
+                <input type="text" id="addNama" placeholder="Nama Lengkap" class="input-custom">
                 <input type="text" id="addJabatan" placeholder="Jabatan" class="input-custom">
-                <input type="number" id="addHonor" placeholder="Honor Per Bulan" class="input-custom">
-                <input type="text" id="addBank" placeholder="Bank & No Rekening" class="input-custom">
+                <input type="number" id="addHonor" placeholder="Honor (Rp)" class="input-custom">
+                <input type="text" id="addBank" placeholder="Bank & No Rek" class="input-custom">
                 <button onclick="tambahGuruManual()" class="btn-primary">
-                    <i class="fas fa-check-circle"></i> TAMBAHKAN
+                    <i class="fas fa-plus-circle"></i> TAMBAH
                 </button>
             </div>
         </div>
 
         <div id="tab-settings" class="menu-panel no-print">
-            <h3 class="font-bold text-emerald-900 mb-5 flex items-center gap-2 text-lg">
-                <i class="fas fa-file-signature text-emerald-600"></i> Atur Atribut Dokumen
+            <h3 class="font-black text-slate-800 mb-6 flex items-center gap-3 text-xl">
+                <i class="fas fa-sliders-h text-emerald-600"></i> Atribut Dokumen
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div>
-                    <label class="block text-xs font-bold text-emerald-400 mb-2">JENIS TANDA TERIMA</label>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase">Jenis Tanda Terima</label>
                     <select id="selectJudul" onchange="updateHeader()" class="input-custom">
-                        <option value="TANDA TERIMA HONORARIUM PENDIDIK DAN TENAGA KEPENDIDIKAN">1. Honor Pendidikan dan Tenaga Kependidikan</option>
-                        <option value="TANDA TERIMA HONORARIUM EKSTRAKURIKULER PRAMUKA">2. Honor Extrakulikuler Pramuka</option>
-                        <option value="TANDA TERIMA HONORARIUM EKSTRAKURIKULER PASKIBRA">3. Honor Extrakulikuler Paskibra</option>
-                        <option value="TANDA TERIMA HONORARIUM EKSTRAKURIKULER MARAWIS">4. Honor Extrakulikuler Marawis</option>
-                        <option value="TANDA TERIMA HONORARIUM EKSTRAKURIKULER HADROH">5. Honor Extrakulikuler Hadroh</option>
-                        <option value="TANDA TERIMA HONORARIUM EKSTRAKURIKULER FUTSAL">6. Honor Extrakulikuler Futsal</option>
-                        <option value="TANDA TERIMA TRANSPORT PENGAWAS TKA">7. Transfort Pengawas TKA</option>
+                        <option value="TANDA TERIMA HONORARIUM PENDIDIK DAN TENAGA KEPENDIDIKAN">Honor PTK</option>
+                        <option value="TANDA TERIMA HONORARIUM EKSTRAKURIKULER PRAMUKA">Honor Pramuka</option>
+                        <option value="TANDA TERIMA HONORARIUM EKSTRAKURIKULER PASKIBRA">Honor Paskibra</option>
+                        <option value="TANDA TERIMA HONORARIUM EKSTRAKURIKULER MARAWIS">Honor Marawis</option>
+                        <option value="TANDA TERIMA HONORARIUM EKSTRAKURIKULER HADROH">Honor Hadroh</option>
+                        <option value="TANDA TERIMA HONORARIUM EKSTRAKURIKULER FUTSAL">Honor Futsal</option>
+                        <option value="TANDA TERIMA TRANSPORT PENGAWAS TKA">Transport Pengawas</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-emerald-400 mb-2">PILIH TRIWULAN</label>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase">Periode Triwulan</label>
                     <select id="selectTriwulan" onchange="updateHeader()" class="input-custom">
                         <option value="Triwulan 1 ( Januari - Maret )">Triwulan 1</option>
                         <option value="Triwulan 2 ( April - Juni )">Triwulan 2</option>
@@ -275,38 +284,39 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-emerald-400 mb-2">SETTING PAJAK PPh 21</label>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase">Setting Pajak</label>
                     <select id="selectPajak" onchange="renderTabel()" class="input-custom">
-                        <option value="0">Tanpa Potongan (0%)</option>
-                        <option value="0.05">Pajak 5% (Ada NPWP)</option>
-                        <option value="0.06">Pajak 6% (Tanpa NPWP)</option>
+                        <option value="0">0% (Tanpa Potongan)</option>
+                        <option value="0.05">5% (Ada NPWP)</option>
+                        <option value="0.06">6% (Tanpa NPWP)</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-emerald-400 mb-2">TANGGAL PEMBAYARAN</label>
+                    <label class="block text-[10px] font-black text-slate-400 mb-2 uppercase">Tanggal Bayar</label>
                     <input type="date" id="inputTanggal" onchange="updateHeader()" class="input-custom">
                 </div>
             </div>
         </div>
 
+        <!-- PRINT AREA -->
         <div id="printArea" class="print-container">
             <div class="text-center mb-8">
                 <h2 id="judulDisp" class="font-bold uppercase text-sm">TANDA TERIMA HONORARIUM PENDIDIK DAN TENAGA KEPENDIDIKAN</h2>
                 <h1 id="namaSekolahDisp" class="text-3xl font-black uppercase my-1">... NAMA LEMBAGA ...</h1>
                 <p id="triwulanDisp" class="text-sm font-bold uppercase mb-2 italic">Triwulan 1 ( Januari - Maret )</p>
-                <p class="border-b-2 border-black inline-block px-12 italic font-bold text-xs py-1">TAHUN ANGGARAN 2026</p>
+                <p class="border-b-2 border-black inline-block px-12 italic font-bold text-[10pt] py-1">TAHUN ANGGARAN 2026</p>
             </div>
 
             <table class="table-spj">
                 <thead>
                     <tr class="uppercase text-center">
                         <th style="width: 4%;">NO</th>
-                        <th style="width: 25%;">NAMA PENERIMA / JABATAN</th>
-                        <th style="width: 18%;">JUMLAH SATUAN (Rp)</th> 
+                        <th style="width: 26%;">NAMA PENERIMA / JABATAN</th>
+                        <th style="width: 17%;">JUMLAH SATUAN (Rp)</th> 
                         <th style="width: 11%;">JUMLAH (Rp)</th>
-                        <th style="width: 9%;">PAJAK</th>
+                        <th style="width: 8%;">PAJAK</th>
                         <th style="width: 11%;">DITERIMA</th>
-                        <th style="width: 12%;">KETERANGAN</th>
+                        <th style="width: 13%;">KETERANGAN</th>
                         <th style="width: 10%;">TTD</th> 
                         <th class="no-print" style="width: 40px;"></th>
                     </tr>
@@ -315,14 +325,16 @@
                 <tfoot id="footTabel"></tfoot>
             </table>
 
-            <div class="flex justify-between mt-12 text-center">
+            <div class="flex justify-between mt-14 text-center">
                 <div class="w-1/3">
                     <p class="mb-20 text-sm">Setuju dibayar,<br><strong>Kepala Sekolah</strong></p>
-                    <p id="kepalaDisp" class="font-bold underline uppercase" contenteditable="true">................</p>
+                    <p id="kepalaDisp" class="font-bold underline uppercase text-sm" contenteditable="true">................</p>
+                    <p class="text-sm">NIP. <span id="nipKepalaDisp" contenteditable="true">................</span></p>
                 </div>
                 <div class="w-1/3">
                     <p class="mb-20 text-sm italic">Lunas dibayar, Tanggal: <span id="tglLunasDisp">...</span><br><strong>Bendahara</strong></p>
-                    <p id="bendaharaDisp" class="font-bold underline uppercase" contenteditable="true">................</p>
+                    <p id="bendaharaDisp" class="font-bold underline uppercase text-sm" contenteditable="true">................</p>
+                    <p class="text-sm">NIP. <span id="nipBendaharaDisp" contenteditable="true">................</span></p>
                 </div>
             </div>
         </div>
@@ -340,21 +352,20 @@
         }
 
         function init() {
-            const savedData = localStorage.getItem('spj_database');
+            const savedData = localStorage.getItem('spj_database_v2');
             if (savedData) {
                 dbCsv = JSON.parse(savedData);
             }
         }
 
-        // FUNGSI BARU: DOWNLOAD TEMPLATE
         function downloadTemplate() {
-            const headers = "npsn;nama_sekolah;nama_kepala;nama_bendahara;nama_guru;jabatan;honor;bank;rekening";
-            const sample = "12345678;SD NEGERI CONTOH;NAMA KEPALA SEKOLAH;NAMA BENDAHARA;NAMA GURU CONTOH;GURU KELAS;500000;BJB 00123456789;REKENING";
+            const headers = "npsn;nama_sekolah;nama_kepala;nip_kepala;nama_bendahara;nip_bendahara;nama_guru;jabatan;honor;bank;rekening";
+            const sample = "12345678;SD NEGERI CONTOH;Drs. BUDI SANTOSO;197001012000011001;SITI AMINAH, S.Pd;198512122010012002;AHMAD RIFAI;GURU KELAS;500000;BJB 00123456789;REKENING";
             const csvContent = "data:text/csv;charset=utf-8," + headers + "\n" + sample;
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "template_sip_honor.csv");
+            link.setAttribute("download", "template_sip_honor_v2.csv");
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -373,11 +384,18 @@
                         const npsn = (row.npsn || "").trim();
                         if (!npsn) return;
                         if (!dbCsv[npsn]) {
-                            dbCsv[npsn] = { nama: row.nama_sekolah, kepala: row.nama_kepala, bendahara: row.nama_bendahara, gurus: [] };
+                            dbCsv[npsn] = { 
+                                nama: row.nama_sekolah, 
+                                kepala: row.nama_kepala, 
+                                nip_kepala: row.nip_kepala,
+                                bendahara: row.nama_bendahara, 
+                                nip_bendahara: row.nip_bendahara,
+                                gurus: [] 
+                            };
                         }
                         dbCsv[npsn].gurus.push(row);
                     });
-                    localStorage.setItem('spj_database', JSON.stringify(dbCsv));
+                    localStorage.setItem('spj_database_v2', JSON.stringify(dbCsv));
                     alert("Database Berhasil Dimuat!");
                     filterLembaga();
                 }
@@ -389,32 +407,29 @@
             const listNPSN = document.getElementById('daftarNPSN');
             
             if (keyword.length === 0) {
-                listNPSN.innerHTML = `<div class="p-3 bg-white/50 rounded-lg border border-dashed border-emerald-200 text-emerald-400 italic">Menunggu input NPSN...</div>`;
+                listNPSN.innerHTML = `<div class="p-3 bg-white rounded-lg border border-dashed border-slate-200 text-slate-400 italic text-xs">Menunggu pencarian...</div>`;
                 return;
             }
 
             const keys = Object.keys(dbCsv);
-            const exactMatch = keys.find(npsn => npsn === keyword);
             const filtered = keys.filter(npsn => npsn.includes(keyword) || dbCsv[npsn].nama.toLowerCase().includes(keyword.toLowerCase()));
 
-            if (exactMatch) {
-                renderListNPSN([exactMatch]);
-            } else if (filtered.length > 0) {
-                renderListNPSN(filtered.slice(0, 1)); 
+            if (filtered.length > 0) {
+                renderListNPSN(filtered.slice(0, 5)); 
             } else {
-                listNPSN.innerHTML = `<div class="p-3 text-red-400 italic font-medium">Lembaga tidak ditemukan</div>`;
+                listNPSN.innerHTML = `<div class="p-3 text-red-500 italic font-bold text-xs bg-red-50 rounded-xl">Lembaga tidak ditemukan</div>`;
             }
         }
 
         function renderListNPSN(keysToShow) {
             const listNPSN = document.getElementById('daftarNPSN');
             listNPSN.innerHTML = keysToShow.map(npsn => `
-                <div onclick="pilihLembaga('${npsn}')" class="group flex items-center justify-between p-3 bg-emerald-600 text-white rounded-xl cursor-pointer hover:bg-emerald-700 transition-all shadow-sm">
+                <div onclick="pilihLembaga('${npsn}')" class="group flex items-center justify-between p-3 mb-2 bg-emerald-50 text-emerald-900 rounded-xl cursor-pointer hover:bg-emerald-600 hover:text-white transition-all border border-emerald-100">
                     <div class="truncate mr-2">
-                        <span class="block text-[10px] opacity-75 leading-none">Klik untuk Muat:</span>
-                        <span class="text-sm font-bold uppercase">${dbCsv[npsn].nama}</span>
+                        <span class="block text-[9px] uppercase font-bold opacity-60">NPSN: ${npsn}</span>
+                        <span class="text-xs font-black uppercase">${dbCsv[npsn].nama}</span>
                     </div>
-                    <i class="fas fa-check-circle text-lg"></i>
+                    <i class="fas fa-chevron-right text-xs"></i>
                 </div>
             `).join('');
         }
@@ -423,8 +438,11 @@
             const lembaga = dbCsv[npsn];
             document.getElementById('inputNPSN').value = npsn;
             document.getElementById('namaSekolahDisp').innerText = lembaga.nama;
-            document.getElementById('kepalaDisp').innerText = lembaga.kepala;
-            document.getElementById('bendaharaDisp').innerText = lembaga.bendahara;
+            document.getElementById('kepalaDisp').innerText = lembaga.kepala || "................";
+            document.getElementById('nipKepalaDisp').innerText = lembaga.nip_kepala || "................";
+            document.getElementById('bendaharaDisp').innerText = lembaga.bendahara || "................";
+            document.getElementById('nipBendaharaDisp').innerText = lembaga.nip_bendahara || "................";
+            
             currentData = JSON.parse(JSON.stringify(lembaga.gurus));
             renderTabel();
         }
@@ -466,29 +484,29 @@
                     <tr>
                         <td class="text-center">${nomor}</td>
                         <td>
-                            <div class="font-bold uppercase">${g.nama_guru}</div>
-                            <div class="text-[8pt] italic text-gray-600">${g.jabatan || 'Penerima'}</div>
+                            <div class="font-bold uppercase leading-tight">${g.nama_guru}</div>
+                            <div class="text-[7.5pt] italic text-slate-500 font-medium">${g.jabatan || 'Penerima'}</div>
                         </td>
-                        <td class="text-center text-[8pt]">
-                            1 Org x 3 Bln x Rp 
-                            <span id="edit-honor-${i}" class="editable-cell px-2 no-print" contenteditable="true" oninput="updateHonor(${i}, this)">${honor}</span>
+                        <td class="text-center text-[8pt] whitespace-nowrap">
+                            1 Org x 3 Bln x Rp. 
+                            <span id="edit-honor-${i}" class="editable-cell px-1 no-print" contenteditable="true" oninput="updateHonor(${i}, this)">${honor}</span>
                             <span class="print-only hidden">${formatDuit(honor)}</span>
                         </td>
-                        <td class="text-right">${formatDuit(bruto)}</td>
-                        <td class="text-right">${formatDuit(pajak)}</td>
+                        <td class="text-right font-medium">${formatDuit(bruto)}</td>
+                        <td class="text-right text-slate-600">${formatDuit(pajak)}</td>
                         <td class="text-right font-bold">${formatDuit(netto)}</td>
-                        <td class="text-center text-[7pt] uppercase">${g.bank || '-'}<br>${g.rekening || '-'}</td>
+                        <td class="text-center text-[7pt] uppercase leading-tight font-medium">${g.bank || '-'}<br>${g.rekening || '-'}</td>
                         <td class="text-left text-[8pt]">${nomor}. ............</td>
                         <td class="no-print text-center">
-                            <button onclick="currentData.splice(${i},1); renderTabel()" class="text-red-400">
+                            <button onclick="currentData.splice(${i},1); renderTabel()" class="text-red-400 hover:text-red-600 transition-colors">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </td>
                     </tr>`;
             });
             
-            tfoot.innerHTML = `<tr class="font-bold bg-emerald-50/30">
-                <td colspan="3" class="text-center py-2">TOTAL KESELURUHAN</td>
+            tfoot.innerHTML = `<tr class="font-bold bg-slate-50">
+                <td colspan="3" class="text-center py-3 uppercase text-[9pt]">Total Keseluruhan</td>
                 <td class="text-right">${formatDuit(tBruto)}</td>
                 <td class="text-right">${formatDuit(tPajak)}</td>
                 <td class="text-right">${formatDuit(tNetto)}</td>
@@ -509,7 +527,9 @@
             });
             renderTabel();
             document.getElementById('addNama').value = "";
+            document.getElementById('addJabatan').value = "";
             document.getElementById('addHonor').value = "";
+            document.getElementById('addBank').value = "";
         }
 
         function updateHeader() {
