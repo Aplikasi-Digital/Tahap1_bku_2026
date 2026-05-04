@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <!-- Tambahan Library untuk Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         :root { 
             --width-f4: 330mm; 
@@ -119,7 +121,7 @@
                     <div class="bg-red-600 p-2 rounded-lg"><i class="fas fa-user-graduate text-xl"></i></div>
                     <div>
                         <h1 class="text-lg font-black tracking-tighter leading-none">SIGAP <span class="text-red-500">SISWA</span></h1>
-                        <p class="text-[8px] opacity-40 font-bold mt-1 uppercase">Pagination F4</p>
+                        <p class="text-[8px] opacity-40 font-bold mt-1 uppercase">Excel Support Edition</p>
                     </div>
                 </div>
             </div>
@@ -132,10 +134,10 @@
                         <i class="fas fa-chevron-down chevron"></i>
                     </div>
                     <div class="acc-content active">
-                        <input type="file" id="csvFileInput" accept=".csv" class="text-[10px] w-full mb-3 file:bg-red-600 file:text-white file:border-0 file:rounded file:px-2">
+                        <input type="file" id="csvFileInput" accept=".csv, .xlsx, .xls" class="text-[10px] w-full mb-3 file:bg-red-600 file:text-white file:border-0 file:rounded file:px-2">
                         <div class="grid grid-cols-2 gap-2">
-                            <button onclick="downloadTemplate()" class="text-[9px] bg-slate-800 py-2 rounded font-bold">TEMPLATE</button>
-                            <button onclick="clearAttendance()" class="text-[9px] bg-red-900/30 py-2 rounded font-bold">KOSONGKAN</button>
+                            <button onclick="downloadTemplate()" class="text-[9px] bg-slate-800 py-2 rounded font-bold uppercase transition hover:bg-slate-700"><i class="fas fa-file-excel mr-1"></i> Template</button>
+                            <button onclick="clearAttendance()" class="text-[9px] bg-red-900/30 py-2 rounded font-bold uppercase transition hover:bg-red-900/50">KOSONGKAN</button>
                         </div>
                     </div>
                 </div>
@@ -215,9 +217,7 @@
                 </div>
             </header>
 
-            <div id="previewArea" class="preview-wrapper">
-                <!-- Halaman-halaman cetak akan di-generate di sini -->
-            </div>
+            <div id="previewArea" class="preview-wrapper"></div>
         </main>
     </div>
 
@@ -238,13 +238,27 @@
             if (!isActive) { content.classList.add('active'); item.classList.add('open'); }
         }
 
+        // FUNGSI UNDUH TEMPLATE EXCEL ASLI (.xlsx)
+        function downloadTemplate() {
+            const data = [
+                ["Nama_Siswa", "NISN", "Kelas", "Nama_Sekolah"],
+                ["CONTOH NAMA SISWA 1", "12345678", "1 A", "SD NEGERI CONTOH"],
+                ["CONTOH NAMA SISWA 2", "87654321", "1 A", "SD NEGERI CONTOH"]
+            ];
+            const worksheet = XLSX.utils.aoa_to_sheet(data);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Data_Siswa");
+            
+            // Generate File Excel
+            XLSX.writeFile(workbook, "template_sigap_siswa.xlsx");
+        }
+
         function generateTable() {
             const container = document.getElementById('previewArea');
             container.innerHTML = '';
-            
             const bulan = parseInt(document.getElementById('selBulan').value);
             const jmlHari = new Date(2026, bulan, 0).getDate();
-            const chunkSize = 20; // 20 siswa per halaman
+            const chunkSize = 20;
 
             if (currentSiswa.length === 0) {
                 container.innerHTML = `<div class="print-container flex items-center justify-center text-slate-300 font-bold">BELUM ADA DATA SISWA</div>`;
@@ -254,11 +268,9 @@
             for (let i = 0; i < currentSiswa.length; i += chunkSize) {
                 const chunk = currentSiswa.slice(i, i + chunkSize);
                 const isLastPage = (i + chunkSize >= currentSiswa.length);
-                
                 const page = document.createElement('div');
                 page.className = 'print-container';
                 
-                // Header Per Halaman
                 let html = `
                 <div class="text-center mb-4">
                     <h2 style="font-size: 11pt; font-weight: bold; margin: 0;">DAFTAR HADIR PESERTA DIDIK</h2>
@@ -287,16 +299,13 @@
                 }
                 html += `<th class="rekap-col">H</th><th class="rekap-col">S</th><th class="rekap-col">I</th><th class="rekap-col">A</th></tr></thead><tbody>`;
 
-                // Data Siswa
                 chunk.forEach((s, idx) => {
                     const globalIdx = i + idx;
                     let rekap = { H:0, S:0, I:0, A:0 };
-                    
                     html += `<tr>
                         <td class="font-bold">${globalIdx+1}</td>
                         <td class="text-center font-mono text-[7pt]">${s.nisn || '-'}</td>
                         <td class="text-left px-2 uppercase font-bold text-[7.5pt]">${s.nama}</td>`;
-                    
                     for(let d=1; d<=jmlHari; d++) {
                         const dayOfWeek = new Date(2026, bulan-1, d).getDay();
                         const isHol = (dayOfWeek===0 || dayOfWeek===6 || customHolidays.includes(d));
@@ -309,11 +318,9 @@
                             html += `<td onclick="toggleAbsen(this, '${s.nama}', ${d})" oncontextmenu="openContextMenu(event, this, '${s.nama}', ${d})" class="cell-${val}">${val}</td>`;
                         }
                     }
-
                     const mS = (manualRekap[s.nama]?.S) || (rekap.S || '');
                     const mI = (manualRekap[s.nama]?.I) || (rekap.I || '');
                     const mA = (manualRekap[s.nama]?.A) || (rekap.A || '');
-
                     html += `<td class="rekap-col">${rekap.H || ''}</td>
                         <td class="rekap-col"><input type="text" class="input-manual-rekap" value="${mS}" onchange="updateManualRekap('${s.nama}', 'S', this.value)"></td>
                         <td class="rekap-col"><input type="text" class="input-manual-rekap" value="${mI}" onchange="updateManualRekap('${s.nama}', 'I', this.value)"></td>
@@ -323,12 +330,10 @@
 
                 html += `</tbody></table>`;
 
-                // Tanda Tangan (Hanya di Halaman Terakhir)
                 if (isLastPage) {
                     const tgl = document.getElementById('inTanggalTtd').value;
                     const tglFormat = tgl ? "Bekasi, " + new Date(tgl).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'}) : "Bekasi, ..........................";
                     const isNegeri = document.getElementById('inStatusSekolah').value === 'Negeri';
-                    
                     html += `
                     <div class="flex justify-between mt-6 px-10" style="font-size: 9.5pt;">
                         <div class="text-center min-w-[80mm]">
@@ -345,25 +350,14 @@
                         </div>
                     </div>`;
                 }
-
                 page.innerHTML = html;
                 container.appendChild(page);
             }
         }
 
-        // --- Logika Pendukung (Dipertahankan) ---
-
-        function downloadTemplate() {
-            const csv = "Nama_Siswa,NISN,Kelas,Nama_Sekolah\nANDI PERDANA,12345678,1 A,SD NEGERI CONTOH";
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url; a.download = 'template_sigap.csv'; a.click();
-        }
-
         function syncFromCSV() {
             const query = document.getElementById('inSearch').value.trim().toUpperCase();
-            if(!query || !fullDatabase.length) return alert("Upload CSV atau isi keyword!");
+            if(!query || !fullDatabase.length) return alert("Upload Database (Excel/CSV) dulu!");
             const f = fullDatabase.filter(r => {
                 const vk = (r.Kelas || r.KELAS || r.Rombel || "").toString().toUpperCase();
                 return vk === query || vk.includes(query);
@@ -376,68 +370,39 @@
             } else { alert("Kelas tidak ditemukan!"); }
         }
 
+        // LISTENER UNTUK IMPORT (BISA CSV MAUPUN EXCEL)
         document.getElementById('csvFileInput').addEventListener('change', function(e) {
-            Papa.parse(e.target.files[0], { header: true, skipEmptyLines: true, complete: function(r) { fullDatabase = r.data; alert("CSV Berhasil Dimuat!"); } });
+            const file = e.target.files[0];
+            const fileName = file.name.toLowerCase();
+
+            if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const bstr = evt.target.result;
+                    const wb = XLSX.read(bstr, { type: 'binary' });
+                    const wsname = wb.SheetNames[0];
+                    const ws = wb.Sheets[wsname];
+                    fullDatabase = XLSX.utils.sheet_to_json(ws);
+                    alert("Database Excel berhasil dimuat!");
+                    saveState();
+                };
+                reader.readAsBinaryString(file);
+            } else {
+                Papa.parse(file, { header: true, skipEmptyLines: true, complete: function(r) { fullDatabase = r.data; alert("Database CSV berhasil dimuat!"); saveState(); } });
+            }
         });
 
-        function toggleAbsen(cell, n, t) {
-            const s = ["", "H", "S", "I", "A"];
-            let v = attendanceData[`${n}-${t}`] || "";
-            attendanceData[`${n}-${t}`] = s[(s.indexOf(v)+1)%s.length];
-            generateTable(); saveState();
-        }
-
-        function openContextMenu(e, c, n, t) {
-            e.preventDefault(); contextTarget = { n, t };
-            const m = document.getElementById('customContextMenu');
-            m.style.display='block'; m.style.left=e.pageX+'px'; m.style.top=e.pageY+'px';
-        }
-
-        function setAbsenManual(v) {
-            if(contextTarget) { attendanceData[`${contextTarget.n}-${contextTarget.t}`] = v; generateTable(); saveState(); }
-            closeContextMenu();
-        }
-
+        // --- Logika Pendukung Dipertahankan ---
+        function toggleAbsen(cell, n, t) { const s = ["", "H", "S", "I", "A"]; let v = attendanceData[`${n}-${t}`] || ""; attendanceData[`${n}-${t}`] = s[(s.indexOf(v)+1)%s.length]; generateTable(); saveState(); }
+        function openContextMenu(e, c, n, t) { e.preventDefault(); contextTarget = { n, t }; const m = document.getElementById('customContextMenu'); m.style.display='block'; m.style.left=e.pageX+'px'; m.style.top=e.pageY+'px'; }
+        function setAbsenManual(v) { if(contextTarget) { attendanceData[`${contextTarget.n}-${contextTarget.t}`] = v; generateTable(); saveState(); } closeContextMenu(); }
         function closeContextMenu() { document.getElementById('customContextMenu').style.display='none'; }
-
-        function addHoliday() {
-            const t = parseInt(document.getElementById('inTglLibur').value);
-            if(t>=1 && t<=31 && !customHolidays.includes(t)) {
-                customHolidays.push(t); customHolidays.sort((a,b)=>a-b);
-                updateHolidayList(); generateTable(); saveState();
-            }
-        }
+        function addHoliday() { const t = parseInt(document.getElementById('inTglLibur').value); if(t>=1 && t<=31 && !customHolidays.includes(t)) { customHolidays.push(t); customHolidays.sort((a,b)=>a-b); updateHolidayList(); generateTable(); saveState(); } }
         function clearHolidays() { customHolidays = []; updateHolidayList(); generateTable(); saveState(); }
         function updateHolidayList() { document.getElementById('listLibur').innerText = customHolidays.length ? "Libur: " + customHolidays.join(",") : ""; }
-        
-        function updateKelasList() {
-            const j = document.getElementById('selJenjang').value;
-            const s = document.getElementById('selKelasList');
-            s.innerHTML = '<option value="">- Pilih -</option>';
-            let o = (j==="SD") ? ["1 A", "1 B", "2 A", "2 B", "3", "4", "5", "6"] : ["Kelompok A", "Kelompok B"];
-            o.forEach(x => { let el = document.createElement("option"); el.value=x; el.textContent=x; s.appendChild(el); });
-        }
-
-        function applyKelasMenu() {
-            const k = document.getElementById('selKelasList').value;
-            if(k) { document.getElementById('inKelas').value=k; document.getElementById('inSearch').value=k; syncFromCSV(); }
-        }
-
-        function autoFillAllHadir() {
-            if(!currentSiswa.length) return;
-            if(confirm("Isi H semua?")) {
-                const b = parseInt(document.getElementById('selBulan').value);
-                const j = new Date(2026, b, 0).getDate();
-                currentSiswa.forEach(s => {
-                    for(let d=1; d<=j; d++) {
-                        const day = new Date(2026, b-1, d).getDay();
-                        if(day!==0 && day!==6 && !customHolidays.includes(d) && !attendanceData[`${s.nama}-${d}`]) attendanceData[`${s.nama}-${d}`] = "H";
-                    }
-                });
-                generateTable(); saveState();
-            }
-        }
-
+        function updateKelasList() { const j = document.getElementById('selJenjang').value; const s = document.getElementById('selKelasList'); s.innerHTML = '<option value="">- Pilih -</option>'; let o = (j==="SD") ? ["1 A", "1 B", "2 A", "2 B", "3", "4", "5", "6"] : ["Kelompok A", "Kelompok B"]; o.forEach(x => { let el = document.createElement("option"); el.value=x; el.textContent=x; s.appendChild(el); }); }
+        function applyKelasMenu() { const k = document.getElementById('selKelasList').value; if(k) { document.getElementById('inKelas').value=k; document.getElementById('inSearch').value=k; syncFromCSV(); } }
+        function autoFillAllHadir() { if(!currentSiswa.length) return; if(confirm("Isi H semua?")) { const b = parseInt(document.getElementById('selBulan').value); const j = new Date(2026, b, 0).getDate(); currentSiswa.forEach(s => { for(let d=1; d<=j; d++) { const day = new Date(2026, b-1, d).getDay(); if(day!==0 && day!==6 && !customHolidays.includes(d) && !attendanceData[`${s.nama}-${d}`]) attendanceData[`${s.nama}-${d}`] = "H"; } }); generateTable(); saveState(); } }
         function updateManualRekap(n, t, v) { if(!manualRekap[n]) manualRekap[n]={}; manualRekap[n][t]=v; saveState(); }
         function tambahNama() { const n = document.getElementById('manNama').value.toUpperCase().trim(); if(n) { currentSiswa.push({nama:n, nisn:""}); currentSiswa.sort((a,b)=>a.nama.localeCompare(b.nama)); document.getElementById('manNama').value=''; generateTable(); saveState(); } }
         function hapusSiswa(i) { if(confirm("Hapus?")) { currentSiswa.splice(i,1); generateTable(); saveState(); } }
@@ -447,18 +412,13 @@
 
         function saveState() {
             const state = {
-                search: document.getElementById('inSearch').value,
-                lembaga: document.getElementById('inLembaga').value,
-                kelas: document.getElementById('inKelas').value,
-                tglTtd: document.getElementById('inTanggalTtd').value,
-                bulan: document.getElementById('selBulan').value,
-                kepsek: document.getElementById('inKepsek').value,
-                nipKepsek: document.getElementById('inNipKepsek').value,
-                wali: document.getElementById('inWali').value,
-                nipWali: document.getElementById('inNipWali').value,
-                status: document.getElementById('inStatusSekolah').value,
-                jenjang: document.getElementById('selJenjang').value,
-                siswa: currentSiswa, att: attendanceData, rekap: manualRekap, hol: customHolidays, db: fullDatabase
+                search: document.getElementById('inSearch').value, lembaga: document.getElementById('inLembaga').value,
+                kelas: document.getElementById('inKelas').value, tglTtd: document.getElementById('inTanggalTtd').value,
+                bulan: document.getElementById('selBulan').value, kepsek: document.getElementById('inKepsek').value,
+                nipKepsek: document.getElementById('inNipKepsek').value, wali: document.getElementById('inWali').value,
+                nipWali: document.getElementById('inNipWali').value, status: document.getElementById('inStatusSekolah').value,
+                jenjang: document.getElementById('selJenjang').value, siswa: currentSiswa, att: attendanceData, 
+                rekap: manualRekap, hol: customHolidays, db: fullDatabase
             };
             localStorage.setItem('sigapSiswaState', JSON.stringify(state));
         }
