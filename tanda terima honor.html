@@ -15,37 +15,142 @@
             --dark-green: #064e3b;
             --light-green: #ecfdf5;
             --accent-green: #10b981;
+            --sidebar-width: 280px;
         }
         
-        body { font-family: 'Inter', 'Tahoma', sans-serif; background: #f0fdf4; color: #1e293b; margin: 0; display: flex; min-height: 100vh; }
+        body { 
+            font-family: 'Inter', 'Tahoma', sans-serif; 
+            background: #f8fafc; 
+            color: #1e293b; 
+            margin: 0; 
+            display: flex; 
+            min-height: 100vh;
+        }
         
-        .sidebar { width: 280px; background: white; border-right: 1px solid #a7f3d0; display: flex; flex-direction: column; position: fixed; height: 100vh; z-index: 50; }
-        .sidebar-header { padding: 25px 20px; background: var(--primary-green); color: white; box-shadow: 0 4px 12px rgba(6, 95, 70, 0.2); }
-        .nav-menu { padding: 20px 10px; flex-grow: 1; }
-        .nav-tab { padding: 12px 15px; margin-bottom: 8px; cursor: pointer; border-radius: 12px; font-weight: 600; color: #064e3b; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
-        .nav-tab:hover { background: var(--light-green); color: var(--accent-green); }
-        .nav-tab.active { background: var(--primary-green); color: white; }
+        /* SIDEBAR FIXED LEFT */
+        .sidebar { 
+            width: var(--sidebar-width); 
+            background: white; 
+            border-right: 1px solid #e2e8f0; 
+            display: flex; 
+            flex-direction: column; 
+            position: fixed; 
+            height: 100vh; 
+            left: 0;
+            top: 0;
+            z-index: 50; 
+        }
 
-        .content-area { margin-left: 280px; flex-grow: 1; padding: 30px; display: flex; flex-direction: column; align-items: center; }
-        .menu-panel { display: none; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(6, 78, 59, 0.05); width: 100%; max-width: 1100px; margin-bottom: 30px; border: 1px solid #d1fae5; }
+        .sidebar-header { 
+            padding: 25px 20px; 
+            background: var(--primary-green); 
+            color: white; 
+            box-shadow: 0 4px 12px rgba(6, 95, 70, 0.2); 
+        }
+
+        .nav-menu { 
+            padding: 20px 10px; 
+            flex-grow: 1; 
+        }
+
+        .nav-tab { 
+            padding: 12px 15px; 
+            margin-bottom: 8px; 
+            cursor: pointer; 
+            border-radius: 12px; 
+            font-weight: 600; 
+            color: #475569; 
+            transition: all 0.2s; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+        }
+
+        .nav-tab:hover { 
+            background: var(--light-green); 
+            color: var(--primary-green); 
+        }
+
+        .nav-tab.active { 
+            background: var(--primary-green); 
+            color: white; 
+        }
+
+        /* CONTENT AREA ADJUSTMENT */
+        .content-area { 
+            margin-left: var(--sidebar-width); 
+            flex-grow: 1; 
+            padding: 30px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        .menu-panel { 
+            display: none; 
+            background: white; 
+            padding: 25px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(6, 78, 59, 0.05); 
+            width: 100%; 
+            max-width: 1100px; 
+            margin-bottom: 30px; 
+            border: 1px solid #d1fae5; 
+        }
+
         .menu-panel.active { display: block; }
 
-        .input-custom { width: 100%; background: #f9fdfb; border: 1px solid #a7f3d0; padding: 12px 16px; border-radius: 12px; font-size: 14px; transition: all 0.2s; }
-        .input-custom:focus { border-color: var(--accent-green); outline: none; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
+        .input-custom { 
+            width: 100%; 
+            background: #f9fdfb; 
+            border: 1px solid #a7f3d0; 
+            padding: 12px 16px; 
+            border-radius: 12px; 
+            font-size: 14px; 
+            transition: all 0.2s; 
+        }
 
-        .print-container { background: white; width: var(--width-f4); min-height: var(--height-f4); padding: 15mm 20mm; color: black; box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.15); position: relative; }
+        .input-custom:focus { 
+            border-color: var(--accent-green); 
+            outline: none; 
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); 
+        }
+
+        .print-container { 
+            background: white; 
+            width: var(--width-f4); 
+            min-height: var(--height-f4); 
+            padding: 15mm 20mm; 
+            color: black; 
+            box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.15); 
+            position: relative; 
+        }
+
         .table-spj { border: 1.5pt solid #000; border-collapse: collapse; width: 100%; }
         .table-spj th, .table-spj td { border: 1pt solid #000; height: 35px; font-size: 9pt; padding: 0 5px; }
         .table-spj th { background-color: #f0fdf4 !important; -webkit-print-color-adjust: exact; }
 
         .editable-cell { background-color: #fffdec; border: 1px dashed #d9d9d9 !important; cursor: text; font-weight: bold; }
-        .btn-primary { background: var(--primary-green); color: white; padding: 10px 24px; border-radius: 12px; font-weight: bold; transition: 0.3s; display: flex; align-items: center; gap: 8px; justify-content: center; }
+        
+        .btn-primary { 
+            background: var(--primary-green); 
+            color: white; 
+            padding: 10px 24px; 
+            border-radius: 12px; 
+            font-weight: bold; 
+            transition: 0.3s; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            justify-content: center; 
+        }
         .btn-primary:hover { background: var(--dark-green); transform: translateY(-2px); }
 
         @media print {
             .no-print { display: none !important; }
             body { background: white; display: block; }
-            .content-area { margin-left: 0; padding: 0; }
+            .content-area { margin-left: 0; padding: 0; width: 100%; }
             .print-container { box-shadow: none !important; margin: 0 !important; width: 100%; }
             .editable-cell { background-color: transparent; border: none !important; }
         }
@@ -90,9 +195,16 @@
     <div class="content-area">
         
         <div id="tab-db" class="menu-panel active no-print">
-            <h3 class="font-bold text-emerald-900 mb-5 flex items-center gap-2 text-lg">
-                <i class="fas fa-search-location text-emerald-600"></i> Cari & Muat Data Lembaga
-            </h3>
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="font-bold text-emerald-900 flex items-center gap-2 text-lg">
+                    <i class="fas fa-search-location text-emerald-600"></i> Cari & Muat Data Lembaga
+                </h3>
+                <!-- TOMBOL UNDUH TEMPLATE -->
+                <button onclick="downloadTemplate()" class="text-xs bg-white border border-emerald-200 text-emerald-700 px-3 py-2 rounded-lg hover:bg-emerald-50 transition-all flex items-center gap-2 font-bold">
+                    <i class="fas fa-file-excel"></i> UNDUH TEMPLATE EXCEL/CSV
+                </button>
+            </div>
+            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100">
                     <label class="block text-xs font-black text-emerald-700 mb-3 uppercase tracking-wider">Langkah 1: Import</label>
@@ -231,8 +343,21 @@
             const savedData = localStorage.getItem('spj_database');
             if (savedData) {
                 dbCsv = JSON.parse(savedData);
-                // Biarkan kosong sampai ada input pencarian
             }
+        }
+
+        // FUNGSI BARU: DOWNLOAD TEMPLATE
+        function downloadTemplate() {
+            const headers = "npsn;nama_sekolah;nama_kepala;nama_bendahara;nama_guru;jabatan;honor;bank;rekening";
+            const sample = "12345678;SD NEGERI CONTOH;NAMA KEPALA SEKOLAH;NAMA BENDAHARA;NAMA GURU CONTOH;GURU KELAS;500000;BJB 00123456789;REKENING";
+            const csvContent = "data:text/csv;charset=utf-8," + headers + "\n" + sample;
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "template_sip_honor.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         function importCSV(input) {
@@ -275,7 +400,7 @@
             if (exactMatch) {
                 renderListNPSN([exactMatch]);
             } else if (filtered.length > 0) {
-                renderListNPSN(filtered.slice(0, 1)); // Tampilkan 1 saja agar ramping
+                renderListNPSN(filtered.slice(0, 1)); 
             } else {
                 listNPSN.innerHTML = `<div class="p-3 text-red-400 italic font-medium">Lembaga tidak ditemukan</div>`;
             }
