@@ -174,21 +174,15 @@
         .btn-kembali { background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; }
         .btn-kembali:hover { background: #c0392b; transform: scale(1.05); }
 
-        /* --- ANIMASI MASKOT --- */
+        /* --- ANIMASI MASKOT ANAK SD --- */
         .mascot-box {
             position: fixed; bottom: 20px; right: 20px;
-            width: 220px; z-index: 99999; display: none; 
-            text-align: center; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); pointer-events: none;
-        }
-        
-        /* --- MASKOT BAPAK GURU (KIRI & BESAR) --- */
-        .teacher-box {
-            position: fixed; bottom: 20px; left: 20px;
-            width: 320px; z-index: 99999; display: none; 
+            width: 300px; /* Ukuran diperbesar sesuai permintaan */
+            z-index: 99999; display: none; 
             text-align: center; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); pointer-events: none;
         }
 
-        .mascot-img, .teacher-img {
+        .mascot-img {
             width: 100%; height: auto;
             animation: jumpHigher 0.8s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
@@ -213,8 +207,7 @@
         @media (max-width: 600px) {
             .menu-grid { grid-template-columns: 1fr; }
             .kaldik-wrapper { max-width: 100%; }
-            .mascot-box { width: 140px; }
-            .teacher-box { width: 180px; }
+            .mascot-box { width: 180px; }
         }
     </style>
 </head>
@@ -223,12 +216,6 @@
     <audio id="soundHore" preload="auto">
         <source src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" type="audio/mpeg">
     </audio>
-
-    <!-- MASKOT BAPAK GURU (KIRI) -->
-    <div id="mascot-teacher" class="teacher-box">
-        <img class="teacher-img" src="bapak_guru.gif" alt="Bapak Guru">
-        <div class="speech-bubble">Halo Rekan Operator!</div>
-    </div>
 
     <!-- MASKOT ANAK SD (KANAN) -->
     <div id="mascot" class="mascot-box">
@@ -447,14 +434,12 @@
 
         function showMascots(withSound = true) {
             const mascot = document.getElementById('mascot');
-            const teacher = document.getElementById('mascot-teacher');
             const mascotText = document.getElementById('mascot-text');
             const sound = document.getElementById('soundHore');
 
             mascotText.innerText = MASCOT_MESSAGES[Math.floor(Math.random() * MASCOT_MESSAGES.length)];
             
             mascot.style.display = 'block';
-            teacher.style.display = 'block';
 
             if(withSound) {
                 sound.currentTime = 0;
@@ -481,7 +466,6 @@
             document.getElementById('login-overlay').style.display = 'flex';
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('mascot').style.display = 'none';
-            document.getElementById('mascot-teacher').style.display = 'none';
         }
 
         function toggleMenu(contentId, wrapperId) {
