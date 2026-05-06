@@ -23,6 +23,19 @@
             margin: 0; padding: 0; color: #333; overflow-x: hidden;
         }
 
+        /* ANIMASI KUPU-KUPU */
+        .butterfly {
+            position: fixed; width: 50px; z-index: 999; pointer-events: none;
+            animation: fly 15s linear infinite;
+        }
+        @keyframes fly {
+            0% { top: 10%; left: -10%; transform: rotate(20deg); }
+            25% { top: 50%; left: 30%; transform: rotate(-10deg); }
+            50% { top: 20%; left: 60%; transform: rotate(30deg); }
+            75% { top: 70%; left: 80%; transform: rotate(-20deg); }
+            100% { top: 10%; left: 110%; transform: rotate(10deg); }
+        }
+
         /* TOP NAVBAR */
         .top-nav {
             background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px);
@@ -32,7 +45,7 @@
         }
         .top-nav a {
             color: white; text-decoration: none; font-size: 11px; font-weight: 700;
-            padding: 6px 12px; border-radius: 15px; transition: 0.3s;
+            padding: 8px 12px; border-radius: 15px; transition: 0.3s;
             display: flex; align-items: center; gap: 5px; cursor: pointer;
         }
         .top-nav a:hover { background: rgba(255,255,255,0.2); }
@@ -42,7 +55,7 @@
         
         /* HEADER SECTION */
         .header-section { text-align: center; margin-bottom: 30px; position: relative; width: 100%; }
-        .mascot-box { position: absolute; left: 0; top: -10px; width: 120px; z-index: 1; display: none; align-items: center; justify-content: center; pointer-events: none; }
+        .mascot-box { position: absolute; left: 5%; top: -10px; width: 100px; z-index: 1; display: block; pointer-events: none; }
         .mascot-img { width: 80px; animation: jumpH 0.8s infinite alternate; }
         @keyframes jumpH { from { transform: translateY(0); } to { transform: translateY(-25px); } }
 
@@ -51,14 +64,17 @@
         .portal-title { font-weight: 900; color: #1e3a8a; margin: 0; font-size: clamp(18px, 6vw, 34px); line-height: 1.2; }
         .location-tag { background: #1e3a8a; padding: 4px 20px; border-radius: 20px; font-weight: 700; display: inline-block; font-size: clamp(11px, 3vw, 15px); margin-top: 8px; color: #fff; }
 
-        /* REKAPITULASI */
+        /* REKAPITULASI & SKELETON */
         .rekap-title { text-align: center; color: #1e3a8a; font-weight: 900; margin: 25px 0 10px; font-size: clamp(14px, 4vw, 20px); text-transform: uppercase; }
         .quota-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 30px; }
         .quota-card {
             background: var(--glass); padding: 15px 5px; border-radius: 20px;
             text-align: center; box-shadow: var(--shadow); border: 1px solid #fff;
+            position: relative;
         }
         .quota-val { font-size: clamp(24px, 6vw, 36px); font-weight: 900; line-height: 1.2; margin-top: 5px; }
+        .skeleton { color: transparent !important; background: #e0e0e0; border-radius: 10px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
         /* MENU GRID */
         .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
@@ -67,6 +83,7 @@
             backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); 
             overflow: hidden; box-shadow: var(--shadow);
         }
+        .menu-wrapper:hover { transform: translateY(-5px); background: #ffffff; }
         .menu-card { display: flex; align-items: center; padding: 15px; cursor: pointer; }
         .icon-box { width: 50px; height: 50px; border-radius: 12px; display: flex; justify-content: center; align-items: center; color: white; font-size: 20px; flex-shrink: 0; margin-right: 12px; }
         .card-text h3 { margin: 0; font-size: 14px; font-weight: 800; }
@@ -76,10 +93,11 @@
         .link-btn { display: block; padding: 10px 20px; color: #444; text-decoration: none; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.03); transition: 0.2s; }
         .link-btn:hover { background: #fff; padding-left: 30px; color: #1e3a8a; }
 
-        /* DATA VIEWER */
+        /* DATA VIEWER & SEARCH */
         #data-viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 10001; display: none; padding: 10px; overflow-y: auto; backdrop-filter: blur(10px); }
         .data-card { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; }
-        .data-header { background: #1e3a8a; color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; }
+        .data-header { background: #1e3a8a; color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .search-box { width: 100%; margin-top: 10px; padding: 8px; border-radius: 10px; border: 1px solid #ddd; outline: none; }
         .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .main-table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 800px; }
         .main-table th { background: #f4f6f9; padding: 10px; text-align: left; color: #1e3a8a; position: sticky; top: 0; border-bottom: 2px solid #ddd; }
@@ -88,15 +106,23 @@
         #app-viewer { position: fixed; inset: 0; background: #fff; z-index: 10000; display: none; flex-direction: column; }
         .viewer-header { height: 50px; background: #1e3a8a; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; color: white; }
 
+        /* STATUS DOT */
+        #status-dot { width: 10px; height: 10px; background: #777; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .online { background: #27ae60 !important; box-shadow: 0 0 8px #27ae60; }
+
         #mascot-baru { position: fixed; bottom: 10px; width: 70px; z-index: 99; pointer-events: none; animation: walkBF 25s linear infinite; }
         @keyframes walkBF { 0% { right: -100px; transform: scaleX(-1); } 48% { transform: scaleX(-1); } 50% { right: 100%; transform: scaleX(1); } 98% { transform: scaleX(1); } 100% { right: -100px; transform: scaleX(-1); } }
 
         @media (max-width: 768px) { 
             .menu-grid, .quota-container { grid-template-columns: 1fr; } 
+            .mascot-box { left: 50%; transform: translateX(-50%); top: -30px; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
+
+    <!-- KUPU-KUPU TERBANG -->
+    <img src="https://i.gifer.com/ZZ5H.gif" class="butterfly" alt="Butterfly">
 
     <img id="mascot-baru" src="murid_SD.gif" alt="Mascot">
 
@@ -121,9 +147,10 @@
             <div class="data-header">
                 <span id="data-title" style="font-weight:900; font-size:14px;"></span>
                 <button onclick="closeData()" style="background:#e74c3c; color:white; border:none; padding:5px 15px; border-radius:8px; cursor:pointer; font-weight:700;">X</button>
+                <input type="text" id="smartSearch" class="search-box" placeholder="Cerdas: Ketik nama untuk mencari..." onkeyup="doSearch()">
             </div>
             <div class="table-scroll">
-                <table class="main-table">
+                <table class="main-table" id="myTable">
                     <thead id="data-thead"></thead>
                     <tbody id="data-tbody"></tbody>
                 </table>
@@ -141,7 +168,7 @@
                 <span class="welcome-text">SELAMAT DATANG</span>
                 <span class="di-text">DI</span>
                 <h2 class="portal-title">PORTAL OPERATOR SEKOLAH</h2>
-                <div class="location-tag">Babelan - Bekasi</div>
+                <div class="location-tag"><span id="status-dot"></span> Babelan - Bekasi</div>
             </div>
         </div>
 
@@ -149,7 +176,7 @@
         <div class="quota-container">
             <div class="quota-card">
                 <h4 style="margin:0; color:#666; font-size: 11px;">Total Kuota</h4>
-                <div class="quota-val" style="color: #1e3a8a;" id="q-total">56</div>
+                <div class="quota-val" style="color: #1e3a8a;">56</div>
             </div>
             <div class="quota-card">
                 <h4 style="margin:0; color:#666; font-size: 11px;">Pendaftar (Live)</h4>
@@ -162,6 +189,7 @@
         </div>
 
         <div class="menu-grid">
+            <!-- 1. BOSP -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m1')">
                     <div class="icon-box" style="background:var(--c-bosp)"><i class="fa-solid fa-file-invoice-dollar"></i></div>
@@ -175,6 +203,7 @@
                 </div>
             </div>
 
+            <!-- 2. GURU -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m2')">
                     <div class="icon-box" style="background:var(--c-adm)"><i class="fa-solid fa-users"></i></div>
@@ -209,7 +238,7 @@
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m4')">
                     <div class="icon-box" style="background:#f39c12"><i class="fa-solid fa-building"></i></div>
-                    <div class="card-text"><h3 style="color:#a04000">Layanan Bekasi</h3><p style="margin:0; font-size:10px; color:#666;">Pemda Bekasi.</p></div>
+                    <div class="card-text"><h3 style="color:#a04000">Layanan Bekasi</h3><p style="margin:0; font-size:10px; color:#666;">Aplikasi Daerah.</p></div>
                 </div>
                 <div id="m4" class="menu-content">
                     <a onclick="smartOpen('Sikawan', 'https://sikawanbaru.bekasikab.go.id/')" class="link-btn">Sikawan Baru</a>
@@ -276,7 +305,6 @@
         const GS_URL = "https://script.google.com/macros/s/AKfycbzajqbW20blDlRNzZEQgjuUnHivVgt8pl2_v_3s1WB92ZzBxHrqAlGkIAI1oWnKPJc/exec"; 
         const PASS_RAHASIA = "123456";
 
-        // --- DATA PTK LENGKAP ---
         const dataPTK = [
             {n:1, nama:"TATI LESTARI, S.Pd", nip:"197712092008012004", gol:"III/c", jk:"P", pend:"S1", jab:"-", ket:"PNS"},
             {n:2, nama:"TUTI ALAWIYAH, S.Pd", nip:"197707182007012005", gol:"III/b", jk:"P", pend:"S1", jab:"Guru Kelas I A", ket:"PNS"},
@@ -284,19 +312,18 @@
             {n:4, nama:"DEDEN NASROLIH, S.Pd", nip:"198303212008011003", gol:"III/a", jk:"L", pend:"S1", jab:"Guru Kelas VI", ket:"PNS"},
             {n:5, nama:"SRI MINARTI, S.Pd", nip:"198901012020122009", gol:"III/b", jk:"P", pend:"S1", jab:"Guru Kelas IV B", ket:"PNS"},
             {n:6, nama:"IDRIS AFANDI, S.Pd", nip:"198810012023211002", gol:"IX", jk:"L", pend:"S1", jab:"Guru Kelas V", ket:"PPPK"},
-            {n:7, nama:"NENENG PAUJIAH, S.Pd", nip:"198512162025212007", gol:"IX", jk:"P", pend:"S1", jab:"Guru Kelas III A", ket:"PPPK"},
-            {n:8, nama:"IKA KOMALASARI, S.Pd", nip:"198904162025212007", gol:"IX", jk:"P", pend:"S1", jab:"Guru kelas II A", ket:"PPPK"},
-            {n:9, nama:"YUNITA HAYATUN, S.Pd", nip:"198706222025212012", gol:"IX", jk:"P", pend:"S1", jab:"Guru Kelas I B", ket:"PPPK"},
-            {n:10, nama:"ARIE HIDAYAT, S.Pd", nip:"199503252025211011", gol:"IX", jk:"L", pend:"S1", jab:"Guru PAI Kelas I-VI", ket:"PPPK"},
+            {n:7, nama:"NENENG PAUJIAH, S.Pd", nip:"198512162025212007", nuptk:"4548763665300023", gol:"IX", jk:"P", pend:"S1", jab:"Guru Kelas III A", ket:"PPPK"},
+            {n:8, nama:"IKA KOMALASARI, S.Pd", nip:"198904162025212007", nuptk:"4748767668130142", gol:"IX", jk:"P", pend:"S1", jab:"Guru kelas II A", ket:"PPPK"},
+            {n:9, nama:"YUNITA HAYATUN, S.Pd", nip:"198706222025212012", nuptk:"3954765666300002", gol:"IX", jk:"P", pend:"S1", jab:"Guru Kelas I B", ket:"PPPK"},
+            {n:10, nama:"ARIE HIDAYAT, S.Pd", nip:"199503252025211011", nuptk:"3657773674130032", gol:"IX", jk:"L", pend:"S1", jab:"Guru PAI Kelas I-VI", ket:"PPPK"},
             {n:11, nama:"WINDI TRY ASTUTI, S.Pd", nip:"-", gol:"-", jk:"P", pend:"S1", jab:"Guru Kelas II B", ket:"Honor Sekolah"},
-            {n:12, nama:"ROHIMAN SUPRIYADI", nip:"198412182025211003", gol:"V", jk:"L", pend:"D2", jab:"Pengadministrasian Umum", ket:"PPPK"},
-            {n:13, nama:"MURTAFIATUSSARIFAH, S.Pd", nip:"198111102025212005", gol:"V", jk:"P", pend:"S1", jab:"Pengadministrasian Umum", ket:"PPPK"},
-            {n:14, nama:"RIZA BAKHTIAR RIVAI S.Pd", nip:"198905212025211035", gol:"IX", jk:"L", pend:"S1", jab:"Penata Layanan Operasional", ket:"PPPK"},
-            {n:15, nama:"MUHAMAD ANWAR, S.Pd", nip:"199910012025211030", gol:"V", jk:"L", pend:"S1", jab:"Pengadministrasian Umum", ket:"PPPK"},
+            {n:12, nama:"ROHIMAN SUPRIYADI", nip:"198412182025211003", nuptk:"9550762664200013", gol:"V", jk:"L", pend:"D2", jab:"Pengadministrasian Umum", ket:"PPPK"},
+            {n:13, nama:"MURTAFIATUSSARIFAH, S.Pd", nip:"198111102025212005", nuptk:"8343759660300033", gol:"V", jk:"P", pend:"S1", jab:"Pengadministrasian Umum", ket:"PPPK"},
+            {n:14, nama:"RIZA BAKHTIAR RIVAI S.Pd", nip:"198905212025211035", nuptk:"0853767668110012", gol:"IX", jk:"L", pend:"S1", jab:"Penata Layanan Operasional", ket:"PPPK"},
+            {n:15, nama:"MUHAMAD ANWAR, S.Pd", nip:"199910012025211030", nuptk:"4333777678130213", gol:"V", jk:"L", pend:"S1", jab:"Pengadministrasian Umum", ket:"PPPK"},
             {n:16, nama:"RIJAL", nip:"-", gol:"-", jk:"L", pend:"SMA", jab:"Keamanan", ket:"Outsourcing"}
         ];
 
-        // --- DATA SISWA ---
         const dataSiswa = [
             {n:1, nama:"ALFIA LEILANI", nipd:"252601001", jk:"P", ttl:"BEKASI, 2018-07-27", ayah:"AMIRUDIN", ibu:"-", rombel:"Kelas 1 A"},
             {n:2, nama:"ALISYA PUTRI", nipd:"252601002", jk:"P", ttl:"BEKASI, 2018-02-18", ayah:"ABDUL JONAN", ibu:"AZU RIZKI", rombel:"Kelas 1 A"},
@@ -335,7 +362,28 @@
             document.getElementById('data-viewer').style.display = 'block';
         }
 
+        function doSearch() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("smartSearch");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }       
+            }
+        }
+
         async function syncQuota() {
+            document.getElementById('q-reg').classList.add('skeleton');
+            document.getElementById('q-rem').classList.add('skeleton');
             let total = 56;
             try { 
                 const res = await fetch(GS_URL + "?action=count"); 
@@ -343,7 +391,10 @@
                 let count = d.jumlah || 0; 
                 document.getElementById('q-reg').innerText = count;
                 document.getElementById('q-rem').innerText = total - count;
+                document.getElementById('status-dot').className = "online";
             } catch(e) { console.log("Sync error."); }
+            document.getElementById('q-reg').classList.remove('skeleton');
+            document.getElementById('q-rem').classList.remove('skeleton');
         }
 
         function toggleMenu(id) {
@@ -374,7 +425,7 @@
 
         window.onload = function() {
             syncQuota();
-            setInterval(syncQuota, 30000); 
+            setInterval(syncQuota, 60000); 
         };
 
         function updateClock() {
