@@ -23,24 +23,6 @@
             margin: 0; padding: 0; color: #333; overflow-x: hidden;
         }
 
-        /* --- LOGIN OVERLAY ORIGINAL --- */
-        #login-overlay { 
-            position: fixed; inset: 0; background: radial-gradient(circle at center, #252a41 0%, #0f111a 100%); 
-            display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 20px;
-        }
-        .login-card {
-            width: 100%; max-width: 350px; background: rgba(255, 255, 255, 0.05);
-            border-radius: 40px; padding: 40px 25px; text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 2px solid transparent;
-            background-image: linear-gradient(rgba(37, 42, 65, 0.95), rgba(37, 42, 65, 0.95)), 
-                              linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-            background-origin: border-box; background-clip: padding-box, border-box;
-            color: white; backdrop-filter: blur(10px);
-        }
-        .profile-img-container { width: 110px; height: 110px; margin: 0 auto 15px; border-radius: 50%; padding: 5px; background: white; box-shadow: 0 0 25px rgba(255,255,255,0.6); }
-        .profile-img-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .login-card h2 { font-family: 'Brush Script MT', cursive, sans-serif; font-size: 38px; margin: 0; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
-
         /* TOP NAVBAR */
         .top-nav {
             background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px);
@@ -50,24 +32,24 @@
         }
         .top-nav a {
             color: white; text-decoration: none; font-size: 11px; font-weight: 700;
-            padding: 7px 12px; border-radius: 15px; transition: 0.3s;
+            padding: 6px 12px; border-radius: 15px; transition: 0.3s;
             display: flex; align-items: center; gap: 5px; cursor: pointer;
         }
         .top-nav a:hover { background: rgba(255,255,255,0.2); }
         .top-nav a.active { background: #e74c3c; }
 
-        .container { max-width: 1200px; margin: 0 auto; display: none; padding: 15px; padding-bottom: 80px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 15px; padding-bottom: 80px; }
         
-        /* HEADER SECTION - RESPONSIVE */
+        /* HEADER SECTION */
         .header-section { text-align: center; margin-bottom: 30px; position: relative; width: 100%; }
         .mascot-box { position: absolute; left: 0; top: -10px; width: 120px; z-index: 1; display: none; align-items: center; justify-content: center; pointer-events: none; }
         .mascot-img { width: 80px; animation: jumpH 0.8s infinite alternate; }
         @keyframes jumpH { from { transform: translateY(0); } to { transform: translateY(-25px); } }
 
-        .welcome-text { font-size: clamp(14px, 4vw, 24px); font-weight: 400; letter-spacing: 4px; display: block; color: #444; }
-        .di-text { font-size: clamp(16px, 4vw, 22px); font-weight: 900; color: #c0392b; display: block; margin: 2px 0; }
-        .portal-title { font-weight: 900; color: #1e3a8a; margin: 0; font-size: clamp(20px, 6vw, 36px); line-height: 1.2; }
-        .location-tag { background: #1e3a8a; padding: 4px 20px; border-radius: 20px; font-weight: 700; display: inline-block; font-size: clamp(12px, 3vw, 16px); margin-top: 8px; color: #fff; }
+        .welcome-text { font-size: clamp(14px, 4vw, 22px); font-weight: 400; letter-spacing: 4px; display: block; color: #444; }
+        .di-text { font-size: clamp(16px, 4vw, 20px); font-weight: 900; color: #c0392b; display: block; margin: 2px 0; }
+        .portal-title { font-weight: 900; color: #1e3a8a; margin: 0; font-size: clamp(18px, 6vw, 34px); line-height: 1.2; }
+        .location-tag { background: #1e3a8a; padding: 4px 20px; border-radius: 20px; font-weight: 700; display: inline-block; font-size: clamp(11px, 3vw, 15px); margin-top: 8px; color: #fff; }
 
         /* REKAPITULASI */
         .rekap-title { text-align: center; color: #1e3a8a; font-weight: 900; margin: 25px 0 10px; font-size: clamp(14px, 4vw, 20px); text-transform: uppercase; }
@@ -91,12 +73,12 @@
         
         .menu-content { max-height: 0; overflow: hidden; transition: 0.4s ease-out; background: rgba(0,0,0,0.02); }
         .menu-content.show { max-height: 2000px; padding: 10px 0; }
-        .link-btn { display: block; padding: 10px 20px; color: #444; text-decoration: none; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); transition: 0.2s; }
+        .link-btn { display: block; padding: 10px 20px; color: #444; text-decoration: none; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.03); transition: 0.2s; }
         .link-btn:hover { background: #fff; padding-left: 30px; color: #1e3a8a; }
 
         /* DATA VIEWER */
         #data-viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 10001; display: none; padding: 10px; overflow-y: auto; backdrop-filter: blur(10px); }
-        .data-card { max-width: 100%; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; }
+        .data-card { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; }
         .data-header { background: #1e3a8a; color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; }
         .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .main-table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 800px; }
@@ -106,12 +88,11 @@
         #app-viewer { position: fixed; inset: 0; background: #fff; z-index: 10000; display: none; flex-direction: column; }
         .viewer-header { height: 50px; background: #1e3a8a; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; color: white; }
 
-        #mascot-baru { position: fixed; bottom: 10px; width: 70px; z-index: 99; display: none; pointer-events: none; animation: walkBF 25s linear infinite; }
+        #mascot-baru { position: fixed; bottom: 10px; width: 70px; z-index: 99; pointer-events: none; animation: walkBF 25s linear infinite; }
         @keyframes walkBF { 0% { right: -100px; transform: scaleX(-1); } 48% { transform: scaleX(-1); } 50% { right: 100%; transform: scaleX(1); } 98% { transform: scaleX(1); } 100% { right: -100px; transform: scaleX(-1); } }
 
         @media (max-width: 768px) { 
             .menu-grid, .quota-container { grid-template-columns: 1fr; } 
-            .mascot-box { display: none !important; } /* Sembunyikan maskot loncat di Hp agar tidak menindih teks */
         }
     </style>
 </head>
@@ -119,19 +100,7 @@
 
     <img id="mascot-baru" src="murid_SD.gif" alt="Mascot">
 
-    <div id="login-overlay">
-        <div class="login-card">
-            <div class="profile-img-container"><img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=RS'"></div>
-            <h2>Silahkan Login</h2>
-            <div style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 25px; display: flex; align-items: center; padding: 10px 15px; margin: 20px 0;">
-                <i class="fa-solid fa-lock" style="color:white; margin-right:10px;"></i>
-                <input type="password" id="passkey" placeholder="Password" style="background:transparent; border:none; color:white; outline:none; width:100%;">
-            </div>
-            <button onclick="checkPassword()" style="background: linear-gradient(to right, #ff7eb3, #ff758c); color: white; border: none; padding: 12px; width: 100%; border-radius: 30px; font-weight: 900; cursor: pointer;">LOGIN</button>
-        </div>
-    </div>
-
-    <nav class="top-nav" id="main-nav" style="display:none;">
+    <nav class="top-nav" id="main-nav">
         <a href="#" class="active"><i class="fa-solid fa-house"></i> Beranda</a>
         <a onclick="secureOpen('ptk')"><i class="fa-solid fa-user-tie"></i> PTK</a>
         <a onclick="secureOpen('siswa')"><i class="fa-solid fa-users-line"></i> Murid</a>
@@ -240,7 +209,7 @@
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m4')">
                     <div class="icon-box" style="background:#f39c12"><i class="fa-solid fa-building"></i></div>
-                    <div class="card-text"><h3 style="color:#a04000">Layanan Bekasi</h3><p style="margin:0; font-size:10px; color:#666;">Aplikasi Daerah.</p></div>
+                    <div class="card-text"><h3 style="color:#a04000">Layanan Bekasi</h3><p style="margin:0; font-size:10px; color:#666;">Pemda Bekasi.</p></div>
                 </div>
                 <div id="m4" class="menu-content">
                     <a onclick="smartOpen('Sikawan', 'https://sikawanbaru.bekasikab.go.id/')" class="link-btn">Sikawan Baru</a>
@@ -288,7 +257,7 @@
             <div class="menu-wrapper" style="grid-column: span 1;">
                 <div class="menu-card" onclick="toggleMenu('m7')">
                     <div class="icon-box" style="background:var(--c-validasi)"><i class="fa-solid fa-calendar-check"></i></div>
-                    <div class="card-text"><h3 style="color:var(--c-validasi)">Kaldik & Usia</h3><p style="margin:0; font-size:10px; color:#666;">Info Kalender.</p></div>
+                    <div class="card-text"><h3 style="color:var(--c-validasi)">Kaldik & Usia</h3><p style="margin:0; font-size:10px; color:#666;">Info Pendidikan.</p></div>
                 </div>
                 <div id="m7" class="menu-content">
                     <a onclick="smartOpen('Cek Validasi', 'https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/')" class="link-btn">Cek Validasi Usia SPMB</a>
@@ -299,16 +268,13 @@
         </div>
 
         <div style="background: rgba(255, 255, 255, 0.7); padding: 10px 20px; border-radius: 30px; text-align: center; margin: 30px auto; width: fit-content; box-shadow: var(--shadow); border: 1px solid white;">
-            <div id="tanggal-jam" style="font-weight:700; color: #1e3a8a; font-size: 12px;"></div>
+            <div id="tanggal-jam" style="font-weight:700; color: #1e3a8a; font-size: 11px;"></div>
         </div>
-        
-        <center><button onclick="logoutApp()" style="background:#e74c3c; color:white; border:none; padding:10px 30px; border-radius:20px; font-weight:700; cursor:pointer; box-shadow: 0 4px 10px rgba(231,76,60,0.3); font-size: 12px;">LOGOUT</button></center>
     </div>
 
     <script>
-        const SECRET = "Bismillah2026";
-        const SECURE_DATA_PASS = "123456"; 
         const GS_URL = "https://script.google.com/macros/s/AKfycbzajqbW20blDlRNzZEQgjuUnHivVgt8pl2_v_3s1WB92ZzBxHrqAlGkIAI1oWnKPJc/exec"; 
+        const PASS_RAHASIA = "123456";
 
         // --- DATA PTK LENGKAP ---
         const dataPTK = [
@@ -339,18 +305,12 @@
             {n:5, nama:"ARSYALAN YAZID ABBASY", nipd:"252601005", jk:"L", ttl:"BEKASI, 2018-09-12", ayah:"MAHMUD", ibu:"NOVIA DEWI", rombel:"Kelas 1 A"}
         ];
 
-        function checkPassword() {
-            if(document.getElementById('passkey').value === SECRET) {
-                localStorage.setItem('userLoggedIn', 'true'); location.reload();
-            } else { alert('Password Salah!'); }
-        }
-
         function secureOpen(type) {
-            let pass = prompt("Masukkan Password Keamanan (123456):");
-            if(pass === SECURE_DATA_PASS) {
+            let pass = prompt("Menu Terkunci. Silahkan minta password ke Rohiman:");
+            if(pass === PASS_RAHASIA) {
                 if(type === 'ptk') showPTK();
                 else showSiswa();
-            } else { alert("Password Salah!"); }
+            } else if(pass !== null) { alert("Password Salah!"); }
         }
 
         function showPTK() {
@@ -387,6 +347,13 @@
         }
 
         function toggleMenu(id) {
+            if (id === 'm1' || id === 'm2') {
+                let pass = prompt("Menu Terkunci. Silahkan minta password ke Rohiman:");
+                if (pass !== PASS_RAHASIA) {
+                    if (pass !== null) alert("Password Salah!");
+                    return;
+                }
+            }
             const menu = document.getElementById(id);
             const isOpen = menu.classList.contains('show');
             document.querySelectorAll('.menu-content').forEach(m => m.classList.remove('show'));
@@ -402,25 +369,12 @@
             }
         }
 
-        function closeViewer() { 
-            document.getElementById('app-viewer').style.display = 'none'; 
-            document.getElementById('v-frame').src = ""; 
-            syncQuota();
-        }
-
+        function closeViewer() { document.getElementById('app-viewer').style.display = 'none'; document.getElementById('v-frame').src = ""; syncQuota(); }
         function closeData() { document.getElementById('data-viewer').style.display = 'none'; }
-        function logoutApp() { localStorage.removeItem('userLoggedIn'); location.reload(); }
 
         window.onload = function() {
-            if(localStorage.getItem('userLoggedIn') === 'true') {
-                document.getElementById('login-overlay').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-                document.getElementById('main-nav').style.display = 'flex';
-                document.getElementById('mascot-baru').style.display = 'block';
-                document.getElementById('mascot').style.display = 'flex';
-                syncQuota();
-                setInterval(syncQuota, 30000); 
-            }
+            syncQuota();
+            setInterval(syncQuota, 30000); 
         };
 
         function updateClock() {
