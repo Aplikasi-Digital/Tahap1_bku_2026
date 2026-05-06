@@ -13,7 +13,7 @@
             --c-bosp: #27ae60; --c-adm: #2980b9; --c-gtk: #8e44ad;
             --c-kab: #a04000; --c-pusat: #d35400; --c-doc: #7d6608; 
             --c-validasi: #e74c3c; --glass: rgba(255, 255, 255, 0.9);
-            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
 
         body { 
@@ -23,7 +23,7 @@
             margin: 0; padding: 0; color: #333; overflow-x: hidden;
         }
 
-        /* --- LOGIN OVERLAY ORIGINAL (RAINBOW BORDER) --- */
+        /* --- LOGIN OVERLAY ORIGINAL --- */
         #login-overlay { 
             position: fixed; inset: 0; background: radial-gradient(circle at center, #252a41 0%, #0f111a 100%); 
             display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 20px;
@@ -39,82 +39,79 @@
         }
         .profile-img-container { width: 110px; height: 110px; margin: 0 auto 15px; border-radius: 50%; padding: 5px; background: white; box-shadow: 0 0 25px rgba(255,255,255,0.6); }
         .profile-img-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .login-card h2 { font-family: 'Brush Script MT', cursive, sans-serif; font-size: 42px; margin: 0; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
+        .login-card h2 { font-family: 'Brush Script MT', cursive, sans-serif; font-size: 38px; margin: 0; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
 
         /* TOP NAVBAR */
         .top-nav {
             background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px);
-            padding: 12px 5px; position: sticky; top: 0; z-index: 1000;
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            padding: 10px 5px; position: sticky; top: 0; z-index: 1000;
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
         }
         .top-nav a {
-            color: white; text-decoration: none; font-size: 13px; font-weight: 800;
-            padding: 8px 18px; border-radius: 20px; transition: 0.3s;
-            display: flex; align-items: center; gap: 8px; cursor: pointer;
+            color: white; text-decoration: none; font-size: 11px; font-weight: 700;
+            padding: 7px 12px; border-radius: 15px; transition: 0.3s;
+            display: flex; align-items: center; gap: 5px; cursor: pointer;
         }
         .top-nav a:hover { background: rgba(255,255,255,0.2); }
-        .top-nav a.active { background: #e74c3c; box-shadow: 0 0 10px rgba(231, 76, 60, 0.5); }
+        .top-nav a.active { background: #e74c3c; }
 
-        .container { max-width: 1200px; margin: 0 auto; display: none; padding: 20px; padding-bottom: 80px; }
+        .container { max-width: 1200px; margin: 0 auto; display: none; padding: 15px; padding-bottom: 80px; }
         
-        /* HEADER SECTION */
-        .header-section { text-align: center; margin-bottom: 50px; position: relative; }
-        .mascot-box { position: absolute; left: -140px; top: 20px; width: 180px; z-index: 1; display: none; align-items: center; justify-content: center; pointer-events: none; }
-        .mascot-img { width: 110px; animation: jumpH 0.8s infinite alternate; }
-        @keyframes jumpH { from { transform: translateY(0); } to { transform: translateY(-40px); } }
+        /* HEADER SECTION - RESPONSIVE */
+        .header-section { text-align: center; margin-bottom: 30px; position: relative; width: 100%; }
+        .mascot-box { position: absolute; left: 0; top: -10px; width: 120px; z-index: 1; display: none; align-items: center; justify-content: center; pointer-events: none; }
+        .mascot-img { width: 80px; animation: jumpH 0.8s infinite alternate; }
+        @keyframes jumpH { from { transform: translateY(0); } to { transform: translateY(-25px); } }
 
-        .welcome-text { font-size: 32px; font-weight: 400; letter-spacing: 8px; display: block; color: #333; line-height: 1; }
-        .di-text { font-size: 28px; font-weight: 900; color: #c0392b; display: block; margin: 10px 0; }
-        .portal-title { font-weight: 900; color: #1e3a8a; margin: 0; font-size: 48px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); line-height: 1.1; }
-        .location-tag { background: #1e3a8a; padding: 8px 40px; border-radius: 30px; font-weight: 800; display: inline-block; font-size: 20px; margin-top: 15px; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .welcome-text { font-size: clamp(14px, 4vw, 24px); font-weight: 400; letter-spacing: 4px; display: block; color: #444; }
+        .di-text { font-size: clamp(16px, 4vw, 22px); font-weight: 900; color: #c0392b; display: block; margin: 2px 0; }
+        .portal-title { font-weight: 900; color: #1e3a8a; margin: 0; font-size: clamp(20px, 6vw, 36px); line-height: 1.2; }
+        .location-tag { background: #1e3a8a; padding: 4px 20px; border-radius: 20px; font-weight: 700; display: inline-block; font-size: clamp(12px, 3vw, 16px); margin-top: 8px; color: #fff; }
 
         /* REKAPITULASI */
-        .rekap-title { text-align: center; color: #1e3a8a; font-weight: 900; margin: 40px 0 20px; font-size: 28px; text-transform: uppercase; border-bottom: 4px solid #e74c3c; display: inline-block; width: 100%; padding-bottom: 10px; }
-        .quota-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+        .rekap-title { text-align: center; color: #1e3a8a; font-weight: 900; margin: 25px 0 10px; font-size: clamp(14px, 4vw, 20px); text-transform: uppercase; }
+        .quota-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 30px; }
         .quota-card {
-            background: var(--glass); padding: 25px 15px; border-radius: 30px;
-            text-align: center; box-shadow: var(--shadow); border: 3px solid #fff;
+            background: var(--glass); padding: 15px 5px; border-radius: 20px;
+            text-align: center; box-shadow: var(--shadow); border: 1px solid #fff;
         }
-        .quota-card h4 { margin: 0; font-size: 16px; color: #555; font-weight: 700; }
-        .quota-val { font-size: 50px; font-weight: 900; line-height: 1.2; margin-top: 10px; }
+        .quota-val { font-size: clamp(24px, 6vw, 36px); font-weight: 900; line-height: 1.2; margin-top: 5px; }
 
         /* MENU GRID */
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
         .menu-wrapper { 
-            background: var(--glass); border-radius: 25px; transition: 0.3s; 
+            background: var(--glass); border-radius: 20px; transition: 0.3s; 
             backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); 
             overflow: hidden; box-shadow: var(--shadow);
         }
-        .menu-wrapper:hover { transform: translateY(-8px); background: #ffffff; }
-        .menu-card { display: flex; align-items: center; padding: 25px; cursor: pointer; }
-        .icon-box { width: 65px; height: 60px; border-radius: 18px; display: flex; justify-content: center; align-items: center; color: white; font-size: 26px; flex-shrink: 0; margin-right: 15px; }
+        .menu-card { display: flex; align-items: center; padding: 15px; cursor: pointer; }
+        .icon-box { width: 50px; height: 50px; border-radius: 12px; display: flex; justify-content: center; align-items: center; color: white; font-size: 20px; flex-shrink: 0; margin-right: 12px; }
+        .card-text h3 { margin: 0; font-size: 14px; font-weight: 800; }
         
         .menu-content { max-height: 0; overflow: hidden; transition: 0.4s ease-out; background: rgba(0,0,0,0.02); }
-        .menu-content.show { max-height: 2500px; padding: 10px 0; }
-        .link-btn { display: block; padding: 14px 25px; color: #333; text-decoration: none; font-size: 14px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); transition: 0.2s; }
-        .link-btn:hover { background: #fff; padding-left: 40px; color: #1e3a8a; }
+        .menu-content.show { max-height: 2000px; padding: 10px 0; }
+        .link-btn { display: block; padding: 10px 20px; color: #444; text-decoration: none; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); transition: 0.2s; }
+        .link-btn:hover { background: #fff; padding-left: 30px; color: #1e3a8a; }
 
         /* DATA VIEWER */
-        #data-viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 10001; display: none; padding: 15px; overflow-y: auto; backdrop-filter: blur(10px); }
-        .data-card { max-width: 100%; margin: 0 auto; background: white; border-radius: 25px; overflow: hidden; }
-        .data-header { background: #1e3a8a; color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; }
+        #data-viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 10001; display: none; padding: 10px; overflow-y: auto; backdrop-filter: blur(10px); }
+        .data-card { max-width: 100%; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; }
+        .data-header { background: #1e3a8a; color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; }
         .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .main-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 1000px; }
-        .main-table th { background: #f4f6f9; padding: 15px; text-align: left; color: #1e3a8a; position: sticky; top: 0; font-weight: 800; border-bottom: 2px solid #ddd; }
-        .main-table td { padding: 12px; border-bottom: 1px solid #eee; }
+        .main-table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 800px; }
+        .main-table th { background: #f4f6f9; padding: 10px; text-align: left; color: #1e3a8a; position: sticky; top: 0; border-bottom: 2px solid #ddd; }
+        .main-table td { padding: 8px; border-bottom: 1px solid #eee; }
 
         #app-viewer { position: fixed; inset: 0; background: #fff; z-index: 10000; display: none; flex-direction: column; }
-        .viewer-header { height: 65px; background: #1e3a8a; display: flex; align-items: center; justify-content: space-between; padding: 0 25px; color: white; }
+        .viewer-header { height: 50px; background: #1e3a8a; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; color: white; }
 
-        #mascot-baru { position: fixed; bottom: 15px; width: 90px; z-index: 99; display: none; pointer-events: none; animation: walkBF 25s linear infinite; }
-        @keyframes walkBF { 0% { right: -120px; transform: scaleX(-1); } 48% { transform: scaleX(-1); } 50% { right: 100%; transform: scaleX(1); } 98% { transform: scaleX(1); } 100% { right: -120px; transform: scaleX(-1); } }
+        #mascot-baru { position: fixed; bottom: 10px; width: 70px; z-index: 99; display: none; pointer-events: none; animation: walkBF 25s linear infinite; }
+        @keyframes walkBF { 0% { right: -100px; transform: scaleX(-1); } 48% { transform: scaleX(-1); } 50% { right: 100%; transform: scaleX(1); } 98% { transform: scaleX(1); } 100% { right: -100px; transform: scaleX(-1); } }
 
         @media (max-width: 768px) { 
             .menu-grid, .quota-container { grid-template-columns: 1fr; } 
-            .portal-title { font-size: 28px; }
-            .welcome-text { font-size: 20px; }
-            .mascot-box { display: none !important; }
+            .mascot-box { display: none !important; } /* Sembunyikan maskot loncat di Hp agar tidak menindih teks */
         }
     </style>
 </head>
@@ -122,40 +119,39 @@
 
     <img id="mascot-baru" src="murid_SD.gif" alt="Mascot">
 
-    <!-- LOGIN DASHBOARD ORIGINAL -->
     <div id="login-overlay">
         <div class="login-card">
             <div class="profile-img-container"><img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=RS'"></div>
             <h2>Silahkan Login</h2>
-            <div style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 25px; display: flex; align-items: center; padding: 12px 20px; margin: 20px 0;">
+            <div style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 25px; display: flex; align-items: center; padding: 10px 15px; margin: 20px 0;">
                 <i class="fa-solid fa-lock" style="color:white; margin-right:10px;"></i>
-                <input type="password" id="passkey" placeholder="Password" style="background:transparent; border:none; color:white; outline:none; width:100%; font-size:16px;">
+                <input type="password" id="passkey" placeholder="Password" style="background:transparent; border:none; color:white; outline:none; width:100%;">
             </div>
-            <button onclick="checkPassword()" style="background: linear-gradient(to right, #ff7eb3, #ff758c); color: white; border: none; padding: 15px; width: 100%; border-radius: 30px; font-weight: 900; cursor: pointer;">LOGIN</button>
+            <button onclick="checkPassword()" style="background: linear-gradient(to right, #ff7eb3, #ff758c); color: white; border: none; padding: 12px; width: 100%; border-radius: 30px; font-weight: 900; cursor: pointer;">LOGIN</button>
         </div>
     </div>
 
     <nav class="top-nav" id="main-nav" style="display:none;">
         <a href="#" class="active"><i class="fa-solid fa-house"></i> Beranda</a>
         <a onclick="secureOpen('ptk')"><i class="fa-solid fa-user-tie"></i> PTK</a>
-        <a onclick="secureOpen('siswa')"><i class="fa-solid fa-users-line"></i> Peserta Didik</a>
-        <a href="https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/" target="_blank"><i class="fa-solid fa-cake-candles"></i> Cek Usia PPDB</a>
+        <a onclick="secureOpen('siswa')"><i class="fa-solid fa-users-line"></i> Murid</a>
+        <a href="https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/" target="_blank"><i class="fa-solid fa-cake-candles"></i> Usia</a>
         <a onclick="smartOpen('SPMB', 'spmb.html')"><i class="fa-solid fa-file-signature"></i> SPMB</a>
     </nav>
 
     <div id="app-viewer">
         <div class="viewer-header">
-            <span id="v-title" style="font-weight:900; font-size: 20px;">Memuat...</span>
-            <button onclick="closeViewer()" style="background:#e74c3c; color:white; border:none; padding:10px 25px; border-radius:12px; font-weight:900; cursor:pointer;">TUTUP [X]</button>
+            <span id="v-title" style="font-weight:700; font-size: 14px;">Memuat...</span>
+            <button onclick="closeViewer()" style="background:#e74c3c; color:white; border:none; padding:5px 12px; border-radius:8px; font-weight:700; cursor:pointer;">X</button>
         </div>
         <iframe id="v-frame" style="width:100%; flex-grow: 1; border:none;"></iframe>
     </div>
 
     <div id="data-viewer">
         <div class="data-card">
-            <div class="data-header" style="background:#1e3a8a; color:#fff; padding:20px; display:flex; justify-content:space-between; align-items:center;">
-                <span id="data-title" style="font-weight:900; font-size:20px;"></span>
-                <button onclick="closeData()" style="background:#e74c3c; color:white; border:none; padding:10px 20px; border-radius:10px; cursor:pointer; font-weight:900;">X</button>
+            <div class="data-header">
+                <span id="data-title" style="font-weight:900; font-size:14px;"></span>
+                <button onclick="closeData()" style="background:#e74c3c; color:white; border:none; padding:5px 15px; border-radius:8px; cursor:pointer; font-weight:700;">X</button>
             </div>
             <div class="table-scroll">
                 <table class="main-table">
@@ -167,15 +163,12 @@
     </div>
 
     <div class="container" id="main-content">
-        <!-- HEADER STACKED -->
         <div class="header-section">
-            <div style="width:110px; height:110px; margin: 0 auto 20px; border-radius:50%; border:5px solid white; overflow:hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.2); background: white;">
+            <div style="width:90px; height:90px; margin: 0 auto 15px; border-radius:50%; border:3px solid white; overflow:hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.2); background: white;">
                 <img src="profil.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://ui-avatars.com/api/?name=RS'">
             </div>
-            <div style="position:relative; display:inline-block;">
-                <div id="mascot" class="mascot-box">
-                    <img class="mascot-img" src="anak_sd.gif">
-                </div>
+            <div style="position:relative; display:inline-block; width: 100%;">
+                <div id="mascot" class="mascot-box"><img class="mascot-img" src="anak_sd.gif"></div>
                 <span class="welcome-text">SELAMAT DATANG</span>
                 <span class="di-text">DI</span>
                 <h2 class="portal-title">PORTAL OPERATOR SEKOLAH</h2>
@@ -183,29 +176,27 @@
             </div>
         </div>
 
-        <!-- REKAPITULASI PPDB 2026 -->
-        <div class="rekap-title"><i class="fa-solid fa-chart-line"></i> REKAPITULASI PPDB TAHUN 2026</div>
+        <div class="rekap-title"><i class="fa-solid fa-chart-pie"></i> REKAPITULASI PPDB TAHUN 2026</div>
         <div class="quota-container">
             <div class="quota-card">
-                <h4>Total Kuota</h4>
+                <h4 style="margin:0; color:#666; font-size: 11px;">Total Kuota</h4>
                 <div class="quota-val" style="color: #1e3a8a;" id="q-total">56</div>
             </div>
             <div class="quota-card">
-                <h4>Pendaftar (Live)</h4>
+                <h4 style="margin:0; color:#666; font-size: 11px;">Pendaftar (Live)</h4>
                 <div class="quota-val" style="color: #e67e22;" id="q-reg">0</div>
             </div>
             <div class="quota-card">
-                <h4>Sisa Kuota</h4>
+                <h4 style="margin:0; color:#666; font-size: 11px;">Sisa Kuota</h4>
                 <div class="quota-val" style="color: #27ae60;" id="q-rem">56</div>
             </div>
         </div>
 
         <div class="menu-grid">
-            <!-- 1. BOSP -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m1')">
                     <div class="icon-box" style="background:var(--c-bosp)"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                    <div><h3 style="margin:0; font-size:16px; color:var(--c-bosp)">Manajemen BOSP</h3><p style="margin:0; font-size:11px; color:#666;">BOSP Reguler.</p></div>
+                    <div class="card-text"><h3 style="color:var(--c-bosp)">Manajemen BOSP</h3><p style="margin:0; font-size:10px; color:#666;">BOSP Reguler.</p></div>
                 </div>
                 <div id="m1" class="menu-content">
                     <a onclick="smartOpen('Aplikasi BKU', 'bku.html')" class="link-btn">Aplikasi Pendampingan BKU</a>
@@ -215,11 +206,10 @@
                 </div>
             </div>
 
-            <!-- 2. GURU -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m2')">
                     <div class="icon-box" style="background:var(--c-adm)"><i class="fa-solid fa-users"></i></div>
-                    <div><h3 style="margin:0; font-size:16px; color:var(--c-adm)">Administrasi Guru</h3><p style="margin:0; font-size:11px; color:#666;">Layanan harian guru.</p></div>
+                    <div class="card-text"><h3 style="color:var(--c-adm)">Administrasi Guru</h3><p style="margin:0; font-size:10px; color:#666;">Layanan harian guru.</p></div>
                 </div>
                 <div id="m2" class="menu-content">
                     <a onclick="smartOpen('Olah Nilai', 'https://imanschool.my.id/aplikasi-nilai/#/login')" class="link-btn">Aplikasi Olah Nilai</a>
@@ -232,11 +222,10 @@
                 </div>
             </div>
 
-            <!-- 3. GTK -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m3')">
                     <div class="icon-box" style="background:var(--c-gtk)"><i class="fa-solid fa-users-gear"></i></div>
-                    <div><h3 style="margin:0; font-size:16px; color:var(--c-gtk)">Layanan GTK</h3><p style="margin:0; font-size:11px; color:#666;">Info GTK & SIMPKB.</p></div>
+                    <div class="card-text"><h3 style="color:var(--c-gtk)">Layanan GTK</h3><p style="margin:0; font-size:10px; color:#666;">Info GTK & SIMPKB.</p></div>
                 </div>
                 <div id="m3" class="menu-content">
                     <a onclick="smartOpen('Pembuat Soal', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn">Pembuat Soal AI</a>
@@ -248,11 +237,10 @@
                 </div>
             </div>
 
-            <!-- 4. BEKASI -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m4')">
                     <div class="icon-box" style="background:#f39c12"><i class="fa-solid fa-building"></i></div>
-                    <div><h3 style="margin:0; font-size:16px; color:#a04000">Kabupaten Bekasi</h3><p style="margin:0; font-size:11px; color:#666;">Aplikasi Daerah.</p></div>
+                    <div class="card-text"><h3 style="color:#a04000">Layanan Bekasi</h3><p style="margin:0; font-size:10px; color:#666;">Aplikasi Daerah.</p></div>
                 </div>
                 <div id="m4" class="menu-content">
                     <a onclick="smartOpen('Sikawan', 'https://sikawanbaru.bekasikab.go.id/')" class="link-btn">Sikawan Baru</a>
@@ -261,11 +249,10 @@
                 </div>
             </div>
 
-            <!-- 5. PUSAT -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m5')">
                     <div class="icon-box" style="background:var(--c-pusat)"><i class="fa-solid fa-house"></i></div>
-                    <div><h3 style="margin:0; font-size:16px; color:var(--c-pusat)">Kemendikdasmen</h3><p style="margin:0; font-size:11px; color:#666;">Portal Pusat.</p></div>
+                    <div class="card-text"><h3 style="color:var(--c-pusat)">Kemendikdasmen</h3><p style="margin:0; font-size:10px; color:#666;">Portal Pusat.</p></div>
                 </div>
                 <div id="m5" class="menu-content">
                     <a onclick="smartOpen('Dapodik', 'https://dapo.kemendikdasmen.go.id/')" class="link-btn">Dapodik Dasmen</a>
@@ -276,11 +263,10 @@
                 </div>
             </div>
 
-            <!-- 6. FORMAT DOKUMEN (13 FILE) -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m6')">
                     <div class="icon-box" style="background:#f1c40f"><i class="fa-solid fa-file-word"></i></div>
-                    <div><h3 style="margin:0; font-size:16px; color:#7d6608">Format Dokumen</h3><p style="margin:0; font-size:11px; color:#666;">13 File Lengkap.</p></div>
+                    <div class="card-text"><h3 style="color:#7d6608">Format Dokumen</h3><p style="margin:0; font-size:10px; color:#666;">13 File Lengkap.</p></div>
                 </div>
                 <div id="m6" class="menu-content">
                     <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn">Format SI</a>
@@ -299,13 +285,12 @@
                 </div>
             </div>
 
-            <!-- 7. KALDIK & USIA -->
-            <div class="menu-wrapper" style="grid-column: span 3;">
+            <div class="menu-wrapper" style="grid-column: span 1;">
                 <div class="menu-card" onclick="toggleMenu('m7')">
                     <div class="icon-box" style="background:var(--c-validasi)"><i class="fa-solid fa-calendar-check"></i></div>
-                    <div><h3 style="margin:0; font-size:14px; color:var(--c-validasi)">Kaldik & Validasi Usia</h3><p style="margin:0; font-size:10px; color:#666;">Data & Kalender Pendidikan.</p></div>
+                    <div class="card-text"><h3 style="color:var(--c-validasi)">Kaldik & Usia</h3><p style="margin:0; font-size:10px; color:#666;">Info Kalender.</p></div>
                 </div>
-                <div id="m7" class="menu-content" style="display:flex; justify-content:space-around; flex-wrap: wrap;">
+                <div id="m7" class="menu-content">
                     <a onclick="smartOpen('Cek Validasi', 'https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/')" class="link-btn">Cek Validasi Usia SPMB</a>
                     <a onclick="smartOpen('Kaldik Jabar', 'https://disdik.jabarprov.go.id/unduh')" class="link-btn">Update Kaldik Jabar</a>
                     <a onclick="smartOpen('Gambar Kaldik', 'Kaldik.jpg')" class="link-btn">Lihat Gambar Kaldik</a>
@@ -313,11 +298,11 @@
             </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.7); padding: 15px 40px; border-radius: 40px; text-align: center; margin: 40px auto; width: fit-content; box-shadow: var(--shadow); border: 1px solid white;">
-            <div id="tanggal-jam" style="font-weight:700; color: #1e3a8a; font-size: 14px;"></div>
+        <div style="background: rgba(255, 255, 255, 0.7); padding: 10px 20px; border-radius: 30px; text-align: center; margin: 30px auto; width: fit-content; box-shadow: var(--shadow); border: 1px solid white;">
+            <div id="tanggal-jam" style="font-weight:700; color: #1e3a8a; font-size: 12px;"></div>
         </div>
         
-        <center><button onclick="logoutApp()" style="background:#e74c3c; color:white; border:none; padding:12px 40px; border-radius:30px; font-weight:800; cursor:pointer; box-shadow: 0 4px 15px rgba(231,76,60,0.4);"><i class="fa-solid fa-right-from-bracket"></i> LOGOUT APLIKASI</button></center>
+        <center><button onclick="logoutApp()" style="background:#e74c3c; color:white; border:none; padding:10px 30px; border-radius:20px; font-weight:700; cursor:pointer; box-shadow: 0 4px 10px rgba(231,76,60,0.3); font-size: 12px;">LOGOUT</button></center>
     </div>
 
     <script>
