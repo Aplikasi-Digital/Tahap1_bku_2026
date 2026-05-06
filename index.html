@@ -13,28 +13,33 @@
             --c-bosp: #27ae60; --c-adm: #2980b9; --c-gtk: #8e44ad;
             --c-kab: #a04000; --c-pusat: #d35400; --c-doc: #7d6608; 
             --c-validasi: #e74c3c; --glass: rgba(255, 255, 255, 0.9);
-            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --bg-color: #f0f2f5; --text-color: #333; --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a; --text-color: #f8fafc; --glass: rgba(30, 41, 59, 0.8);
         }
 
         body { 
-            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), url('background.jpg'); 
+            background: var(--bg-color); background-image: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), url('background.jpg'); 
             background-size: cover; background-position: center; background-repeat: no-repeat;
             background-attachment: fixed; font-family: 'Poppins', sans-serif; 
-            margin: 0; padding: 0; color: #333; overflow-x: hidden;
+            margin: 0; padding: 0; color: var(--text-color); overflow-x: hidden; transition: 0.3s;
         }
 
         /* ANIMASI KUPU-KUPU */
-        .butterfly {
-            position: fixed; width: 50px; z-index: 999; pointer-events: none;
-            animation: fly 15s linear infinite;
+        .butterfly-container { position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden; }
+        .butterfly { position: absolute; width: 60px; animation: flyPath 20s linear infinite; opacity: 0.8; }
+        @keyframes flyPath {
+            0% { transform: translate(-100px, 100vh) rotate(45deg); }
+            25% { transform: translate(30vw, 50vh) rotate(-10deg); }
+            50% { transform: translate(60vw, 20vh) rotate(30deg); }
+            75% { transform: translate(80vw, 60vh) rotate(-20deg); }
+            100% { transform: translate(110vw, -100px) rotate(10deg); }
         }
-        @keyframes fly {
-            0% { top: 10%; left: -10%; transform: rotate(20deg); }
-            25% { top: 50%; left: 30%; transform: rotate(-10deg); }
-            50% { top: 20%; left: 60%; transform: rotate(30deg); }
-            75% { top: 70%; left: 80%; transform: rotate(-20deg); }
-            100% { top: 10%; left: 110%; transform: rotate(10deg); }
-        }
+
+        /* COUNTDOWN BAR */
+        .deadline-bar { background: #c0392b; color: white; padding: 5px; text-align: center; font-size: 11px; font-weight: 700; z-index: 1001; position: relative; }
 
         /* TOP NAVBAR */
         .top-nav {
@@ -43,86 +48,92 @@
             display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
             box-shadow: 0 2px 15px rgba(0,0,0,0.2);
         }
-        .top-nav a {
-            color: white; text-decoration: none; font-size: 11px; font-weight: 700;
-            padding: 8px 12px; border-radius: 15px; transition: 0.3s;
-            display: flex; align-items: center; gap: 5px; cursor: pointer;
-        }
+        .top-nav a { color: white; text-decoration: none; font-size: 11px; font-weight: 700; padding: 8px 12px; border-radius: 15px; cursor: pointer; transition: 0.3s; }
         .top-nav a:hover { background: rgba(255,255,255,0.2); }
-        .top-nav a.active { background: #e74c3c; }
+        .theme-toggle { position: absolute; right: 15px; color: white; cursor: pointer; font-size: 18px; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 15px; padding-bottom: 80px; }
-        
+
         /* HEADER SECTION */
         .header-section { text-align: center; margin-bottom: 30px; position: relative; width: 100%; }
         .mascot-box { position: absolute; left: 5%; top: -10px; width: 100px; z-index: 1; display: block; pointer-events: none; }
         .mascot-img { width: 80px; animation: jumpH 0.8s infinite alternate; }
         @keyframes jumpH { from { transform: translateY(0); } to { transform: translateY(-25px); } }
 
-        .welcome-text { font-size: clamp(14px, 4vw, 22px); font-weight: 400; letter-spacing: 4px; display: block; color: #444; }
+        .welcome-text { font-size: clamp(14px, 4vw, 22px); font-weight: 400; letter-spacing: 4px; display: block; }
         .di-text { font-size: clamp(16px, 4vw, 20px); font-weight: 900; color: #c0392b; display: block; margin: 2px 0; }
         .portal-title { font-weight: 900; color: #1e3a8a; margin: 0; font-size: clamp(18px, 6vw, 34px); line-height: 1.2; }
+        [data-theme="dark"] .portal-title { color: #60a5fa; }
         .location-tag { background: #1e3a8a; padding: 4px 20px; border-radius: 20px; font-weight: 700; display: inline-block; font-size: clamp(11px, 3vw, 15px); margin-top: 8px; color: #fff; }
 
-        /* REKAPITULASI & SKELETON */
-        .rekap-title { text-align: center; color: #1e3a8a; font-weight: 900; margin: 25px 0 10px; font-size: clamp(14px, 4vw, 20px); text-transform: uppercase; }
-        .quota-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 30px; }
+        /* PROGRESS RING QUOTA */
+        .quota-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 30px; }
         .quota-card {
-            background: var(--glass); padding: 15px 5px; border-radius: 20px;
-            text-align: center; box-shadow: var(--shadow); border: 1px solid #fff;
-            position: relative;
+            background: var(--glass); padding: 15px; border-radius: 20px;
+            text-align: center; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.3);
+            display: flex; flex-direction: column; align-items: center;
         }
-        .quota-val { font-size: clamp(24px, 6vw, 36px); font-weight: 900; line-height: 1.2; margin-top: 5px; }
-        .skeleton { color: transparent !important; background: #e0e0e0; border-radius: 10px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        .ring-box { position: relative; width: 80px; height: 80px; margin-bottom: 10px; }
+        .ring-box svg { transform: rotate(-90deg); width: 80px; height: 80px; }
+        .ring-bg { fill: none; stroke: #eee; stroke-width: 8; }
+        .ring-progress { fill: none; stroke: var(--c-bosp); stroke-width: 8; stroke-dasharray: 226; stroke-dashoffset: 226; transition: 1s; stroke-linecap: round; }
+        .ring-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; }
 
         /* MENU GRID */
         .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .menu-wrapper { 
-            background: var(--glass); border-radius: 20px; transition: 0.3s; 
-            backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); 
-            overflow: hidden; box-shadow: var(--shadow);
-        }
+        .menu-wrapper { background: var(--glass); border-radius: 20px; transition: 0.3s; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); overflow: hidden; box-shadow: var(--shadow); }
         .menu-wrapper:hover { transform: translateY(-5px); background: #ffffff; }
         .menu-card { display: flex; align-items: center; padding: 15px; cursor: pointer; }
         .icon-box { width: 50px; height: 50px; border-radius: 12px; display: flex; justify-content: center; align-items: center; color: white; font-size: 20px; flex-shrink: 0; margin-right: 12px; }
         .card-text h3 { margin: 0; font-size: 14px; font-weight: 800; }
-        
-        .menu-content { max-height: 0; overflow: hidden; transition: 0.4s ease-out; background: rgba(0,0,0,0.02); }
-        .menu-content.show { max-height: 2000px; padding: 10px 0; }
-        .link-btn { display: block; padding: 10px 20px; color: #444; text-decoration: none; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.03); transition: 0.2s; }
-        .link-btn:hover { background: #fff; padding-left: 30px; color: #1e3a8a; }
+        .menu-content { max-height: 0; overflow: hidden; transition: 0.4s ease-out; }
+        .menu-content.show { max-height: 2000px; padding-bottom: 10px; }
+        .link-btn { display: block; padding: 10px 20px; color: var(--text-color); text-decoration: none; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.03); }
+        .link-btn:hover { background: rgba(255,255,255,0.8); padding-left: 30px; color: #1e3a8a; }
 
-        /* DATA VIEWER & SEARCH */
+        /* DATA VIEWER */
         #data-viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 10001; display: none; padding: 10px; overflow-y: auto; backdrop-filter: blur(10px); }
-        .data-card { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; }
-        .data-header { background: #1e3a8a; color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .search-box { width: 100%; margin-top: 10px; padding: 8px; border-radius: 10px; border: 1px solid #ddd; outline: none; }
+        .data-card { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; color: #333; }
+        .data-header { background: #1e3a8a; color: white; padding: 12px 15px; display: flex; flex-direction: column; gap: 10px; }
+        .search-box { padding: 8px; border-radius: 10px; border: none; width: 100%; font-family: inherit; }
         .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .main-table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 800px; }
-        .main-table th { background: #f4f6f9; padding: 10px; text-align: left; color: #1e3a8a; position: sticky; top: 0; border-bottom: 2px solid #ddd; }
+        .main-table th { background: #f4f6f9; padding: 10px; text-align: left; color: #1e3a8a; position: sticky; top: 0; }
         .main-table td { padding: 8px; border-bottom: 1px solid #eee; }
 
+        /* QUICK NOTE */
+        .note-btn { position: fixed; bottom: 20px; right: 20px; background: #1e3a8a; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; }
+        .note-panel { position: fixed; bottom: 90px; right: 20px; width: 280px; background: white; border-radius: 15px; box-shadow: var(--shadow); display: none; z-index: 1000; padding: 15px; color: #333; }
+        .note-panel textarea { width: 100%; height: 150px; border: 1px solid #ddd; border-radius: 10px; padding: 8px; font-family: inherit; font-size: 12px; resize: none; }
+
+        /* IFRAME VIEWER */
         #app-viewer { position: fixed; inset: 0; background: #fff; z-index: 10000; display: none; flex-direction: column; }
         .viewer-header { height: 50px; background: #1e3a8a; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; color: white; }
 
-        /* STATUS DOT */
-        #status-dot { width: 10px; height: 10px; background: #777; border-radius: 50%; display: inline-block; margin-right: 5px; }
-        .online { background: #27ae60 !important; box-shadow: 0 0 8px #27ae60; }
+        /* TOAST */
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 20px; font-size: 12px; display: none; z-index: 2000; }
 
         #mascot-baru { position: fixed; bottom: 10px; width: 70px; z-index: 99; pointer-events: none; animation: walkBF 25s linear infinite; }
         @keyframes walkBF { 0% { right: -100px; transform: scaleX(-1); } 48% { transform: scaleX(-1); } 50% { right: 100%; transform: scaleX(1); } 98% { transform: scaleX(1); } 100% { right: -100px; transform: scaleX(-1); } }
 
         @media (max-width: 768px) { 
             .menu-grid, .quota-container { grid-template-columns: 1fr; } 
-            .mascot-box { left: 50%; transform: translateX(-50%); top: -30px; }
+            .mascot-box { display: none; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- KUPU-KUPU TERBANG -->
-    <img src="https://i.gifer.com/ZZ5H.gif" class="butterfly" alt="Butterfly">
+    <!-- KUPU-KUPU FLYING -->
+    <div class="butterfly-container">
+        <img src="https://i.gifer.com/ZZ5H.gif" class="butterfly" style="animation-delay: 0s; left: 10%;">
+        <img src="https://i.gifer.com/ZZ5H.gif" class="butterfly" style="animation-delay: 5s; left: 40%;">
+        <img src="https://i.gifer.com/ZZ5H.gif" class="butterfly" style="animation-delay: 10s; left: 70%;">
+    </div>
+
+    <div class="deadline-bar">
+        <i class="fa-solid fa-clock"></i> <span id="countdown-text">Memuat deadline...</span>
+    </div>
 
     <img id="mascot-baru" src="murid_SD.gif" alt="Mascot">
 
@@ -132,12 +143,15 @@
         <a onclick="secureOpen('siswa')"><i class="fa-solid fa-users-line"></i> Murid</a>
         <a href="https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/" target="_blank"><i class="fa-solid fa-cake-candles"></i> Usia</a>
         <a onclick="smartOpen('SPMB', 'spmb.html')"><i class="fa-solid fa-file-signature"></i> SPMB</a>
+        <div class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></div>
     </nav>
+
+    <div id="toast"></div>
 
     <div id="app-viewer">
         <div class="viewer-header">
             <span id="v-title" style="font-weight:700; font-size: 14px;">Memuat...</span>
-            <button onclick="closeViewer()" style="background:#e74c3c; color:white; border:none; padding:5px 12px; border-radius:8px; font-weight:700; cursor:pointer;">X</button>
+            <button onclick="closeViewer()" style="background:#e74c3c; color:white; border:none; padding:5px 12px; border-radius:8px; font-weight:700; cursor:pointer;">TUTUP [X]</button>
         </div>
         <iframe id="v-frame" style="width:100%; flex-grow: 1; border:none;"></iframe>
     </div>
@@ -145,17 +159,27 @@
     <div id="data-viewer">
         <div class="data-card">
             <div class="data-header">
-                <span id="data-title" style="font-weight:900; font-size:14px;"></span>
-                <button onclick="closeData()" style="background:#e74c3c; color:white; border:none; padding:5px 15px; border-radius:8px; cursor:pointer; font-weight:700;">X</button>
-                <input type="text" id="smartSearch" class="search-box" placeholder="Cerdas: Ketik nama untuk mencari..." onkeyup="doSearch()">
+                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                    <span id="data-title" style="font-weight:900; font-size:14px;"></span>
+                    <button onclick="closeData()" style="background:#e74c3c; color:white; border:none; padding:5px 15px; border-radius:8px; cursor:pointer; font-weight:700;">X</button>
+                </div>
+                <input type="text" id="tableSearch" class="search-box" placeholder="Ketik nama untuk mencari..." onkeyup="filterTable()">
             </div>
             <div class="table-scroll">
-                <table class="main-table" id="myTable">
+                <table class="main-table" id="dataSource">
                     <thead id="data-thead"></thead>
                     <tbody id="data-tbody"></tbody>
                 </table>
             </div>
         </div>
+    </div>
+
+    <!-- QUICK NOTE PANEL -->
+    <div class="note-btn" onclick="toggleNote()"><i class="fa-solid fa-pen-to-square"></i></div>
+    <div class="note-panel" id="notePanel">
+        <h4 style="margin:0 0 10px; font-size:14px;">Catatan Cepat Operator</h4>
+        <textarea id="quickNoteBox" placeholder="Tulis catatan harian di sini..." oninput="saveNote()"></textarea>
+        <small style="font-size:10px; color:#777;">*Tersimpan otomatis di browser ini</small>
     </div>
 
     <div class="container" id="main-content">
@@ -165,31 +189,43 @@
             </div>
             <div style="position:relative; display:inline-block; width: 100%;">
                 <div id="mascot" class="mascot-box"><img class="mascot-img" src="anak_sd.gif"></div>
-                <span class="welcome-text">SELAMAT DATANG</span>
+                <span class="welcome-text" id="greetingText">SELAMAT DATANG</span>
                 <span class="di-text">DI</span>
                 <h2 class="portal-title">PORTAL OPERATOR SEKOLAH</h2>
-                <div class="location-tag"><span id="status-dot"></span> Babelan - Bekasi</div>
+                <div class="location-tag">Babelan - Bekasi</div>
             </div>
         </div>
 
         <div class="rekap-title"><i class="fa-solid fa-chart-pie"></i> REKAPITULASI PPDB TAHUN 2026</div>
+        
         <div class="quota-container">
+            <!-- TOTAL KUOTA -->
             <div class="quota-card">
-                <h4 style="margin:0; color:#666; font-size: 11px;">Total Kuota</h4>
-                <div class="quota-val" style="color: #1e3a8a;">56</div>
+                <div class="ring-box">
+                    <svg><circle class="ring-bg" cx="40" cy="40" r="36"/><circle class="ring-progress" id="ring-total" cx="40" cy="40" r="36" style="stroke: #1e3a8a; stroke-dashoffset: 0;"/></svg>
+                    <div class="ring-text">56</div>
+                </div>
+                <h4>Total Kuota</h4>
             </div>
+            <!-- PENDAFTAR -->
             <div class="quota-card">
-                <h4 style="margin:0; color:#666; font-size: 11px;">Pendaftar (Live)</h4>
-                <div class="quota-val" style="color: #e67e22;" id="q-reg">0</div>
+                <div class="ring-box">
+                    <svg><circle class="ring-bg" cx="40" cy="40" r="36"/><circle class="ring-progress" id="ring-reg" cx="40" cy="40" r="36" style="stroke: #e67e22;"/></svg>
+                    <div class="ring-text" id="q-reg">0</div>
+                </div>
+                <h4>Pendaftar</h4>
             </div>
+            <!-- SISA -->
             <div class="quota-card">
-                <h4 style="margin:0; color:#666; font-size: 11px;">Sisa Kuota</h4>
-                <div class="quota-val" style="color: #27ae60;" id="q-rem">56</div>
+                <div class="ring-box">
+                    <svg><circle class="ring-bg" cx="40" cy="40" r="36"/><circle class="ring-progress" id="ring-rem" cx="40" cy="40" r="36" style="stroke: #27ae60;"/></svg>
+                    <div class="ring-text" id="q-rem">56</div>
+                </div>
+                <h4>Sisa Kuota</h4>
             </div>
         </div>
 
         <div class="menu-grid">
-            <!-- 1. BOSP -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m1')">
                     <div class="icon-box" style="background:var(--c-bosp)"><i class="fa-solid fa-file-invoice-dollar"></i></div>
@@ -203,7 +239,6 @@
                 </div>
             </div>
 
-            <!-- 2. GURU -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m2')">
                     <div class="icon-box" style="background:var(--c-adm)"><i class="fa-solid fa-users"></i></div>
@@ -261,6 +296,7 @@
                 </div>
             </div>
 
+            <!-- MENU 6: 13 FORMAT DOKUMEN -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m6')">
                     <div class="icon-box" style="background:#f1c40f"><i class="fa-solid fa-file-word"></i></div>
@@ -296,7 +332,7 @@
             </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.7); padding: 10px 20px; border-radius: 30px; text-align: center; margin: 30px auto; width: fit-content; box-shadow: var(--shadow); border: 1px solid white;">
+        <div style="background: var(--glass); padding: 10px 20px; border-radius: 30px; text-align: center; margin: 30px auto; width: fit-content; box-shadow: var(--shadow); border: 1px solid white;">
             <div id="tanggal-jam" style="font-weight:700; color: #1e3a8a; font-size: 11px;"></div>
         </div>
     </div>
@@ -312,15 +348,15 @@
             {n:4, nama:"DEDEN NASROLIH, S.Pd", nip:"198303212008011003", gol:"III/a", jk:"L", pend:"S1", jab:"Guru Kelas VI", ket:"PNS"},
             {n:5, nama:"SRI MINARTI, S.Pd", nip:"198901012020122009", gol:"III/b", jk:"P", pend:"S1", jab:"Guru Kelas IV B", ket:"PNS"},
             {n:6, nama:"IDRIS AFANDI, S.Pd", nip:"198810012023211002", gol:"IX", jk:"L", pend:"S1", jab:"Guru Kelas V", ket:"PPPK"},
-            {n:7, nama:"NENENG PAUJIAH, S.Pd", nip:"198512162025212007", nuptk:"4548763665300023", gol:"IX", jk:"P", pend:"S1", jab:"Guru Kelas III A", ket:"PPPK"},
-            {n:8, nama:"IKA KOMALASARI, S.Pd", nip:"198904162025212007", nuptk:"4748767668130142", gol:"IX", jk:"P", pend:"S1", jab:"Guru kelas II A", ket:"PPPK"},
-            {n:9, nama:"YUNITA HAYATUN, S.Pd", nip:"198706222025212012", nuptk:"3954765666300002", gol:"IX", jk:"P", pend:"S1", jab:"Guru Kelas I B", ket:"PPPK"},
-            {n:10, nama:"ARIE HIDAYAT, S.Pd", nip:"199503252025211011", nuptk:"3657773674130032", gol:"IX", jk:"L", pend:"S1", jab:"Guru PAI Kelas I-VI", ket:"PPPK"},
+            {n:7, nama:"NENENG PAUJIAH, S.Pd", nip:"198512162025212007", gol:"IX", jk:"P", pend:"S1", jab:"Guru Kelas III A", ket:"PPPK"},
+            {n:8, nama:"IKA KOMALASARI, S.Pd", nip:"198904162025212007", gol:"IX", jk:"P", pend:"S1", jab:"Guru kelas II A", ket:"PPPK"},
+            {n:9, nama:"YUNITA HAYATUN, S.Pd", nip:"198706222025212012", gol:"IX", jk:"P", pend:"S1", jab:"Guru Kelas I B", ket:"PPPK"},
+            {n:10, nama:"ARIE HIDAYAT, S.Pd", nip:"199503252025211011", gol:"IX", jk:"L", pend:"S1", jab:"Guru PAI Kelas I-VI", ket:"PPPK"},
             {n:11, nama:"WINDI TRY ASTUTI, S.Pd", nip:"-", gol:"-", jk:"P", pend:"S1", jab:"Guru Kelas II B", ket:"Honor Sekolah"},
-            {n:12, nama:"ROHIMAN SUPRIYADI", nip:"198412182025211003", nuptk:"9550762664200013", gol:"V", jk:"L", pend:"D2", jab:"Pengadministrasian Umum", ket:"PPPK"},
-            {n:13, nama:"MURTAFIATUSSARIFAH, S.Pd", nip:"198111102025212005", nuptk:"8343759660300033", gol:"V", jk:"P", pend:"S1", jab:"Pengadministrasian Umum", ket:"PPPK"},
-            {n:14, nama:"RIZA BAKHTIAR RIVAI S.Pd", nip:"198905212025211035", nuptk:"0853767668110012", gol:"IX", jk:"L", pend:"S1", jab:"Penata Layanan Operasional", ket:"PPPK"},
-            {n:15, nama:"MUHAMAD ANWAR, S.Pd", nip:"199910012025211030", nuptk:"4333777678130213", gol:"V", jk:"L", pend:"S1", jab:"Pengadministrasian Umum", ket:"PPPK"},
+            {n:12, nama:"ROHIMAN SUPRIYADI", nip:"198412182025211003", gol:"V", jk:"L", pend:"D2", jab:"Pengadministrasian Umum", ket:"PPPK"},
+            {n:13, nama:"MURTAFIATUSSARIFAH, S.Pd", nip:"198111102025212005", gol:"V", jk:"P", pend:"S1", jab:"Pengadministrasian Umum", ket:"PPPK"},
+            {n:14, nama:"RIZA BAKHTIAR RIVAI S.Pd", nip:"198905212025211035", gol:"IX", jk:"L", pend:"S1", jab:"Penata Layanan Operasional", ket:"PPPK"},
+            {n:15, nama:"MUHAMAD ANWAR, S.Pd", nip:"199910012025211030", gol:"V", jk:"L", pend:"S1", jab:"Pengadministrasian Umum", ket:"PPPK"},
             {n:16, nama:"RIJAL", nip:"-", gol:"-", jk:"L", pend:"SMA", jab:"Keamanan", ket:"Outsourcing"}
         ];
 
@@ -332,58 +368,42 @@
             {n:5, nama:"ARSYALAN YAZID ABBASY", nipd:"252601005", jk:"L", ttl:"BEKASI, 2018-09-12", ayah:"MAHMUD", ibu:"NOVIA DEWI", rombel:"Kelas 1 A"}
         ];
 
-        function secureOpen(type) {
-            let pass = prompt("Menu Terkunci. Silahkan minta password ke Rohiman:");
-            if(pass === PASS_RAHASIA) {
-                if(type === 'ptk') showPTK();
-                else showSiswa();
-            } else if(pass !== null) { alert("Password Salah!"); }
+        function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.style.display = 'block'; setTimeout(() => t.style.display='none', 3000); }
+
+        function toggleTheme() {
+            const b = document.body;
+            const theme = b.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            b.setAttribute('data-theme', theme);
+            document.querySelector('.theme-toggle i').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         }
 
-        function showPTK() {
-            document.getElementById('data-title').innerText = "DATA GURU & TENDIK SDN MUARA BAKTI 01";
-            document.getElementById('data-thead').innerHTML = `<tr><th>N</th><th>NAMA</th><th>NIP</th><th>GOL</th><th>JK</th><th>JABATAN</th><th>KET</th></tr>`;
-            let html = '';
-            dataPTK.forEach(p => {
-                html += `<tr><td>${p.n}</td><td style="font-weight:700; color:#1e3a8a;">${p.nama}</td><td>${p.nip}</td><td>${p.gol}</td><td>${p.jk}</td><td>${p.jab}</td><td>${p.ket}</td></tr>`;
-            });
-            document.getElementById('data-tbody').innerHTML = html;
-            document.getElementById('data-viewer').style.display = 'block';
+        function setGreeting() {
+            const h = new Date().getHours();
+            let g = "Selamat ";
+            if (h < 11) g += "Pagi, Pak Rohiman";
+            else if (h < 15) g += "Siang, Pak Rohiman";
+            else if (h < 18) g += "Sore, Pak Rohiman";
+            else g += "Malam, Pak Rohiman";
+            document.getElementById('greetingText').innerText = g.toUpperCase();
         }
 
-        function showSiswa() {
-            document.getElementById('data-title').innerText = "DATA PESERTA DIDIK";
-            document.getElementById('data-thead').innerHTML = `<tr><th>N</th><th>NAMA</th><th>NIPD</th><th>JK</th><th>TEMPAT/TGL LAHIR</th><th>AYAH</th><th>IBU</th><th>ROMBEL</th></tr>`;
-            let html = '';
-            dataSiswa.forEach(s => {
-                html += `<tr><td>${s.n}</td><td style="font-weight:700; color:#1e3a8a;">${s.nama}</td><td>${s.nipd}</td><td>${s.jk}</td><td>${s.ttl}</td><td>${s.ayah}</td><td>${s.ibu}</td><td>${s.rombel}</td></tr>`;
-            });
-            document.getElementById('data-tbody').innerHTML = html;
-            document.getElementById('data-viewer').style.display = 'block';
+        function setCountdown() {
+            const target = new Date("August 31, 2026 23:59:59").getTime();
+            setInterval(() => {
+                const now = new Date().getTime();
+                const diff = target - now;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('countdown-text').innerText = `PENGINGAT: ${days} Hari Menuju Batas Akhir Laporan 2026`;
+            }, 1000);
         }
 
-        function doSearch() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("smartSearch");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 1; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }       
-            }
+        function updateRing(id, val, max) {
+            const circle = document.getElementById(id);
+            const offset = 226 - (val / max) * 226;
+            circle.style.strokeDashoffset = offset;
         }
 
         async function syncQuota() {
-            document.getElementById('q-reg').classList.add('skeleton');
-            document.getElementById('q-rem').classList.add('skeleton');
             let total = 56;
             try { 
                 const res = await fetch(GS_URL + "?action=count"); 
@@ -391,41 +411,66 @@
                 let count = d.jumlah || 0; 
                 document.getElementById('q-reg').innerText = count;
                 document.getElementById('q-rem').innerText = total - count;
-                document.getElementById('status-dot').className = "online";
+                updateRing('ring-reg', count, total);
+                updateRing('ring-rem', total - count, total);
             } catch(e) { console.log("Sync error."); }
-            document.getElementById('q-reg').classList.remove('skeleton');
-            document.getElementById('q-rem').classList.remove('skeleton');
+        }
+
+        function secureOpen(type) {
+            let pass = prompt("Menu Terkunci. Silahkan minta password ke Rohiman:");
+            if(pass === PASS_RAHASIA) {
+                if(type === 'ptk') renderTable(dataPTK, "DATA GURU & TENDIK");
+                else renderTable(dataSiswa, "DATA PESERTA DIDIK");
+            } else if(pass !== null) { showToast("Password Salah!"); }
+        }
+
+        function renderTable(data, title) {
+            document.getElementById('data-title').innerText = title;
+            let head = data === dataPTK ? `<tr><th>N</th><th>NAMA</th><th>NIP</th><th>GOL</th><th>JK</th><th>JABATAN</th><th>KET</th></tr>` : `<tr><th>N</th><th>NAMA</th><th>NIPD</th><th>JK</th><th>TEMPAT/TGL LAHIR</th><th>AYAH</th><th>IBU</th><th>ROMBEL</th></tr>`;
+            document.getElementById('data-thead').innerHTML = head;
+            let body = '';
+            data.forEach(p => {
+                body += `<tr><td>${p.n}</td><td style="font-weight:700; color:#1e3a8a;">${p.nama}</td>${data === dataPTK ? `<td>${p.nip}</td><td>${p.gol}</td><td>${p.jk}</td><td>${p.jab}</td><td>${p.ket}</td>` : `<td>${p.nipd}</td><td>${p.jk}</td><td>${p.ttl}</td><td>${p.ayah}</td><td>${p.ibu}</td><td>${p.rombel}</td>`}</tr>`;
+            });
+            document.getElementById('data-tbody').innerHTML = body;
+            document.getElementById('data-viewer').style.display = 'block';
+        }
+
+        function filterTable() {
+            let input = document.getElementById("tableSearch").value.toUpperCase();
+            let rows = document.getElementById("data-tbody").getElementsByTagName("tr");
+            for (let i = 0; i < rows.length; i++) {
+                let nameCol = rows[i].getElementsByTagName("td")[1];
+                if (nameCol) {
+                    rows[i].style.display = nameCol.innerText.toUpperCase().indexOf(input) > -1 ? "" : "none";
+                }
+            }
         }
 
         function toggleMenu(id) {
             if (id === 'm1' || id === 'm2') {
                 let pass = prompt("Menu Terkunci. Silahkan minta password ke Rohiman:");
-                if (pass !== PASS_RAHASIA) {
-                    if (pass !== null) alert("Password Salah!");
-                    return;
-                }
+                if (pass !== PASS_RAHASIA) { if (pass !== null) showToast("Password Salah!"); return; }
             }
-            const menu = document.getElementById(id);
-            const isOpen = menu.classList.contains('show');
-            document.querySelectorAll('.menu-content').forEach(m => m.classList.remove('show'));
-            if(!isOpen) menu.classList.add('show');
+            document.querySelectorAll('.menu-content').forEach(m => { if(m.id !== id) m.classList.remove('show'); });
+            document.getElementById(id).classList.toggle('show');
         }
 
         function smartOpen(title, url) {
             if(url.includes('http') && !url.includes('spmb.html')) { window.open(url, '_blank'); } 
-            else { 
-                document.getElementById('v-title').innerText = title;
-                document.getElementById('v-frame').src = url;
-                document.getElementById('app-viewer').style.display = 'flex';
-            }
+            else { document.getElementById('v-title').innerText = title; document.getElementById('v-frame').src = url; document.getElementById('app-viewer').style.display = 'flex'; }
         }
 
         function closeViewer() { document.getElementById('app-viewer').style.display = 'none'; document.getElementById('v-frame').src = ""; syncQuota(); }
         function closeData() { document.getElementById('data-viewer').style.display = 'none'; }
+        function toggleNote() { const p = document.getElementById('notePanel'); p.style.display = p.style.display === 'block' ? 'none' : 'block'; }
+        function saveNote() { localStorage.setItem('operatorNote', document.getElementById('quickNoteBox').value); }
+        function loadNote() { document.getElementById('quickNoteBox').value = localStorage.getItem('operatorNote') || ""; }
 
         window.onload = function() {
-            syncQuota();
+            loadNote(); syncQuota(); setGreeting(); setCountdown();
             setInterval(syncQuota, 60000); 
+            document.getElementById('mascot').style.display = 'block';
         };
 
         function updateClock() {
