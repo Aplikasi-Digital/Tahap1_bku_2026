@@ -6,16 +6,16 @@
     <title>Portal Operator School Kec. Babelan</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --c-bosp: #27ae60;
             --c-adm: #2980b9;
             --c-gtk: #8e44ad;
-            --c-kab: #f39c12;
+            --c-kab: #d35400; /* Dipergelap sedikit untuk teks */
             --c-pusat: #d35400;
-            --c-doc: #f1c40f;
+            --c-doc: #9a7d0a; /* Dipergelap dari kuning asli agar terbaca */
             --c-validasi: #e74c3c;
         }
 
@@ -56,22 +56,34 @@
         .btn-login-new { background: linear-gradient(to right, #ff7eb3, #ff758c); color: white; border: none; padding: 15px; width: 100%; border-radius: 30px; font-weight: 900; font-size: 18px; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4); margin-top: 10px; letter-spacing: 2px; }
 
         /* =========================================
-           DASHBOARD GRID & TRANSPARANSI
+           DASHBOARD HEADER (TIPOGRAFI BARU)
            ========================================= */
         .container { max-width: 1200px; margin: 0 auto; display: none; padding-bottom: 30px; }
         
         .header-section { text-align: center; margin-bottom: 30px; margin-top: 10px; position: relative; }
         
+        .welcome-msg { 
+            font-size: 18px; font-weight: 300; color: #1e3a8a; 
+            letter-spacing: 4px; display: block; margin-bottom: -5px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        .welcome-di { 
+            font-size: 15px; font-weight: 800; color: #c0392b; 
+            display: block; margin: 5px 0;
+        }
+
         .header-section h2 { 
-            margin: 0; font-size: 32px; font-weight: 900; 
+            margin: 0; font-size: 38px; font-weight: 900; 
             color: #1e3a8a; 
             text-shadow: 2px 2px 0px #fff, -1px -1px 0px #fff;
             letter-spacing: 1px; position: relative; z-index: 2;
+            line-height: 1.1;
         }
         .header-section small { 
-            font-size: 14px; font-weight: 700; color: #1e3a8a; 
-            background: rgba(255,255,255,0.8); padding: 3px 15px; border-radius: 15px;
+            font-size: 15px; font-weight: 700; color: #1e3a8a; 
+            background: rgba(255,255,255,0.7); padding: 4px 20px; border-radius: 20px;
             position: relative; z-index: 2; border: 1px solid #ddd;
+            display: inline-block; margin-top: 10px;
         }
 
         .btn-logout {
@@ -86,12 +98,12 @@
 
         /* TABLE/CARD TRANSPARENT STYLE */
         .menu-wrapper {
-            background: rgba(255, 255, 255, 0.7); /* Transparan */
+            background: rgba(255, 255, 255, 0.7); 
             border-radius: 20px;
             box-shadow: 0 8px 15px rgba(0,0,0,0.1);
             overflow: hidden;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px); /* Efek Kaca */
+            backdrop-filter: blur(10px); 
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         .menu-wrapper:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.85); }
@@ -106,25 +118,33 @@
         }
 
         .card-text { margin-left: 15px; flex-grow: 1; text-align: left; }
-        .card-text h3 { margin: 0 0 5px 0; font-size: 16px; font-weight: 800; line-height: 1.2; color: #1e3a8a; }
-        .card-text p { margin: 0; font-size: 11px; color: #333; font-weight: 600; line-height: 1.4;}
+        .card-text h3 { margin: 0 0 5px 0; font-size: 16px; font-weight: 800; line-height: 1.2; }
+        .card-text p { margin: 0; font-size: 11px; color: #222; font-weight: 600; line-height: 1.4;}
 
         .card-arrow { font-size: 18px; transition: transform 0.3s ease; }
         .menu-wrapper.open .card-arrow { transform: rotate(90deg); }
 
         .menu-content { 
             max-height: 0; overflow: hidden; transition: max-height 0.4s ease; 
-            background: rgba(255, 255, 255, 0.4); /* Transparansi isi menu */
+            background: rgba(255, 255, 255, 0.4); 
         }
         .menu-content.show { max-height: 950px; padding: 15px; border-top: 1px solid rgba(0,0,0,0.05); }
 
-        /* COLORS CATEGORY */
+        /* COLORS CATEGORY - PERBAIKAN WARNA TEKS */
         .c-bosp .icon-box { background: var(--c-bosp); } .c-bosp h3, .c-bosp .card-arrow { color: var(--c-bosp); }
         .c-adm .icon-box { background: var(--c-adm); } .c-adm h3, .c-adm .card-arrow { color: var(--c-adm); }
         .c-gtk .icon-box { background: var(--c-gtk); } .c-gtk h3, .c-gtk .card-arrow { color: var(--c-gtk); }
-        .c-kab .icon-box { background: var(--c-kab); } .c-kab h3, .c-kab .card-arrow { color: var(--c-kab); }
+        
+        /* Layanan Kab Bekasi - Teks lebih terbaca */
+        .c-kab .icon-box { background: #f39c12; } 
+        .c-kab h3, .c-kab .card-arrow { color: #a04000; } 
+        
         .c-pusat .icon-box { background: var(--c-pusat); } .c-pusat h3, .c-pusat .card-arrow { color: var(--c-pusat); }
-        .c-doc .icon-box { background: var(--c-doc); } .c-doc h3, .c-doc .card-arrow { color: var(--c-doc); }
+        
+        /* Format Unduhan - Teks lebih terbaca */
+        .c-doc .icon-box { background: #f1c40f; } 
+        .c-doc h3, .c-doc .card-arrow { color: #7d6608; } 
+
         .c-validasi .icon-box { background: var(--c-validasi); } .c-validasi h3, .c-validasi .card-arrow { color: var(--c-validasi); }
 
         .kaldik-wrapper { grid-column: 1 / -1; display: flex; justify-content: center; }
@@ -138,7 +158,7 @@
         }
         .link-btn:hover { background: #fff; transform: translateX(5px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
-        /* FOOTER JAM KAPSUL */
+        /* FOOTER JAM */
         .datetime-wrapper { display: flex; justify-content: center; margin-top: 40px; }
         .datetime-box { 
             background: rgba(255, 255, 255, 0.7); padding: 10px 40px; border-radius: 35px; text-align: center; 
@@ -146,12 +166,12 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 20px;
         }
 
-        /* MASKOT ANIMASI (LONCAT) */
+        /* MASKOT LONCAT */
         .mascot-box { position: absolute; left: -400px; top: -40px; width: 400px; z-index: 1; display: none; align-items: center; justify-content: flex-end; pointer-events: none; }
         .mascot-img { width: 170px; animation: jumpHigher 0.8s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95); }
         @keyframes jumpHigher { 0% { transform: translateY(0); } 100% { transform: translateY(-40px); } }
         
-        /* MASKOT JALAN (BOLAK BALIK & KECIL) */
+        /* MASKOT JALAN */
         #mascot-baru { 
             position: fixed; bottom: 20px; width: 110px; 
             z-index: 99; display: none; pointer-events: none; 
@@ -173,6 +193,8 @@
         @media (max-width: 992px) { .menu-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) {
             .menu-grid { grid-template-columns: 1fr; }
+            .header-section h2 { font-size: 30px; }
+            .welcome-msg { font-size: 14px; }
         }
     </style>
 </head>
@@ -213,7 +235,7 @@
 
     <div class="container" id="main-content">
         <div class="header-section">
-            <div style="width:100px; height:100px; margin: 0 auto 10px; border-radius:50%; border:4px solid white; overflow:hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+            <div style="width:100px; height:100px; margin: 0 auto 15px; border-radius:50%; border:4px solid white; overflow:hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
                 <img src="profil.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://ui-avatars.com/api/?name=RS'">
             </div>
 
@@ -222,6 +244,9 @@
                     <div style="background:white; border:2px solid #2980b9; border-radius:10px; padding:5px 10px; font-size:11px; font-weight:bold; margin-right:10px;" id="mascot-text">Berhasil Login!</div>
                     <img class="mascot-img" src="anak_sd.gif">
                 </div>
+                
+                <span class="welcome-msg">SELAMAT DATANG</span>
+                <span class="welcome-di">DI</span>
                 <h2>PORTAL OPERATOR SEKOLAH</h2>
             </div>
             <br>
@@ -353,7 +378,7 @@
                 </div>
             </div>
 
-            <!-- MENU 7: KALDIK & VALIDASI (WIDE) -->
+            <!-- MENU 7: KALDIK & VALIDASI -->
             <div class="kaldik-wrapper">
                 <div class="menu-wrapper c-validasi" id="wrap-m7">
                     <div class="menu-card" onclick="toggleMenu('m7', 'wrap-m7')">
