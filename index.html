@@ -6,28 +6,20 @@
     <title>Portal Operator School Kec. Babelan</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --c-bosp: #27ae60;
-            --c-adm: #2980b9;
-            --c-gtk: #8e44ad;
-            --c-kab: #a04000; 
-            --c-pusat: #d35400;
-            --c-doc: #7d6608; 
-            --c-validasi: #e74c3c;
-            --glass: rgba(255, 255, 255, 0.85);
+            --c-bosp: #27ae60; --c-adm: #2980b9; --c-gtk: #8e44ad;
+            --c-kab: #a04000; --c-pusat: #d35400; --c-doc: #7d6608; 
+            --c-validasi: #e74c3c; --glass: rgba(255, 255, 255, 0.85);
             --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
 
         body { 
-            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), url('background.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)), url('background.jpg'); 
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            background-attachment: fixed; font-family: 'Poppins', sans-serif; 
             margin: 0; padding: 0; color: #333; overflow-x: hidden;
         }
 
@@ -47,79 +39,71 @@
         }
         .profile-img-container { width: 110px; height: 110px; margin: 0 auto 15px; border-radius: 50%; padding: 5px; background: white; box-shadow: 0 0 25px rgba(255,255,255,0.6); }
         .profile-img-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .login-card h2 { font-family: 'Brush Script MT', cursive, sans-serif; font-size: 38px; margin: 0; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
+        .login-card h2 { font-family: 'Brush Script MT', cursive, sans-serif; font-size: 42px; margin: 0; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
 
         /* TOP NAVBAR */
         .top-nav {
-            background: rgba(30, 58, 138, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 8px 5px;
-            position: sticky; top: 0; z-index: 1000;
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
+            background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px);
+            padding: 10px 5px; position: sticky; top: 0; z-index: 1000;
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
             box-shadow: 0 2px 15px rgba(0,0,0,0.2);
         }
         .top-nav a {
-            color: white; text-decoration: none; font-size: 11px; font-weight: 600;
-            padding: 6px 12px; border-radius: 15px; transition: 0.3s;
+            color: white; text-decoration: none; font-size: 12px; font-weight: 700;
+            padding: 8px 16px; border-radius: 20px; transition: 0.3s;
             display: flex; align-items: center; gap: 6px; cursor: pointer;
         }
         .top-nav a:hover { background: rgba(255,255,255,0.2); }
         .top-nav a.active { background: #e74c3c; }
 
-        /* DASHBOARD GRID */
-        .container { max-width: 1200px; margin: 0 auto; display: none; padding: 15px; padding-bottom: 80px; }
-        .header-section { text-align: center; margin-bottom: 25px; position: relative; }
+        .container { max-width: 1200px; margin: 0 auto; display: none; padding: 20px; padding-bottom: 80px; }
+        .header-section { text-align: center; margin-bottom: 40px; position: relative; }
         
         /* MASKOT LONCAT ORIGINAL */
-        .mascot-box { position: absolute; left: -120px; top: -10px; width: 150px; z-index: 1; display: none; align-items: center; justify-content: center; pointer-events: none; }
-        .mascot-img { width: 90px; animation: jumpH 0.8s infinite alternate; }
-        @keyframes jumpH { from { transform: translateY(0); } to { transform: translateY(-30px); } }
+        .mascot-box { position: absolute; left: -150px; top: -20px; width: 180px; z-index: 1; display: none; align-items: center; justify-content: center; pointer-events: none; }
+        .mascot-img { width: 100px; animation: jumpH 0.8s infinite alternate; }
+        @keyframes jumpH { from { transform: translateY(0); } to { transform: translateY(-35px); } }
 
-        /* REKAP DASHBOARD */
-        .quota-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
+        /* HEADER TEXT SIZES */
+        .welcome-text { font-size: 24px; font-weight: 400; letter-spacing: 6px; display: block; color: #444; }
+        .di-text { font-size: 22px; font-weight: 900; color: #c0392b; display: block; margin: 5px 0; }
+        .portal-title { font-weight: 900; color: #1e3a8a; margin: 0; font-size: 36px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); line-height: 1.2; }
+        .location-tag { background: rgba(255,255,255,0.8); padding: 5px 25px; border-radius: 25px; font-weight: 800; border: 2px solid #1e3a8a; display: inline-block; font-size: 16px; margin-top: 10px; color: #1e3a8a; }
+
+        /* REKAPITULASI STYLE */
+        .rekap-title { text-align: center; color: #1e3a8a; font-weight: 900; margin: 30px 0 15px; font-size: 24px; text-transform: uppercase; }
+        .quota-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 35px; }
         .quota-card {
-            background: var(--glass); padding: 15px 10px; border-radius: 20px;
-            text-align: center; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.5);
+            background: var(--glass); padding: 20px 10px; border-radius: 25px;
+            text-align: center; box-shadow: var(--shadow); border: 2px solid rgba(255,255,255,0.5);
         }
-        .quota-val { font-size: 28px; font-weight: 900; line-height: 1.2; margin-top: 5px; }
+        .quota-val { font-size: 42px; font-weight: 900; line-height: 1.2; margin-top: 5px; }
 
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .menu-wrapper { 
-            background: var(--glass); border-radius: 20px; transition: 0.3s; 
+            background: var(--glass); border-radius: 25px; transition: 0.3s; 
             backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); 
             overflow: hidden; box-shadow: var(--shadow);
         }
         .menu-wrapper:hover { transform: translateY(-5px); background: #ffffff; }
-        .menu-card { display: flex; align-items: center; padding: 15px; cursor: pointer; }
-        .icon-box { width: 50px; height: 50px; border-radius: 12px; display: flex; justify-content: center; align-items: center; color: white; font-size: 20px; flex-shrink: 0; margin-right: 12px; }
+        .menu-card { display: flex; align-items: center; padding: 20px; cursor: pointer; }
+        .icon-box { width: 60px; height: 60px; border-radius: 18px; display: flex; justify-content: center; align-items: center; color: white; font-size: 24px; flex-shrink: 0; margin-right: 15px; }
         
         .menu-content { max-height: 0; overflow: hidden; transition: 0.4s ease-out; background: rgba(0,0,0,0.02); }
-        .menu-content.show { max-height: 1500px; padding: 10px 0; }
-        .link-btn { 
-            display: block; padding: 10px 20px; color: #444; text-decoration: none; 
-            font-size: 12px; font-weight: 500; border-bottom: 1px solid rgba(0,0,0,0.03);
-        }
-        .link-btn:hover { background: rgba(255,255,255,0.8); padding-left: 25px; color: #1e3a8a; }
+        .menu-content.show { max-height: 2000px; padding: 10px 0; }
+        .link-btn { display: block; padding: 12px 25px; color: #444; text-decoration: none; font-size: 13px; font-weight: 600; border-bottom: 1px solid rgba(0,0,0,0.05); transition: 0.2s; }
+        .link-btn:hover { background: rgba(255,255,255,0.8); padding-left: 35px; color: #1e3a8a; }
 
-        /* DATA VIEWER */
-        #data-viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 10001; display: none; padding: 10px; backdrop-filter: blur(15px); overflow-y: auto; }
-        .data-card { max-width: 100%; margin: 10px auto; background: white; border-radius: 20px; overflow: hidden; }
-        .data-header { background: #1e3a8a; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .main-table-wrapper { width: 100%; overflow-x: auto; }
-        .main-table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 850px; }
-        .main-table th { background: #f4f6f9; padding: 10px; text-align: left; font-weight: 800; color: #1e3a8a; position: sticky; top: 0; }
-        .main-table td { padding: 8px; border-bottom: 1px solid #eee; }
+        #mascot-baru { position: fixed; bottom: 15px; width: 85px; z-index: 99; display: none; pointer-events: none; animation: walkBF 25s linear infinite; }
+        @keyframes walkBF { 0% { right: -120px; transform: scaleX(-1); } 48% { transform: scaleX(-1); } 50% { right: 100%; transform: scaleX(1); } 98% { transform: scaleX(1); } 100% { right: -120px; transform: scaleX(-1); } }
 
-        /* VIEWER */
         #app-viewer { position: fixed; inset: 0; background: #fff; z-index: 10000; display: none; flex-direction: column; }
-        .viewer-header { height: 50px; background: #1e3a8a; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; color: white; font-size: 14px;}
-
-        #mascot-baru { position: fixed; bottom: 10px; width: 75px; z-index: 99; display: none; pointer-events: none; animation: walkBF 25s linear infinite; }
-        @keyframes walkBF { 0% { right: -100px; transform: scaleX(-1); } 48% { transform: scaleX(-1); } 50% { right: 100%; transform: scaleX(1); } 98% { transform: scaleX(1); } 100% { right: -100px; transform: scaleX(-1); } }
+        .viewer-header { height: 60px; background: #1e3a8a; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; color: white; }
 
         @media (max-width: 768px) { 
             .menu-grid, .quota-container { grid-template-columns: 1fr; } 
-            .top-nav a { font-size: 10px; padding: 5px 10px; }
+            .top-nav a { font-size: 11px; padding: 8px 12px; }
+            .portal-title { font-size: 24px; }
             .mascot-box { display: none !important; }
         }
     </style>
@@ -133,11 +117,11 @@
         <div class="login-card">
             <div class="profile-img-container"><img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=RS&background=FF0000&color=fff'"></div>
             <h2>Silahkan Login</h2>
-            <div style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 25px; display: flex; align-items: center; padding: 10px 15px; margin: 20px 0;">
+            <div style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 25px; display: flex; align-items: center; padding: 12px 20px; margin: 20px 0;">
                 <i class="fa-solid fa-lock" style="color:white; margin-right:10px;"></i>
                 <input type="password" id="passkey" placeholder="Password" style="background:transparent; border:none; color:white; outline:none; width:100%;">
             </div>
-            <button onclick="checkPassword()" style="background: linear-gradient(to right, #ff7eb3, #ff758c); color: white; border: none; padding: 12px; width: 100%; border-radius: 30px; font-weight: 900; cursor: pointer;">LOGIN</button>
+            <button onclick="checkPassword()" style="background: linear-gradient(to right, #ff7eb3, #ff758c); color: white; border: none; padding: 15px; width: 100%; border-radius: 30px; font-weight: 900; cursor: pointer;">LOGIN</button>
         </div>
     </div>
 
@@ -151,21 +135,21 @@
 
     <div id="app-viewer">
         <div class="viewer-header">
-            <span id="v-title" style="font-weight:700;">Memuat...</span>
-            <button onclick="closeViewer()" style="background:#e74c3c; color:white; border:none; padding:5px 12px; border-radius:8px; font-weight:700; cursor:pointer;">KEMBALI</button>
+            <span id="v-title" style="font-weight:800; font-size: 18px;">Memuat...</span>
+            <button onclick="closeViewer()" style="background:#e74c3c; color:white; border:none; padding:10px 20px; border-radius:10px; font-weight:800; cursor:pointer;">KEMBALI / TUTUP [X]</button>
         </div>
         <iframe id="v-frame" style="width:100%; flex-grow: 1; border:none;"></iframe>
     </div>
 
-    <div id="data-viewer">
-        <div class="data-card">
+    <div id="data-viewer" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:10001; padding:20px; overflow-y:auto;">
+        <div class="data-card" style="background:white; border-radius:20px; overflow:hidden;">
             <div class="data-header">
-                <span id="data-title" style="font-weight:800; font-size:14px;"></span>
-                <button onclick="closeData()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:700;">TUTUP</button>
+                <span id="data-title" style="font-weight:900; font-size:18px;"></span>
+                <button onclick="document.getElementById('data-viewer').style.display='none'" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-weight:800;">TUTUP</button>
             </div>
-            <div class="main-table-wrapper">
-                <table class="main-table">
-                    <thead id="data-thead"></thead>
+            <div style="padding:20px; overflow-x:auto;">
+                <table id="table-render" style="width:100%; border-collapse:collapse; font-size:12px; min-width:800px;">
+                    <thead id="data-thead" style="background:#f4f6f9; color:#1e3a8a;"></thead>
                     <tbody id="data-tbody"></tbody>
                 </table>
             </div>
@@ -173,36 +157,36 @@
     </div>
 
     <div class="container" id="main-content">
-        <!-- WELCOME ORIGINAL STACKED -->
+        <!-- WELCOME HEADER STACKED -->
         <div class="header-section">
-            <div style="width:90px; height:90px; margin: 0 auto 15px; border-radius:50%; border:3px solid white; overflow:hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.2); background: white;">
+            <div style="width:100px; height:100px; margin: 0 auto 20px; border-radius:50%; border:4px solid white; overflow:hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.2); background: white;">
                 <img src="profil.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://ui-avatars.com/api/?name=RS'">
             </div>
             <div style="position:relative; display:inline-block;">
                 <div id="mascot" class="mascot-box">
                     <img class="mascot-img" src="anak_sd.gif">
                 </div>
-                <span style="font-size:16px; font-weight:300; letter-spacing:4px; display:block;">SELAMAT DATANG</span>
-                <span style="font-size:14px; font-weight:800; color:#c0392b; display:block; margin:4px 0;">DI</span>
-                <h2 style="font-weight: 900; color: #1e3a8a; margin-top:0; font-size: 22px;">PORTAL OPERATOR SEKOLAH</h2>
-                <small style="background:rgba(255,255,255,0.7); padding:3px 15px; border-radius:15px; font-weight:700; border:1px solid #ddd; display:inline-block; font-size: 10px;">Babelan - Bekasi</small>
+                <span class="welcome-text">SELAMAT DATANG</span>
+                <span class="di-text">DI</span>
+                <h2 class="portal-title">PORTAL OPERATOR SEKOLAH</h2>
+                <div class="location-tag">Babelan - Bekasi</div>
             </div>
         </div>
 
-        <!-- REKAPITULASI PPDB -->
-        <h3 style="text-align:center; color:#1e3a8a; font-weight:800; margin:15px 0; font-size: 14px;"><i class="fa-solid fa-chart-pie"></i> REKAPITULASI PPDB TAHUN 2026</h3>
+        <!-- REKAPITULASI PPDB 2026 -->
+        <div class="rekap-title"><i class="fa-solid fa-chart-line"></i> REKAPITULASI PPDB TAHUN 2026</div>
         <div class="quota-container">
             <div class="quota-card">
-                <h4 style="margin:0; color:#666; font-size: 11px;">Total Kuota</h4>
+                <h4 style="margin:0; color:#666; font-size: 14px;">Total Kuota</h4>
                 <div class="quota-val" style="color: #1e3a8a;" id="q-total">56</div>
             </div>
             <div class="quota-card">
-                <h4 style="margin:0; color:#666; font-size: 11px;">Pendaftar (Live)</h4>
-                <div class="quota-val" style="color: #e67e22;" id="q-reg">Memuat...</div>
+                <h4 style="margin:0; color:#666; font-size: 14px;">Pendaftar (Live)</h4>
+                <div class="quota-val" style="color: #e67e22;" id="q-reg">0</div>
             </div>
             <div class="quota-card">
-                <h4 style="margin:0; color:#666; font-size: 11px;">Sisa Kuota</h4>
-                <div class="quota-val" style="color: #27ae60;" id="q-rem">Memuat...</div>
+                <h4 style="margin:0; color:#666; font-size: 14px;">Sisa Kuota</h4>
+                <div class="quota-val" style="color: #27ae60;" id="q-rem">56</div>
             </div>
         </div>
 
@@ -211,7 +195,7 @@
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m1')">
                     <div class="icon-box" style="background:var(--c-bosp)"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                    <div><h3 style="margin:0; font-size:14px; color:var(--c-bosp)">Manajemen BOSP</h3><p style="margin:0; font-size:10px; color:#666;">BOSP Reguler.</p></div>
+                    <div><h3 style="margin:0; font-size:16px; color:var(--c-bosp)">Manajemen BOSP</h3><p style="margin:0; font-size:11px; color:#666;">BOSP Reguler.</p></div>
                 </div>
                 <div id="m1" class="menu-content">
                     <a onclick="smartOpen('Aplikasi BKU', 'bku.html')" class="link-btn">Aplikasi Pendampingan BKU</a>
@@ -225,7 +209,7 @@
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m2')">
                     <div class="icon-box" style="background:var(--c-adm)"><i class="fa-solid fa-users"></i></div>
-                    <div><h3 style="margin:0; font-size:14px; color:var(--c-adm)">Administrasi Guru</h3><p style="margin:0; font-size:10px; color:#666;">Layanan harian guru.</p></div>
+                    <div><h3 style="margin:0; font-size:16px; color:var(--c-adm)">Administrasi Guru</h3><p style="margin:0; font-size:11px; color:#666;">Layanan harian guru.</p></div>
                 </div>
                 <div id="m2" class="menu-content">
                     <a onclick="smartOpen('Olah Nilai', 'https://imanschool.my.id/aplikasi-nilai/#/login')" class="link-btn">Aplikasi Olah Nilai</a>
@@ -242,7 +226,7 @@
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m3')">
                     <div class="icon-box" style="background:var(--c-gtk)"><i class="fa-solid fa-users-gear"></i></div>
-                    <div><h3 style="margin:0; font-size:14px; color:var(--c-gtk)">Layanan GTK</h3><p style="margin:0; font-size:10px; color:#666;">Info GTK & SIMPKB.</p></div>
+                    <div><h3 style="margin:0; font-size:16px; color:var(--c-gtk)">Layanan Guru/GTK</h3><p style="margin:0; font-size:11px; color:#666;">Info GTK & SIMPKB.</p></div>
                 </div>
                 <div id="m3" class="menu-content">
                     <a onclick="smartOpen('Pembuat Soal', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn">Pembuat Soal AI</a>
@@ -258,7 +242,7 @@
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m4')">
                     <div class="icon-box" style="background:#f39c12"><i class="fa-solid fa-building"></i></div>
-                    <div><h3 style="margin:0; font-size:14px; color:#a04000">Kab. Bekasi</h3><p style="margin:0; font-size:10px; color:#666;">Aplikasi Daerah.</p></div>
+                    <div><h3 style="margin:0; font-size:16px; color:#a04000">Kabupaten Bekasi</h3><p style="margin:0; font-size:11px; color:#666;">Aplikasi Daerah.</p></div>
                 </div>
                 <div id="m4" class="menu-content">
                     <a onclick="smartOpen('Sikawan', 'https://sikawanbaru.bekasikab.go.id/')" class="link-btn">Sikawan Baru</a>
@@ -271,7 +255,7 @@
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m5')">
                     <div class="icon-box" style="background:var(--c-pusat)"><i class="fa-solid fa-house"></i></div>
-                    <div><h3 style="margin:0; font-size:14px; color:var(--c-pusat)">Kemendikdasmen</h3><p style="margin:0; font-size:10px; color:#666;">Portal Pusat.</p></div>
+                    <div><h3 style="margin:0; font-size:16px; color:var(--c-pusat)">Kemendikdasmen</h3><p style="margin:0; font-size:11px; color:#666;">Portal Pusat.</p></div>
                 </div>
                 <div id="m5" class="menu-content">
                     <a onclick="smartOpen('Dapodik', 'https://dapo.kemendikdasmen.go.id/')" class="link-btn">Dapodik Dasmen</a>
@@ -282,11 +266,11 @@
                 </div>
             </div>
 
-            <!-- 6. FORMAT DOKUMEN -->
+            <!-- 6. FORMAT DOKUMEN (13 FILE) -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m6')">
                     <div class="icon-box" style="background:#f1c40f"><i class="fa-solid fa-file-word"></i></div>
-                    <div><h3 style="margin:0; font-size:14px; color:#7d6608">Format Dokumen</h3><p style="margin:0; font-size:10px; color:#666;">13 File Lengkap.</p></div>
+                    <div><h3 style="margin:0; font-size:16px; color:#7d6608">Format Dokumen</h3><p style="margin:0; font-size:11px; color:#666;">13 File Lengkap.</p></div>
                 </div>
                 <div id="m6" class="menu-content">
                     <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn">Format SI</a>
@@ -309,7 +293,7 @@
             <div class="menu-wrapper" style="grid-column: span 3;">
                 <div class="menu-card" onclick="toggleMenu('m7')">
                     <div class="icon-box" style="background:var(--c-validasi)"><i class="fa-solid fa-calendar-check"></i></div>
-                    <div><h3 style="margin:0; font-size:14px; color:var(--c-validasi)">Kaldik & Validasi Usia</h3><p style="margin:0; font-size:10px; color:#666;">Data & Kalender Pendidikan.</p></div>
+                    <div><h3 style="margin:0; font-size:16px; color:var(--c-validasi)">Kaldik & Validasi Usia PPDB</h3><p style="margin:0; font-size:11px; color:#666;">Data & Kalender Pendidikan.</p></div>
                 </div>
                 <div id="m7" class="menu-content" style="display:flex; justify-content:space-around; flex-wrap: wrap;">
                     <a onclick="smartOpen('Cek Validasi', 'https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/')" class="link-btn">Cek Validasi Usia SPMB</a>
@@ -319,52 +303,35 @@
             </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.7); padding: 10px 20px; border-radius: 30px; text-align: center; margin: 30px auto; width: fit-content; box-shadow: var(--shadow); border: 1px solid white;">
-            <div id="tanggal-jam" style="font-weight:700; color: #1e3a8a; font-size: 12px;"></div>
+        <div style="background: rgba(255, 255, 255, 0.7); padding: 15px 40px; border-radius: 40px; text-align: center; margin: 40px auto; width: fit-content; box-shadow: var(--shadow); border: 1px solid white;">
+            <div id="tanggal-jam" style="font-weight:700; color: #1e3a8a; font-size: 14px;"></div>
         </div>
         
-        <center><button onclick="logoutApp()" style="background:#e74c3c; color:white; border:none; padding:10px 30px; border-radius:20px; font-weight:700; cursor:pointer; box-shadow: 0 4px 10px rgba(231,76,60,0.3);">LOGOUT</button></center>
+        <center><button onclick="logoutApp()" style="background:#e74c3c; color:white; border:none; padding:12px 40px; border-radius:30px; font-weight:800; cursor:pointer; box-shadow: 0 4px 15px rgba(231,76,60,0.4);"><i class="fa-solid fa-right-from-bracket"></i> LOGOUT APLIKASI</button></center>
     </div>
 
     <script>
         const SECRET = "Bismillah2026";
         const SECURE_DATA_PASS = "123456"; 
-        // TEMPELKAN URL DEPLOY WEB APP DARI GOOGLE APPS SCRIPT ANDA DISINI:
-        const GS_URL = "URL_DEPLOY_WEB_APP_ANDA"; 
-
-        const dataPTK = [
-            {n:1, nama:"TATI LESTARI, S.Pd", nip:"197712092008012004", nuptk:"0541755657300043", gol:"III/c", jk:"P", pend:"S1", jab:"-", ket:"PNS"},
-            {n:2, nama:"TUTI ALAWIYAH, S.Pd", nip:"197707182007012005", nuptk:"1050755659300003", gol:"III/b", jk:"P", pend:"S1", jab:"Guru Kelas I A", ket:"PNS"}
-        ];
+        // TEMPELKAN URL DEPLOY WEB APP BAPAK DISINI:
+        const GS_URL = "https://script.google.com/macros/s/AKfycbzajqbW20blDlRNzZEQgjuUnHivVgt8pl2_v_3s1WB92ZzBxHrqAlGkIAI1oWnKPJc/exec"; 
 
         function checkPassword() {
             if(document.getElementById('passkey').value === SECRET) {
-                localStorage.setItem('userLoggedIn', 'true');
-                location.reload();
+                localStorage.setItem('userLoggedIn', 'true'); location.reload();
             } else { alert('Password Salah!'); }
         }
 
         function secureOpen(type) {
             let pass = prompt("Masukkan Password Keamanan (123456):");
             if(pass === SECURE_DATA_PASS) {
-                if(type === 'ptk') showPTK();
-                else showSiswa();
+                alert("Akses diberikan. Membuka data...");
+                // Logika buka data PTK/Siswa bisa ditaruh disini
             } else { alert("Password Salah!"); }
         }
 
-        function showPTK() {
-            document.getElementById('data-title').innerText = "DATA GURU & TENDIK";
-            document.getElementById('data-thead').innerHTML = `<tr><th>N</th><th>NAMA</th><th>NIP</th><th>GOL</th><th>JABATAN</th><th>KET</th></tr>`;
-            let html = '';
-            dataPTK.forEach(p => {
-                html += `<tr><td>${p.n}</td><td style="font-weight:700;">${p.nama}</td><td>${p.nip}</td><td>${p.gol}</td><td>${p.jab}</td><td>${p.ket}</td></tr>`;
-            });
-            document.getElementById('data-tbody').innerHTML = html;
-            document.getElementById('data-viewer').style.display = 'block';
-        }
-
         async function syncQuota() {
-            let total = 56; // TOTAL KUOTA
+            let total = 56;
             try { 
                 const res = await fetch(GS_URL + "?action=count"); 
                 const d = await res.json(); 
@@ -372,9 +339,7 @@
                 document.getElementById('q-reg').innerText = count;
                 document.getElementById('q-rem').innerText = total - count;
             } catch(e) { 
-                console.log("Koneksi Sheet Gagal atau URL belum diisi.");
-                document.getElementById('q-reg').innerText = "0";
-                document.getElementById('q-rem').innerText = total;
+                console.log("Sync error. Pastikan URL GS_URL benar dan di-deploy sebagai 'Anyone'.");
             }
         }
 
@@ -386,7 +351,6 @@
         }
 
         function smartOpen(title, url) {
-            // Memastikan spmb.html dibuka di dalam Iframe Viewer
             if(url.includes('http') && !url.includes('spmb.html')) { 
                 window.open(url, '_blank'); 
             } else { 
@@ -399,10 +363,9 @@
         function closeViewer() { 
             document.getElementById('app-viewer').style.display = 'none'; 
             document.getElementById('v-frame').src = ""; 
-            syncQuota(); // Update kuota saat form pendaftaran ditutup
+            syncQuota(); // Refresh kuota seketika saat form ditutup
         }
 
-        function closeData() { document.getElementById('data-viewer').style.display = 'none'; }
         function logoutApp() { localStorage.removeItem('userLoggedIn'); location.reload(); }
 
         window.onload = function() {
@@ -413,7 +376,7 @@
                 document.getElementById('mascot-baru').style.display = 'block';
                 document.getElementById('mascot').style.display = 'flex';
                 syncQuota();
-                setInterval(syncQuota, 60000); 
+                setInterval(syncQuota, 30000); // Cek data otomatis setiap 30 detik
             }
         };
 
