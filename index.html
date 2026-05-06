@@ -27,34 +27,44 @@
             margin: 0; padding: 0; color: var(--text-color); overflow-x: hidden; transition: 0.3s;
         }
 
-        /* ANIMASI KUPU-KUPU */
+        /* --- ANIMASI KUPU-KUPU CANTIK (REAL GIF) --- */
         .butterfly-container { position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden; }
-        .butterfly { position: absolute; width: 60px; animation: flyPath 20s linear infinite; opacity: 0.8; }
-        @keyframes flyPath {
-            0% { transform: translate(-100px, 100vh) rotate(45deg); }
-            25% { transform: translate(30vw, 50vh) rotate(-10deg); }
-            50% { transform: translate(60vw, 20vh) rotate(30deg); }
-            75% { transform: translate(80vw, 60vh) rotate(-20deg); }
-            100% { transform: translate(110vw, -100px) rotate(10deg); }
+        .butterfly { position: absolute; width: 50px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2)); }
+        
+        .bf1 { animation: flyOne 25s linear infinite; }
+        .bf2 { animation: flyTwo 18s linear infinite; }
+        .bf3 { animation: flyThree 22s linear infinite; }
+
+        @keyframes flyOne {
+            0% { top: 80%; left: -10%; transform: scaleX(1); }
+            50% { top: 20%; left: 50%; transform: scaleX(1); }
+            51% { transform: scaleX(-1); }
+            100% { top: 70%; left: 110%; transform: scaleX(-1); }
+        }
+        @keyframes flyTwo {
+            0% { top: 10%; left: 110%; transform: scaleX(-1); }
+            50% { top: 50%; left: 40%; transform: scaleX(-1); }
+            51% { transform: scaleX(1); }
+            100% { top: 20%; left: -10%; transform: scaleX(1); }
+        }
+        @keyframes flyThree {
+            0% { top: 100%; left: 30%; }
+            33% { top: 10%; left: 60%; }
+            66% { top: 50%; left: 90%; }
+            100% { top: -10%; left: 20%; }
         }
 
-        /* COUNTDOWN BAR */
-        .deadline-bar { background: #c0392b; color: white; padding: 5px; text-align: center; font-size: 11px; font-weight: 700; z-index: 1001; position: relative; }
-
-        /* TOP NAVBAR */
-        .top-nav {
-            background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px);
-            padding: 10px 5px; position: sticky; top: 0; z-index: 1000;
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
-        }
+        /* --- UI ELEMENTS --- */
+        .deadline-bar { background: #c0392b; color: white; padding: 5px; text-align: center; font-size: 11px; font-weight: 700; z-index: 1001; position: relative; border-bottom: 2px solid rgba(0,0,0,0.1); }
+        
+        .top-nav { background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); padding: 10px 5px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; box-shadow: 0 2px 15px rgba(0,0,0,0.2); }
         .top-nav a { color: white; text-decoration: none; font-size: 11px; font-weight: 700; padding: 8px 12px; border-radius: 15px; cursor: pointer; transition: 0.3s; }
         .top-nav a:hover { background: rgba(255,255,255,0.2); }
+        .top-nav a.active { background: #e74c3c; box-shadow: 0 0 10px rgba(231, 76, 60, 0.5); }
         .theme-toggle { position: absolute; right: 15px; color: white; cursor: pointer; font-size: 18px; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 15px; padding-bottom: 80px; }
 
-        /* HEADER SECTION */
         .header-section { text-align: center; margin-bottom: 30px; position: relative; width: 100%; }
         .mascot-box { position: absolute; left: 5%; top: -10px; width: 100px; z-index: 1; display: block; pointer-events: none; }
         .mascot-img { width: 80px; animation: jumpH 0.8s infinite alternate; }
@@ -66,17 +76,24 @@
         [data-theme="dark"] .portal-title { color: #60a5fa; }
         .location-tag { background: #1e3a8a; padding: 4px 20px; border-radius: 20px; font-weight: 700; display: inline-block; font-size: clamp(11px, 3vw, 15px); margin-top: 8px; color: #fff; }
 
+        /* --- JUDUL REKAPITULASI TEBAL --- */
+        .rekap-title { 
+            text-align: center; color: #1e3a8a; font-weight: 900; 
+            margin: 40px 0 20px; font-size: clamp(20px, 5vw, 32px); 
+            text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
+            border-bottom: 5px solid #e74c3c;
+            display: inline-block; width: 100%; padding-bottom: 10px;
+        }
+        [data-theme="dark"] .rekap-title { color: #f8fafc; text-shadow: none; }
+
         /* PROGRESS RING QUOTA */
         .quota-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 30px; }
-        .quota-card {
-            background: var(--glass); padding: 15px; border-radius: 20px;
-            text-align: center; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.3);
-            display: flex; flex-direction: column; align-items: center;
-        }
+        .quota-card { background: var(--glass); padding: 15px; border-radius: 20px; text-align: center; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.3); display: flex; flex-direction: column; align-items: center; }
         .ring-box { position: relative; width: 80px; height: 80px; margin-bottom: 10px; }
         .ring-box svg { transform: rotate(-90deg); width: 80px; height: 80px; }
-        .ring-bg { fill: none; stroke: #eee; stroke-width: 8; }
-        .ring-progress { fill: none; stroke: var(--c-bosp); stroke-width: 8; stroke-dasharray: 226; stroke-dashoffset: 226; transition: 1s; stroke-linecap: round; }
+        .ring-bg { fill: none; stroke: #ddd; stroke-width: 8; }
+        .ring-progress { fill: none; stroke: var(--c-bosp); stroke-width: 8; stroke-dasharray: 226; stroke-dashoffset: 226; transition: 1.5s ease-in-out; stroke-linecap: round; }
         .ring-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; }
 
         /* MENU GRID */
@@ -95,40 +112,34 @@
         #data-viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 10001; display: none; padding: 10px; overflow-y: auto; backdrop-filter: blur(10px); }
         .data-card { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; color: #333; }
         .data-header { background: #1e3a8a; color: white; padding: 12px 15px; display: flex; flex-direction: column; gap: 10px; }
-        .search-box { padding: 8px; border-radius: 10px; border: none; width: 100%; font-family: inherit; }
+        .search-box { padding: 8px; border-radius: 10px; border: none; width: 100%; font-family: inherit; font-weight: 600; }
         .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .main-table { width: 100%; border-collapse: collapse; font-size: 10px; min-width: 800px; }
-        .main-table th { background: #f4f6f9; padding: 10px; text-align: left; color: #1e3a8a; position: sticky; top: 0; }
+        .main-table th { background: #f4f6f9; padding: 10px; text-align: left; color: #1e3a8a; position: sticky; top: 0; border-bottom: 2px solid #ddd; }
         .main-table td { padding: 8px; border-bottom: 1px solid #eee; }
 
-        /* QUICK NOTE */
         .note-btn { position: fixed; bottom: 20px; right: 20px; background: #1e3a8a; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; }
         .note-panel { position: fixed; bottom: 90px; right: 20px; width: 280px; background: white; border-radius: 15px; box-shadow: var(--shadow); display: none; z-index: 1000; padding: 15px; color: #333; }
         .note-panel textarea { width: 100%; height: 150px; border: 1px solid #ddd; border-radius: 10px; padding: 8px; font-family: inherit; font-size: 12px; resize: none; }
 
-        /* IFRAME VIEWER */
         #app-viewer { position: fixed; inset: 0; background: #fff; z-index: 10000; display: none; flex-direction: column; }
         .viewer-header { height: 50px; background: #1e3a8a; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; color: white; }
-
-        /* TOAST */
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 20px; font-size: 12px; display: none; z-index: 2000; }
 
         #mascot-baru { position: fixed; bottom: 10px; width: 70px; z-index: 99; pointer-events: none; animation: walkBF 25s linear infinite; }
         @keyframes walkBF { 0% { right: -100px; transform: scaleX(-1); } 48% { transform: scaleX(-1); } 50% { right: 100%; transform: scaleX(1); } 98% { transform: scaleX(1); } 100% { right: -100px; transform: scaleX(-1); } }
 
-        @media (max-width: 768px) { 
-            .menu-grid, .quota-container { grid-template-columns: 1fr; } 
-            .mascot-box { display: none; }
-        }
+        @media (max-width: 768px) { .menu-grid, .quota-container { grid-template-columns: 1fr; } .mascot-box { display: none; } }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- KUPU-KUPU FLYING -->
+    <!-- ANIMASI KUPU-KUPU CANTIK -->
     <div class="butterfly-container">
-        <img src="https://i.gifer.com/ZZ5H.gif" class="butterfly" style="animation-delay: 0s; left: 10%;">
-        <img src="https://i.gifer.com/ZZ5H.gif" class="butterfly" style="animation-delay: 5s; left: 40%;">
-        <img src="https://i.gifer.com/ZZ5H.gif" class="butterfly" style="animation-delay: 10s; left: 70%;">
+        <!-- Menggunakan GIF referensi Bapak -->
+        <img src="https://www.gambaranimasi.org/data/media/395/animasi-bergerak-kupu-kupu-0395.gif" class="butterfly bf1" alt="Butterfly 1">
+        <img src="https://www.gambaranimasi.org/data/media/130/animasi-bergerak-kupu-kupu-0130.gif" class="butterfly bf2" alt="Butterfly 2">
+        <img src="https://www.gambaranimasi.org/data/media/395/animasi-bergerak-kupu-kupu-0395.gif" class="butterfly bf3" alt="Butterfly 3">
     </div>
 
     <div class="deadline-bar">
@@ -163,7 +174,7 @@
                     <span id="data-title" style="font-weight:900; font-size:14px;"></span>
                     <button onclick="closeData()" style="background:#e74c3c; color:white; border:none; padding:5px 15px; border-radius:8px; cursor:pointer; font-weight:700;">X</button>
                 </div>
-                <input type="text" id="tableSearch" class="search-box" placeholder="Ketik nama untuk mencari..." onkeyup="filterTable()">
+                <input type="text" id="tableSearch" class="search-box" placeholder="Cari Data Guru/Siswa..." onkeyup="filterTable()">
             </div>
             <div class="table-scroll">
                 <table class="main-table" id="dataSource">
@@ -174,12 +185,11 @@
         </div>
     </div>
 
-    <!-- QUICK NOTE PANEL -->
     <div class="note-btn" onclick="toggleNote()"><i class="fa-solid fa-pen-to-square"></i></div>
     <div class="note-panel" id="notePanel">
         <h4 style="margin:0 0 10px; font-size:14px;">Catatan Cepat Operator</h4>
         <textarea id="quickNoteBox" placeholder="Tulis catatan harian di sini..." oninput="saveNote()"></textarea>
-        <small style="font-size:10px; color:#777;">*Tersimpan otomatis di browser ini</small>
+        <small style="font-size:10px; color:#777;">*Tersimpan otomatis</small>
     </div>
 
     <div class="container" id="main-content">
@@ -196,10 +206,9 @@
             </div>
         </div>
 
-        <div class="rekap-title"><i class="fa-solid fa-chart-pie"></i> REKAPITULASI PPDB TAHUN 2026</div>
+        <div class="rekap-title">REKAPITULASI PPDB TAHUN 2026</div>
         
         <div class="quota-container">
-            <!-- TOTAL KUOTA -->
             <div class="quota-card">
                 <div class="ring-box">
                     <svg><circle class="ring-bg" cx="40" cy="40" r="36"/><circle class="ring-progress" id="ring-total" cx="40" cy="40" r="36" style="stroke: #1e3a8a; stroke-dashoffset: 0;"/></svg>
@@ -207,7 +216,6 @@
                 </div>
                 <h4>Total Kuota</h4>
             </div>
-            <!-- PENDAFTAR -->
             <div class="quota-card">
                 <div class="ring-box">
                     <svg><circle class="ring-bg" cx="40" cy="40" r="36"/><circle class="ring-progress" id="ring-reg" cx="40" cy="40" r="36" style="stroke: #e67e22;"/></svg>
@@ -215,7 +223,6 @@
                 </div>
                 <h4>Pendaftar</h4>
             </div>
-            <!-- SISA -->
             <div class="quota-card">
                 <div class="ring-box">
                     <svg><circle class="ring-bg" cx="40" cy="40" r="36"/><circle class="ring-progress" id="ring-rem" cx="40" cy="40" r="36" style="stroke: #27ae60;"/></svg>
@@ -226,6 +233,7 @@
         </div>
 
         <div class="menu-grid">
+            <!-- 1. BOSP -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m1')">
                     <div class="icon-box" style="background:var(--c-bosp)"><i class="fa-solid fa-file-invoice-dollar"></i></div>
@@ -239,6 +247,7 @@
                 </div>
             </div>
 
+            <!-- 2. GURU -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m2')">
                     <div class="icon-box" style="background:var(--c-adm)"><i class="fa-solid fa-users"></i></div>
@@ -255,6 +264,7 @@
                 </div>
             </div>
 
+            <!-- 3. GTK -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m3')">
                     <div class="icon-box" style="background:var(--c-gtk)"><i class="fa-solid fa-users-gear"></i></div>
@@ -296,7 +306,7 @@
                 </div>
             </div>
 
-            <!-- MENU 6: 13 FORMAT DOKUMEN -->
+            <!-- FORMAT DOKUMEN 13 FILE -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m6')">
                     <div class="icon-box" style="background:#f1c40f"><i class="fa-solid fa-file-word"></i></div>
@@ -341,6 +351,7 @@
         const GS_URL = "https://script.google.com/macros/s/AKfycbzajqbW20blDlRNzZEQgjuUnHivVgt8pl2_v_3s1WB92ZzBxHrqAlGkIAI1oWnKPJc/exec"; 
         const PASS_RAHASIA = "123456";
 
+        // DATA PTK
         const dataPTK = [
             {n:1, nama:"TATI LESTARI, S.Pd", nip:"197712092008012004", gol:"III/c", jk:"P", pend:"S1", jab:"-", ket:"PNS"},
             {n:2, nama:"TUTI ALAWIYAH, S.Pd", nip:"197707182007012005", gol:"III/b", jk:"P", pend:"S1", jab:"Guru Kelas I A", ket:"PNS"},
@@ -469,7 +480,7 @@
 
         window.onload = function() {
             loadNote(); syncQuota(); setGreeting(); setCountdown();
-            setInterval(syncQuota, 60000); 
+            setInterval(syncQuota, 30000); 
             document.getElementById('mascot').style.display = 'block';
         };
 
