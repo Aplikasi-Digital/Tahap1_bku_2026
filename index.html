@@ -27,12 +27,15 @@
             margin: 0; padding: 0; color: var(--text-color); overflow-x: hidden; transition: 0.3s;
         }
 
-        /* NAVBAR & DOCK */
-        .top-nav { background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); padding: 10px 5px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; gap: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .top-nav a { color: white; text-decoration: none; font-size: 11px; font-weight: 700; padding: 8px 18px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
+        /* TOP NAVBAR */
+        .top-nav { background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); padding: 10px 5px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .top-nav a { color: white; text-decoration: none; font-size: 11px; font-weight: 700; padding: 8px 12px; border-radius: 15px; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
         .top-nav a:hover { background: rgba(255,255,255,0.2); }
+        .top-nav a.active { background: #e74c3c; box-shadow: 0 0 10px rgba(231, 76, 60, 0.5); }
         .theme-toggle { position: absolute; right: 15px; color: white; cursor: pointer; font-size: 20px; }
-        .mobile-dock { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); background: rgba(30, 58, 138, 0.9); backdrop-filter: blur(15px); padding: 12px 30px; border-radius: 40px; display: none; gap: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000; border: 1px solid rgba(255,255,255,0.2); }
+
+        /* MOBILE DOCK */
+        .mobile-dock { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(15px); padding: 12px 30px; border-radius: 40px; display: none; gap: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000; border: 1px solid rgba(255,255,255,0.2); }
         .mobile-dock i { color: white; font-size: 22px; cursor: pointer; }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 20px; padding-bottom: 100px; }
@@ -42,29 +45,29 @@
         .mascot-box { position: absolute; left: 5%; top: -10px; width: 100px; z-index: 1; pointer-events: none; }
         .mascot-img { width: 75px; animation: jumpH 0.8s infinite alternate; }
         @keyframes jumpH { from { transform: translateY(0); } to { transform: translateY(-25px); } }
-        .welcome-text { font-size: clamp(14px, 3vw, 20px); font-weight: 400; letter-spacing: 5px; display: block; color: #555; }
-        .di-text { font-size: clamp(16px, 3vw, 20px); font-weight: 900; color: #c0392b; display: block; margin: 3px 0; }
-        .portal-title { font-weight: 900; color: #1e3a8a; margin: 0; font-size: clamp(20px, 5vw, 34px); line-height: 1.2; }
-        .location-tag { background: linear-gradient(45deg, #1e3a8a, #3b82f6); padding: 5px 30px; border-radius: 30px; font-weight: 700; display: inline-block; font-size: clamp(11px, 2.5vw, 14px); margin-top: 10px; color: #fff; box-shadow: 0 4px 10px rgba(30, 58, 138, 0.2); }
 
-        /* REKAPITULASI & AI INSIGHT */
-        .rekap-title { text-align: center; color: #1e3a8a; font-weight: 800; margin: 35px 0 15px; font-size: clamp(16px, 4vw, 22px); text-transform: uppercase; letter-spacing: 1px; }
-        .rekap-title::after { content: ''; display: block; width: 50px; height: 4px; background: #e74c3c; margin: 8px auto; border-radius: 2px; }
-        .quota-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 0 auto 10px; max-width: 800px; }
-        .quota-card { background: var(--glass); padding: 15px 10px; border-radius: 25px; text-align: center; box-shadow: var(--shadow); border: 2px solid #fff; display: flex; flex-direction: column; align-items: center; }
-        .ring-box { position: relative; width: 70px; height: 70px; margin-bottom: 8px; }
-        .ring-box svg { transform: rotate(-90deg); width: 70px; height: 70px; }
+        .welcome-text { font-size: clamp(16px, 4vw, 26px); font-weight: 400; letter-spacing: 6px; display: block; color: #555; }
+        .di-text { font-size: clamp(18px, 4vw, 24px); font-weight: 900; color: #c0392b; display: block; margin: 5px 0; }
+        .portal-title { font-weight: 900; color: #1e3a8a; margin: 0; font-size: clamp(22px, 6vw, 42px); line-height: 1.2; }
+        .location-tag { background: linear-gradient(45deg, #1e3a8a, #3b82f6); padding: 6px 35px; border-radius: 30px; font-weight: 800; display: inline-block; font-size: clamp(12px, 3vw, 18px); margin-top: 15px; color: #fff; box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2); }
+
+        /* REKAPITULASI RAPI */
+        .rekap-title { text-align: center; color: #1e3a8a; font-weight: 900; margin: 45px 0 25px; font-size: clamp(18px, 4vw, 24px); text-transform: uppercase; letter-spacing: 1px; border-bottom: 5px solid #e74c3c; display: inline-block; width: 100%; padding-bottom: 10px; }
+        .quota-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 0 auto 40px; max-width: 850px; }
+        .quota-card { background: var(--glass); padding: 25px 10px; border-radius: 30px; text-align: center; box-shadow: var(--shadow); border: 2px solid #fff; display: flex; flex-direction: column; align-items: center; }
+        .ring-box { position: relative; width: 75px; height: 75px; margin-bottom: 10px; }
+        .ring-box svg { transform: rotate(-90deg); width: 75px; height: 75px; }
         .ring-bg { fill: none; stroke: #eaeff2; stroke-width: 8; }
         .ring-progress { fill: none; stroke: var(--c-bosp); stroke-width: 8; stroke-dasharray: 207; stroke-dashoffset: 207; transition: 1.5s ease-in-out; stroke-linecap: round; }
-        .ring-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; color: #1e3a8a; }
-        .ai-insight-box { background: rgba(30, 58, 138, 0.05); border-left: 5px solid #8e44ad; padding: 15px; margin: 0 auto 30px; max-width: 800px; border-radius: 12px; font-size: 12px; font-weight: 600; line-height: 1.6; color: #1e3a8a; font-style: italic; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .ring-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; color: #1e3a8a; }
+        .quota-card h4 { margin: 0; font-size: 12px; color: #666; font-weight: 700; }
 
         /* MENU GRID */
         .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .menu-wrapper { background: var(--glass); border-radius: 25px; transition: 0.3s; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); overflow: hidden; box-shadow: var(--shadow); }
         .menu-wrapper:hover { transform: translateY(-5px); background: #ffffff; }
-        .menu-card { display: flex; align-items: center; padding: 20px; cursor: pointer; }
-        .icon-box { width: 55px; height: 50px; border-radius: 15px; display: flex; justify-content: center; align-items: center; color: white; font-size: 22px; flex-shrink: 0; margin-right: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .menu-card { display: flex; align-items: center; padding: 22px; cursor: pointer; }
+        .icon-box { width: 60px; height: 55px; border-radius: 18px; display: flex; justify-content: center; align-items: center; color: white; font-size: 24px; flex-shrink: 0; margin-right: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .card-text h3 { margin: 0; font-size: 14px; font-weight: 800; }
         .menu-content { max-height: 0; overflow: hidden; transition: 0.5s ease-in-out; }
         .menu-content.show { max-height: 3000px; padding-bottom: 15px; }
@@ -74,35 +77,24 @@
         /* DATA VIEWER */
         #data-viewer { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 10001; display: none; padding: 15px; overflow-y: auto; backdrop-filter: blur(15px); }
         .data-card { max-width: 1200px; margin: 0 auto; background: white; border-radius: 30px; overflow: hidden; color: #333; }
-        .data-header { background: #1e3a8a; color: white; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .search-box { padding: 10px 20px; border-radius: 12px; border: none; width: 100%; font-family: inherit; font-weight: 600; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); }
+        .data-header { background: #1e3a8a; color: white; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .search-box { padding: 12px 20px; border-radius: 15px; border: none; width: 100%; font-family: inherit; font-weight: 600; }
         .btn-export { background: #27ae60; color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 11px; margin-top: 5px; width: fit-content; }
         .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .main-table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 1000px; }
         .main-table th { background: #f1f5f9; padding: 15px; text-align: left; color: #1e3a8a; position: sticky; top: 0; border-bottom: 3px solid #cbd5e1; }
         .main-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; }
 
-        /* AI CHATBOT UI */
-        .ai-btn { position: fixed; bottom: 25px; right: 25px; background: linear-gradient(45deg, #8e44ad, #3498db); color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 25px rgba(142, 68, 173, 0.4); z-index: 1000; font-size: 28px; transition: 0.3s; border: 2px solid white; }
-        .ai-chat-panel { position: fixed; bottom: 100px; right: 25px; width: 320px; height: 480px; background: white; border-radius: 25px; box-shadow: var(--shadow); display: none; z-index: 1000; flex-direction: column; overflow: hidden; border: 2px solid #8e44ad; }
-        .chat-header { background: #8e44ad; color: white; padding: 15px; font-weight: 800; font-size: 14px; display: flex; justify-content: space-between; align-items:center; }
-        .chat-body { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #f8fafc; }
-        .chat-msg { padding: 10px 15px; border-radius: 18px; max-width: 85%; font-size: 12px; line-height: 1.5; }
-        .msg-ai { background: #e2e8f0; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .msg-user { background: #8e44ad; color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .chat-footer { padding: 12px; display: flex; gap: 8px; background: white; border-top: 1px solid #eee; }
-        .chat-input { flex-grow: 1; border: 1px solid #ddd; border-radius: 20px; padding: 8px 15px; outline: none; font-size: 12px; font-family: inherit; }
-        .chat-send { background: #8e44ad; color: white; border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        /* CATATAN */
+        .note-btn { position: fixed; bottom: 25px; right: 25px; background: #1e3a8a; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4); z-index: 1000; font-size: 24px; transition: 0.3s; }
+        .note-panel { position: fixed; bottom: 100px; right: 25px; width: 280px; background: white; border-radius: 20px; box-shadow: var(--shadow); display: none; z-index: 1000; padding: 15px; color: #333; border: 2px solid #1e3a8a; }
+        .note-panel textarea { width: 100%; height: 180px; border: 1px solid #e2e8f0; border-radius: 15px; padding: 12px; font-family: inherit; font-size: 13px; resize: none; background: #f8fafc; }
 
-        .note-btn { position: fixed; bottom: 25px; left: 25px; background: #1e3a8a; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; }
-        .note-panel { position: fixed; bottom: 85px; left: 25px; width: 260px; background: white; border-radius: 20px; box-shadow: var(--shadow); display: none; z-index: 999; padding: 15px; border: 2px solid #1e3a8a; }
-        .note-panel textarea { width: 100%; height: 150px; border: 1px solid #eee; border-radius: 10px; padding: 8px; font-family: inherit; font-size: 12px; resize: none; background: #fdfdfd; }
         #app-viewer { position: fixed; inset: 0; background: #fff; z-index: 10000; display: none; flex-direction: column; }
         .viewer-header { height: 55px; background: #1e3a8a; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; color: white; }
-        #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #1e3a8a; color: white; padding: 12px 25px; border-radius: 30px; font-weight: 700; display: none; z-index: 2000; }
 
         #mascot-baru { position: fixed; bottom: 10px; width: 75px; z-index: 99; pointer-events: none; animation: walkBF 25s linear infinite; }
-        @keyframes walkBF { 0% { right: -100px; transform: scaleX(-1); } 48% { transform: scaleX(-1); } 50% { right: 100%; transform: scaleX(1); } 98% { transform: scaleX(1); } 100% { right: -120px; transform: scaleX(-1); } }
+        @keyframes walkBF { 0% { right: -120px; transform: scaleX(-1); } 48% { transform: scaleX(-1); } 50% { right: 100%; transform: scaleX(1); } 98% { transform: scaleX(1); } 100% { right: -120px; transform: scaleX(-1); } }
 
         @media (max-width: 768px) { 
             .menu-grid, .quota-container, .top-nav { display: none; }
@@ -118,6 +110,7 @@
 
     <img id="mascot-baru" src="murid_SD.gif" alt="Mascot">
 
+    <!-- NAVIGASI DESKTOP -->
     <nav class="top-nav" id="main-nav">
         <a href="#" class="active"><i class="fa-solid fa-house"></i> Beranda</a>
         <a onclick="secureOpen('ptk')"><i class="fa-solid fa-user-tie"></i> PTK</a>
@@ -127,63 +120,97 @@
         <div class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></div>
     </nav>
 
+    <!-- NAVIGASI MOBILE (DOCK) -->
     <div class="mobile-dock">
         <i class="fa-solid fa-house" onclick="window.location.reload()"></i>
         <i class="fa-solid fa-user-tie" onclick="secureOpen('ptk')"></i>
         <i class="fa-solid fa-users-line" onclick="secureOpen('siswa')"></i>
-        <i class="fa-solid fa-robot" onclick="toggleAIChat()"></i>
+        <i class="fa-solid fa-file-signature" onclick="smartOpen('SPMB', 'spmb.html')"></i>
         <i class="fa-solid fa-moon" onclick="toggleTheme()"></i>
     </div>
 
-    <div class="ai-btn" onclick="toggleAIChat()"><i class="fa-solid fa-robot"></i></div>
-    <div class="ai-chat-panel" id="aiChat">
-        <div class="chat-header"><span><i class="fa-solid fa-brain"></i> Asisten AI Rohiman</span><i class="fa-solid fa-times" onclick="toggleAIChat()" style="cursor:pointer"></i></div>
-        <div class="chat-body" id="chatBody"><div class="chat-msg msg-ai">Halo Pak Rohiman! Ada yang bisa saya bantu hari ini?</div></div>
-        <div class="chat-footer">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Ketik pertanyaan...">
-            <button class="chat-send" onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <div id="toast"></div>
-
+    <!-- VIEWERS -->
     <div id="app-viewer">
-        <div class="viewer-header"><span id="v-title" style="font-weight:900;">Aplikasi...</span><button onclick="closeViewer()" style="background:#e74c3c; color:white; border:none; padding:10px 25px; border-radius:12px; font-weight:900; cursor:pointer;">TUTUP [X]</button></div>
+        <div class="viewer-header">
+            <span id="v-title" style="font-weight:900; font-size: 18px;">Memuat Aplikasi...</span>
+            <button onclick="closeViewer()" style="background:#e74c3c; color:white; border:none; padding:10px 25px; border-radius:12px; font-weight:900; cursor:pointer;">TUTUP [X]</button>
+        </div>
         <iframe id="v-frame" style="width:100%; flex-grow: 1; border:none;"></iframe>
     </div>
 
     <div id="data-viewer">
         <div class="data-card">
             <div class="data-header">
-                <div style="display:flex; justify-content:space-between; align-items:center;"><span id="data-title" style="font-weight:900; font-size:18px;"></span><button onclick="closeData()" style="background:#e74c3c; color:white; border:none; padding:10px 20px; border-radius:10px; font-weight:900;">X</button></div>
-                <input type="text" id="tableSearch" class="search-box" placeholder="Cari data..." onkeyup="filterTable()">
-                <button class="btn-export" onclick="exportTableToExcel()"><i class="fa-solid fa-file-excel"></i> Export Excel</button>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span id="data-title" style="font-weight:900; font-size:20px;"></span>
+                    <button onclick="closeData()" style="background:#e74c3c; color:white; border:none; padding:10px 20px; border-radius:10px; font-weight:900;">X</button>
+                </div>
+                <input type="text" id="tableSearch" class="search-box" placeholder="Ketik nama untuk mencari data..." onkeyup="filterTable()">
+                <button class="btn-export" onclick="exportTableToExcel()"><i class="fa-solid fa-file-excel"></i> Simpan ke Excel</button>
             </div>
-            <div class="table-scroll"><table class="main-table" id="dataSource"><thead id="data-thead"></thead><tbody id="data-tbody"></tbody></table></div>
+            <div class="table-scroll">
+                <table class="main-table" id="dataSource">
+                    <thead id="data-thead"></thead>
+                    <tbody id="data-tbody"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <div class="note-btn" onclick="toggleNote()"><i class="fa-solid fa-sticky-note"></i></div>
-    <div class="note-panel" id="notePanel"><h4>Buku Saku Rohiman</h4><textarea id="quickNoteBox" placeholder="Tulis pengingat..." oninput="saveNote()"></textarea></div>
+    <div class="note-btn" onclick="toggleNote()"><i class="fa-solid fa-edit"></i></div>
+    <div class="note-panel" id="notePanel">
+        <h4 style="margin:0 0 10px; font-size:14px; color:#1e3a8a;">Agenda Operator</h4>
+        <textarea id="quickNoteBox" placeholder="Tulis pengingat laporan di sini..." oninput="saveNote()"></textarea>
+        <small style="font-size:10px; color:#c0392b;">*Otomatis tersimpan</small>
+    </div>
 
     <div class="container" id="main-content">
         <div class="header-section">
-            <div style="width:100px; height:100px; margin: 0 auto 15px; border-radius:50%; border:4px solid white; overflow:hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); background: white;"><img src="profil.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://ui-avatars.com/api/?name=RS'"></div>
-            <div style="position:relative; display:inline-block; width: 100%;"><div id="mascot" class="mascot-box"><img class="mascot-img" src="anak_sd.gif"></div><span class="welcome-text" id="greetingText">SELAMAT DATANG</span><span class="di-text">DI</span><h1 class="portal-title">PORTAL OPERATOR SEKOLAH</h1><div class="location-tag">Babelan - Bekasi</div></div>
+            <div style="width:110px; height:110px; margin: 0 auto 20px; border-radius:50%; border:5px solid white; overflow:hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.15); background: white;">
+                <img src="profil.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://ui-avatars.com/api/?name=RS'">
+            </div>
+            <div style="position:relative; display:inline-block; width: 100%;">
+                <div id="mascot" class="mascot-box"><img class="mascot-img" src="anak_sd.gif"></div>
+                <span class="welcome-text" id="greetingText">SELAMAT DATANG</span>
+                <span class="di-text">DI</span>
+                <h1 class="portal-title">PORTAL OPERATOR SEKOLAH</h1>
+                <div class="location-tag">Babelan - Bekasi</div>
+            </div>
         </div>
 
-        <div class="rekap-title">Rekapitulasi PPDB Tahun 2026</div>
+        <div class="rekap-title">REKAPITULASI PPDB TAHUN 2026</div>
+        
         <div class="quota-container">
-            <div class="quota-card"><div class="ring-box"><svg><circle class="ring-bg" cx="35" cy="35" r="33"/><circle class="ring-progress" id="ring-total" cx="35" cy="35" r="33" style="stroke: #1e3a8a; stroke-dashoffset: 0;"/></svg><div class="ring-text">56</div></div><h4>Kuota</h4></div>
-            <div class="quota-card"><div class="ring-box"><svg><circle class="ring-bg" cx="35" cy="35" r="33"/><circle class="ring-progress" id="ring-reg" cx="35" cy="35" r="33" style="stroke: #e67e22;"/></svg><div class="ring-text" id="q-reg">0</div></div><h4>Pendaftar</h4></div>
-            <div class="quota-card"><div class="ring-box"><svg><circle class="ring-bg" cx="35" cy="35" r="33"/><circle class="ring-progress" id="ring-rem" cx="35" cy="35" r="33" style="stroke: #27ae60;"/></svg><div class="ring-text" id="q-rem">56</div></div><h4>Sisa</h4></div>
+            <div class="quota-card">
+                <div class="ring-box">
+                    <svg><circle class="ring-bg" cx="35" cy="35" r="33"/><circle class="ring-progress" id="ring-total" cx="35" cy="35" r="33" style="stroke: #1e3a8a; stroke-dashoffset: 0;"/></svg>
+                    <div class="ring-text">56</div>
+                </div>
+                <h4>Kuota</h4>
+            </div>
+            <div class="quota-card">
+                <div class="ring-box">
+                    <svg><circle class="ring-bg" cx="35" cy="35" r="33"/><circle class="ring-progress" id="ring-reg" cx="35" cy="35" r="33" style="stroke: #e67e22;"/></svg>
+                    <div class="ring-text" id="q-reg">0</div>
+                </div>
+                <h4>Pendaftar</h4>
+            </div>
+            <div class="quota-card">
+                <div class="ring-box">
+                    <svg><circle class="ring-bg" cx="35" cy="35" r="33"/><circle class="ring-progress" id="ring-rem" cx="35" cy="35" r="33" style="stroke: #27ae60;"/></svg>
+                    <div class="ring-text" id="q-rem">56</div>
+                </div>
+                <h4>Sisa</h4>
+            </div>
         </div>
-        <div class="ai-insight-box" id="aiInsight">Asisten sedang menganalisa data...</div>
 
         <div class="menu-grid">
             <!-- 1. BOSP -->
             <div class="menu-wrapper">
-                <div class="menu-card" onclick="toggleMenu('m1')"><div class="icon-box" style="background:var(--c-bosp)"><i class="fa-solid fa-file-invoice-dollar"></i></div><div class="card-text"><h3>Manajemen BOSP</h3><p style="margin:0; font-size:10px; color:#666;">BOSP Reguler.</p></div></div>
+                <div class="menu-card" onclick="toggleMenu('m1')">
+                    <div class="icon-box" style="background:var(--c-bosp)"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                    <div class="card-text"><h3 style="color:var(--c-bosp)">Manajemen BOSP</h3><p style="margin:0; font-size:10px; color:#666;">BOSP Reguler.</p></div>
+                </div>
                 <div id="m1" class="menu-content">
                     <a onclick="smartOpen('Aplikasi BKU', 'bku.html')" class="link-btn">Aplikasi Pendampingan BKU</a>
                     <a onclick="smartOpen('Portal BOS', 'https://bosp.kemendikdasmen.go.id/')" class="link-btn">Portal BOS</a>
@@ -194,7 +221,10 @@
 
             <!-- 2. GURU -->
             <div class="menu-wrapper">
-                <div class="menu-card" onclick="toggleMenu('m2')"><div class="icon-box" style="background:var(--c-adm)"><i class="fa-solid fa-users"></i></div><div class="card-text"><h3>Administrasi Guru</h3><p style="margin:0; font-size:10px; color:#666;">Layanan harian guru.</p></div></div>
+                <div class="menu-card" onclick="toggleMenu('m2')">
+                    <div class="icon-box" style="background:var(--c-adm)"><i class="fa-solid fa-users"></i></div>
+                    <div class="card-text"><h3 style="color:var(--c-adm)">Administrasi Guru</h3><p style="margin:0; font-size:10px; color:#666;">Layanan harian guru.</p></div>
+                </div>
                 <div id="m2" class="menu-content">
                     <a onclick="smartOpen('Olah Nilai', 'https://imanschool.my.id/aplikasi-nilai/#/login')" class="link-btn">Aplikasi Olah Nilai</a>
                     <a onclick="smartOpen('Absen Siswa', 'absen_murid.html')" class="link-btn">Absensi Siswa</a>
@@ -206,15 +236,57 @@
                 </div>
             </div>
 
-            <div class="menu-wrapper"><div class="menu-card" onclick="toggleMenu('m3')"><div class="icon-box" style="background:var(--c-gtk)"><i class="fa-solid fa-users-gear"></i></div><div class="card-text"><h3>Layanan GTK</h3><p style="margin:0; font-size:10px; color:#666;">Info GTK & SIMPKB.</p></div></div><div id="m3" class="menu-content"><a onclick="smartOpen('Pembuat Soal', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn">Pembuat Soal AI</a><a onclick="smartOpen('Info GTK', 'https://info.gtk.kemendikdasmen.go.id/info')" class="link-btn">Info GTK</a><a onclick="smartOpen('Coretax', 'https://coretaxdjp.pajak.go.id/')" class="link-btn">Login Coretax</a><a onclick="smartOpen('PMM', 'https://guru.kemendikdasmen.go.id/')" class="link-btn">Platform Merdeka Mengajar</a><a onclick="smartOpen('Id Belajar', 'https://belajar.id/')" class="link-btn">Login Id Belajar</a><a onclick="smartOpen('SIMPKB', 'https://paspor-gtk.simpkb.id/')" class="link-btn">SIMPKB</a></div></div>
-            <div class="menu-wrapper"><div class="menu-card" onclick="toggleMenu('m4')"><div class="icon-box" style="background:#f39c12"><i class="fa-solid fa-building-circle-check"></i></div><div class="card-text"><h3>Layanan Bekasi</h3><p style="margin:0; font-size:10px; color:#666;">Aplikasi Daerah.</p></div></div><div id="m4" class="menu-content"><a onclick="smartOpen('Sikawan', 'https://sikawanbaru.bekasikab.go.id/')" class="link-btn">Sikawan Baru</a><a onclick="smartOpen('MyASN', 'https://myasn.bkn.go.id/')" class="link-btn">MyASN BKN</a><a onclick="smartOpen('Disdik', 'https://disdik.bekasikab.go.id/')" class="link-btn">Disdik Kab. Bekasi</a></div></div>
-            <div class="menu-wrapper"><div class="menu-card" onclick="toggleMenu('m5')"><div class="icon-box" style="background:var(--c-pusat)"><i class="fa-solid fa-university"></i></div><div class="card-text"><h3>Kemendikdasmen</h3><p style="margin:0; font-size:10px; color:#666;">Portal Pusat.</p></div></div><div id="m5" class="menu-content"><a onclick="smartOpen('Dapodik', 'https://dapo.kemendikdasmen.go.id/')" class="link-btn">Dapodik Dasmen</a><a onclick="smartOpen('Verval PD', 'https://sso.data.kemendikdasmen.go.id/')" class="link-btn">Verval PD</a><a onclick="smartOpen('Verval PTK', 'https://sso.data.kemendikdasmen.go.id/')" class="link-btn">Verval PTK</a><a onclick="smartOpen('Verval Yayasan', 'https://vervalyayasan.data.kemendikdasmen.go.id/')" class="link-btn">Verval Yayasan</a><a onclick="smartOpen('PIP', 'https://pip.kemendikdasmen.go.id/')" class="link-btn">Portal PIP</a></div></div>
-            
+            <!-- 3. GTK -->
             <div class="menu-wrapper">
-                <div class="menu-card" onclick="toggleMenu('m6')"><div class="icon-box" style="background:#f1c40f"><i class="fa-solid fa-file-signature"></i></div><div class="card-text"><h3>Format Dokumen</h3><p style="margin:0; font-size:10px; color:#666;">13 File Lengkap.</p></div></div>
+                <div class="menu-card" onclick="toggleMenu('m3')">
+                    <div class="icon-box" style="background:var(--c-gtk)"><i class="fa-solid fa-users-gear"></i></div>
+                    <div class="card-text"><h3 style="color:var(--c-gtk)">Layanan GTK</h3><p style="margin:0; font-size:10px; color:#666;">Info GTK & SIMPKB.</p></div>
+                </div>
+                <div id="m3" class="menu-content">
+                    <a onclick="smartOpen('Pembuat Soal', 'https://aistudio.google.com/apps/drive/1jaCOIn8Lj4mlCBnIqp8x4oekUALhq5OQ?fullscreenApplet=true')" class="link-btn">Pembuat Soal AI</a>
+                    <a onclick="smartOpen('Info GTK', 'https://info.gtk.kemendikdasmen.go.id/info')" class="link-btn">Info GTK</a>
+                    <a onclick="smartOpen('Coretax', 'https://coretaxdjp.pajak.go.id/')" class="link-btn">Login Coretax</a>
+                    <a onclick="smartOpen('PMM', 'https://guru.kemendikdasmen.go.id/')" class="link-btn">Platform Merdeka Mengajar</a>
+                    <a onclick="smartOpen('Id Belajar', 'https://belajar.id/')" class="link-btn">Login Id Belajar</a>
+                    <a onclick="smartOpen('SIMPKB', 'https://paspor-gtk.simpkb.id/')" class="link-btn">SIMPKB</a>
+                </div>
+            </div>
+
+            <!-- 4. BEKASI -->
+            <div class="menu-wrapper">
+                <div class="menu-card" onclick="toggleMenu('m4')">
+                    <div class="icon-box" style="background:#f39c12"><i class="fa-solid fa-building-flag"></i></div>
+                    <div class="card-text"><h3>Layanan Bekasi</h3><p style="margin:0; font-size:10px; color:#666;">Aplikasi Daerah.</p></div>
+                </div>
+                <div id="m4" class="menu-content">
+                    <a onclick="smartOpen('Sikawan', 'https://sikawanbaru.bekasikab.go.id/')" class="link-btn">Sikawan Baru</a>
+                    <a onclick="smartOpen('MyASN', 'https://myasn.bkn.go.id/')" class="link-btn">MyASN BKN</a>
+                    <a onclick="smartOpen('Disdik', 'https://disdik.bekasikab.go.id/')" class="link-btn">Disdik Kab. Bekasi</a>
+                </div>
+            </div>
+
+            <!-- 5. PUSAT -->
+            <div class="menu-wrapper">
+                <div class="menu-card" onclick="toggleMenu('m5')">
+                    <div class="icon-box" style="background:var(--c-pusat)"><i class="fa-solid fa-university"></i></div>
+                    <div class="card-text"><h3>Kemendikdasmen</h3><p style="margin:0; font-size:10px; color:#666;">Portal Pusat.</p></div>
+                </div>
+                <div id="m5" class="menu-content">
+                    <a onclick="smartOpen('Dapodik', 'https://dapo.kemendikdasmen.go.id/')" class="link-btn">Dapodik Dasmen</a>
+                    <a onclick="smartOpen('Verval PD', 'https://sso.data.kemendikdasmen.go.id/')" class="link-btn">Verval PD</a>
+                    <a onclick="smartOpen('Verval PTK', 'https://sso.data.kemendikdasmen.go.id/')" class="link-btn">Verval PTK</a>
+                    <a onclick="smartOpen('Verval Yayasan', 'https://vervalyayasan.data.kemendikdasmen.go.id/')" class="link-btn">Verval Yayasan</a>
+                    <a onclick="smartOpen('PIP', 'https://pip.kemendikdasmen.go.id/')" class="link-btn">Portal PIP</a>
+                </div>
+            </div>
+
+            <!-- 6. FORMAT DOKUMEN -->
+            <div class="menu-wrapper">
+                <div class="menu-card" onclick="toggleMenu('m6')">
+                    <div class="icon-box" style="background:#f1c40f"><i class="fa-solid fa-file-pdf"></i></div>
+                    <div class="card-text"><h3>Format Dokumen</h3><p style="margin:0; font-size:10px; color:#666;">13 File Lengkap.</p></div>
+                </div>
                 <div id="m6" class="menu-content">
-                    <a onclick="askAIForDraft('Surat Keterangan Aktif')" class="link-btn" style="color:#8e44ad"><i class="fa-solid fa-wand-magic-sparkles"></i> Minta AI Buat Draf</a>
-                    <hr style="opacity:0.1">
                     <a href="FORMAT STANDING INSTRUCTION_(SI).xlsx" download class="link-btn">Format SI</a>
                     <a href="BERITA ACARA SERTIJAB.docx" download class="link-btn">BA Sertijab</a>
                     <a href="SK TIM MANAJEMEN BOSP 2026.docx" download class="link-btn">SK Tim BOSP 2026</a>
@@ -231,17 +303,30 @@
                 </div>
             </div>
 
-            <div class="menu-wrapper" style="grid-column: span 1;"><div class="menu-card" onclick="toggleMenu('m7')"><div class="icon-box" style="background:var(--c-validasi)"><i class="fa-solid fa-calendar-check"></i></div><div class="card-text"><h3>Kaldik & Usia</h3><p style="margin:0; font-size:10px; color:#666;">Info Pendidikan.</p></div></div><div id="m7" class="menu-content"><a onclick="smartOpen('Cek Validasi', 'https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/')" class="link-btn">Cek Validasi Usia SPMB</a><a onclick="smartOpen('Kaldik Jabar', 'https://disdik.jabarprov.go.id/unduh')" class="link-btn">Update Kaldik Jabar</a><a onclick="smartOpen('Gambar Kaldik', 'Kaldik.jpg')" class="link-btn">Lihat Gambar Kaldik</a></div></div>
+            <!-- 7. KALDIK -->
+            <div class="menu-wrapper" style="grid-column: span 1;">
+                <div class="menu-card" onclick="toggleMenu('m7')">
+                    <div class="icon-box" style="background:var(--c-validasi)"><i class="fa-solid fa-calendar-check"></i></div>
+                    <div class="card-text"><h3>Kaldik & Usia</h3><p style="margin:0; font-size:10px; color:#666;">Info Pendidikan.</p></div>
+                </div>
+                <div id="m7" class="menu-content">
+                    <a onclick="smartOpen('Cek Validasi', 'https://imanschool.my.id/cek-usia-spmb.imanschool.my.id/')" class="link-btn">Cek Validasi Usia SPMB</a>
+                    <a onclick="smartOpen('Kaldik Jabar', 'https://disdik.jabarprov.go.id/unduh')" class="link-btn">Update Kaldik Jabar</a>
+                    <a onclick="smartOpen('Gambar Kaldik', 'Kaldik.jpg')" class="link-btn">Lihat Gambar Kaldik</a>
+                </div>
+            </div>
         </div>
 
-        <div style="background: var(--glass); padding: 12px 25px; border-radius: 40px; text-align: center; margin: 30px auto; width: fit-content; box-shadow: var(--shadow); border: 1px solid #1e3a8a;"><div id="tanggal-jam" style="font-weight:900; color: #1e3a8a; font-size: 15px;"></div></div>
+        <div style="background: var(--glass); padding: 12px 25px; border-radius: 40px; text-align: center; margin: 30px auto; width: fit-content; box-shadow: var(--shadow); border: 1px solid #1e3a8a;">
+            <div id="tanggal-jam" style="font-weight:900; color: #1e3a8a; font-size: 14px;"></div>
+        </div>
     </div>
 
     <script>
-        const GEMINI_API_KEY = "AIzaSyAF6e43WDVKLlUjZQHq5Tbzz5S8HS0kO_0";
         const GS_URL = "https://script.google.com/macros/s/AKfycbzajqbW20blDlRNzZEQgjuUnHivVgt8pl2_v_3s1WB92ZzBxHrqAlGkIAI1oWnKPJc/exec"; 
         const PASS_RAHASIA = "123456";
 
+        // --- DATA PTK LENGKAP ---
         const dataPTK = [
             {n:1, nama:"TATI LESTARI, S.Pd", nip:"197712092008012004", gol:"III/c", jk:"P", pend:"S1", jab:"-", ket:"PNS"},
             {n:2, nama:"TUTI ALAWIYAH, S.Pd", nip:"197707182007012005", gol:"III/b", jk:"P", pend:"S1", jab:"Guru Kelas I A", ket:"PNS"},
@@ -261,58 +346,18 @@
             {n:16, nama:"RIJAL", nip:"-", gol:"-", jk:"L", pend:"SMA", jab:"Keamanan", ket:"Outsourcing"}
         ];
 
+        // --- DATA SISWA ---
         const dataSiswa = [
             {n:1, nama:"ALFIA LEILANI", nipd:"252601001", jk:"P", ttl:"BEKASI, 2018-07-27", ayah:"AMIRUDIN", ibu:"-", rombel:"Kelas 1 A"},
-            {n:2, nama:"ALPITARA ALISYA", nipd:"252601003", jk:"P", ttl:"BEKASI, 2018-06-24", ayah:"MUHAMAD ALI", ibu:"MAISARAH", rombel:"Kelas 1 A"}
+            {n:2, nama:"ALISYA PUTRI", nipd:"252601002", jk:"P", ttl:"BEKASI, 2018-02-18", ayah:"ABDUL JONAN", ibu:"AZU RIZKI", rombel:"Kelas 1 A"},
+            {n:3, nama:"ALPITARA ALISYA", nipd:"252601003", jk:"P", ttl:"BEKASI, 2018-06-24", ayah:"MUHAMAD ALI", ibu:"MAISARAH", rombel:"Kelas 1 A"},
+            {n:4, nama:"ANDIKA TRI PUTRA", nipd:"252601004", jk:"L", ttl:"BEKASI, 2018-07-16", ayah:"ABDUL HALIM", ibu:"UNA HERANI", rombel:"Kelas 1 A"},
+            {n:5, nama:"ARSYALAN YAZID ABBASY", nipd:"252601005", jk:"L", ttl:"BEKASI, 2018-09-12", ayah:"MAHMUD", ibu:"NOVIA DEWI", rombel:"Kelas 1 A"}
         ];
 
-        // --- FIXED AI CALLING ---
-        async function callGemini(prompt) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-            try {
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                });
-                const json = await response.json();
-                if (json.candidates && json.candidates[0].content.parts[0].text) {
-                    return json.candidates[0].content.parts[0].text;
-                } else { throw new Error(); }
-            } catch (err) { return "Koneksi AI Terputus. Silahkan cek API Key."; }
-        }
-
-        async function getAIInsight(count, total) {
-            const result = await callGemini(`Pak Rohiman, berikan analisa singkat data PPDB SDN Muara Bakti 01. Pendaftar: ${count}, Kuota: ${total}. Berikan 1 kalimat motivasi cerdas.`);
-            document.getElementById('aiInsight').innerText = result;
-        }
-
-        function toggleAIChat() { const c = document.getElementById('aiChat'); c.style.display = c.style.display === 'flex' ? 'none' : 'flex'; }
-        
-        async function sendChat() {
-            const input = document.getElementById('chatInput');
-            const body = document.getElementById('chatBody');
-            if(!input.value) return;
-            const userMsg = input.value;
-            input.value = "";
-            body.innerHTML += `<div class="chat-msg msg-user">${userMsg}</div>`;
-            body.scrollTop = body.scrollHeight;
-            const loadingId = "load-" + Date.now();
-            body.innerHTML += `<div class="chat-msg msg-ai" id="${loadingId}">...</div>`;
-            const aiResp = await callGemini(`Konteks: SDN Muara Bakti 01. Pak Rohiman bertanya: ${userMsg}`);
-            document.getElementById(loadingId).innerText = aiResp;
-            body.scrollTop = body.scrollHeight;
-        }
-
-        function askAIForDraft(type) {
-            toggleAIChat();
-            document.getElementById('chatInput').value = `Tolong buatkan draf isi ${type} yang profesional.`;
-            sendChat();
-        }
-
-        function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.style.display = 'block'; setTimeout(() => t.style.display='none', 3000); }
+        // --- CORE FUNCTIONS ---
         function toggleTheme() { const b = document.body; const theme = b.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; b.setAttribute('data-theme', theme); document.querySelector('.theme-toggle i').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'; }
-        function updateRing(id, val, max) { const circle = document.getElementById(id); const circ = 2 * Math.PI * 33; circle.style.strokeDashoffset = circ - (val / max) * circ; }
+        function updateRing(id, val, max) { const circle = document.getElementById(id); const offset = 207 - (val / max) * 207; circle.style.strokeDashoffset = offset; }
 
         async function syncQuota() {
             let total = 56;
@@ -324,7 +369,6 @@
                 document.getElementById('q-rem').innerText = total - count;
                 updateRing('ring-reg', count, total);
                 updateRing('ring-rem', total - count, total);
-                getAIInsight(count, total);
             } catch(e) { console.log("Sync error."); }
         }
 
@@ -341,9 +385,9 @@
         function secureOpen(type) {
             let pass = prompt("Menu Terkunci. Silahkan minta password ke Rohiman:");
             if(pass === PASS_RAHASIA) {
-                if(type === 'ptk') renderTable(dataPTK, "DATA GURU & TENDIK");
+                if(type === 'ptk') renderTable(dataPTK, "DATA GURU & TENDIK SDN MUARA BAKTI 01");
                 else renderTable(dataSiswa, "DATA PESERTA DIDIK LENGKAP");
-            } else if(pass !== null) { showToast("Password Salah!"); }
+            } else if(pass !== null) { alert("Password Salah!"); }
         }
 
         function renderTable(data, title) {
@@ -376,7 +420,7 @@
         function toggleMenu(id) {
             if (id === 'm1' || id === 'm2') {
                 let pass = prompt("Menu Terkunci. Silahkan minta password ke Rohiman:");
-                if (pass !== PASS_RAHASIA) { if (pass !== null) showToast("Password Salah!"); return; }
+                if (pass !== PASS_RAHASIA) { if (pass !== null) alert("Password Salah!"); return; }
             }
             document.querySelectorAll('.menu-content').forEach(m => { if(m.id !== id) m.classList.remove('show'); });
             document.getElementById(id).classList.toggle('show');
