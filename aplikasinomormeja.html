@@ -12,39 +12,62 @@
             --text-light: #e9ecef;
             --card-blue: #004a99; 
             --card-bg-gradient: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+            --sidebar-width: 320px; /* Lebar sidebar kiri */
         }
 
         body { 
             font-family: 'Segoe UI', Arial, sans-serif; 
             background: var(--bg-app); 
-            margin: 0; padding: 20px; 
+            margin: 0; padding: 0; 
             color: var(--text-light); 
+            display: flex; /* Mengaktifkan layout kolom (Sidebar & Content) */
         }
         
+        /* SIDEBAR CONFIGURATION */
         .no-print {
             background: var(--panel-bg);
-            padding: 25px; border-radius: 15px;
-            max-width: 1000px; margin: 0 auto 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid #2d4059;
+            padding: 25px;
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed; /* Mengunci posisi di kiri */
+            left: 0;
+            top: 0;
+            overflow-y: auto; /* Jika menu sangat panjang bisa di-scroll */
+            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+            border-right: 1px solid #2d4059;
+            z-index: 1000;
+            box-sizing: border-box;
         }
 
         .header-app { border-bottom: 2px solid var(--accent); margin-bottom: 20px; padding-bottom: 10px; }
-        .grid-config { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        
+        /* Mengatur Grid Config menjadi satu kolom untuk tampilan sidebar yang rapi */
+        .grid-config { display: flex; flex-direction: column; gap: 20px; }
+        
         label { display: block; font-size: 11px; font-weight: bold; color: var(--accent); margin-bottom: 5px; text-transform: uppercase; }
         input, select, button { background: #0f3460; border: 1px solid #2d4059; color: white; padding: 12px; border-radius: 8px; width: 100%; box-sizing: border-box; }
         button { background: var(--accent); cursor: pointer; font-weight: bold; transition: 0.3s; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
         button:hover { background: #358fbd; transform: translateY(-2px); }
-        .btn-clear { background: #e94560; }
+        .btn-clear { background: #e94560; margin-top: 10px; }
+
+        /* CONTENT AREA (PREVIEW) */
+        #main-content {
+            margin-left: var(--sidebar-width); /* Memberi ruang untuk sidebar */
+            flex-grow: 1;
+            padding: 30px;
+            min-height: 100vh;
+            background: #d1d9e6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
         #preview-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, 8.56cm);
             gap: 20px;
             justify-content: center;
-            background: #d1d9e6;
-            padding: 30px;
-            border-radius: 10px;
+            width: 100%;
         }
 
         .card {
@@ -113,26 +136,32 @@
                 background: white !important; 
                 margin: 0 !important;
                 padding: 0 !important;
-                width: 195mm; /* Lebar Konten (215mm - 20mm margin) */
+                width: 195mm; 
                 color: black;
+                display: block !important; /* Nonaktifkan Flex saat print agar center-lock bekerja */
             }
 
             .no-print { display: none !important; }
             
+            #main-content {
+                margin-left: 0 !important; /* Hilangkan margin sidebar saat print */
+                padding: 0 !important;
+                background: transparent !important;
+            }
+
             #preview-container { 
                 display: grid !important; 
-                /* Mengunci 2 kolom kartu agar tetap di tengah */
                 grid-template-columns: 8.56cm 8.56cm !important; 
                 gap: 5mm 5mm !important; 
                 background: transparent !important; 
                 padding: 0 !important;
-                margin: 0 auto !important; /* Memaksa posisi ke tengah kertas */
+                margin: 0 auto !important; 
                 justify-content: center !important;
                 align-content: start !important;
             }
 
             .card { 
-                border: 0.3pt solid #000 !important; /* Border tipis untuk potong */
+                border: 0.3pt solid #000 !important; 
                 box-shadow: none !important;
                 break-inside: avoid;
                 page-break-inside: avoid;
@@ -144,7 +173,8 @@
 
 <div class="no-print">
     <div class="header-app">
-        <h2 style="margin:0">💎 Card Generator Pro <span style="font-size: 12px; font-weight: normal; color: #888;">v4.2 Precision F4</span></h2>
+        <h2 style="margin:0; font-size: 18px;">💎 Card Generator Pro</h2>
+        <p style="font-size: 11px; color: #888; margin: 5px 0 0 0;">v4.2 Precision F4 Sidebar</p>
     </div>
     
     <div class="grid-config">
@@ -164,24 +194,26 @@
             </select>
         </div>
         <div>
-            <label>Aksi</label>
+            <label>Aksi & Database</label>
             <input type="file" id="csvFileInput" accept=".csv" onchange="handleFileUpload()">
-            <div style="display:flex; gap:10px; margin-top:10px">
+            <div style="margin-top:15px; display:flex; flex-direction:column; gap:10px;">
                 <button onclick="safePrint()">🖨️ CETAK (F4 - 1CM)</button>
-                <button class="btn-clear" onclick="clearData()">🗑️ RESET</button>
+                <button class="btn-clear" onclick="clearData()">🗑️ RESET DATA</button>
             </div>
         </div>
     </div>
-    <div style="background: #2a3a5a; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 11px; border-left: 4px solid #ff9f43;">
-        <strong>PETUNJUK CETAK AGAR PRESISI:</strong><br>
-        1. Gunakan Browser <b>Chrome</b> atau <b>Edge</b>.<br>
-        2. Pilih Ukuran Kertas: <b>F4</b> atau <b>215 x 330 mm</b>.<br>
-        3. Margin: Pilih <b>"Default"</b> (Karena sudah dikunci 1cm di kode).<br>
-        4. Scale: Wajib <b>100</b> (Jangan 'Fit to Page').
+    <div style="background: #2a3a5a; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 10px; border-left: 4px solid #ff9f43; color: #e9ecef; line-height: 1.4;">
+        <strong>PETUNJUK CETAK:</strong><br>
+        1. Browser <b>Chrome/Edge</b>.<br>
+        2. Kertas: <b>F4 (215 x 330 mm)</b>.<br>
+        3. Margin: <b>Default</b>.<br>
+        4. Scale: <b>100</b>.
     </div>
 </div>
 
-<div id="preview-container"></div>
+<div id="main-content">
+    <div id="preview-container"></div>
+</div>
 
 <script>
     const LOGO_L = "tutwuri_putih.png"; 
