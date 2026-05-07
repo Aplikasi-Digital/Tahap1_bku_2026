@@ -2,30 +2,67 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Kartu Ujian A4 - Precise Schedule v21</title>
+    <title>Kartu Ujian A4 - Left Sidebar Precision v22</title>
     <style>
         /* RESET & DASAR */
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-        body { font-family: 'Arial', sans-serif; margin: 0; background: #1a202c; color: white; }
+        body { font-family: 'Arial', sans-serif; margin: 0; background: #1a202c; color: white; display: flex; min-height: 100vh; }
 
-        /* PANEL KONTROL */
-        .no-print { padding: 20px; max-width: 1100px; margin: 0 auto; background: #2d3748; border-bottom: 5px solid #d32f2f; }
-        .grid-input { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        textarea, input, select { width: 100%; padding: 8px; margin-top: 5px; background: #1a202c; color: white; border: 1px solid #4a5568; font-size: 12px; border-radius: 4px; }
-        label { font-size: 11px; font-weight: bold; color: #a0aec0; }
-        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
-        .btn-print { flex: 2; padding: 15px; background: #d32f2f; font-weight: bold; border: none; cursor: pointer; color: white; border-radius: 4px; }
-        .btn-save { flex: 2; padding: 15px; background: #2f855a; font-weight: bold; border: none; cursor: pointer; color: white; border-radius: 4px; }
-        .btn-clear { flex: 1; padding: 15px; background: #4a5568; font-weight: bold; border: none; cursor: pointer; color: white; border-radius: 4px; }
-        .save-notif { font-size: 11px; color: #48bb78; margin-top: 5px; display: block; text-align: right; font-weight: bold; }
+        /* SIDEBAR (PANEL KONTROL) - DISEBELAH KIRI */
+        .no-print { 
+            width: 380px; 
+            height: 100vh; 
+            background: #2d3748; 
+            border-right: 5px solid #d32f2f; 
+            padding: 20px; 
+            position: fixed; 
+            left: 0; 
+            top: 0; 
+            overflow-y: auto; 
+            z-index: 1000;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+        }
+
+        /* AREA KONTEN UTAMA (DISEBELAH KANAN SIDEBAR) */
+        #main-content { 
+            margin-left: 380px; 
+            flex: 1; 
+            background: #f0f4f8; 
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* STYLING INPUT DI SIDEBAR */
+        .grid-input { display: flex; flex-direction: column; gap: 12px; }
+        .input-box { background: #1a202c; padding: 12px; border-radius: 6px; border: 1px solid #4a5568; }
+        
+        textarea, input, select { 
+            width: 100%; padding: 10px; margin-top: 5px; 
+            background: #2d3748; color: white; border: 1px solid #4a5568; 
+            font-size: 12px; border-radius: 4px; outline: none;
+        }
+        textarea:focus, input:focus, select:focus { border-color: #d32f2f; box-shadow: 0 0 5px rgba(211, 47, 47, 0.5); }
+        
+        label { font-size: 10px; font-weight: bold; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .btn-print { padding: 14px; background: #d32f2f; font-weight: bold; border: none; cursor: pointer; color: white; border-radius: 4px; transition: 0.3s; }
+        .btn-save { padding: 14px; background: #2f855a; font-weight: bold; border: none; cursor: pointer; color: white; border-radius: 4px; transition: 0.3s; }
+        .btn-clear { padding: 10px; background: #4a5568; font-weight: bold; border: none; cursor: pointer; color: white; border-radius: 4px; font-size: 11px; }
+        
+        .btn-print:hover { background: #b91c1c; transform: translateY(-2px); }
+        .btn-save:hover { background: #276749; transform: translateY(-2px); }
+
+        .save-notif { font-size: 11px; color: #48bb78; margin-top: 5px; display: block; text-align: center; font-weight: bold; }
 
         /* AREA CETAK - A4 PRESISI */
-        #print-area { background: #f0f4f8; }
+        #print-area { padding-top: 20px; }
         .page-wrapper {
-            width: 210mm; min-height: 297mm; padding: 10mm; margin: 10px auto;
+            width: 210mm; min-height: 297mm; padding: 10mm; margin: 0 auto 10mm auto;
             background: white; display: flex; flex-direction: column; 
             align-items: center; justify-content: flex-start; gap: 8mm; 
             page-break-after: always; position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
 
         /* KARTU */
@@ -43,7 +80,7 @@
             transform: rotate(-15deg) scale(1.4); color: #d32f2f; z-index: 1;
         }
 
-        /* SISI KIRI */
+        /* SISI KIRI KARTU */
         .side-left { 
             width: 12mm; border-right: 1.5pt solid #d32f2f; 
             display: flex; align-items: center; justify-content: center; 
@@ -78,6 +115,7 @@
         .stempel-img { position: absolute; width: 18mm; left: 0; top: 4mm; opacity: 0.7; z-index: 6; pointer-events: none; }
         .ttd-img { position: absolute; width: 22mm; left: 50%; transform: translateX(-50%); top: 5mm; z-index: 7; pointer-events: none; }
 
+        /* SISI JADWAL */
         .side-right { flex: 1; padding: 2mm 3mm; display: flex; flex-direction: column; overflow: hidden; background: #fffafb; position: relative; z-index: 5; }
         .sch-h { font-size: 8.5pt; font-weight: bold; text-align: center; color: #d32f2f; margin-bottom: 3px; border-bottom: 1px dashed #d32f2f; padding-bottom: 2px; }
         
@@ -88,66 +126,78 @@
 
         .motivation { font-size: 8.5pt; font-weight: 900; color: #d32f2f; text-align: center; font-style: italic; margin-top: auto; padding-bottom: 2mm; text-transform: uppercase; }
 
+        /* PENGATURAN CETAK */
         @media print {
             @page { size: A4; margin: 0; }
-            body { background: white; margin: 0; padding: 0; }
+            body { background: white; display: block; }
             .no-print { display: none !important; }
-            .page-wrapper { margin: 0; border: none; box-shadow: none; height: 297mm; }
-            #print-area { background: white; }
+            #main-content { margin-left: 0 !important; background: white; width: 100%; }
+            .page-wrapper { margin: 0; border: none; box-shadow: none; height: 297mm; width: 210mm; padding: 10mm; }
+            #print-area { background: white; padding: 0; }
             .card { border: 1.5pt solid #d32f2f; }
         }
     </style>
 </head>
 <body>
 
+<!-- SIDEBAR KIRI -->
 <div class="no-print">
+    <h2 style="margin: 0 0 15px 0; font-size: 18px; border-bottom: 2px solid #d32f2f; padding-bottom: 10px;">💎 CARD PRO v22</h2>
+    
     <div class="grid-input">
-        <div>
-            <label>🏫 NAMA SEKOLAH</label>
-            <input type="text" id="inSekolah" placeholder="SDN NEGERI EXAMPLE">
-            <textarea id="inAlamat" placeholder="Alamat Lengkap Sekolah"></textarea>
-            <label>📅 TANGGAL KARTU</label>
-            <input type="date" id="inTglCetak">
-            <input type="text" id="inKota" placeholder="Kota (Contoh: Bekasi)">
-        </div>
-        <div>
-            <label>📂 DATA PESERTA (CSV: Nama;NISN;Kelas;TptLahir;TglLahir;NoMeja;Ruang)</label>
-            <input type="file" id="inCsv" onchange="importCSV(this)" style="margin-bottom:5px">
-            <div style="display:flex; gap:5px; margin-bottom:5px">
-                <div style="flex:1"><label>Stempel</label><input type="file" onchange="loadMedia(this, 'stempel')"></div>
-                <div style="flex:1"><label>TTD</label><input type="file" onchange="loadMedia(this, 'ttd')"></div>
+        <div class="input-box">
+            <label>🏫 Identitas Sekolah</label>
+            <input type="text" id="inSekolah" placeholder="Nama Sekolah">
+            <textarea id="inAlamat" placeholder="Alamat Lengkap Sekolah" rows="2"></textarea>
+            <div style="display:flex; gap:5px; margin-top:10px">
+                <div style="flex:1"><label>Kota</label><input type="text" id="inKota" placeholder="Bekasi"></div>
+                <div style="flex:1"><label>Tgl Kartu</label><input type="date" id="inTglCetak"></div>
             </div>
-            <textarea id="inSiswa" rows="2" placeholder="Nama;NISN;Kelas;Tempat;Tanggal;NoMeja;Ruang" oninput="updateDropdownKelas()"></textarea>
+        </div>
+
+        <div class="input-box">
+            <label>📂 Database Peserta (CSV)</label>
+            <input type="file" id="inCsv" onchange="importCSV(this)">
+            <textarea id="inSiswa" rows="3" placeholder="Nama;NISN;Kelas;Lahir;Tgl;Meja;Ruang" oninput="updateDropdownKelas()"></textarea>
             
-            <label>🎯 PILIH KELAS (OTOMATIS DARI DATA)</label>
+            <label style="margin-top:10px; display:block">🎯 Filter Kelas</label>
             <select id="selKelas" onchange="render()">
                 <option value="ALL">-- SEMUA KELAS --</option>
             </select>
-
-            <input type="text" id="inTP" value="2025/2026" placeholder="Tahun Pelajaran">
+            <input type="text" id="inTP" value="2025/2026" placeholder="Tahun Pelajaran" style="margin-top:10px">
         </div>
-        <div>
-            <label>📝 JUDUL KARTU</label>
-            <input type="text" id="inJudulKartu" value="KARTU PESERTA UJIAN">
-            <label>👤 PENANGGUNG JAWAB</label>
-            <input type="text" id="inTtdNama" placeholder="Nama Penanggung Jawab">
-            <input type="text" id="inNip" placeholder="NIP: 198XXXXXXXXXXXXXXX">
-            <label>📅 JADWAL (Hari | Waktu | Mapel)</label>
-            <!-- Default Contoh Jadwal Ditempel Disini -->
-            <textarea id="inJadwal" rows="3" placeholder="Senin, 13-03-2026 | 07.30-09.00 | Matematika">Senin, 02-06-2025 | 07.30 - 09.00 | B. Indonesia
+
+        <div class="input-box">
+            <label>🖼️ Logistik (Stempel & TTD)</label>
+            <div style="display:flex; gap:5px">
+                <div style="flex:1"><label>Stempel</label><input type="file" onchange="loadMedia(this, 'stempel')"></div>
+                <div style="flex:1"><label>TTD</label><input type="file" onchange="loadMedia(this, 'ttd')"></div>
+            </div>
+            <input type="text" id="inJudulKartu" value="KARTU PESERTA UJIAN" style="margin-top:10px">
+            <input type="text" id="inTtdNama" placeholder="Nama Penanggung Jawab" style="margin-top:10px">
+            <input type="text" id="inNip" placeholder="NIP: 198XXXXXXXX">
+        </div>
+
+        <div class="input-box">
+            <label>📅 Jadwal (Hari | Waktu | Mapel)</label>
+            <textarea id="inJadwal" rows="4" placeholder="Senin, 02-06 | 07.30 | Mapel">Senin, 02-06-2025 | 07.30 - 09.00 | B. Indonesia
 Selasa, 03-06-2025 | 07.30 - 09.00 | Matematika
 Rabu, 04-06-2025 | 07.30 - 09.00 | IPAS</textarea>
-            <span class="save-notif" id="saveStat">Ready.</span>
         </div>
     </div>
+
     <div class="btn-group">
         <button class="btn-save" onclick="manualSave()">💾 UPDATE TAMPILAN</button>
-        <button class="btn-print" onclick="window.print()">📄 CETAK PDF (A4)</button>
-        <button class="btn-clear" onclick="clearData()">🗑️ RESET</button>
+        <button class="btn-print" onclick="window.print()">📄 CETAK SEKARANG (A4)</button>
+        <button class="btn-clear" onclick="clearData()">🗑️ RESET DATA</button>
+        <span class="save-notif" id="saveStat">Ready.</span>
     </div>
 </div>
 
-<div id="print-area"></div>
+<!-- KONTEN KANAN -->
+<div id="main-content">
+    <div id="print-area"></div>
+</div>
 
 <script>
     let mediaFiles = { stempel: '', ttd: '' };
@@ -172,13 +222,11 @@ Rabu, 04-06-2025 | 07.30 - 09.00 | IPAS</textarea>
         const sel = document.getElementById('selKelas');
         const currentVal = sel.value; 
         const lines = document.getElementById('inSiswa').value.split('\n').filter(l => l.trim());
-        
         let daftarKelas = new Set();
         lines.forEach(line => {
             const d = line.split(/[;|\t]/);
             if(d[2]) daftarKelas.add(d[2].trim());
         });
-
         sel.innerHTML = '<option value="ALL">-- SEMUA KELAS --</option>';
         Array.from(daftarKelas).sort().forEach(kls => {
             const opt = document.createElement('option');
@@ -186,17 +234,13 @@ Rabu, 04-06-2025 | 07.30 - 09.00 | IPAS</textarea>
             opt.textContent = kls.toUpperCase();
             sel.appendChild(opt);
         });
-
-        if (Array.from(daftarKelas).includes(currentVal)) {
-            sel.value = currentVal;
-        }
+        if (Array.from(daftarKelas).includes(currentVal)) sel.value = currentVal;
     }
 
     function importCSV(input) {
         const reader = new FileReader();
         reader.onload = (e) => {
             document.getElementById('inSiswa').value = e.target.result.split('\n').filter(l => l.trim()).join('\n');
-            document.getElementById('saveStat').innerText = "✅ CSV Loaded!";
             updateDropdownKelas(); 
             manualSave();
         };
@@ -217,12 +261,14 @@ Rabu, 04-06-2025 | 07.30 - 09.00 | IPAS</textarea>
             judulKartu: document.getElementById('inJudulKartu').value,
             media: mediaFiles
         };
-        localStorage.setItem('kartuA4_v21', JSON.stringify(data));
+        localStorage.setItem('kartuA4_v22', JSON.stringify(data));
+        document.getElementById('saveStat').innerText = "✅ Tersimpan!";
+        setTimeout(() => { document.getElementById('saveStat').innerText = "Ready."; }, 2000);
         render();
     }
 
     function loadData() {
-        const saved = localStorage.getItem('kartuA4_v21');
+        const saved = localStorage.getItem('kartuA4_v22');
         if (saved) {
             const data = JSON.parse(saved);
             Object.keys(data).forEach(key => {
@@ -243,19 +289,17 @@ Rabu, 04-06-2025 | 07.30 - 09.00 | IPAS</textarea>
         reader.readAsDataURL(input.files[0]);
     }
 
-    function clearData() { if(confirm("Hapus semua data?")) { localStorage.removeItem('kartuA4_v21'); location.reload(); } }
+    function clearData() { if(confirm("Hapus semua data?")) { localStorage.removeItem('kartuA4_v22'); location.reload(); } }
 
     function render() {
         const area = document.getElementById('print-area');
         const filterKelas = document.getElementById('selKelas').value;
-        
         let rawSiswa = document.getElementById('inSiswa').value.split('\n').filter(l => l.trim());
         
         let siswaInput = rawSiswa.filter(line => {
             if (filterKelas === "ALL") return true;
             const d = line.split(/[;|\t]/);
-            if (d.length < 3) return false;
-            return d[2].trim() === filterKelas;
+            return d.length >= 3 && d[2].trim() === filterKelas;
         });
 
         const jadwalInput = document.getElementById('inJadwal').value.split('\n').filter(l => l.trim());
@@ -290,18 +334,12 @@ Rabu, 04-06-2025 | 07.30 - 09.00 | IPAS</textarea>
                     <div class="side-left"><div class="v-text">MEJA : ${d[5]}</div></div>
                     <div class="center-data">
                         <div class="kop">
-                            <!-- Logo Tut Wuri (Kiri) -->
-                            <div class="logo-box">
-                                <img src="tutwuri_putih.png" onerror="this.style.opacity='0'" alt="Logo Kiri">
-                            </div>
+                            <div class="logo-box"><img src="tutwuri_putih.png" onerror="this.style.opacity='0'"></div>
                             <div class="kop-text">
                                 <h1>${namaSekolah}</h1>
                                 <p>${alamatSekolah.replace(/\n/g, '<br>')}</p>
                             </div>
-                            <!-- Logo Bekasi (Kanan) -->
-                            <div class="logo-box">
-                                <img src="logo_bekasi.jpg" onerror="this.style.opacity='0'" alt="Logo Kanan">
-                            </div>
+                            <div class="logo-box"><img src="logo_bekasi.jpg" onerror="this.style.opacity='0'"></div>
                         </div>
                         <div class="banner">
                             <span class="jdl-utama">${judulKartu}</span>
@@ -314,10 +352,7 @@ Rabu, 04-06-2025 | 07.30 - 09.00 | IPAS</textarea>
                             <tr><td>TTL</td><td>:</td><td>${ttl}</td></tr>
                         </table>
                         <div class="footer">
-                            <div class="box-ruang">
-                                <span class="ruang-h">RUANG</span>
-                                <span class="ruang-v">${d[6]}</span>
-                            </div>
+                            <div class="box-ruang"><span class="ruang-h">RUANG</span><span class="ruang-v">${d[6]}</span></div>
                             <div class="sign">
                                 ${kotaTgl}<br>Penanggung Jawab,<br><br><br>
                                 <b><u>${document.getElementById('inTtdNama').value}</u></b><br>
