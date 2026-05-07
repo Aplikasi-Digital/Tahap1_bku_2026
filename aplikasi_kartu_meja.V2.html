@@ -133,7 +133,10 @@
             <input type="text" id="inTtdNama" placeholder="Nama Penanggung Jawab">
             <input type="text" id="inNip" placeholder="NIP: 198XXXXXXXXXXXXXXX">
             <label>📅 JADWAL (Hari | Waktu | Mapel)</label>
-            <textarea id="inJadwal" rows="3" placeholder="Senin, 13-03-2026 | 07.30-09.00 | Matematika"></textarea>
+            <!-- Default Contoh Jadwal Ditempel Disini -->
+            <textarea id="inJadwal" rows="3" placeholder="Senin, 13-03-2026 | 07.30-09.00 | Matematika">Senin, 02-06-2025 | 07.30 - 09.00 | B. Indonesia
+Selasa, 03-06-2025 | 07.30 - 09.00 | Matematika
+Rabu, 04-06-2025 | 07.30 - 09.00 | IPAS</textarea>
             <span class="save-notif" id="saveStat">Ready.</span>
         </div>
     </div>
@@ -165,10 +168,9 @@
         return `${day}-${month}-${year}`;
     }
 
-    // Fungsi baru untuk memperbarui dropdown kelas secara otomatis
     function updateDropdownKelas() {
         const sel = document.getElementById('selKelas');
-        const currentVal = sel.value; // Simpan pilihan saat ini agar tidak ter-reset
+        const currentVal = sel.value; 
         const lines = document.getElementById('inSiswa').value.split('\n').filter(l => l.trim());
         
         let daftarKelas = new Set();
@@ -177,10 +179,7 @@
             if(d[2]) daftarKelas.add(d[2].trim());
         });
 
-        // Reset dropdown tapi pertahankan opsi "SEMUA KELAS"
         sel.innerHTML = '<option value="ALL">-- SEMUA KELAS --</option>';
-        
-        // Urutkan kelas secara alfabetis dan masukkan ke dropdown
         Array.from(daftarKelas).sort().forEach(kls => {
             const opt = document.createElement('option');
             opt.value = kls;
@@ -188,7 +187,6 @@
             sel.appendChild(opt);
         });
 
-        // Kembalikan pilihan user jika masih ada di daftar baru
         if (Array.from(daftarKelas).includes(currentVal)) {
             sel.value = currentVal;
         }
@@ -199,7 +197,7 @@
         reader.onload = (e) => {
             document.getElementById('inSiswa').value = e.target.result.split('\n').filter(l => l.trim()).join('\n');
             document.getElementById('saveStat').innerText = "✅ CSV Loaded!";
-            updateDropdownKelas(); // Perbarui dropdown setelah load CSV
+            updateDropdownKelas(); 
             manualSave();
         };
         reader.readAsText(input.files[0]);
@@ -234,7 +232,7 @@
                 }
             });
             if(data.media) mediaFiles = data.media;
-            updateDropdownKelas(); // Perbarui dropdown saat load data lama
+            updateDropdownKelas();
             render();
         }
     }
@@ -253,7 +251,6 @@
         
         let rawSiswa = document.getElementById('inSiswa').value.split('\n').filter(l => l.trim());
         
-        // Logika Filter yang disesuaikan dengan data dropdown otomatis
         let siswaInput = rawSiswa.filter(line => {
             if (filterKelas === "ALL") return true;
             const d = line.split(/[;|\t]/);
@@ -293,15 +290,17 @@
                     <div class="side-left"><div class="v-text">MEJA : ${d[5]}</div></div>
                     <div class="center-data">
                         <div class="kop">
+                            <!-- Logo Tut Wuri (Kiri) -->
                             <div class="logo-box">
-                                <img src="tutwuri_putih.png" alt="Logo Kiri">
+                                <img src="tutwuri_putih.png" onerror="this.style.opacity='0'" alt="Logo Kiri">
                             </div>
                             <div class="kop-text">
                                 <h1>${namaSekolah}</h1>
                                 <p>${alamatSekolah.replace(/\n/g, '<br>')}</p>
                             </div>
+                            <!-- Logo Bekasi (Kanan) -->
                             <div class="logo-box">
-                                <img src="logo_bekasi.jpg" onerror="this.style.visibility='hidden'" alt="Logo Kanan">
+                                <img src="logo_bekasi.jpg" onerror="this.style.opacity='0'" alt="Logo Kanan">
                             </div>
                         </div>
                         <div class="banner">
