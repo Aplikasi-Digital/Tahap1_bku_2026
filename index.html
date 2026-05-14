@@ -6,7 +6,7 @@
     <title>Portal Operator School Kec. Babelan</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -23,24 +23,62 @@
             margin: 0; padding: 0; color: #333; overflow-x: hidden;
         }
 
-        /* --- LOGIN OVERLAY ORIGINAL --- */
+        /* =========================================
+           --- DESAIN LOGIN OVERLAY (MAGIC UI) --- 
+           ========================================= */
         #login-overlay { 
-            position: fixed; inset: 0; background: radial-gradient(circle at center, #252a41 0%, #0f111a 100%); 
-            display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 20px;
+            position: fixed; inset: 0; z-index: 9999; padding: 20px;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+            background: radial-gradient(circle at top right, #1b276b, #4a1c6a 20%, #7c1c6a 50%, #ff5e62 80%, #ff9966);
         }
-        .login-card {
-            width: 100%; max-width: 350px; background: rgba(255, 255, 255, 0.05);
-            border-radius: 40px; padding: 40px 25px; text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 2px solid transparent;
-            background-image: linear-gradient(rgba(37, 42, 65, 0.95), rgba(37, 42, 65, 0.95)), 
-                              linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-            background-origin: border-box; background-clip: padding-box, border-box;
-            color: white; backdrop-filter: blur(10px);
-        }
-        .profile-img-container { width: 110px; height: 110px; margin: 0 auto 15px; border-radius: 50%; padding: 5px; background: white; box-shadow: 0 0 25px rgba(255,255,255,0.6); }
-        .profile-img-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .login-card h2 { font-family: 'Brush Script MT', cursive, sans-serif; font-size: 38px; margin: 0; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
 
+        /* Efek Bintang di belakang login */
+        #login-overlay::before {
+            content: ''; position: absolute; width: 100%; height: 100%;
+            background-image: radial-gradient(white 1px, transparent 1px), radial-gradient(white 2px, transparent 2px);
+            background-size: 50px 50px, 100px 100px; background-position: 0 0, 20px 20px;
+            opacity: 0.3; z-index: 0; pointer-events: none;
+        }
+
+        /* Latar Belakang Awan Warna-Warni */
+        #login-overlay .cloud-background { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; pointer-events: none; }
+        #login-overlay .cloud { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.5; animation: floatCloud 15s ease-in-out infinite; }
+        #login-overlay .cl-1 { top: 10%; left: 10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0, 255, 255, 0.9), rgba(138, 43, 226, 0.5), transparent); animation-duration: 18s; }
+        #login-overlay .cl-2 { top: 50%; right: 5%; width: 350px; height: 350px; background: radial-gradient(circle, rgba(255, 105, 180, 0.9), rgba(255, 215, 0, 0.5), transparent); animation-duration: 14s; animation-delay: -3s; }
+        #login-overlay .cl-3 { bottom: 10%; left: 20%; width: 450px; height: 450px; background: radial-gradient(circle, rgba(255, 160, 122, 0.8), rgba(0, 191, 255, 0.5), transparent); animation-duration: 20s; animation-delay: -5s; }
+        #login-overlay .cl-4 { top: 30%; left: 45%; transform: translate(-50%, -50%); width: 300px; height: 300px; background: radial-gradient(circle, rgba(147, 112, 219, 0.8), rgba(255, 69, 0, 0.5), transparent); animation-duration: 12s; animation-delay: -2s; }
+        @keyframes floatCloud { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(15px, -15px); } }
+
+        /* Kartu Login Baru */
+        #login-overlay .login-card {
+            position: relative; z-index: 2; width: 100%; max-width: 400px;
+            background: linear-gradient(135deg, rgba(30, 42, 105, 0.85) 0%, rgba(135, 23, 76, 0.85) 100%);
+            padding: 40px 30px; border-radius: 25px; border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px); text-align: center;
+        }
+
+        #login-overlay .profile-img-container { width: 90px; height: 90px; margin: 0 auto 15px; border-radius: 50%; padding: 4px; background: white; box-shadow: 0 0 20px rgba(255,255,255,0.5); }
+        #login-overlay .profile-img-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        
+        #login-overlay .header h1 { font-family: 'Dancing Script', cursive; color: #fff; font-size: 42px; margin-bottom: 5px; text-shadow: 0 0 15px #ff5e62, 0 0 25px #ff9966; letter-spacing: 2px; line-height: 1.2; }
+        #login-overlay .header p { color: #f1f1f1; font-size: 13px; font-weight: 300; margin-bottom: 25px; }
+
+        #login-overlay .input-group { text-align: left; margin-bottom: 18px; }
+        #login-overlay .input-group label { display: flex; align-items: center; color: #fff; font-size: 13px; margin-bottom: 8px; font-weight: 500; }
+        #login-overlay .input-group label::before { content: ''; display: inline-block; width: 8px; height: 8px; background: #fff; border-radius: 50%; margin-right: 10px; box-shadow: 0 0 8px #fff; }
+        
+        #login-overlay .input-field { position: relative; display: flex; align-items: center; background: #fdfdfd; border-radius: 12px; padding: 12px 15px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); }
+        #login-overlay .input-field i.icon-left { color: #e94057; font-size: 18px; margin-right: 10px; }
+        #login-overlay .input-field input { border: none; outline: none; background: transparent; width: 100%; font-size: 14px; color: #333; }
+        #login-overlay .input-field input::placeholder { color: #aaa; }
+        
+        #login-overlay .login-btn { width: 100%; padding: 12px; margin-top: 10px; background: linear-gradient(to right, #ff9966, #ff5e62); border: none; border-radius: 25px; color: white; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(255, 94, 98, 0.4); transition: transform 0.2s, box-shadow 0.2s; letter-spacing: 1px; }
+        #login-overlay .login-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255, 94, 98, 0.6); }
+
+        /* =========================================
+           --- DESAIN MAIN DASHBOARD (ORIGINAL) --- 
+           ========================================= */
         /* TOP NAVBAR */
         .top-nav {
             background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px);
@@ -111,7 +149,7 @@
 
         @media (max-width: 768px) { 
             .menu-grid, .quota-container { grid-template-columns: 1fr; } 
-            .mascot-box { display: none !important; } /* Sembunyikan maskot loncat di Hp agar tidak menindih teks */
+            .mascot-box { display: none !important; } 
         }
     </style>
 </head>
@@ -120,14 +158,40 @@
     <img id="mascot-baru" src="murid_SD.gif" alt="Mascot">
 
     <div id="login-overlay">
+        <div class="cloud-background">
+            <div class="cloud cl-1"></div>
+            <div class="cloud cl-2"></div>
+            <div class="cloud cl-3"></div>
+            <div class="cloud cl-4"></div>
+        </div>
+
         <div class="login-card">
-            <div class="profile-img-container"><img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=RS'"></div>
-            <h2>Silahkan Login</h2>
-            <div style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 25px; display: flex; align-items: center; padding: 10px 15px; margin: 20px 0;">
-                <i class="fa-solid fa-lock" style="color:white; margin-right:10px;"></i>
-                <input type="password" id="passkey" placeholder="Password" style="background:transparent; border:none; color:white; outline:none; width:100%;">
+            <div class="profile-img-container">
+                <img src="profil.jpg" onerror="this.src='https://ui-avatars.com/api/?name=RS'">
             </div>
-            <button onclick="checkPassword()" style="background: linear-gradient(to right, #ff7eb3, #ff758c); color: white; border: none; padding: 12px; width: 100%; border-radius: 30px; font-weight: 900; cursor: pointer;">LOGIN</button>
+
+            <div class="header">
+                <h1>Welcome Back!</h1>
+                <p>Silahkan Login Portal Operator</p>
+            </div>
+
+            <div class="input-group">
+                <label>Username / Email</label>
+                <div class="input-field">
+                    <i class="fas fa-user icon-left"></i>
+                    <input type="text" placeholder="Masukkan ID Operator" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <div class="input-field">
+                    <i class="fas fa-lock icon-left"></i>
+                    <input type="password" id="passkey" placeholder="Masukkan password..." onkeydown="if(event.key === 'Enter') checkPassword()" required>
+                </div>
+            </div>
+
+            <button onclick="checkPassword()" class="login-btn">LOGIN SEKARANG</button>
         </div>
     </div>
 
@@ -193,7 +257,6 @@
         </div>
 
         <div class="menu-grid">
-            <!-- MENU 1: KUMPULAN APLIKASI CETAK -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m1')">
                     <div class="icon-box" style="background:var(--c-bosp)"><i class="fa-solid fa-print"></i></div>
@@ -210,7 +273,6 @@
                 </div>
             </div>
 
-            <!-- MENU 2: ADMINISTRASI GURU -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m2')">
                     <div class="icon-box" style="background:var(--c-adm)"><i class="fa-solid fa-users"></i></div>
@@ -311,7 +373,6 @@
         const SECURE_DATA_PASS = "123456"; 
         const GS_URL = "https://script.google.com/macros/s/AKfycbzajqbW20blDlRNzZEQgjuUnHivVgt8pl2_v_3s1WB92ZzBxHrqAlGkIAI1oWnKPJc/exec"; 
 
-        // --- DATA PTK LENGKAP ---
         const dataPTK = [
             {n:1, nama:"TATI LESTARI, S.Pd", nip:"197712092008012004", gol:"III/c", jk:"P", pend:"S1", jab:"-", ket:"PNS"},
             {n:2, nama:"TUTI ALAWIYAH, S.Pd", nip:"197707182007012005", gol:"III/b", jk:"P", pend:"S1", jab:"Guru Kelas I A", ket:"PNS"},
@@ -331,7 +392,6 @@
             {n:16, nama:"RIJAL", nip:"-", gol:"-", jk:"L", pend:"SMA", jab:"Keamanan", ket:"Outsourcing"}
         ];
 
-        // --- DATA SISWA ---
         const dataSiswa = [
             {n:1, nama:"ALFIA LEILANI", nipd:"252601001", jk:"P", ttl:"BEKASI, 2018-07-27", ayah:"AMIRUDIN", ibu:"-", rombel:"Kelas 1 A"},
             {n:2, nama:"ALISYA PUTRI", nipd:"252601002", jk:"P", ttl:"BEKASI, 2018-02-18", ayah:"ABDUL JONAN", ibu:"AZU RIZKI", rombel:"Kelas 1 A"},
