@@ -1,4 +1,3 @@
---- START OF FILE ---
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -20,7 +19,7 @@
         body { 
             margin: 0; padding: 0; color: #333; overflow-x: hidden;
             font-family: 'Poppins', sans-serif;
-            background: transparent; /* Agar video terlihat */
+            background: transparent;
         }
 
         /* --- VIDEO BACKGROUND STYLE --- */
@@ -34,14 +33,13 @@
             object-fit: cover;
         }
 
-        /* Overlay gelap tipis agar konten lebih mudah dibaca di atas video */
         .video-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.2); /* Sesuaikan kegelapan di sini */
+            background: rgba(255, 255, 255, 0.2);
             z-index: -1;
             pointer-events: none;
         }
@@ -116,9 +114,27 @@
         .container { max-width: 1200px; margin: 0 auto; display: none; padding: 15px; padding-bottom: 80px; }
         
         .header-section { text-align: center; margin-bottom: 30px; position: relative; width: 100%; }
-        .mascot-box { position: absolute; left: 0; top: -10px; width: 120px; z-index: 1; display: none; align-items: center; justify-content: center; pointer-events: none; }
-        .mascot-img { width: 80px; animation: jumpH 0.8s infinite alternate; }
-        @keyframes jumpH { from { transform: translateY(0); } to { transform: translateY(-25px); } }
+
+        /* --- UPDATE UKURAN MASKOT LOMPAT --- */
+        .mascot-box { 
+            position: absolute; 
+            left: -20px; 
+            top: -40px; 
+            width: 160px; /* Diperbesar */
+            z-index: 1; 
+            display: none; 
+            align-items: center; 
+            justify-content: center; 
+            pointer-events: none; 
+        }
+        .mascot-img { 
+            width: 120px; /* Diperbesar dari 80px */
+            animation: jumpH 0.8s infinite alternate; 
+        }
+        @keyframes jumpH { 
+            from { transform: translateY(0); } 
+            to { transform: translateY(-35px); } /* Jarak lompatan disesuaikan */
+        }
 
         .welcome-text { font-size: clamp(14px, 4vw, 24px); font-weight: 400; letter-spacing: 4px; display: block; color: #fff; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
         .di-text { font-size: clamp(16px, 4vw, 22px); font-weight: 900; color: #fff; display: block; margin: 2px 0; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
@@ -171,7 +187,6 @@
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- PEMANGGILAN VIDEO BACKGROUND -->
     <video autoplay muted loop playsinline id="bg-video">
         <source src="vidio.mp4" type="video/mp4">
     </video>
@@ -279,6 +294,7 @@
         </div>
 
         <div class="menu-grid">
+            <!-- M1 -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m1')">
                     <div class="icon-box" style="background:var(--c-bosp)"><i class="fa-solid fa-print"></i></div>
@@ -289,12 +305,13 @@
                     <a onclick="smartOpen('Tanda Terima', 'tanda terima honor.html')" class="link-btn">Tanda Terima Honor</a>
                     <a onclick="smartOpen('Cetak Kartu', 'https://rohimansupriyadi82-cmd.github.io/aplikasi-cetak-kartu/')" class="link-btn">Aplikasi Cetak Kartu</a>
                     <a onclick="smartOpen('No Meja', 'aplikasinomormeja.html')" class="link-btn">Aplikasi No Meja</a>
-                    <a onclick="smartOpen('Kartu Meja V2', 'aplikasi_kartu_meja.V2.html')" class="link-btn">Aplikasi Kartu Meja V2</a>
+                    <a onclick="smartOpen('Kartu Meja V2', 'aplikasi_kartu_me_V2.html')" class="link-btn">Aplikasi Kartu Meja V2</a>
                     <a onclick="smartOpen('LJK Ujian', 'https://rohimansupriyadi82-cmd.github.io/aplikasi_cetak_ljk_ujian/')" class="link-btn">Aplikasi Cetak LJK Ujian</a>
                     <a onclick="smartOpen('Denah & Album', 'https://rohimansupriyadi82-cmd.github.io/Aplikasi-Cetak-Denah-Ruang-Ujian/')" class="link-btn">Aplikasi Cetak Denah dan Album</a>
                 </div>
             </div>
 
+            <!-- M2 -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m2')">
                     <div class="icon-box" style="background:var(--c-adm)"><i class="fa-solid fa-users"></i></div>
@@ -307,6 +324,7 @@
                 </div>
             </div>
 
+            <!-- M3 -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m3')">
                     <div class="icon-box" style="background:var(--c-gtk)"><i class="fa-solid fa-users-gear"></i></div>
@@ -322,6 +340,7 @@
                 </div>
             </div>
 
+            <!-- M4 -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m4')">
                     <div class="icon-box" style="background:#f39c12"><i class="fa-solid fa-building"></i></div>
@@ -334,6 +353,7 @@
                 </div>
             </div>
 
+            <!-- M5 -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m5')">
                     <div class="icon-box" style="background:var(--c-pusat)"><i class="fa-solid fa-house"></i></div>
@@ -348,6 +368,7 @@
                 </div>
             </div>
 
+            <!-- M6 -->
             <div class="menu-wrapper">
                 <div class="menu-card" onclick="toggleMenu('m6')">
                     <div class="icon-box" style="background:#f1c40f"><i class="fa-solid fa-file-word"></i></div>
@@ -370,6 +391,7 @@
                 </div>
             </div>
 
+            <!-- M7 -->
             <div class="menu-wrapper" style="grid-column: span 1;">
                 <div class="menu-card" onclick="toggleMenu('m7')">
                     <div class="icon-box" style="background:var(--c-validasi)"><i class="fa-solid fa-calendar-check"></i></div>
@@ -514,4 +536,3 @@
     </script>
 </body>
 </html>
---- END OF FILE ---
